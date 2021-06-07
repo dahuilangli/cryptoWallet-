@@ -1,6 +1,6 @@
 # flowermate
 
-本示例代码仅用于教学，请勿商用、传播。
+本代码仅用于本公司去中心化钱包，请勿商用、传播。
 
 ## 环境配置
 
@@ -19,5 +19,3 @@ yarn android
 ## 版权声明
 
 App图标取自[Flaticon](https://www.flaticon.com/)，由[Freepik](https://www.flaticon.com/authors/freepik)制作。可在申明原作者版权的前提下自由使用。
-
-启动背景图为本人拍摄，可自由使用。
