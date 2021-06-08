@@ -1,9 +1,9 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import TabNavigator from './TabNavigator';
-import ReportListScreen from 'screens/ReportListScreen/ReportListScreen';
+// import ReportListScreen from 'screens/ReportListScreen/ReportListScreen';
 import WebScreen from 'screens/WebScreen';
 import PostFeedScreen from 'screens/HomeScreen/PostFeedScreen';
-import FeedListScreen from 'screens/FeedListScreen/FeedListScreen';
+// import FeedListScreen from 'screens/FeedListScreen/FeedListScreen';
 import React from 'react';
 
 export type MainStackParamList = {
@@ -30,13 +30,7 @@ export default function MainStackNavigator() {
           headerShown: false,
         }}
       />
-      <Screen
-        name="ReportListScreen"
-        component={ReportListScreen}
-        options={{
-          title: '我的鉴定',
-        }}
-      />
+
       <Screen
         name="PostFeedScreen"
         component={PostFeedScreen}
@@ -44,13 +38,7 @@ export default function MainStackNavigator() {
           title: '发表动态',
         }}
       />
-      <Screen
-        name="FeedListScreen"
-        component={FeedListScreen}
-        options={{
-          title: '我的动态',
-        }}
-      />
+
       <Screen
         name="WebScreen"
         component={WebScreen}

@@ -1,10 +1,8 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import ProfileScreen from 'screens/ProfileScreen';
-import DiscoverScreen from 'screens/DiscoverScreen/DiscoverScreen';
-import MapScreen from 'screens/MapScreen/MapScreen';
+// import ProfileScreen from 'screens/ProfileScreen';
 import HomeScreen from 'screens/HomeScreen/HomeScreen';
-import DappScreen from 'screens/DappScreen/DappScreen';
+// import DappScreen from 'screens/DappScreen/DappScreen';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 export type TabParamList = {
@@ -44,7 +42,7 @@ function TabNavigator() {
         component={HomeScreen}
         options={{ tabBarLabel: '首页' }}
       />
-      <Screen
+      {/* <Screen
         name="MapScreen"
         component={MapScreen}
         options={{ tabBarLabel: '附近' }}
@@ -63,7 +61,7 @@ function TabNavigator() {
         name="ProfileScreen"
         component={ProfileScreen}
         options={{ tabBarLabel: '我的' }}
-      />
+      /> */}
     </Navigator>
   );
 }

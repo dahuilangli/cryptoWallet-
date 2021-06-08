@@ -7,8 +7,7 @@ import {
   Text,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import autoMergeLevel1 from 'redux-persist/es/stateReconciler/autoMergeLevel1';
-import FeedListScreen from 'screens/FeedListScreen/FeedListScreen';
+// import FeedListScreen from 'screens/FeedListScreen/FeedListScreen';
 import { navigate } from 'utils/navigationService';
 interface Props {}
 
@@ -24,18 +23,17 @@ function HomeScreen({}: Props) {
           <Icon name="plus" size={24} />
         </TouchableOpacity>
       </View>
-      <FeedListScreen />
+      {/* <FeedListScreen /> */}
     </SafeAreaView>
   );
 }
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'yellow',
+    backgroundColor: '#efefef',
   },
   header: {
-    // marginTop: 40,
-    padding: 10,
+    marginTop: 40,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',

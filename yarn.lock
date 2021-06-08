@@ -7569,11 +7569,6 @@ react-native-action-sheet@^2.2.0:
   resolved "https://registry.npm.taobao.org/react-native-action-sheet/download/react-native-action-sheet-2.2.0.tgz#309a87f53bf4e7b17fdd9d24b10b8dcbaebb7230"
   integrity sha1-MJqH9Tv057F/3Z0ksQuNy667cjA=
 
-react-native-amap3d@2.0.2:
-  version "2.0.2"
-  resolved "https://registry.npm.taobao.org/react-native-amap3d/download/react-native-amap3d-2.0.2.tgz#aa2be7d713c4915e294fe0ad319da080354d90a8"
-  integrity sha1-qivn1xPEkV4pT+CtMZ2ggDVNkKg=
-
 react-native-debugger-open@^0.3.25:
   version "0.3.25"
   resolved "https://registry.npm.taobao.org/react-native-debugger-open/download/react-native-debugger-open-0.3.25.tgz#4e735f7fb5eb10befe81e16d1dcc54b9f1a2d1d8"

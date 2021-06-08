@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Alert, StyleSheet, View, Text, TextInput } from 'react-native';
+import { Alert, StyleSheet, View, Text, Image, TextInput } from 'react-native';
 import { ScreensParamList } from 'types/types';
 import { post } from 'utils/request';
 import UploadButton from 'components/UploadButton';
@@ -54,13 +54,13 @@ function PostFeedScreen({ navigation }: Props) {
         </Text>
       ),
     });
-  }, [navigation]);
+  }, []);
   return (
     <View style={styles.container}>
       <TextInput
         placeholder="请输入描述..."
         value={desc}
-        onChangeText={(text) => {
+        onChangeText={text => {
           descRef.current = text;
           setDesc(text);
         }}
