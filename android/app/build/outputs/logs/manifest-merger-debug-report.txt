@@ -1,0 +1,429 @@
+-- Merging decision tree log ---
+manifest
+ADDED from /Users/shengan/flowermate/android/app/src/main/AndroidManifest.xml:1:1-32:12
+INJECTED from /Users/shengan/flowermate/android/app/src/main/AndroidManifest.xml:1:1-32:12
+INJECTED from /Users/shengan/flowermate/android/app/src/main/AndroidManifest.xml:1:1-32:12
+INJECTED from /Users/shengan/flowermate/android/app/src/main/AndroidManifest.xml:1:1-32:12
+MERGED from /Users/shengan/flowermate/android/app/src/main/AndroidManifest.xml:1:1-32:12
+MERGED from [com.facebook.flipper:flipper:0.58.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/fd20963cf5bbccb7abbe68de7afd92c2/flipper-0.58.0/AndroidManifest.xml:8:1-18:12
+MERGED from [com.facebook.flipper:flipper-network-plugin:0.58.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/5c5bd168ea826c353af44280c1351b15/flipper-network-plugin-0.58.0/AndroidManifest.xml:8:1-15:12
+MERGED from [com.facebook.flipper:flipper-fresco-plugin:0.58.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/d9d5083ae3c4073183cab3f82a102599/flipper-fresco-plugin-0.58.0/AndroidManifest.xml:8:1-15:12
+MERGED from [:react-native-community_async-storage] /Users/shengan/flowermate/node_modules/@react-native-community/async-storage/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-9:12
+MERGED from [:react-native-community_masked-view] /Users/shengan/flowermate/node_modules/@react-native-community/masked-view/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-9:12
+MERGED from [:react-native-action-sheet] /Users/shengan/flowermate/node_modules/react-native-action-sheet/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-11:12
+MERGED from [:react-native-amap3d] /Users/shengan/flowermate/node_modules/react-native-amap3d/lib/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-19:12
+MERGED from [:react-native-gesture-handler] /Users/shengan/flowermate/node_modules/react-native-gesture-handler/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-11:12
+MERGED from [:react-native-image-crop-picker] /Users/shengan/flowermate/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-34:12
+MERGED from [:react-native-safe-area-context] /Users/shengan/flowermate/node_modules/react-native-safe-area-context/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-9:12
+MERGED from [:react-native-screens] /Users/shengan/flowermate/node_modules/react-native-screens/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-11:12
+MERGED from [:react-native-splash-screen] /Users/shengan/flowermate/node_modules/react-native-splash-screen/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-14:12
+MERGED from [:react-native-update] /Users/shengan/flowermate/node_modules/react-native-update/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-29:12
+MERGED from [:react-native-vector-icons] /Users/shengan/flowermate/node_modules/react-native-vector-icons/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-11:12
+MERGED from [:react-native-webview] /Users/shengan/flowermate/node_modules/react-native-webview/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-23:12
+MERGED from [com.facebook.react:react-native:0.63.3] /Users/shengan/.gradle/caches/transforms-2/files-2.1/1bd24b1ecd930f28de8c86435f47c277/jetified-react-native-0.63.3/AndroidManifest.xml:2:1-13:12
+MERGED from [com.github.yalantis:ucrop:2.2.6-native] /Users/shengan/.gradle/caches/transforms-2/files-2.1/1422f71cc24d526818b24505ea1de90c/ucrop-2.2.6-native/AndroidManifest.xml:2:1-11:12
+MERGED from [com.google.android.material:material:1.1.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/ed1df986c447edc2144ae70f8ec83413/material-1.1.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.appcompat:appcompat:1.1.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/b7d1ce07e807521fd60c0500d0bd332d/appcompat-1.1.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.1.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/72d7642c73cbdc6e8eef82eedfa31d49/swiperefreshlayout-1.1.0/AndroidManifest.xml:17:1-24:12
+MERGED from [org.webkit:android-jsc:r245459] /Users/shengan/.gradle/caches/transforms-2/files-2.1/694c21e76aac42aa72e9428c3d7cfa06/android-jsc-r245459/AndroidManifest.xml:2:1-11:12
+MERGED from [com.facebook.fresco:flipper:2.2.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/6a623f0b7c5cf2aa35532d4ca1e5b204/flipper-2.2.0/AndroidManifest.xml:2:1-9:12
+MERGED from [com.facebook.fresco:stetho:2.2.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/ff84725979019fddb23fa3b06fa246d1/stetho-2.2.0/AndroidManifest.xml:2:1-9:12
+MERGED from [com.facebook.fresco:fresco:2.2.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/787af696d0aad2e4231722d74d0c90b0/fresco-2.2.0/AndroidManifest.xml:2:1-9:12
+MERGED from [com.facebook.fresco:imagepipeline-okhttp3:2.0.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/6a00568ef15e6d003fd61c42934df829/imagepipeline-okhttp3-2.0.0/AndroidManifest.xml:2:1-9:12
+MERGED from [com.facebook.fresco:drawee:2.2.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/bf078d38353bb93cb5459e6f78da4af7/drawee-2.2.0/AndroidManifest.xml:2:1-9:12
+MERGED from [com.facebook.fresco:nativeimagefilters:2.2.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/e9137d98a944ec553bbc84b7e7004023/nativeimagefilters-2.2.0/AndroidManifest.xml:2:1-9:12
+MERGED from [com.facebook.fresco:memory-type-native:2.2.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/d1da3b29c148027715932fa96978674c/memory-type-native-2.2.0/AndroidManifest.xml:2:1-9:12
+MERGED from [com.facebook.fresco:memory-type-java:2.2.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/a4150770e9cb1f12e8164934ce389bf0/memory-type-java-2.2.0/AndroidManifest.xml:2:1-9:12
+MERGED from [com.facebook.fresco:imagepipeline-native:2.2.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/93c32f6ee749d035f8768bf09f7f2c61/imagepipeline-native-2.2.0/AndroidManifest.xml:2:1-9:12
+MERGED from [com.facebook.fresco:memory-type-ashmem:2.2.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/6dead55bbcc615d50dfce74627e2332e/memory-type-ashmem-2.2.0/AndroidManifest.xml:2:1-9:12
+MERGED from [com.facebook.fresco:imagepipeline:2.2.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/ed597247430abe35aeef3584eb24e444/imagepipeline-2.2.0/AndroidManifest.xml:2:1-9:12
+MERGED from [com.facebook.fresco:nativeimagetranscoder:2.2.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/080c26f52b3ab5b8abfcc33e49fa4388/nativeimagetranscoder-2.2.0/AndroidManifest.xml:2:1-9:12
+MERGED from [com.facebook.fresco:imagepipeline-base:2.2.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/ec40679ffbcccb2f722d0c9f2e302bd2/imagepipeline-base-2.2.0/AndroidManifest.xml:2:1-9:12
+MERGED from [com.facebook.fresco:soloader:2.2.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/4d2c1e00dc74d81bcb68dc44c491b53e/soloader-2.2.0/AndroidManifest.xml:2:1-9:12
+MERGED from [com.facebook.soloader:soloader:0.9.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/bf3e3ad88e27797aae6bc82b025b9019/soloader-0.9.0/AndroidManifest.xml:2:1-13:12
+MERGED from [androidx.sqlite:sqlite-framework:2.1.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/5babd256a08ad9b12f860c53fd56cbbe/sqlite-framework-2.1.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.appcompat:appcompat-resources:1.1.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/8a71965690aa03553e7712fcce742fdc/appcompat-resources-1.1.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.drawerlayout:drawerlayout:1.0.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/239574d0e72e5dfad7c50d2d1ec11d11/drawerlayout-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.viewpager2:viewpager2:1.0.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/bd715caa7920bdf7dae1113a4793739f/viewpager2-1.0.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.fragment:fragment:1.2.1] /Users/shengan/.gradle/caches/transforms-2/files-2.1/d1fdadb28772da01190eafb50044f577/fragment-1.2.1/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.1.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/8c8c09ef9e10b1cf1718830ca02ef86d/coordinatorlayout-1.1.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.vectordrawable:vectordrawable-animated:1.1.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/bfc6af819c244a883b2b84a3808bcecd/vectordrawable-animated-1.1.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.vectordrawable:vectordrawable:1.1.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/3206b2ed010a329f5aede18223d85508/vectordrawable-1.1.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.viewpager:viewpager:1.0.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/6627c2224fe8312e587150ba18ee1313/viewpager-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.recyclerview:recyclerview:1.1.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/0dfb3d2e45a94c7442bad31b092a1da7/recyclerview-1.1.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.customview:customview:1.0.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/b073dd0e3b91135b7e2240865021b629/customview-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.loader:loader:1.0.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/c0f59b319b30a2adee634f62bb4cecea/loader-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.activity:activity:1.1.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/723aea7e41ee3d190cdaaceb6b115b15/activity-1.1.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.transition:transition:1.2.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/ac63fcba9d4debe277ae487e5d62a90b/transition-1.2.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.core:core:1.1.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/1f6a22adaa6cfccf82629c3e38af2e36/core-1.1.0/AndroidManifest.xml:17:1-26:12
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/cbd08fd32093f5ad673d8123b4eeb252/cursoradapter-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.sqlite:sqlite:2.1.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/f3cfb34c38eb3528a18f5079d4791407/sqlite-2.1.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/b0eac0e63a9f29011bec40fa1b3ae4d6/versionedparcelable-1.1.0/AndroidManifest.xml:17:1-27:12
+MERGED from [androidx.interpolator:interpolator:1.0.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/4e2279f504eb503608c83c699bb86784/interpolator-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.exifinterface:exifinterface:1.1.0-beta01] /Users/shengan/.gradle/caches/transforms-2/files-2.1/4e22b624b6a6a7392bb1a915f5221158/exifinterface-1.1.0-beta01/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-savedstate:2.2.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/e3081c806c355b3b5ae98393f29dd453/lifecycle-viewmodel-savedstate-2.2.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.2.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/b7caeb9fdf3df67b2e87a90aa1144907/lifecycle-viewmodel-2.2.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.cardview:cardview:1.0.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/0a27d81f5e637a0415440f44f2d2ea15/cardview-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.2.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/018f07b8964038e5857f75fcf939aa9f/lifecycle-runtime-2.2.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.savedstate:savedstate:1.0.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/1534d6f57d0c567aa3dbaf646e60a37a/savedstate-1.0.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.0.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/0676b3538965a465790498f7b8e9efcf/lifecycle-livedata-2.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.2.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/9c4f90a528ff0d731d76b6fa348ea615/lifecycle-livedata-core-2.2.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.arch.core:core-runtime:2.1.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/af2f0f560a357a69b3f10cab6a221242/core-runtime-2.1.0/AndroidManifest.xml:17:1-24:12
+MERGED from [com.facebook.fresco:fbcore:2.2.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/cba4abd2e803b240b1ef835a716ce077/jetified-fbcore-2.2.0/AndroidManifest.xml:2:1-9:12
+MERGED from [com.facebook.fresco:ui-common:2.2.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/8a381c390e7632b41b60a3693c00c6cd/ui-common-2.2.0/AndroidManifest.xml:2:1-9:12
+INJECTED from /Users/shengan/flowermate/android/app/src/debug/AndroidManifest.xml:2:1-8:12
+INJECTED from /Users/shengan/flowermate/android/app/src/debug/AndroidManifest.xml:2:1-8:12
+INJECTED from /Users/shengan/flowermate/android/app/src/debug/AndroidManifest.xml:2:1-8:12
+	package
+		ADDED from /Users/shengan/flowermate/android/app/src/main/AndroidManifest.xml:2:3-27
+		INJECTED from /Users/shengan/flowermate/android/app/src/main/AndroidManifest.xml
+		ADDED from /Users/shengan/flowermate/android/app/src/main/AndroidManifest.xml:2:3-27
+		INJECTED from /Users/shengan/flowermate/android/app/src/debug/AndroidManifest.xml
+	android:versionName
+		INJECTED from /Users/shengan/flowermate/android/app/src/main/AndroidManifest.xml
+		ADDED from /Users/shengan/flowermate/android/app/src/main/AndroidManifest.xml:1:1-32:12
+		INJECTED from /Users/shengan/flowermate/android/app/src/debug/AndroidManifest.xml
+	xmlns:tools
+		ADDED from /Users/shengan/flowermate/android/app/src/debug/AndroidManifest.xml:3:5-51
+	android:versionCode
+		INJECTED from /Users/shengan/flowermate/android/app/src/main/AndroidManifest.xml
+		ADDED from /Users/shengan/flowermate/android/app/src/main/AndroidManifest.xml:1:1-32:12
+		INJECTED from /Users/shengan/flowermate/android/app/src/debug/AndroidManifest.xml
+	xmlns:android
+		ADDED from /Users/shengan/flowermate/android/app/src/main/AndroidManifest.xml:1:11-69
+uses-permission#android.permission.INTERNET
+ADDED from /Users/shengan/flowermate/android/app/src/main/AndroidManifest.xml:4:5-67
+MERGED from [com.facebook.flipper:flipper:0.58.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/fd20963cf5bbccb7abbe68de7afd92c2/flipper-0.58.0/AndroidManifest.xml:15:5-67
+MERGED from [com.facebook.flipper:flipper:0.58.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/fd20963cf5bbccb7abbe68de7afd92c2/flipper-0.58.0/AndroidManifest.xml:15:5-67
+MERGED from [:react-native-amap3d] /Users/shengan/flowermate/node_modules/react-native-amap3d/lib/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:9:5-67
+MERGED from [:react-native-amap3d] /Users/shengan/flowermate/node_modules/react-native-amap3d/lib/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:9:5-67
+	android:name
+		ADDED from /Users/shengan/flowermate/android/app/src/main/AndroidManifest.xml:4:22-64
+uses-permission#android.permission.CAMERA
+ADDED from /Users/shengan/flowermate/android/app/src/main/AndroidManifest.xml:5:5-64
+	android:name
+		ADDED from /Users/shengan/flowermate/android/app/src/main/AndroidManifest.xml:5:22-62
+application
+ADDED from /Users/shengan/flowermate/android/app/src/main/AndroidManifest.xml:7:5-30:19
+MERGED from /Users/shengan/flowermate/android/app/src/main/AndroidManifest.xml:7:5-30:19
+MERGED from /Users/shengan/flowermate/android/app/src/main/AndroidManifest.xml:7:5-30:19
+MERGED from [:react-native-image-crop-picker] /Users/shengan/flowermate/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:18:5-32:19
+MERGED from [:react-native-image-crop-picker] /Users/shengan/flowermate/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:18:5-32:19
+MERGED from [:react-native-splash-screen] /Users/shengan/flowermate/node_modules/react-native-splash-screen/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:11:5-12:19
+MERGED from [:react-native-splash-screen] /Users/shengan/flowermate/node_modules/react-native-splash-screen/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:11:5-12:19
+MERGED from [:react-native-update] /Users/shengan/flowermate/node_modules/react-native-update/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:13:5-27:19
+MERGED from [:react-native-update] /Users/shengan/flowermate/node_modules/react-native-update/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:13:5-27:19
+MERGED from [:react-native-webview] /Users/shengan/flowermate/node_modules/react-native-webview/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:11:5-21:19
+MERGED from [:react-native-webview] /Users/shengan/flowermate/node_modules/react-native-webview/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:11:5-21:19
+MERGED from [com.facebook.react:react-native:0.63.3] /Users/shengan/.gradle/caches/transforms-2/files-2.1/1bd24b1ecd930f28de8c86435f47c277/jetified-react-native-0.63.3/AndroidManifest.xml:11:5-20
+MERGED from [com.facebook.react:react-native:0.63.3] /Users/shengan/.gradle/caches/transforms-2/files-2.1/1bd24b1ecd930f28de8c86435f47c277/jetified-react-native-0.63.3/AndroidManifest.xml:11:5-20
+MERGED from [com.google.android.material:material:1.1.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/ed1df986c447edc2144ae70f8ec83413/material-1.1.0/AndroidManifest.xml:22:5-20
+MERGED from [com.google.android.material:material:1.1.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/ed1df986c447edc2144ae70f8ec83413/material-1.1.0/AndroidManifest.xml:22:5-20
+MERGED from [com.facebook.soloader:soloader:0.9.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/bf3e3ad88e27797aae6bc82b025b9019/soloader-0.9.0/AndroidManifest.xml:11:5-20
+MERGED from [com.facebook.soloader:soloader:0.9.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/bf3e3ad88e27797aae6bc82b025b9019/soloader-0.9.0/AndroidManifest.xml:11:5-20
+MERGED from [androidx.core:core:1.1.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/1f6a22adaa6cfccf82629c3e38af2e36/core-1.1.0/AndroidManifest.xml:24:5-89
+MERGED from [androidx.core:core:1.1.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/1f6a22adaa6cfccf82629c3e38af2e36/core-1.1.0/AndroidManifest.xml:24:5-89
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/b0eac0e63a9f29011bec40fa1b3ae4d6/versionedparcelable-1.1.0/AndroidManifest.xml:24:5-25:19
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/b0eac0e63a9f29011bec40fa1b3ae4d6/versionedparcelable-1.1.0/AndroidManifest.xml:24:5-25:19
+	android:appComponentFactory
+		ADDED from [androidx.core:core:1.1.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/1f6a22adaa6cfccf82629c3e38af2e36/core-1.1.0/AndroidManifest.xml:24:18-86
+	android:label
+		ADDED from /Users/shengan/flowermate/android/app/src/main/AndroidManifest.xml:10:7-39
+		ADDED from /Users/shengan/flowermate/android/app/src/main/AndroidManifest.xml:10:7-39
+	tools:ignore
+		ADDED from /Users/shengan/flowermate/android/app/src/debug/AndroidManifest.xml:7:75-114
+	android:roundIcon
+		ADDED from /Users/shengan/flowermate/android/app/src/main/AndroidManifest.xml:12:7-52
+		ADDED from /Users/shengan/flowermate/android/app/src/main/AndroidManifest.xml:12:7-52
+	tools:targetApi
+		ADDED from /Users/shengan/flowermate/android/app/src/debug/AndroidManifest.xml:7:54-74
+	android:icon
+		ADDED from /Users/shengan/flowermate/android/app/src/main/AndroidManifest.xml:11:7-41
+		ADDED from /Users/shengan/flowermate/android/app/src/main/AndroidManifest.xml:11:7-41
+	android:allowBackup
+		ADDED from /Users/shengan/flowermate/android/app/src/main/AndroidManifest.xml:13:7-34
+		ADDED from /Users/shengan/flowermate/android/app/src/main/AndroidManifest.xml:13:7-34
+	android:theme
+		ADDED from /Users/shengan/flowermate/android/app/src/main/AndroidManifest.xml:14:7-38
+		ADDED from /Users/shengan/flowermate/android/app/src/main/AndroidManifest.xml:14:7-38
+	android:usesCleartextTraffic
+		ADDED from /Users/shengan/flowermate/android/app/src/main/AndroidManifest.xml:8:7-42
+	android:name
+		ADDED from /Users/shengan/flowermate/android/app/src/main/AndroidManifest.xml:9:7-38
+		ADDED from /Users/shengan/flowermate/android/app/src/main/AndroidManifest.xml:9:7-38
+meta-data#com.amap.api.v2.apikey
+ADDED from /Users/shengan/flowermate/android/app/src/main/AndroidManifest.xml:15:7-17:60
+	android:value
+		ADDED from /Users/shengan/flowermate/android/app/src/main/AndroidManifest.xml:17:9-57
+	android:name
+		ADDED from /Users/shengan/flowermate/android/app/src/main/AndroidManifest.xml:16:9-46
+activity#com.flowermate.MainActivity
+ADDED from /Users/shengan/flowermate/android/app/src/main/AndroidManifest.xml:18:7-28:18
+	android:label
+		ADDED from /Users/shengan/flowermate/android/app/src/main/AndroidManifest.xml:20:9-41
+	android:launchMode
+		ADDED from /Users/shengan/flowermate/android/app/src/main/AndroidManifest.xml:22:9-40
+	android:windowSoftInputMode
+		ADDED from /Users/shengan/flowermate/android/app/src/main/AndroidManifest.xml:23:9-51
+	android:configChanges
+		ADDED from /Users/shengan/flowermate/android/app/src/main/AndroidManifest.xml:21:9-86
+	android:name
+		ADDED from /Users/shengan/flowermate/android/app/src/main/AndroidManifest.xml:19:9-37
+intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
+ADDED from /Users/shengan/flowermate/android/app/src/main/AndroidManifest.xml:24:9-27:25
+action#android.intent.action.MAIN
+ADDED from /Users/shengan/flowermate/android/app/src/main/AndroidManifest.xml:25:13-65
+	android:name
+		ADDED from /Users/shengan/flowermate/android/app/src/main/AndroidManifest.xml:25:21-62
+category#android.intent.category.LAUNCHER
+ADDED from /Users/shengan/flowermate/android/app/src/main/AndroidManifest.xml:26:13-73
+	android:name
+		ADDED from /Users/shengan/flowermate/android/app/src/main/AndroidManifest.xml:26:23-70
+activity#com.facebook.react.devsupport.DevSettingsActivity
+ADDED from /Users/shengan/flowermate/android/app/src/main/AndroidManifest.xml:29:7-84
+	android:name
+		ADDED from /Users/shengan/flowermate/android/app/src/main/AndroidManifest.xml:29:17-81
+uses-sdk
+INJECTED from /Users/shengan/flowermate/android/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from /Users/shengan/flowermate/android/app/src/main/AndroidManifest.xml
+INJECTED from /Users/shengan/flowermate/android/app/src/main/AndroidManifest.xml
+MERGED from [com.facebook.flipper:flipper:0.58.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/fd20963cf5bbccb7abbe68de7afd92c2/flipper-0.58.0/AndroidManifest.xml:11:5-13:41
+MERGED from [com.facebook.flipper:flipper:0.58.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/fd20963cf5bbccb7abbe68de7afd92c2/flipper-0.58.0/AndroidManifest.xml:11:5-13:41
+MERGED from [com.facebook.flipper:flipper-network-plugin:0.58.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/5c5bd168ea826c353af44280c1351b15/flipper-network-plugin-0.58.0/AndroidManifest.xml:11:5-13:41
+MERGED from [com.facebook.flipper:flipper-network-plugin:0.58.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/5c5bd168ea826c353af44280c1351b15/flipper-network-plugin-0.58.0/AndroidManifest.xml:11:5-13:41
+MERGED from [com.facebook.flipper:flipper-fresco-plugin:0.58.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/d9d5083ae3c4073183cab3f82a102599/flipper-fresco-plugin-0.58.0/AndroidManifest.xml:11:5-13:41
+MERGED from [com.facebook.flipper:flipper-fresco-plugin:0.58.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/d9d5083ae3c4073183cab3f82a102599/flipper-fresco-plugin-0.58.0/AndroidManifest.xml:11:5-13:41
+MERGED from [:react-native-community_async-storage] /Users/shengan/flowermate/node_modules/@react-native-community/async-storage/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-7:41
+MERGED from [:react-native-community_async-storage] /Users/shengan/flowermate/node_modules/@react-native-community/async-storage/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-7:41
+MERGED from [:react-native-community_masked-view] /Users/shengan/flowermate/node_modules/@react-native-community/masked-view/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-7:41
+MERGED from [:react-native-community_masked-view] /Users/shengan/flowermate/node_modules/@react-native-community/masked-view/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-7:41
+MERGED from [:react-native-action-sheet] /Users/shengan/flowermate/node_modules/react-native-action-sheet/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-9:41
+MERGED from [:react-native-action-sheet] /Users/shengan/flowermate/node_modules/react-native-action-sheet/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-9:41
+MERGED from [:react-native-amap3d] /Users/shengan/flowermate/node_modules/react-native-amap3d/lib/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-7:41
+MERGED from [:react-native-amap3d] /Users/shengan/flowermate/node_modules/react-native-amap3d/lib/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-7:41
+MERGED from [:react-native-gesture-handler] /Users/shengan/flowermate/node_modules/react-native-gesture-handler/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-9:41
+MERGED from [:react-native-gesture-handler] /Users/shengan/flowermate/node_modules/react-native-gesture-handler/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-9:41
+MERGED from [:react-native-image-crop-picker] /Users/shengan/flowermate/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:6:5-8:41
+MERGED from [:react-native-image-crop-picker] /Users/shengan/flowermate/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:6:5-8:41
+MERGED from [:react-native-safe-area-context] /Users/shengan/flowermate/node_modules/react-native-safe-area-context/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-7:41
+MERGED from [:react-native-safe-area-context] /Users/shengan/flowermate/node_modules/react-native-safe-area-context/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-7:41
+MERGED from [:react-native-screens] /Users/shengan/flowermate/node_modules/react-native-screens/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-9:41
+MERGED from [:react-native-screens] /Users/shengan/flowermate/node_modules/react-native-screens/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-9:41
+MERGED from [:react-native-splash-screen] /Users/shengan/flowermate/node_modules/react-native-splash-screen/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-9:41
+MERGED from [:react-native-splash-screen] /Users/shengan/flowermate/node_modules/react-native-splash-screen/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-9:41
+MERGED from [:react-native-update] /Users/shengan/flowermate/node_modules/react-native-update/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-9:41
+MERGED from [:react-native-update] /Users/shengan/flowermate/node_modules/react-native-update/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-9:41
+MERGED from [:react-native-vector-icons] /Users/shengan/flowermate/node_modules/react-native-vector-icons/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-9:41
+MERGED from [:react-native-vector-icons] /Users/shengan/flowermate/node_modules/react-native-vector-icons/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-9:41
+MERGED from [:react-native-webview] /Users/shengan/flowermate/node_modules/react-native-webview/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-9:41
+MERGED from [:react-native-webview] /Users/shengan/flowermate/node_modules/react-native-webview/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-9:41
+MERGED from [com.facebook.react:react-native:0.63.3] /Users/shengan/.gradle/caches/transforms-2/files-2.1/1bd24b1ecd930f28de8c86435f47c277/jetified-react-native-0.63.3/AndroidManifest.xml:7:5-9:41
+MERGED from [com.facebook.react:react-native:0.63.3] /Users/shengan/.gradle/caches/transforms-2/files-2.1/1bd24b1ecd930f28de8c86435f47c277/jetified-react-native-0.63.3/AndroidManifest.xml:7:5-9:41
+MERGED from [com.github.yalantis:ucrop:2.2.6-native] /Users/shengan/.gradle/caches/transforms-2/files-2.1/1422f71cc24d526818b24505ea1de90c/ucrop-2.2.6-native/AndroidManifest.xml:7:5-9:41
+MERGED from [com.github.yalantis:ucrop:2.2.6-native] /Users/shengan/.gradle/caches/transforms-2/files-2.1/1422f71cc24d526818b24505ea1de90c/ucrop-2.2.6-native/AndroidManifest.xml:7:5-9:41
+MERGED from [com.google.android.material:material:1.1.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/ed1df986c447edc2144ae70f8ec83413/material-1.1.0/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.material:material:1.1.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/ed1df986c447edc2144ae70f8ec83413/material-1.1.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.appcompat:appcompat:1.1.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/b7d1ce07e807521fd60c0500d0bd332d/appcompat-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.appcompat:appcompat:1.1.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/b7d1ce07e807521fd60c0500d0bd332d/appcompat-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.1.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/72d7642c73cbdc6e8eef82eedfa31d49/swiperefreshlayout-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.1.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/72d7642c73cbdc6e8eef82eedfa31d49/swiperefreshlayout-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [org.webkit:android-jsc:r245459] /Users/shengan/.gradle/caches/transforms-2/files-2.1/694c21e76aac42aa72e9428c3d7cfa06/android-jsc-r245459/AndroidManifest.xml:7:5-9:41
+MERGED from [org.webkit:android-jsc:r245459] /Users/shengan/.gradle/caches/transforms-2/files-2.1/694c21e76aac42aa72e9428c3d7cfa06/android-jsc-r245459/AndroidManifest.xml:7:5-9:41
+MERGED from [com.facebook.fresco:flipper:2.2.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/6a623f0b7c5cf2aa35532d4ca1e5b204/flipper-2.2.0/AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:flipper:2.2.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/6a623f0b7c5cf2aa35532d4ca1e5b204/flipper-2.2.0/AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:stetho:2.2.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/ff84725979019fddb23fa3b06fa246d1/stetho-2.2.0/AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:stetho:2.2.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/ff84725979019fddb23fa3b06fa246d1/stetho-2.2.0/AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:fresco:2.2.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/787af696d0aad2e4231722d74d0c90b0/fresco-2.2.0/AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:fresco:2.2.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/787af696d0aad2e4231722d74d0c90b0/fresco-2.2.0/AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:imagepipeline-okhttp3:2.0.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/6a00568ef15e6d003fd61c42934df829/imagepipeline-okhttp3-2.0.0/AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:imagepipeline-okhttp3:2.0.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/6a00568ef15e6d003fd61c42934df829/imagepipeline-okhttp3-2.0.0/AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:drawee:2.2.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/bf078d38353bb93cb5459e6f78da4af7/drawee-2.2.0/AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:drawee:2.2.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/bf078d38353bb93cb5459e6f78da4af7/drawee-2.2.0/AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:nativeimagefilters:2.2.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/e9137d98a944ec553bbc84b7e7004023/nativeimagefilters-2.2.0/AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:nativeimagefilters:2.2.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/e9137d98a944ec553bbc84b7e7004023/nativeimagefilters-2.2.0/AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:memory-type-native:2.2.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/d1da3b29c148027715932fa96978674c/memory-type-native-2.2.0/AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:memory-type-native:2.2.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/d1da3b29c148027715932fa96978674c/memory-type-native-2.2.0/AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:memory-type-java:2.2.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/a4150770e9cb1f12e8164934ce389bf0/memory-type-java-2.2.0/AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:memory-type-java:2.2.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/a4150770e9cb1f12e8164934ce389bf0/memory-type-java-2.2.0/AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:imagepipeline-native:2.2.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/93c32f6ee749d035f8768bf09f7f2c61/imagepipeline-native-2.2.0/AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:imagepipeline-native:2.2.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/93c32f6ee749d035f8768bf09f7f2c61/imagepipeline-native-2.2.0/AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:memory-type-ashmem:2.2.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/6dead55bbcc615d50dfce74627e2332e/memory-type-ashmem-2.2.0/AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:memory-type-ashmem:2.2.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/6dead55bbcc615d50dfce74627e2332e/memory-type-ashmem-2.2.0/AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:imagepipeline:2.2.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/ed597247430abe35aeef3584eb24e444/imagepipeline-2.2.0/AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:imagepipeline:2.2.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/ed597247430abe35aeef3584eb24e444/imagepipeline-2.2.0/AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:nativeimagetranscoder:2.2.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/080c26f52b3ab5b8abfcc33e49fa4388/nativeimagetranscoder-2.2.0/AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:nativeimagetranscoder:2.2.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/080c26f52b3ab5b8abfcc33e49fa4388/nativeimagetranscoder-2.2.0/AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:imagepipeline-base:2.2.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/ec40679ffbcccb2f722d0c9f2e302bd2/imagepipeline-base-2.2.0/AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:imagepipeline-base:2.2.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/ec40679ffbcccb2f722d0c9f2e302bd2/imagepipeline-base-2.2.0/AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:soloader:2.2.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/4d2c1e00dc74d81bcb68dc44c491b53e/soloader-2.2.0/AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:soloader:2.2.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/4d2c1e00dc74d81bcb68dc44c491b53e/soloader-2.2.0/AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.soloader:soloader:0.9.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/bf3e3ad88e27797aae6bc82b025b9019/soloader-0.9.0/AndroidManifest.xml:7:5-9:41
+MERGED from [com.facebook.soloader:soloader:0.9.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/bf3e3ad88e27797aae6bc82b025b9019/soloader-0.9.0/AndroidManifest.xml:7:5-9:41
+MERGED from [androidx.sqlite:sqlite-framework:2.1.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/5babd256a08ad9b12f860c53fd56cbbe/sqlite-framework-2.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.sqlite:sqlite-framework:2.1.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/5babd256a08ad9b12f860c53fd56cbbe/sqlite-framework-2.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.appcompat:appcompat-resources:1.1.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/8a71965690aa03553e7712fcce742fdc/appcompat-resources-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.appcompat:appcompat-resources:1.1.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/8a71965690aa03553e7712fcce742fdc/appcompat-resources-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.drawerlayout:drawerlayout:1.0.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/239574d0e72e5dfad7c50d2d1ec11d11/drawerlayout-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.drawerlayout:drawerlayout:1.0.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/239574d0e72e5dfad7c50d2d1ec11d11/drawerlayout-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.viewpager2:viewpager2:1.0.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/bd715caa7920bdf7dae1113a4793739f/viewpager2-1.0.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.viewpager2:viewpager2:1.0.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/bd715caa7920bdf7dae1113a4793739f/viewpager2-1.0.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.fragment:fragment:1.2.1] /Users/shengan/.gradle/caches/transforms-2/files-2.1/d1fdadb28772da01190eafb50044f577/fragment-1.2.1/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.fragment:fragment:1.2.1] /Users/shengan/.gradle/caches/transforms-2/files-2.1/d1fdadb28772da01190eafb50044f577/fragment-1.2.1/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.1.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/8c8c09ef9e10b1cf1718830ca02ef86d/coordinatorlayout-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.1.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/8c8c09ef9e10b1cf1718830ca02ef86d/coordinatorlayout-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.vectordrawable:vectordrawable-animated:1.1.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/bfc6af819c244a883b2b84a3808bcecd/vectordrawable-animated-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.vectordrawable:vectordrawable-animated:1.1.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/bfc6af819c244a883b2b84a3808bcecd/vectordrawable-animated-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.vectordrawable:vectordrawable:1.1.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/3206b2ed010a329f5aede18223d85508/vectordrawable-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.vectordrawable:vectordrawable:1.1.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/3206b2ed010a329f5aede18223d85508/vectordrawable-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.viewpager:viewpager:1.0.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/6627c2224fe8312e587150ba18ee1313/viewpager-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.viewpager:viewpager:1.0.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/6627c2224fe8312e587150ba18ee1313/viewpager-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.recyclerview:recyclerview:1.1.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/0dfb3d2e45a94c7442bad31b092a1da7/recyclerview-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.recyclerview:recyclerview:1.1.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/0dfb3d2e45a94c7442bad31b092a1da7/recyclerview-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.customview:customview:1.0.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/b073dd0e3b91135b7e2240865021b629/customview-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.customview:customview:1.0.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/b073dd0e3b91135b7e2240865021b629/customview-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.loader:loader:1.0.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/c0f59b319b30a2adee634f62bb4cecea/loader-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.loader:loader:1.0.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/c0f59b319b30a2adee634f62bb4cecea/loader-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.activity:activity:1.1.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/723aea7e41ee3d190cdaaceb6b115b15/activity-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.activity:activity:1.1.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/723aea7e41ee3d190cdaaceb6b115b15/activity-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.transition:transition:1.2.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/ac63fcba9d4debe277ae487e5d62a90b/transition-1.2.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.transition:transition:1.2.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/ac63fcba9d4debe277ae487e5d62a90b/transition-1.2.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.core:core:1.1.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/1f6a22adaa6cfccf82629c3e38af2e36/core-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.core:core:1.1.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/1f6a22adaa6cfccf82629c3e38af2e36/core-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/cbd08fd32093f5ad673d8123b4eeb252/cursoradapter-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/cbd08fd32093f5ad673d8123b4eeb252/cursoradapter-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.sqlite:sqlite:2.1.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/f3cfb34c38eb3528a18f5079d4791407/sqlite-2.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.sqlite:sqlite:2.1.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/f3cfb34c38eb3528a18f5079d4791407/sqlite-2.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/b0eac0e63a9f29011bec40fa1b3ae4d6/versionedparcelable-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/b0eac0e63a9f29011bec40fa1b3ae4d6/versionedparcelable-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.interpolator:interpolator:1.0.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/4e2279f504eb503608c83c699bb86784/interpolator-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.interpolator:interpolator:1.0.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/4e2279f504eb503608c83c699bb86784/interpolator-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.exifinterface:exifinterface:1.1.0-beta01] /Users/shengan/.gradle/caches/transforms-2/files-2.1/4e22b624b6a6a7392bb1a915f5221158/exifinterface-1.1.0-beta01/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.exifinterface:exifinterface:1.1.0-beta01] /Users/shengan/.gradle/caches/transforms-2/files-2.1/4e22b624b6a6a7392bb1a915f5221158/exifinterface-1.1.0-beta01/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-savedstate:2.2.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/e3081c806c355b3b5ae98393f29dd453/lifecycle-viewmodel-savedstate-2.2.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-savedstate:2.2.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/e3081c806c355b3b5ae98393f29dd453/lifecycle-viewmodel-savedstate-2.2.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.2.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/b7caeb9fdf3df67b2e87a90aa1144907/lifecycle-viewmodel-2.2.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.2.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/b7caeb9fdf3df67b2e87a90aa1144907/lifecycle-viewmodel-2.2.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.cardview:cardview:1.0.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/0a27d81f5e637a0415440f44f2d2ea15/cardview-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.cardview:cardview:1.0.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/0a27d81f5e637a0415440f44f2d2ea15/cardview-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.2.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/018f07b8964038e5857f75fcf939aa9f/lifecycle-runtime-2.2.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.2.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/018f07b8964038e5857f75fcf939aa9f/lifecycle-runtime-2.2.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.savedstate:savedstate:1.0.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/1534d6f57d0c567aa3dbaf646e60a37a/savedstate-1.0.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.savedstate:savedstate:1.0.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/1534d6f57d0c567aa3dbaf646e60a37a/savedstate-1.0.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.0.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/0676b3538965a465790498f7b8e9efcf/lifecycle-livedata-2.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.0.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/0676b3538965a465790498f7b8e9efcf/lifecycle-livedata-2.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.2.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/9c4f90a528ff0d731d76b6fa348ea615/lifecycle-livedata-core-2.2.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.2.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/9c4f90a528ff0d731d76b6fa348ea615/lifecycle-livedata-core-2.2.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.arch.core:core-runtime:2.1.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/af2f0f560a357a69b3f10cab6a221242/core-runtime-2.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.arch.core:core-runtime:2.1.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/af2f0f560a357a69b3f10cab6a221242/core-runtime-2.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [com.facebook.fresco:fbcore:2.2.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/cba4abd2e803b240b1ef835a716ce077/jetified-fbcore-2.2.0/AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:fbcore:2.2.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/cba4abd2e803b240b1ef835a716ce077/jetified-fbcore-2.2.0/AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:ui-common:2.2.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/8a381c390e7632b41b60a3693c00c6cd/ui-common-2.2.0/AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:ui-common:2.2.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/8a381c390e7632b41b60a3693c00c6cd/ui-common-2.2.0/AndroidManifest.xml:5:5-7:41
+INJECTED from /Users/shengan/flowermate/android/app/src/debug/AndroidManifest.xml
+INJECTED from /Users/shengan/flowermate/android/app/src/debug/AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from /Users/shengan/flowermate/android/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/shengan/flowermate/android/app/src/debug/AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from /Users/shengan/flowermate/android/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/shengan/flowermate/android/app/src/debug/AndroidManifest.xml
+uses-permission#android.permission.SYSTEM_ALERT_WINDOW
+ADDED from /Users/shengan/flowermate/android/app/src/debug/AndroidManifest.xml:5:5-77
+	android:name
+		ADDED from /Users/shengan/flowermate/android/app/src/debug/AndroidManifest.xml:5:22-75
+uses-permission#android.permission.ACCESS_WIFI_STATE
+ADDED from [com.facebook.flipper:flipper:0.58.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/fd20963cf5bbccb7abbe68de7afd92c2/flipper-0.58.0/AndroidManifest.xml:16:5-76
+MERGED from [:react-native-amap3d] /Users/shengan/flowermate/node_modules/react-native-amap3d/lib/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:12:5-76
+MERGED from [:react-native-amap3d] /Users/shengan/flowermate/node_modules/react-native-amap3d/lib/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:12:5-76
+	android:name
+		ADDED from [com.facebook.flipper:flipper:0.58.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/fd20963cf5bbccb7abbe68de7afd92c2/flipper-0.58.0/AndroidManifest.xml:16:22-73
+uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
+ADDED from [:react-native-amap3d] /Users/shengan/flowermate/node_modules/react-native-amap3d/lib/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:10:5-81
+MERGED from [:react-native-image-crop-picker] /Users/shengan/flowermate/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:16:5-81
+MERGED from [:react-native-image-crop-picker] /Users/shengan/flowermate/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:16:5-81
+	android:name
+		ADDED from [:react-native-amap3d] /Users/shengan/flowermate/node_modules/react-native-amap3d/lib/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:10:22-78
+uses-permission#android.permission.ACCESS_NETWORK_STATE
+ADDED from [:react-native-amap3d] /Users/shengan/flowermate/node_modules/react-native-amap3d/lib/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:11:5-79
+	android:name
+		ADDED from [:react-native-amap3d] /Users/shengan/flowermate/node_modules/react-native-amap3d/lib/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:11:22-76
+uses-permission#android.permission.CHANGE_WIFI_STATE
+ADDED from [:react-native-amap3d] /Users/shengan/flowermate/node_modules/react-native-amap3d/lib/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:13:5-76
+	android:name
+		ADDED from [:react-native-amap3d] /Users/shengan/flowermate/node_modules/react-native-amap3d/lib/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:13:22-73
+uses-permission#android.permission.READ_PHONE_STATE
+ADDED from [:react-native-amap3d] /Users/shengan/flowermate/node_modules/react-native-amap3d/lib/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:14:5-75
+	android:name
+		ADDED from [:react-native-amap3d] /Users/shengan/flowermate/node_modules/react-native-amap3d/lib/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:14:22-72
+uses-permission#android.permission.ACCESS_COARSE_LOCATION
+ADDED from [:react-native-amap3d] /Users/shengan/flowermate/node_modules/react-native-amap3d/lib/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:15:5-81
+	android:name
+		ADDED from [:react-native-amap3d] /Users/shengan/flowermate/node_modules/react-native-amap3d/lib/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:15:22-78
+uses-permission#android.permission.ACCESS_FINE_LOCATION
+ADDED from [:react-native-amap3d] /Users/shengan/flowermate/node_modules/react-native-amap3d/lib/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:16:5-79
+	android:name
+		ADDED from [:react-native-amap3d] /Users/shengan/flowermate/node_modules/react-native-amap3d/lib/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:16:22-76
+uses-permission#android.permission.WAKE_LOCK
+ADDED from [:react-native-amap3d] /Users/shengan/flowermate/node_modules/react-native-amap3d/lib/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:17:5-68
+	android:name
+		ADDED from [:react-native-amap3d] /Users/shengan/flowermate/node_modules/react-native-amap3d/lib/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:17:22-65
+queries
+ADDED from [:react-native-image-crop-picker] /Users/shengan/flowermate/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:10:5-14:15
+intent
+ADDED from [:react-native-image-crop-picker] /Users/shengan/flowermate/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:11:9-13:18
+action#android.media.action.IMAGE_CAPTURE
+ADDED from [:react-native-image-crop-picker] /Users/shengan/flowermate/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:12:13-73
+	android:name
+		ADDED from [:react-native-image-crop-picker] /Users/shengan/flowermate/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:12:21-70
+provider#androidx.core.content.FileProvider
+ADDED from [:react-native-image-crop-picker] /Users/shengan/flowermate/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:19:9-27:20
+	android:grantUriPermissions
+		ADDED from [:react-native-image-crop-picker] /Users/shengan/flowermate/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:23:13-47
+	android:authorities
+		ADDED from [:react-native-image-crop-picker] /Users/shengan/flowermate/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:21:13-60
+	android:exported
+		ADDED from [:react-native-image-crop-picker] /Users/shengan/flowermate/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:22:13-37
+	android:name
+		ADDED from [:react-native-image-crop-picker] /Users/shengan/flowermate/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:20:13-62
+meta-data#android.support.FILE_PROVIDER_PATHS
+ADDED from [:react-native-image-crop-picker] /Users/shengan/flowermate/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:24:13-26:58
+	android:resource
+		ADDED from [:react-native-image-crop-picker] /Users/shengan/flowermate/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:26:17-55
+	android:name
+		ADDED from [:react-native-image-crop-picker] /Users/shengan/flowermate/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:25:17-67
+activity#com.yalantis.ucrop.UCropActivity
+ADDED from [:react-native-image-crop-picker] /Users/shengan/flowermate/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:29:9-31:72
+	android:theme
+		ADDED from [:react-native-image-crop-picker] /Users/shengan/flowermate/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:31:13-69
+	android:name
+		ADDED from [:react-native-image-crop-picker] /Users/shengan/flowermate/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:30:13-60
+uses-permission#android.permission.REQUEST_INSTALL_PACKAGES
+ADDED from [:react-native-update] /Users/shengan/flowermate/node_modules/react-native-update/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:11:5-83
+	android:name
+		ADDED from [:react-native-update] /Users/shengan/flowermate/node_modules/react-native-update/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:11:22-80
+meta-data#pushy_build_time
+ADDED from [:react-native-update] /Users/shengan/flowermate/node_modules/react-native-update/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:14:9-16:56
+	android:value
+		ADDED from [:react-native-update] /Users/shengan/flowermate/node_modules/react-native-update/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:16:13-53
+	android:name
+		ADDED from [:react-native-update] /Users/shengan/flowermate/node_modules/react-native-update/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:15:13-44
+provider#cn.reactnative.modules.update.PushyFileProvider
+ADDED from [:react-native-update] /Users/shengan/flowermate/node_modules/react-native-update/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:18:9-26:20
+	android:grantUriPermissions
+		ADDED from [:react-native-update] /Users/shengan/flowermate/node_modules/react-native-update/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:22:13-47
+	android:authorities
+		ADDED from [:react-native-update] /Users/shengan/flowermate/node_modules/react-native-update/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:20:13-70
+	android:exported
+		ADDED from [:react-native-update] /Users/shengan/flowermate/node_modules/react-native-update/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:21:13-37
+	android:name
+		ADDED from [:react-native-update] /Users/shengan/flowermate/node_modules/react-native-update/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:19:13-75
+provider#com.reactnativecommunity.webview.RNCWebViewFileProvider
+ADDED from [:react-native-webview] /Users/shengan/flowermate/node_modules/react-native-webview/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:12:9-20:20
+	android:grantUriPermissions
+		ADDED from [:react-native-webview] /Users/shengan/flowermate/node_modules/react-native-webview/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:16:13-47
+	android:authorities
+		ADDED from [:react-native-webview] /Users/shengan/flowermate/node_modules/react-native-webview/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:14:13-64
+	android:exported
+		ADDED from [:react-native-webview] /Users/shengan/flowermate/node_modules/react-native-webview/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:15:13-37
+	android:name
+		ADDED from [:react-native-webview] /Users/shengan/flowermate/node_modules/react-native-webview/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:13:13-83

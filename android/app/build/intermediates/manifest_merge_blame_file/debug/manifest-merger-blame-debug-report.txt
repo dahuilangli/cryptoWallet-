@@ -1,0 +1,180 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.flowermate"
+4    android:versionCode="1"
+5    android:versionName="1.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="21"
+9        android:targetSdkVersion="29" />
+10
+11    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+11-->/Users/shengan/flowermate/android/app/src/debug/AndroidManifest.xml:5:5-77
+11-->/Users/shengan/flowermate/android/app/src/debug/AndroidManifest.xml:5:22-75
+12    <uses-permission android:name="android.permission.INTERNET" />
+12-->/Users/shengan/flowermate/android/app/src/main/AndroidManifest.xml:4:5-67
+12-->/Users/shengan/flowermate/android/app/src/main/AndroidManifest.xml:4:22-64
+13    <uses-permission android:name="android.permission.CAMERA" />
+13-->/Users/shengan/flowermate/android/app/src/main/AndroidManifest.xml:5:5-64
+13-->/Users/shengan/flowermate/android/app/src/main/AndroidManifest.xml:5:22-62
+14    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+14-->[com.facebook.flipper:flipper:0.58.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/fd20963cf5bbccb7abbe68de7afd92c2/flipper-0.58.0/AndroidManifest.xml:16:5-76
+14-->[com.facebook.flipper:flipper:0.58.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/fd20963cf5bbccb7abbe68de7afd92c2/flipper-0.58.0/AndroidManifest.xml:16:22-73
+15    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+15-->[:react-native-amap3d] /Users/shengan/flowermate/node_modules/react-native-amap3d/lib/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:10:5-81
+15-->[:react-native-amap3d] /Users/shengan/flowermate/node_modules/react-native-amap3d/lib/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:10:22-78
+16    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+16-->[:react-native-amap3d] /Users/shengan/flowermate/node_modules/react-native-amap3d/lib/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:11:5-79
+16-->[:react-native-amap3d] /Users/shengan/flowermate/node_modules/react-native-amap3d/lib/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:11:22-76
+17    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+17-->[:react-native-amap3d] /Users/shengan/flowermate/node_modules/react-native-amap3d/lib/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:13:5-76
+17-->[:react-native-amap3d] /Users/shengan/flowermate/node_modules/react-native-amap3d/lib/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:13:22-73
+18    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+18-->[:react-native-amap3d] /Users/shengan/flowermate/node_modules/react-native-amap3d/lib/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:14:5-75
+18-->[:react-native-amap3d] /Users/shengan/flowermate/node_modules/react-native-amap3d/lib/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:14:22-72
+19    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+19-->[:react-native-amap3d] /Users/shengan/flowermate/node_modules/react-native-amap3d/lib/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:15:5-81
+19-->[:react-native-amap3d] /Users/shengan/flowermate/node_modules/react-native-amap3d/lib/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:15:22-78
+20    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+20-->[:react-native-amap3d] /Users/shengan/flowermate/node_modules/react-native-amap3d/lib/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:16:5-79
+20-->[:react-native-amap3d] /Users/shengan/flowermate/node_modules/react-native-amap3d/lib/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:16:22-76
+21    <uses-permission android:name="android.permission.WAKE_LOCK" />
+21-->[:react-native-amap3d] /Users/shengan/flowermate/node_modules/react-native-amap3d/lib/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:17:5-68
+21-->[:react-native-amap3d] /Users/shengan/flowermate/node_modules/react-native-amap3d/lib/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:17:22-65
+22
+23    <queries>
+23-->[:react-native-image-crop-picker] /Users/shengan/flowermate/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:10:5-14:15
+24        <intent>
+24-->[:react-native-image-crop-picker] /Users/shengan/flowermate/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:11:9-13:18
+25            <action android:name="android.media.action.IMAGE_CAPTURE" />
+25-->[:react-native-image-crop-picker] /Users/shengan/flowermate/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:12:13-73
+25-->[:react-native-image-crop-picker] /Users/shengan/flowermate/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:12:21-70
+26        </intent>
+27    </queries>
+28
+29    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+29-->[:react-native-update] /Users/shengan/flowermate/node_modules/react-native-update/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:11:5-83
+29-->[:react-native-update] /Users/shengan/flowermate/node_modules/react-native-update/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:11:22-80
+30
+31    <application
+31-->/Users/shengan/flowermate/android/app/src/main/AndroidManifest.xml:7:5-30:19
+32        android:name="com.flowermate.MainApplication"
+32-->/Users/shengan/flowermate/android/app/src/main/AndroidManifest.xml:9:7-38
+33        android:allowBackup="false"
+33-->/Users/shengan/flowermate/android/app/src/main/AndroidManifest.xml:13:7-34
+34        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+34-->[androidx.core:core:1.1.0] /Users/shengan/.gradle/caches/transforms-2/files-2.1/1f6a22adaa6cfccf82629c3e38af2e36/core-1.1.0/AndroidManifest.xml:24:18-86
+35        android:debuggable="true"
+36        android:icon="@mipmap/ic_launcher"
+36-->/Users/shengan/flowermate/android/app/src/main/AndroidManifest.xml:11:7-41
+37        android:label="@string/app_name"
+37-->/Users/shengan/flowermate/android/app/src/main/AndroidManifest.xml:10:7-39
+38        android:roundIcon="@mipmap/ic_launcher_round"
+38-->/Users/shengan/flowermate/android/app/src/main/AndroidManifest.xml:12:7-52
+39        android:theme="@style/AppTheme"
+39-->/Users/shengan/flowermate/android/app/src/main/AndroidManifest.xml:14:7-38
+40        android:usesCleartextTraffic="true" >
+40-->/Users/shengan/flowermate/android/app/src/main/AndroidManifest.xml:8:7-42
+41        <meta-data
+41-->/Users/shengan/flowermate/android/app/src/main/AndroidManifest.xml:15:7-17:60
+42            android:name="com.amap.api.v2.apikey"
+42-->/Users/shengan/flowermate/android/app/src/main/AndroidManifest.xml:16:9-46
+43            android:value="97d0a6d726ab49f0758516b41cb1c5d5" />
+43-->/Users/shengan/flowermate/android/app/src/main/AndroidManifest.xml:17:9-57
+44
+45        <activity
+45-->/Users/shengan/flowermate/android/app/src/main/AndroidManifest.xml:18:7-28:18
+46            android:name="com.flowermate.MainActivity"
+46-->/Users/shengan/flowermate/android/app/src/main/AndroidManifest.xml:19:9-37
+47            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|uiMode"
+47-->/Users/shengan/flowermate/android/app/src/main/AndroidManifest.xml:21:9-86
+48            android:label="@string/app_name"
+48-->/Users/shengan/flowermate/android/app/src/main/AndroidManifest.xml:20:9-41
+49            android:launchMode="singleTask"
+49-->/Users/shengan/flowermate/android/app/src/main/AndroidManifest.xml:22:9-40
+50            android:windowSoftInputMode="adjustResize" >
+50-->/Users/shengan/flowermate/android/app/src/main/AndroidManifest.xml:23:9-51
+51            <intent-filter>
+51-->/Users/shengan/flowermate/android/app/src/main/AndroidManifest.xml:24:9-27:25
+52                <action android:name="android.intent.action.MAIN" />
+52-->/Users/shengan/flowermate/android/app/src/main/AndroidManifest.xml:25:13-65
+52-->/Users/shengan/flowermate/android/app/src/main/AndroidManifest.xml:25:21-62
+53
+54                <category android:name="android.intent.category.LAUNCHER" />
+54-->/Users/shengan/flowermate/android/app/src/main/AndroidManifest.xml:26:13-73
+54-->/Users/shengan/flowermate/android/app/src/main/AndroidManifest.xml:26:23-70
+55            </intent-filter>
+56        </activity>
+57        <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
+57-->/Users/shengan/flowermate/android/app/src/main/AndroidManifest.xml:29:7-84
+57-->/Users/shengan/flowermate/android/app/src/main/AndroidManifest.xml:29:17-81
+58
+59        <provider
+59-->[:react-native-image-crop-picker] /Users/shengan/flowermate/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:19:9-27:20
+60            android:name="androidx.core.content.FileProvider"
+60-->[:react-native-image-crop-picker] /Users/shengan/flowermate/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:20:13-62
+61            android:authorities="com.flowermate.provider"
+61-->[:react-native-image-crop-picker] /Users/shengan/flowermate/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:21:13-60
+62            android:exported="false"
+62-->[:react-native-image-crop-picker] /Users/shengan/flowermate/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:22:13-37
+63            android:grantUriPermissions="true" >
+63-->[:react-native-image-crop-picker] /Users/shengan/flowermate/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:23:13-47
+64            <meta-data
+64-->[:react-native-image-crop-picker] /Users/shengan/flowermate/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:24:13-26:58
+65                android:name="android.support.FILE_PROVIDER_PATHS"
+65-->[:react-native-image-crop-picker] /Users/shengan/flowermate/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:25:17-67
+66                android:resource="@xml/provider_paths" />
+66-->[:react-native-image-crop-picker] /Users/shengan/flowermate/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:26:17-55
+67        </provider>
+68
+69        <activity
+69-->[:react-native-image-crop-picker] /Users/shengan/flowermate/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:29:9-31:72
+70            android:name="com.yalantis.ucrop.UCropActivity"
+70-->[:react-native-image-crop-picker] /Users/shengan/flowermate/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:30:13-60
+71            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+71-->[:react-native-image-crop-picker] /Users/shengan/flowermate/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:31:13-69
+72
+73        <meta-data
+73-->[:react-native-update] /Users/shengan/flowermate/node_modules/react-native-update/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:14:9-16:56
+74            android:name="pushy_build_time"
+74-->[:react-native-update] /Users/shengan/flowermate/node_modules/react-native-update/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:15:13-44
+75            android:value="@string/pushy_build_time" />
+75-->[:react-native-update] /Users/shengan/flowermate/node_modules/react-native-update/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:16:13-53
+76
+77        <provider
+77-->[:react-native-update] /Users/shengan/flowermate/node_modules/react-native-update/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:18:9-26:20
+78            android:name="cn.reactnative.modules.update.PushyFileProvider"
+78-->[:react-native-update] /Users/shengan/flowermate/node_modules/react-native-update/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:19:13-75
+79            android:authorities="com.flowermate.pushy.fileprovider"
+79-->[:react-native-update] /Users/shengan/flowermate/node_modules/react-native-update/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:20:13-70
+80            android:exported="false"
+80-->[:react-native-update] /Users/shengan/flowermate/node_modules/react-native-update/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:21:13-37
+81            android:grantUriPermissions="true" >
+81-->[:react-native-update] /Users/shengan/flowermate/node_modules/react-native-update/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:22:13-47
+82            <meta-data
+82-->[:react-native-image-crop-picker] /Users/shengan/flowermate/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:24:13-26:58
+83                android:name="android.support.FILE_PROVIDER_PATHS"
+83-->[:react-native-image-crop-picker] /Users/shengan/flowermate/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:25:17-67
+84                android:resource="@xml/file_paths" />
+84-->[:react-native-image-crop-picker] /Users/shengan/flowermate/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:26:17-55
+85        </provider>
+86        <provider
+86-->[:react-native-webview] /Users/shengan/flowermate/node_modules/react-native-webview/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:12:9-20:20
+87            android:name="com.reactnativecommunity.webview.RNCWebViewFileProvider"
+87-->[:react-native-webview] /Users/shengan/flowermate/node_modules/react-native-webview/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:13:13-83
+88            android:authorities="com.flowermate.fileprovider"
+88-->[:react-native-webview] /Users/shengan/flowermate/node_modules/react-native-webview/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:14:13-64
+89            android:exported="false"
+89-->[:react-native-webview] /Users/shengan/flowermate/node_modules/react-native-webview/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:15:13-37
+90            android:grantUriPermissions="true" >
+90-->[:react-native-webview] /Users/shengan/flowermate/node_modules/react-native-webview/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:16:13-47
+91            <meta-data
+91-->[:react-native-image-crop-picker] /Users/shengan/flowermate/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:24:13-26:58
+92                android:name="android.support.FILE_PROVIDER_PATHS"
+92-->[:react-native-image-crop-picker] /Users/shengan/flowermate/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:25:17-67
+93                android:resource="@xml/file_provider_paths" />
+93-->[:react-native-image-crop-picker] /Users/shengan/flowermate/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:26:17-55
+94        </provider>
+95    </application>
+96
+97</manifest>
