@@ -9,6 +9,8 @@ import MessageScreen from 'screens/MineScreen/MessageScreen';
 import AddressBookScreen from 'screens/MineScreen/AddressBookScreeen';
 import SetUpScreen from 'screens/MineScreen/SetUpScreen'
 import React from 'react';
+import { Button, Image, View , Alert } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 export type MainStackParamList = {
   TabNavigator: undefined;
@@ -30,8 +32,11 @@ export default function MainStackNavigator() {
   return (
     <Navigator
       screenOptions={{
-        headerBackTitle: '返回',
-        headerTintColor:'black',
+        headerStyle:{backgroundColor:'#3D73DD'},
+        headerBackTitleVisible:false,
+        headerTitleStyle:{fontSize:18,fontWeight:'bold',color:'white'},
+        headerBackImage:()=><Image source={require('../../assets/icon-24-返回-light.png')}/>,
+        headerLeftContainerStyle:{marginLeft:20,},
       }}
     >
       <Screen
@@ -46,6 +51,13 @@ export default function MainStackNavigator() {
         component={AddressBookScreen}
         options={{
           title: '地址本',
+          headerBackTitle:'flase',
+          headerRight:()=><TouchableOpacity 
+            onPress={() => Alert.alert('Simple Button pressed')}
+          >
+            <Image source = {require('../../assets/icon-24-添加-light.png')}/>
+          </TouchableOpacity>,
+          headerRightContainerStyle:{marginRight:20},
         }}
       />
       <Screen

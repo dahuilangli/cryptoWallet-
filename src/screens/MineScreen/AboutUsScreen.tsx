@@ -11,13 +11,11 @@ interface Props {}
 
 function AboutUsScreen({}: Props) {
     return (
-      <View>
-        <StatusBar barStyle = 'dark-content'>
-
-        </StatusBar>
+      <View style = {styles.backView}>
+        
         <SafeAreaView style={styles.container}>
           <View style = {styles.headView}>
-            <Image source = {require('../../../assets/kaikeba.png')} style = {styles.iconImage}/>
+            <Image source = {require('../../../assets/icon-125-aboutuslogo.png')} style = {styles.iconImage}/>
             <Text style = {styles.nameLabel}>项目名称</Text>
           </View>
           {/* <FlatList >
@@ -26,32 +24,34 @@ function AboutUsScreen({}: Props) {
         </SafeAreaView>
       </View>
       
-      );
+    );
 }
 
 const styles = StyleSheet.create({
+    backView:{
+      flex: 1,
+      backgroundColor:'#F2F5F8',
+    },
     container: {
       flex: 1,
       backgroundColor: '#efefef',
     },
     headView:{
       height:300,
-      backgroundColor:'red',
       alignItems:'center',
       justifyContent:'center',
     },
     iconImage:{
-      width:100,
-      height:100,
-      borderRadius:50,
-      marginTop:50,
-
+      marginTop:60,
+      width:125,
+      height:125,
     },
     nameLabel:{
       marginTop:20,
       alignContent : 'center',
       fontWeight : 'bold',
-      fontSize : 18,
+      color:'#394867',
+      fontSize : 24,
       justifyContent:'center'
 
     },

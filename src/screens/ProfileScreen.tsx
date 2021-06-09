@@ -25,6 +25,8 @@ function ProfileScreen({}: Props) {
     dispatch,
   ]);
  
+  const checkAppVersion = false;
+  const checkMessage = false;
   return (
     <View style={styles.headView}>
         <Text style = {styles.headText}>个人中心</Text>
@@ -111,7 +113,7 @@ function ProfileScreen({}: Props) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#efefef',
+    backgroundColor: '#F2F5F8',
   },
   listGroup: {
     marginVertical: 6,
@@ -134,7 +136,7 @@ const styles = StyleSheet.create({
     fontSize:18,
     fontWeight:'bold',
     height:44,
-    marginTop:8,
+    marginTop:20,
     paddingBottom:8,
   },
   listView:{

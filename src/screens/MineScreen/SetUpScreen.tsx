@@ -19,7 +19,7 @@ function SetUpScreen({}: Props) {
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: '#efefef',
+      backgroundColor:'#F2F5F8',
     },
   });
 

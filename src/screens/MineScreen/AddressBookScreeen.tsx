@@ -19,8 +19,9 @@ function AddressBookScreen({}: Props) {
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: '#efefef',
+      backgroundColor:'#F2F5F8',
     },
+    
   });
 
 export default AddressBookScreen;
