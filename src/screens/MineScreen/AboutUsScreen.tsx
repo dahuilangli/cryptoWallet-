@@ -15,7 +15,7 @@ function AboutUsScreen({}: Props) {
         
         <SafeAreaView style={styles.container}>
           <View style = {styles.headView}>
-            <Image source = {require('../../../assets/icon-125-aboutuslogo.png')} style = {styles.iconImage}/>
+            <Image source = {require('assets/icon-125-aboutuslogo.png')} style = {styles.iconImage}/>
             <Text style = {styles.nameLabel}>项目名称</Text>
           </View>
           {/* <FlatList >
