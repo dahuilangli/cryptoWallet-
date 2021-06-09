@@ -1,6 +1,16 @@
 import React from 'react';
-import { StyleSheet, View, ScrollView } from 'react-native';
-import { ListItem, Avatar } from 'react-native-elements';
+import {
+  StyleSheet,
+  SafeAreaView,
+  TouchableOpacity,
+  View,
+  Text,
+  Image,
+} from 'react-native';
+import { Avatar } from 'react-native-elements';
+// import TouchableScale from 'react-native-touchable-scale'; // https://github.com/kohver/react-native-touchable-scale
+// import LinearGradient from 'react-native-linear-gradient'; // Only if no expo
+
 import { navigate } from 'utils/navigationService';
 
 interface Props {}
@@ -18,42 +28,74 @@ const list = [
 ];
 const SelectWalletScreen = ({}: Props) => {
   return (
-    <ScrollView
-      keyboardShouldPersistTaps="handled"
-      contentContainerStyle={styles.container}
-    >
-      <View>
-        {list.map((l, i) => (
-          <ListItem
+    <SafeAreaView style={styles.container}>
+      <View style={styles.main}>
+        <Text style={styles.presentText}>选择需要创建的钱包类型</Text>
+        {list.map((item, i) => (
+          <TouchableOpacity
+            style={styles.list}
             key={i}
-            bottomDivider
             onPress={() => {
-              navigate('CreateWalletScreen', { title: list[i]?.name });
+              navigate('SetWalletNameScreen');
             }}
           >
-            <Avatar
-              rounded
-              source={{ uri: l.avatar_url }}
-              containerStyle={styles.avatar}
-            />
-            <ListItem.Content>
-              <ListItem.Title>{l.name}</ListItem.Title>
-              {/* <ListItem.Subtitle>{l.subtitle}</ListItem.Subtitle> */}
-            </ListItem.Content>
-          </ListItem>
+            <View style={styles.listItem}>
+              <Avatar
+                rounded
+                source={{ uri: item.avatar_url }}
+                containerStyle={styles.avatar}
+              />
+              <Text style={styles.text}>{item.name}</Text>
+              <Image
+                style={styles.icon}
+                source={require('assets/arrow-right.png')}
+              />
+            </View>
+          </TouchableOpacity>
         ))}
       </View>
-    </ScrollView>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#F2F5F8',
+  },
+  main: {
+    marginHorizontal: 25,
+  },
+  presentText: {
+    fontSize: 14,
+    color: '#9CA4B3',
+    textAlign: 'center',
+    paddingTop: 30,
+    paddingBottom: 15,
+  },
+  list: {},
+  listItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderRadius: 10,
+    backgroundColor: '#FFFFFF',
+    marginTop: 15,
+    padding: 15,
   },
   avatar: {
-    width: 40,
-    height: 40,
+    width: 30,
+    height: 30,
+  },
+  text: {
+    flex: 1,
+    marginLeft: 10,
+    fontSize: 16,
+    color: '#394867',
+    fontWeight: '500',
+  },
+  icon: {
+    width: 8,
+    height: 20,
   },
 });
 

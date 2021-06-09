@@ -1585,7 +1585,7 @@
   resolved "https://registry.npm.taobao.org/@types/qs/download/@types/qs-6.9.5.tgz?cache=0&sync_timestamp=1600296093335&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fqs%2Fdownload%2F%40types%2Fqs-6.9.5.tgz#434711bdd49eb5ee69d90c1d67c354a9a8ecb18b"
   integrity sha1-Q0cRvdSete5p2QwdZ8NUqajssYs=
 
-"@types/react-native-vector-icons@^6.4.5", "@types/react-native-vector-icons@^6.4.6":
+"@types/react-native-vector-icons@^6.4.6":
   version "6.4.6"
   resolved "https://registry.npm.taobao.org/@types/react-native-vector-icons/download/@types/react-native-vector-icons-6.4.6.tgz#848e3b14572def56212cafbf5cb1254b445bfb41"
   integrity sha1-hI47FFct71YhLK+/XLElS0Rb+0E=
@@ -2810,7 +2810,7 @@ color-support@^1.1.3:
   resolved "https://registry.npm.taobao.org/color-support/download/color-support-1.1.3.tgz#93834379a1cc9a0c61f82f52f0d04322251bd5a2"
   integrity sha1-k4NDeaHMmgxh+C9S8NBDIiUb1aI=
 
-color@^3.1.0, color@^3.1.2:
+color@^3.1.2:
   version "3.1.2"
   resolved "https://registry.npm.taobao.org/color/download/color-3.1.2.tgz#68148e7f85d41ad7649c5fa8c8106f098d229e10"
   integrity sha1-aBSOf4XUGtdknF+oyBBvCY0inhA=
@@ -4583,7 +4583,7 @@ hmac-drbg@^1.0.1:
     minimalistic-assert "^1.0.0"
     minimalistic-crypto-utils "^1.0.1"
 
-hoist-non-react-statics@^3.1.0, hoist-non-react-statics@^3.3.0:
+hoist-non-react-statics@^3.3.0, hoist-non-react-statics@^3.3.2:
   version "3.3.2"
   resolved "https://registry.npm.taobao.org/hoist-non-react-statics/download/hoist-non-react-statics-3.3.2.tgz#ece0acaf71d62c2969c2ec59feff42a4b1a85b45"
   integrity sha1-7OCsr3HWLClpwuxZ/v9CpLGoW0U=
@@ -7032,9 +7032,9 @@ open@^6.2.0:
   dependencies:
     is-wsl "^1.1.0"
 
-opencollective-postinstall@^2.0.0:
+opencollective-postinstall@^2.0.3:
   version "2.0.3"
-  resolved "https://registry.npm.taobao.org/opencollective-postinstall/download/opencollective-postinstall-2.0.3.tgz#7a0fff978f6dbfa4d006238fbac98ed4198c3259"
+  resolved "https://registry.nlark.com/opencollective-postinstall/download/opencollective-postinstall-2.0.3.tgz#7a0fff978f6dbfa4d006238fbac98ed4198c3259"
   integrity sha1-eg//l49tv6TQBiOPusmO1BmMMlk=
 
 optionator@^0.8.1:
@@ -7431,7 +7431,7 @@ prompts@^2.0.1:
     kleur "^3.0.3"
     sisteransi "^1.0.4"
 
-prop-types@^15.6.2, prop-types@^15.7.2:
+prop-types@^15.6.0, prop-types@^15.6.2, prop-types@^15.7.2:
   version "15.7.2"
   resolved "https://registry.npm.taobao.org/prop-types/download/prop-types-15.7.2.tgz#52c41e75b8c87e72b9d9360e0206b99dcbffa6c5"
   integrity sha1-UsQedbjIfnK52TYOAga5ncv/psU=
@@ -7600,20 +7600,19 @@ react-native-easy-view-transformer@^1.2.0:
     react-native-easy-guesture-responder "^1.1.2"
     react-native-scrolling "^1.0.2"
 
-react-native-elements@^2.3.2:
-  version "2.3.2"
-  resolved "https://registry.npm.taobao.org/react-native-elements/download/react-native-elements-2.3.2.tgz#f6b974127a3484bb46ebd98fbc012fb2208decd7"
-  integrity sha1-9rl0Eno0hLtG69mPvAEvsiCN7Nc=
+react-native-elements@^3.4.1:
+  version "3.4.1"
+  resolved "https://registry.nlark.com/react-native-elements/download/react-native-elements-3.4.1.tgz#74ea15a9369b05abf4f7421f0ce236ca01fedfe1"
+  integrity sha1-dOoVqTabBav090IfDOI2ygH+3+E=
   dependencies:
-    "@types/react-native-vector-icons" "^6.4.5"
-    color "^3.1.0"
+    "@types/react-native-vector-icons" "^6.4.6"
+    color "^3.1.2"
     deepmerge "^4.2.2"
-    hoist-non-react-statics "^3.1.0"
+    hoist-non-react-statics "^3.3.2"
     lodash.isequal "^4.5.0"
-    opencollective-postinstall "^2.0.0"
-    prop-types "^15.7.2"
-    react-native-ratings "^7.2.0"
-    react-native-status-bar-height "^2.5.0"
+    opencollective-postinstall "^2.0.3"
+    react-native-ratings "^7.3.0"
+    react-native-size-matters "^0.3.1"
 
 react-native-gallery-swiper@1.26.4:
   version "1.26.4"
@@ -7653,6 +7652,11 @@ react-native-iphone-x-helper@^1.2.1:
   resolved "https://registry.npm.taobao.org/react-native-iphone-x-helper/download/react-native-iphone-x-helper-1.2.1.tgz#645e2ffbbb49e80844bb4cbbe34a126fda1e6772"
   integrity sha1-ZF4v+7tJ6AhEu0y740oSb9oeZ3I=
 
+react-native-linear-gradient@^2.5.6:
+  version "2.5.6"
+  resolved "https://registry.npm.taobao.org/react-native-linear-gradient/download/react-native-linear-gradient-2.5.6.tgz#96215cbc5ec7a01247a20890888aa75b834d44a0"
+  integrity sha1-liFcvF7HoBJHogiQiIqnW4NNRKA=
+
 react-native-page-list@^1.1.3:
   version "1.1.3"
   resolved "https://registry.npm.taobao.org/react-native-page-list/download/react-native-page-list-1.1.3.tgz#4b90895ca4bb2da07529f36f57e545db99671e03"
@@ -7662,10 +7666,10 @@ react-native-page-list@^1.1.3:
     react-native-easy-guesture-responder "^1.1.2"
     react-native-scrolling "^1.0.2"
 
-react-native-ratings@^7.2.0:
-  version "7.3.0"
-  resolved "https://registry.npm.taobao.org/react-native-ratings/download/react-native-ratings-7.3.0.tgz#32e11e4ed944ba8adbbc995d601df3f131619b6f"
-  integrity sha1-MuEeTtlEuorbvJldYB3z8TFhm28=
+react-native-ratings@^7.3.0:
+  version "7.6.1"
+  resolved "https://registry.nlark.com/react-native-ratings/download/react-native-ratings-7.6.1.tgz#b3d8a99a0c12fd6874f7e3c0e492089543d837c8"
+  integrity sha1-s9ipmgwS/Wh09+PA5JIIlUPYN8g=
   dependencies:
     lodash "^4.17.15"
     prop-types "^15.7.2"
@@ -7676,6 +7680,11 @@ react-native-root-siblings@^4.0.6:
   integrity sha1-bdfu23Jfqs17oZwVndJ5zy5thHY=
   dependencies:
     static-container "^1.5.1"
+
+react-native-root-siblings@^4.1.0:
+  version "4.1.1"
+  resolved "https://registry.nlark.com/react-native-root-siblings/download/react-native-root-siblings-4.1.1.tgz#b7742db7634a87f507eb99a5fd699c4f10c46ab0"
+  integrity sha1-t3Qtt2NKh/UH65ml/WmcTxDEarA=
 
 react-native-safe-area-context@^3.1.8:
   version "3.1.8"
@@ -7694,15 +7703,29 @@ react-native-scrolling@^1.0.2:
   dependencies:
     prop-types "^15.6.2"
 
+react-native-size-matters@^0.3.1:
+  version "0.3.1"
+  resolved "https://registry.npm.taobao.org/react-native-size-matters/download/react-native-size-matters-0.3.1.tgz#24d0cfc335a2c730f6d58bd7b43ea5a41be4b49f"
+  integrity sha1-JNDPwzWixzD21YvXtD6lpBvktJ8=
+
+react-native-smart-tip@^2.3.0:
+  version "2.3.0"
+  resolved "https://registry.npm.taobao.org/react-native-smart-tip/download/react-native-smart-tip-2.3.0.tgz#06435b7d563538bd6106ca7d1c4dc5f1d936e2a7"
+  integrity sha1-BkNbfVY1OL1hBsp9HE3F8dk24qc=
+  dependencies:
+    react-native-root-siblings "^4.1.0"
+
 react-native-splash-screen@^3.2.0:
   version "3.2.0"
   resolved "https://registry.npm.taobao.org/react-native-splash-screen/download/react-native-splash-screen-3.2.0.tgz#d47ec8557b1ba988ee3ea98d01463081b60fff45"
   integrity sha1-1H7IVXsbqYjuPqmNAUYwgbYP/0U=
 
-react-native-status-bar-height@^2.5.0:
-  version "2.5.0"
-  resolved "https://registry.npm.taobao.org/react-native-status-bar-height/download/react-native-status-bar-height-2.5.0.tgz#bc0fb85230603850aab9667ee8111a62954de90c"
-  integrity sha1-vA+4UjBgOFCquWZ+6BEaYpVN6Qw=
+react-native-touchable-scale@^2.1.2:
+  version "2.1.2"
+  resolved "https://registry.nlark.com/react-native-touchable-scale/download/react-native-touchable-scale-2.1.2.tgz#0c34ddd2b9b7ec6a02ea114076cf8b95f6219d3b"
+  integrity sha1-DDTd0rm37GoC6hFAds+LlfYhnTs=
+  dependencies:
+    prop-types "^15.6.0"
 
 react-native-update@^5.9.1:
   version "5.9.1"

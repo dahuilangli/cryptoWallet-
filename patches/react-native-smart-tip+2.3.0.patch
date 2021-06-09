@@ -1,0 +1,20 @@
+diff --git a/node_modules/react-native-smart-tip/toast/ToastView.js b/node_modules/react-native-smart-tip/toast/ToastView.js
+index 348e3a4..b4b72e0 100644
+--- a/node_modules/react-native-smart-tip/toast/ToastView.js
++++ b/node_modules/react-native-smart-tip/toast/ToastView.js
+@@ -158,12 +158,13 @@ const styles = StyleSheet.create({
+         alignItems: 'center',
+         position: 'absolute',
+         left: 0,
+-        right: 0
++        right: 0,
++        opacity: .75,
+     },
+     content: {
+         borderRadius: 4,
+         padding: 10,
+-        alignItems: 'center'
++        alignItems: 'center',
+     },
+     icon: {
+ 

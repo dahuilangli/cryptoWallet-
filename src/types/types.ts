@@ -28,8 +28,8 @@ export interface ReduxState {
 export interface User extends WithTimeStamp {
   id: number;
   avatar?: number;
-  username: string;
-  email: string;
+  name: string;
+  pwd: string;
   token: string;
 }
 
