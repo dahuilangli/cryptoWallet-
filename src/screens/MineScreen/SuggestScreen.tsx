@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, Text, SafeAreaView, FlatList, Button, Alert } from 'react-native';
+import { StyleSheet, View, Text, SafeAreaView, FlatList, Alert } from 'react-native';
 import { navigate } from 'utils/navigationService';
 import { ScreensParamList, Feed } from 'types/types';
 import { RouteProp, useRoute, useIsFocused } from '@react-navigation/native';
 import { TextInput } from 'react-native-gesture-handler';
+import { Button } from  'react-native-elements'
 
 
 type SuggestScreenRouteProp = RouteProp<ScreensParamList, 'SuggestScreen'>;
@@ -30,10 +31,14 @@ function SuggestScreen({}: Props) {
               
             </TextInput>
           </View>
-          <View style ={styles.Tbutton}>
-            <Button title='提交' color="#FFFFFF"  onPress = {() => Alert.alert('123') }/>
+          <View style = {styles.main}>
+            <Button 
+            title='提交' 
+            titleStyle = {styles.Tlabel}
+            buttonStyle = {styles.Tbutton}
+            onPress = {() => Alert.alert('123') }
+            />
           </View>
-          
 
           
         </SafeAreaView>
@@ -44,6 +49,7 @@ const styles = StyleSheet.create({
     container: {
       flex: 1,
       backgroundColor:'#F2F5F8',
+      justifyContent: 'flex-end',
     },
     email:{
       marginTop:20,
@@ -77,17 +83,23 @@ const styles = StyleSheet.create({
       fontSize:14,
       color:'black',
     },
+    main :{
+      flex: 1,
+      marginHorizontal: 20,
+      justifyContent: 'flex-end',
+    },
     Tbutton:{
       marginLeft:20,
       marginRight:20,
-      top:220,
+      marginBottom:54,
       height:55,
       backgroundColor:'#3B6ED5',
       alignItems:'center',
       borderRadius:8,
-      flexDirection: 'column',
-      justifyContent: 'center',
-
+    },
+    Tlabel:{
+      fontSize:16,
+      fontWeight:'600',
     },
   });
 

@@ -28,8 +28,7 @@ function ProfileScreen({}: Props) {
   const checkAppVersion = false;
   const checkMessage = false;
   return (
-    <View style={styles.headView}>
-        <Text style = {styles.headText}>个人中心</Text>
+   
         <SafeAreaView style={styles.container}>
         
         <View style={styles.listGroup}>
@@ -38,8 +37,8 @@ function ProfileScreen({}: Props) {
             containerStyle = {styles.listView}
             bottomDivider
             title="地址本"
-            leftIcon={<Image source = {require('../../assets/icon-24-地址薄.png')}/>}
-            rightIcon={<Image source = {require('../../assets/icon-20-arrow-right.png')}/>}
+            leftIcon={<Image source = {require('assets/icon-24-地址薄.png')} style = {styles.leftIcon}/>}
+            rightIcon={<Image source = {require('assets/icon-20-arrow-right.png')} style = {styles.rightIcon}/>}
             onPress={() =>
               navigate('AddressBookScreen', { title: '地址本', showMyself: true })
             }
@@ -49,8 +48,8 @@ function ProfileScreen({}: Props) {
             containerStyle = {styles.listView}
             bottomDivider
             title="消息通知"
-            leftIcon={<Image source = {require('../../assets/icon-24-消息通知.png')}/>}
-            rightIcon={<Image source = {require('../../assets/icon-20-arrow-right.png')}/>}
+            leftIcon={<Image source = {require('assets/icon-24-消息通知.png')} style = {styles.leftIcon}/>}
+            rightIcon={<Image source = {require('assets/icon-20-arrow-right.png')} style = {styles.rightIcon}/>}
             onPress={() => navigate('MessageScreen')}
           />
         </View>
@@ -61,8 +60,8 @@ function ProfileScreen({}: Props) {
             containerStyle = {styles.listView}
             bottomDivider
             title="使用设置"
-            leftIcon={<Image source = {require('../../assets/icon-24-使用设置.png')}/>}
-            rightIcon={<Image source = {require('../../assets/icon-20-arrow-right.png')}/>}
+            leftIcon={<Image source = {require('assets/icon-24-使用设置.png')} style = {styles.leftIcon}/>}
+            rightIcon={<Image source = {require('assets/icon-20-arrow-right.png')} style = {styles.rightIcon}/>}
             onPress={() =>
               navigate('SetUpScreen')
             }
@@ -72,8 +71,8 @@ function ProfileScreen({}: Props) {
             containerStyle = {styles.listView}
             bottomDivider
             title="帮助反馈"
-            leftIcon={<Image source = {require('../../assets/icon-24-反馈帮助.png')}/>}
-            rightIcon={<Image source = {require('../../assets/icon-20-arrow-right.png')}/>}
+            leftIcon={<Image source = {require('assets/icon-24-反馈帮助.png')} style = {styles.leftIcon}/>}
+            rightIcon={<Image source = {require('assets/icon-20-arrow-right.png')} style = {styles.rightIcon}/>}
             onPress={() => navigate('SuggestScreen')}
           />
           <ListItem
@@ -81,8 +80,8 @@ function ProfileScreen({}: Props) {
             containerStyle = {styles.listView}
             bottomDivider
             title="版本更新"
-            leftIcon={<Image source = {require('../../assets/icon-24-版本更新.png')}/>}
-            rightIcon={<Image source = {require('../../assets/icon-20-arrow-right.png')}/>}
+            leftIcon={<Image source = {require('assets/icon-24-版本更新.png')} style = {styles.leftIcon}/>}
+            rightIcon={<Image source = {require('assets/icon-20-arrow-right.png')} style = {styles.rightIcon}/>}
             onPress={() => navigate('UpdateScreen')}
           />
           <ListItem
@@ -90,8 +89,8 @@ function ProfileScreen({}: Props) {
             containerStyle = {styles.listView}
             bottomDivider
             title="用户协议"
-            leftIcon={<Image source = {require('../../assets/icon-24-协议.png')}/>}
-            rightIcon={<Image source = {require('../../assets/icon-20-arrow-right.png')}/>}
+            leftIcon={<Image source = {require('assets/icon-24-协议.png')} style = {styles.leftIcon}/>}
+            rightIcon={<Image source = {require('assets/icon-20-arrow-right.png')} style = {styles.rightIcon}/>}
             onPress={() => navigate('WebScreen', {title:'用户协议',uri:'https://mystone.io/flashRedemption.html'})}
           />
           <ListItem
@@ -99,13 +98,13 @@ function ProfileScreen({}: Props) {
             containerStyle = {styles.listView}
             bottomDivider
             title="关于我们"
-            leftIcon={<Image source = {require('../../assets/icon-24-关于我们.png')} style = {styles.leftIcon}/>}
-            rightIcon={<Image source = {require('../../assets/icon-20-arrow-right.png')}/>}
+            leftIcon={<Image source = {require('assets/icon-24-关于我们.png')} style = {styles.leftIcon}/>}
+            rightIcon={<Image source = {require('assets/icon-20-arrow-right.png')} style = {styles.rightIcon}/>}
             onPress={() => navigate('AboutUsScreen')}
           />
         </View>
       </SafeAreaView>
-    </View>
+    
     
 
   );
@@ -116,19 +115,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#F2F5F8',
   },
   listGroup: {
-    marginVertical: 6,
     width:screenWidth,
+    marginTop:20,
   },
-  headView:{
-    flexDirection:'column',
-    flex:1, // 水平排布
-    paddingLeft: 10,
-    paddingRight: 10,
-    paddingTop: Platform.OS === 'ios' ? 35 : 0, // 处理iOS状态栏
-    height: Platform.OS === 'ios' ? 88 : 48, // 处理iOS状态栏
-    backgroundColor: '#3B6ED5',
-    alignItems: 'center', // 使元素垂直居中排布, 当flexDirection为column时, 为水平居中
-  },
+
   headText:{
     color:'#FFFFFF',
     alignContent:'center',
@@ -147,10 +137,17 @@ const styles = StyleSheet.create({
     color:'#394867',
     fontSize:14,
     fontWeight:'bold',
+    marginLeft:0,
   },
   leftIcon:{
     width:24,
     height:24,
+    marginLeft:5,
+  },
+  rightIcon:{
+    width:8,
+    height:20,
+    marginRight:15,
   },
   
 });

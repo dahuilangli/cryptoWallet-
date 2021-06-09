@@ -1,7 +1,6 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import TabNavigator from './TabNavigator';
 import WebScreen from 'screens/WebScreen';
-import FeedListScreen from 'screens/FeedListScreen/FeedListScreen';
 import AboutUsScreen from 'screens/MineScreen/AboutUsScreen';
 import SuggestScreen from 'screens/MineScreen/SuggestScreen';
 import UpdateScreen from 'screens/MineScreen/UpdateScreen';
@@ -14,7 +13,6 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 
 export type MainStackParamList = {
   TabNavigator: undefined;
-  ReportListScreen: undefined;
   PostFeedScreen: undefined;
   AboutUsScreen:undefined;
   SuggestScreen:undefined;
@@ -43,7 +41,6 @@ export default function MainStackNavigator() {
         name="TabNavigator"
         component={TabNavigator}
         options={{
-          headerShown: false,
         }}
       />
       <Screen
@@ -65,13 +62,6 @@ export default function MainStackNavigator() {
         component={SetUpScreen}
         options={{
           title: '使用设置',
-        }}
-      />
-      <Screen
-        name="FeedListScreen"
-        component={FeedListScreen}
-        options={{
-          title: '我的动态',
         }}
       />
       <Screen
