@@ -5,6 +5,7 @@ import SetWalletNameScreen from 'screens/CreateWallet/SetWalletNameScreen';
 import SetWalletPwdScreen from 'screens/CreateWallet/SetWalletPwdScreen';
 import SafetyTipsScreen from 'screens/CreateWallet/SafetyTipsScreen';
 import BackupMnemonicScreen from 'screens/CreateWallet/BackupMnemonicScreen';
+import VerifyMnemonicScreen from 'screens/CreateWallet/VerifyMnemonicScreen';
 
 import React from 'react';
 
@@ -15,6 +16,8 @@ export type AuthStackParamList = {
   SetWalletPwdScreen: undefined;
   SafetyTipsScreen: undefined;
   BackupMnemonicScreen: undefined;
+  VerifyMnemonicScreen: { mnemonic: string[] };
+  CreateWalletSuccessScreen: undefined;
 };
 
 const { Navigator, Screen } = createStackNavigator<AuthStackParamList>();
@@ -49,6 +52,16 @@ export default function AuthStackNavigator() {
         name="SafetyTipsScreen"
         component={SafetyTipsScreen}
         options={{ title: '安全提示' }}
+      />
+      <Screen
+        name="BackupMnemonicScreen"
+        component={BackupMnemonicScreen}
+        options={{ title: '备份助记词' }}
+      />
+      <Screen
+        name="VerifyMnemonicScreen"
+        component={VerifyMnemonicScreen}
+        options={{ title: '验证助记词' }}
       />
     </Navigator>
   );

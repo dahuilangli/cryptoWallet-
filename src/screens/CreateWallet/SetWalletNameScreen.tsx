@@ -1,46 +1,12 @@
 import React, { useState } from 'react';
-import {
-  StyleSheet,
-  View,
-  Text,
-  TextInput,
-  Alert,
-  SafeAreaView,
-} from 'react-native';
+import { StyleSheet, View, Text, TextInput, SafeAreaView } from 'react-native';
 import { Button } from 'react-native-elements';
-import { useDispatch } from 'react-redux';
-import { User } from 'types/types';
 import { navigate } from 'utils/navigationService';
-import { post } from 'utils/request';
-import actions from 'reduxState/actions';
 
 interface Props {}
 const SetWalletNameScreen = ({}: Props) => {
-  const dispatch = useDispatch();
-  const [isSigninInProgress, setIsSignupInProgress] = useState(false);
   const [name, setName] = useState('');
-  let user: User;
-  async function signup() {
-    setIsSignupInProgress(true);
-    try {
-      const { data, msg } = await post('/user', {
-        name,
-      });
-      if (data) {
-        user = data;
-      } else if (msg) {
-        Alert.alert(msg);
-      }
-    } finally {
-      setIsSignupInProgress(false);
-    }
-    if (user) {
-      dispatch(actions.setUser(user));
-      setTimeout(() => {
-        Alert.alert('注册成功');
-      }, 200);
-    }
-  }
+
   const next = name.length <= 20 && name;
   return (
     <SafeAreaView style={styles.container}>
@@ -61,7 +27,7 @@ const SetWalletNameScreen = ({}: Props) => {
           onPress={() => {
             navigate('SetWalletPwdScreen');
           }}
-          disabled={isSigninInProgress || !next}
+          disabled={!next}
           title="下一步"
           titleStyle={styles.nextButtonTitle}
         />
@@ -77,7 +43,7 @@ const styles = StyleSheet.create({
   },
   main: {
     flex: 1,
-    marginHorizontal: 20,
+    marginHorizontal: 25,
     justifyContent: 'space-between',
   },
   inputContainer: {
@@ -101,6 +67,7 @@ const styles = StyleSheet.create({
     height: 55,
     borderRadius: 8,
     fontSize: 16,
+    backgroundColor: '#3B6ED5',
   },
   nextButtonTitle: {
     fontWeight: '600',

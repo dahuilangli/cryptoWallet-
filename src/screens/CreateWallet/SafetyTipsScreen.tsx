@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   StyleSheet,
   View,
@@ -8,40 +8,10 @@ import {
   Image,
 } from 'react-native';
 import { Button } from 'react-native-elements';
-import { useDispatch } from 'react-redux';
-import { User } from 'types/types';
 import { navigate } from 'utils/navigationService';
-import { post } from 'utils/request';
-import actions from 'reduxState/actions';
 
 interface Props {}
 const SafetyTipsScreen = ({}: Props) => {
-  const dispatch = useDispatch();
-  const [isSigninInProgress, setIsSignupInProgress] = useState(false);
-  const [pwd, setPwd] = useState('');
-  const [verifyPwd, setVerifyPwd] = useState('');
-  let user: User;
-  async function signup() {
-    setIsSignupInProgress(true);
-    try {
-      const { data, msg } = await post('/user', {
-        pwd,
-      });
-      if (data) {
-        user = data;
-      } else if (msg) {
-        Alert.alert(msg);
-      }
-    } finally {
-      setIsSignupInProgress(false);
-    }
-    if (user) {
-      dispatch(actions.setUser(user));
-      setTimeout(() => {
-        Alert.alert('注册成功');
-      }, 200);
-    }
-  }
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.main}>
@@ -68,7 +38,7 @@ const SafetyTipsScreen = ({}: Props) => {
         <Button
           buttonStyle={styles.noneButton}
           onPress={() => {
-            navigate('BackupMnemonicScreen');
+            Alert.alert('未完待续');
           }}
           title="稍后备份"
           titleStyle={styles.noneButtonTitle}
@@ -84,7 +54,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#F2F5F8',
   },
   main: {
-    marginHorizontal: 20,
+    marginHorizontal: 40,
   },
   presentContainer: {
     alignItems: 'center',
