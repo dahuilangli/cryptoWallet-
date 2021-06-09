@@ -3,7 +3,7 @@
 本代码仅用于本公司去中心化钱包，请勿商用、传播。
 
 ## 项目结构
->
+```
 ├── android
 ├── assets // 静态资源
 ├── index.js // 入口文件
@@ -26,7 +26,7 @@
  │   ├── config.ts
  │   └── request.ts
  └── App.tsx
- ---
+```
 ## 环境配置
 
 请参考 <https://reactnative.cn/docs/getting-started/>
