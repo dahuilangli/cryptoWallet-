@@ -12,7 +12,7 @@ import { Avatar } from 'react-native-elements';
 // import LinearGradient from 'react-native-linear-gradient'; // Only if no expo
 
 import { navigate } from 'utils/navigationService';
-
+import { createAccount } from 'utils/web3';
 interface Props {}
 const list = [
   {
@@ -32,13 +32,7 @@ const SelectWalletScreen = ({}: Props) => {
       <View style={styles.main}>
         <Text style={styles.presentText}>选择需要创建的钱包类型</Text>
         {list.map((item, i) => (
-          <TouchableOpacity
-            style={styles.list}
-            key={i}
-            onPress={() => {
-              navigate('SetWalletNameScreen');
-            }}
-          >
+          <TouchableOpacity style={styles.list} key={i} onPress={createAccount}>
             <View style={styles.listItem}>
               <Avatar
                 rounded

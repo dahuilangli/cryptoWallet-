@@ -47,7 +47,7 @@ const VerifyMnemonicScreen = ({ route }: Props) => {
   async function storageAccount() {
     // setIsSigninInProgress(true);
     try {
-      navigate('CreateWalletSuccessScreen');
+      navigate('SuccessScreen', { title: '创建成功' });
       //   const { data }: any = await post('/login', {
       //     username,
       //     pwd,
