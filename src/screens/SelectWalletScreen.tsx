@@ -12,7 +12,17 @@ import { Avatar } from 'react-native-elements';
 // import LinearGradient from 'react-native-linear-gradient'; // Only if no expo
 
 import { navigate } from 'utils/navigationService';
-import { createAccount } from 'utils/web3';
+// Import the crypto getRandomValues shim (**BEFORE** the shims)
+import 'react-native-get-random-values';
+
+// Pull in the shims (BEFORE importing ethers)
+import '@ethersproject/shims';
+
+// Import the ethers library
+import { ethers } from 'ethers';
+
+// import { getAccount } from 'utils/web3';
+
 interface Props {}
 const list = [
   {
@@ -32,7 +42,19 @@ const SelectWalletScreen = ({}: Props) => {
       <View style={styles.main}>
         <Text style={styles.presentText}>选择需要创建的钱包类型</Text>
         {list.map((item, i) => (
-          <TouchableOpacity style={styles.list} key={i} onPress={createAccount}>
+          <TouchableOpacity
+            style={styles.list}
+            key={i}
+            onPress={() => {
+              //拿到生成的钱包信息
+              let wallet = ethers.Wallet.createRandom();
+              let randomMnemonic = wallet.mnemonic;
+              console.log(randomMnemonic);
+
+              // getAccount();
+              // navigate('SetWalletNameScreen');
+            }}
+          >
             <View style={styles.listItem}>
               <Avatar
                 rounded

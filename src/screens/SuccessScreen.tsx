@@ -9,12 +9,19 @@ import {
   Easing,
 } from 'react-native';
 
-interface Props {}
-const SuccessScreen = ({}: Props) => {
+interface Props {
+  route: {
+    params: {
+      title: string;
+    };
+  };
+}
+const SuccessScreen = ({ route }: Props) => {
+  let { title } = route.params;
   let spinValue = new Animated.Value(0);
   const spin = spinValue.interpolate({
     inputRange: [0, 1], //输入值
-    outputRange: ['0deg', '360deg'], //输出值
+    outputRange: ['360deg', '0deg'], //输出值
   });
   Animated.timing(spinValue, {
     toValue: 1,
@@ -26,11 +33,11 @@ const SuccessScreen = ({}: Props) => {
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="dark-content" />
       <Image style={styles.logo} source={require('assets/success.png')} />
-      <Text style={styles.title}>创建成功</Text>
+      <Text style={styles.title}>{title}</Text>
       <Text style={styles.desc}>正在接入钱包</Text>
       <Animated.Image
         style={[styles.circle, { transform: [{ rotate: spin }] }]}
-        source={require('assets/logo.png')}
+        source={require('assets/loading.png')}
       />
     </SafeAreaView>
   );
@@ -49,17 +56,18 @@ const styles = StyleSheet.create({
     fontSize: 25,
     color: '#394867',
     fontWeight: '500',
-    paddingVertical: 15,
+    marginTop: 15,
   },
   desc: {
+    marginTop: 15,
     fontSize: 14,
     color: '#9CA4B3',
     fontWeight: '400',
   },
   circle: {
     marginTop: 15,
-    width: 100,
-    height: 100,
+    width: 20,
+    height: 20,
   },
 });
 
