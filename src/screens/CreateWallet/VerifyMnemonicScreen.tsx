@@ -11,23 +11,25 @@ import { Button } from 'react-native-elements';
 import { navigate } from 'utils/navigationService';
 
 // import { post } from 'utils/request';
-// import { useDispatch } from 'react-redux';
-// import actions from 'reduxState/actions';
+import { Account } from 'types/types';
 
 interface Props {
   route: {
     params: {
-      mnemonic: string[];
+      accountInfo: any;
     };
   };
 }
-
-const VerifyMnemonicScreen = ({ route }: Props) => {
-  //   const dispatch = useDispatch();
-  //   const [isSigninInProgress, setIsSigninInProgress] = useState(false);
-  const mnemonic = JSON.stringify(route.params.mnemonic);
+const reorganize = function (array: Array<string>): Array<string> {
+  return array.sort(function () {
+    return 0.5 - Math.random();
+  });
+};
+const VerifyMnemonicScreen = (props: Props) => {
+  const { accountInfo } = props.route.params;
+  const mnemonic = JSON.stringify(accountInfo.mnemonics);
   const [mnemonicList, setMnemonicList] = useState<string[]>(
-    JSON.parse(mnemonic),
+    reorganize(JSON.parse(mnemonic)),
   );
   const [newMnemonicList, setNewMnemonicList] = useState<string[]>([]);
   const updateList = (word: string, index: number) => {
@@ -42,25 +44,21 @@ const VerifyMnemonicScreen = ({ route }: Props) => {
     mnemonicList.push(word);
     setMnemonicList([...mnemonicList]);
   };
+
   const verifyMnemonic = JSON.stringify(newMnemonicList) === mnemonic;
+  console.log(JSON.stringify(newMnemonicList));
+  console.log(mnemonic);
 
   async function storageAccount() {
-    // setIsSigninInProgress(true);
+    let account: Account;
     try {
-      navigate('SuccessScreen', { title: '创建成功' });
-      //   const { data }: any = await post('/login', {
-      //     username,
-      //     pwd,
-      //   });
-      //   user = data;
-    } finally {
-      //   setIsSigninInProgress(false);
+      account = accountInfo;
+      navigate('SuccessScreen', { title: '创建成功', accountInfo: account });
+    } catch (err) {
+      console.log('====================================');
+      console.log(err);
+      console.log('====================================');
     }
-    // if (user) {
-    //   dispatch(actions.setUser(user));
-    // } else {
-    //   Alert.alert('登录失败，请检查网络和输入后重试');
-    // }
   }
   return (
     <SafeAreaView style={styles.container}>
@@ -74,6 +72,7 @@ const VerifyMnemonicScreen = ({ route }: Props) => {
               {newMnemonicList &&
                 newMnemonicList.map((info, index) => (
                   <TouchableOpacity
+                    key={index}
                     style={styles.newListItem}
                     onPress={() => updateNewList(info, index)}
                   >
@@ -91,6 +90,7 @@ const VerifyMnemonicScreen = ({ route }: Props) => {
             {mnemonicList &&
               mnemonicList.map((info, index) => (
                 <TouchableOpacity
+                  key={index}
                   style={styles.listItem}
                   onPress={() => updateList(info, index)}
                 >
@@ -105,7 +105,7 @@ const VerifyMnemonicScreen = ({ route }: Props) => {
           buttonStyle={styles.nextButton}
           onPress={storageAccount}
           title="确认"
-          disabled={verifyMnemonic}
+          disabled={!verifyMnemonic}
           titleStyle={styles.nextButtonTitle}
         />
       </View>

@@ -12,18 +12,13 @@ import { Avatar } from 'react-native-elements';
 // import LinearGradient from 'react-native-linear-gradient'; // Only if no expo
 
 import { navigate } from 'utils/navigationService';
-// Import the crypto getRandomValues shim (**BEFORE** the shims)
-import 'react-native-get-random-values';
-
-// Pull in the shims (BEFORE importing ethers)
-import '@ethersproject/shims';
-
-// Import the ethers library
-import { ethers } from 'ethers';
-
-// import { getAccount } from 'utils/web3';
-
-interface Props {}
+interface Props {
+  route: {
+    params: {
+      loginType: string;
+    };
+  };
+}
 const list = [
   {
     name: 'STO',
@@ -36,7 +31,11 @@ const list = [
       'https://tcs-ga.teambition.net/thumbnail/1126517802171e140ae13e1185afb2d0347f/w/200/h/200',
   },
 ];
-const SelectWalletScreen = ({}: Props) => {
+const SelectWalletScreen = (prop: Props) => {
+  const { loginType } = prop.route.params;
+  console.log('====================================');
+  console.log(loginType);
+  console.log('====================================');
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.main}>
@@ -46,13 +45,27 @@ const SelectWalletScreen = ({}: Props) => {
             style={styles.list}
             key={i}
             onPress={() => {
-              //拿到生成的钱包信息
-              let wallet = ethers.Wallet.createRandom();
-              let randomMnemonic = wallet.mnemonic;
-              console.log(randomMnemonic);
-
-              // getAccount();
-              // navigate('SetWalletNameScreen');
+              switch (loginType) {
+                case 'new':
+                  navigate('SetWalletNameScreen', {
+                    type: item.name,
+                  });
+                  break;
+                case 'mnemonic':
+                  navigate('ImportMnemonicScreen', {
+                    type: item.name,
+                    loginType: 'mnemonic',
+                  });
+                  break;
+                case 'privateKey':
+                  navigate('ImportPrivateKeyScreen', {
+                    type: item.name,
+                    loginType: 'mnemonic',
+                  });
+                  break;
+                default:
+                  break;
+              }
             }}
           >
             <View style={styles.listItem}>

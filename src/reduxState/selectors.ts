@@ -13,7 +13,7 @@ export const selectToken = createSelector(
   (dataState) => dataState.token,
 );
 
-export const selectLocation = createSelector(
+export const selectAccountList = createSelector(
   selectDataState,
-  (dataState) => dataState.location,
+  (dataState) => dataState.accountList,
 );

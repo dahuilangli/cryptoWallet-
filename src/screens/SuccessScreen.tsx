@@ -7,17 +7,34 @@ import {
   Image,
   Animated,
   Easing,
+  Alert,
 } from 'react-native';
+import { useDispatch } from 'react-redux';
+import actions from 'reduxState/actions';
+import { Account } from 'types/types';
 
 interface Props {
   route: {
     params: {
       title: string;
+      accountInfo: Account;
     };
   };
 }
 const SuccessScreen = ({ route }: Props) => {
   let { title } = route.params;
+  let { accountInfo } = route.params;
+  console.log('====================================');
+  console.log(accountInfo);
+  console.log('====================================');
+  const dispatch = useDispatch();
+  async function storageAccount() {
+    try {
+      await dispatch(actions.setAccountList(accountInfo));
+    } catch (err) {
+      Alert.alert(`${title}失败，请重新选择钱包后重试`);
+    }
+  }
   let spinValue = new Animated.Value(0);
   const spin = spinValue.interpolate({
     inputRange: [0, 1], //输入值
@@ -28,7 +45,7 @@ const SuccessScreen = ({ route }: Props) => {
     duration: 4000,
     easing: Easing.linear,
     useNativeDriver: true,
-  }).start();
+  }).start(storageAccount);
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="dark-content" />

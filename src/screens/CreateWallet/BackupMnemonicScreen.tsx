@@ -3,17 +3,17 @@ import { StyleSheet, View, SafeAreaView, Text } from 'react-native';
 
 import { Button } from 'react-native-elements';
 import { navigate } from 'utils/navigationService';
-interface Props {}
-
-const BackupMnemonicScreen = ({}: Props) => {
-  const mnemonic =
-    'walnut narrow brush found quarter bid force junior fork venue toast morning';
-  const mnemonicList: string[] = mnemonic.split(' ');
-  const reorganize = function (array: Array<string>): Array<string> {
-    return array.sort(function () {
-      return 0.5 - Math.random();
-    });
+interface Props {
+  route: {
+    params: {
+      accountInfo: any;
+    };
   };
+}
+
+const BackupMnemonicScreen = (props: Props) => {
+  const { accountInfo } = props.route.params;
+  const mnemonicList: string[] = accountInfo.mnemonic.split(' ');
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.main}>
@@ -24,7 +24,7 @@ const BackupMnemonicScreen = ({}: Props) => {
           <View style={styles.mnemonicList}>
             {mnemonicList &&
               mnemonicList.map((info, index) => (
-                <View style={styles.listItem}>
+                <View style={styles.listItem} key={index}>
                   <View style={styles.itemWarp}>
                     <Text style={styles.warpIndex}>
                       {index < 9 ? '0' + (index + 1) : index + 1}
@@ -38,10 +38,8 @@ const BackupMnemonicScreen = ({}: Props) => {
         <Button
           buttonStyle={styles.nextButton}
           onPress={() => {
-            console.log(reorganize(mnemonicList));
-            let mnemonics = reorganize(mnemonicList);
             navigate('VerifyMnemonicScreen', {
-              mnemonic: mnemonics,
+              accountInfo: { ...accountInfo, mnemonics: mnemonicList },
             });
           }}
           title="下一步"

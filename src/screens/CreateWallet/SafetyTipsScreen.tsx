@@ -10,8 +10,15 @@ import {
 import { Button } from 'react-native-elements';
 import { navigate } from 'utils/navigationService';
 
-interface Props {}
-const SafetyTipsScreen = ({}: Props) => {
+interface Props {
+  route: {
+    params: {
+      accountInfo: object;
+    };
+  };
+}
+const SafetyTipsScreen = (props: Props) => {
+  const { accountInfo } = props.route.params;
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.main}>
@@ -30,7 +37,7 @@ const SafetyTipsScreen = ({}: Props) => {
         <Button
           buttonStyle={styles.nextButton}
           onPress={() => {
-            navigate('BackupMnemonicScreen');
+            navigate('BackupMnemonicScreen', { accountInfo });
           }}
           title="前往备份"
           titleStyle={styles.nextButtonTitle}

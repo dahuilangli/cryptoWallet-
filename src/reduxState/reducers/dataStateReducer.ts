@@ -1,13 +1,14 @@
 import produce from 'immer';
-import { Action, User, Location } from 'types/types';
+import { Action, User, Account } from 'types/types';
 
 export interface DataState {
   user?: User;
-  location?: Location;
+  accountList: Array<Account>;
   token: string;
 }
 export const initialState: Readonly<DataState> = {
   token: '',
+  accountList: [],
 };
 
 export default (originalState = initialState, action: Action) =>
@@ -17,12 +18,12 @@ export default (originalState = initialState, action: Action) =>
         state.user = action.payload;
         state.token = state.user.token;
         return;
-      case 'setLocation':
-        state.location = action.payload;
-        return;
       case 'logout':
         state.user = undefined;
         state.token = '';
+        return;
+      case 'setAccountList':
+        state.accountList?.push(action.payload);
         return;
     }
   });

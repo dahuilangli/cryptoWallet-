@@ -5,7 +5,14 @@ import { Button } from 'react-native-elements';
 import { navigate } from 'utils/navigationService';
 // import { WToast } from 'react-native-smart-tip';
 
-interface Props {}
+interface Props {
+  route: {
+    params: {
+      accountInfo: object;
+      loginType: string;
+    };
+  };
+}
 // const toastOpts = {
 //   data: 'Success',
 //   textColor: '#ffffff',
@@ -22,11 +29,17 @@ interface Props {}
 //     />
 //   ),
 // };
-const SetWalletPwdScreen = ({}: Props) => {
+const SetWalletPwdScreen = (props: Props) => {
+  const { accountInfo } = props.route.params;
+  const { loginType } = props.route.params;
+  console.log('====================================');
+  console.log(accountInfo);
+  console.log(loginType);
+  console.log('====================================');
   const [pwd, setPwd] = useState('');
-  const [verifyPwd, setVerifyPwd] = useState('');
+  const [securityCode, setSecurityCode] = useState('');
   const checkPwd =
-    pwd.length >= 6 && verifyPwd.length >= 6 && verifyPwd === pwd;
+    pwd.length >= 6 && securityCode.length >= 6 && securityCode === pwd;
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.main}>
@@ -43,16 +56,25 @@ const SetWalletPwdScreen = ({}: Props) => {
           <TextInput
             placeholder="确认安全密码"
             maxLength={12}
-            value={verifyPwd}
-            style={styles.inputVerifyPwd}
-            onChangeText={setVerifyPwd}
+            value={securityCode}
+            style={styles.inputsecurityCode}
+            onChangeText={setSecurityCode}
             secureTextEntry
           />
         </View>
         <Button
           buttonStyle={styles.nextButton}
           onPress={() => {
-            navigate('SafetyTipsScreen');
+            if (loginType) {
+              navigate('SuccessScreen', {
+                title: '导入成功',
+                accountInfo: accountInfo,
+              });
+            } else {
+              navigate('SafetyTipsScreen', {
+                accountInfo: { ...accountInfo, securityCode },
+              });
+            }
           }}
           disabled={!checkPwd}
           title="下一步"
@@ -88,7 +110,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 17.5,
     textAlign: 'center',
   },
-  inputVerifyPwd: {
+  inputsecurityCode: {
     height: 55,
     backgroundColor: '#FFFFFF',
     borderRadius: 8,

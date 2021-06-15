@@ -6,20 +6,23 @@ import SetWalletPwdScreen from 'screens/CreateWallet/SetWalletPwdScreen';
 import SafetyTipsScreen from 'screens/CreateWallet/SafetyTipsScreen';
 import BackupMnemonicScreen from 'screens/CreateWallet/BackupMnemonicScreen';
 import VerifyMnemonicScreen from 'screens/CreateWallet/VerifyMnemonicScreen';
+import ImportPrivateKeyScreen from 'screens/CreateWallet/ImportPrivateKeyScreen';
+import ImportMnemonicScreen from 'screens/CreateWallet/ImportMnemonicScreen';
 import SuccessScreen from 'screens/SuccessScreen';
 
 import React from 'react';
 
 export type AuthStackParamList = {
   LoginScreen: undefined;
-  SuccessScreen: { title: string };
-  SelectWalletScreen: undefined;
-  SetWalletNameScreen: undefined;
-  SetWalletPwdScreen: undefined;
-  SafetyTipsScreen: undefined;
-  BackupMnemonicScreen: undefined;
-  VerifyMnemonicScreen: { mnemonic: string[] };
-  CreateWalletSuccessScreen: undefined;
+  SuccessScreen: { title: string; accountInfo: object };
+  SelectWalletScreen: { loginType: string };
+  SetWalletNameScreen: { type: string; loginType?: string; desc?: string };
+  SetWalletPwdScreen: { accountInfo: object; loginType?: string };
+  SafetyTipsScreen: { accountInfo: object };
+  BackupMnemonicScreen: { accountInfo: object };
+  VerifyMnemonicScreen: { accountInfo: object };
+  ImportPrivateKeyScreen: { type: string; loginType: string };
+  ImportMnemonicScreen: { type: string; loginType: string };
 };
 
 const { Navigator, Screen } = createStackNavigator<AuthStackParamList>();
@@ -64,6 +67,16 @@ export default function AuthStackNavigator() {
         name="VerifyMnemonicScreen"
         component={VerifyMnemonicScreen}
         options={{ title: '验证助记词' }}
+      />
+      <Screen
+        name="ImportPrivateKeyScreen"
+        component={ImportPrivateKeyScreen}
+        options={{ title: '私钥导入' }}
+      />
+      <Screen
+        name="ImportMnemonicScreen"
+        component={ImportMnemonicScreen}
+        options={{ title: '助记词导入' }}
       />
       <Screen
         name="SuccessScreen"

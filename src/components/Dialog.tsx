@@ -23,7 +23,7 @@ export function showDialogFactory<P>(
     if (modal) {
       return;
     }
-    return new Promise(resolve => {
+    return new Promise((resolve) => {
       const element = (
         <Dialog
           {...props}
