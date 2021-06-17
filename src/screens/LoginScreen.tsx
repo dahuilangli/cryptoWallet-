@@ -57,7 +57,7 @@ const LoginScreen = ({}: Props) => {
         />
       </View>
       <Modal
-        animationType="none"
+        animationType="fade"
         transparent={true}
         visible={modalVisible}
         onRequestClose={() => {
@@ -163,7 +163,7 @@ const styles = StyleSheet.create({
   },
   centeredView: {
     flex: 1,
-    backgroundColor: 'rgba(38,60,114,0.6)',
+    backgroundColor: 'rgba(0,0,0,0.5)',
     justifyContent: 'flex-end',
     alignItems: 'center',
   },

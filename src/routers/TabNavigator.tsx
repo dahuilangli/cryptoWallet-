@@ -1,16 +1,16 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-// import ProfileScreen from 'screens/ProfileScreen';
+import  ProfileScreen from 'screens/MineScreen/ProfileScreen';
 import HomeScreen from 'screens/HomeScreen/HomeScreen';
-// import DappScreen from 'screens/DappScreen/DappScreen';
+import FlashExchangeScreen from 'screens/FlashExchangeScreen/FlashExchangeScreen';
+import DappScreen from 'screens/DappScreen/DappScreen';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 export type TabParamList = {
   HomeScreen: undefined;
-  MapScreen: undefined;
-  DiscoverScreen: undefined;
   ProfileScreen: undefined;
-  DappScreen: undefined;
+  DappScreen:undefined;
+  FlashExchangeScreen:undefined;
 };
 
 const { Navigator, Screen } = createBottomTabNavigator<TabParamList>();
@@ -24,14 +24,12 @@ function TabNavigator() {
           let iconName = '';
           if (routeName === 'HomeScreen') {
             iconName = 'home';
-          } else if (routeName === 'MapScreen') {
-            iconName = 'map-marker';
-          } else if (routeName === 'ProfileScreen') {
+          }else if (routeName === 'FlashExchangeScreen') {
+            iconName = 'flash';
+          }else if (routeName === 'ProfileScreen') {
             iconName = 'user';
-          } else if (routeName === 'DiscoverScreen') {
-            iconName = 'compass';
           } else if (routeName === 'DappScreen') {
-            iconName = 'th-large';
+            iconName = 'thrid';
           }
           return <Icon name={iconName} size={size} color={color!} />;
         },
@@ -40,28 +38,31 @@ function TabNavigator() {
       <Screen
         name="HomeScreen"
         component={HomeScreen}
-        options={{ tabBarLabel: '首页' }}
-      />
-      {/* <Screen
-        name="MapScreen"
-        component={MapScreen}
-        options={{ tabBarLabel: '附近' }}
+        options={{ 
+          tabBarLabel: '钱包',
+        }}
       />
       <Screen
-        name="DiscoverScreen"
-        component={DiscoverScreen}
-        options={{ tabBarLabel: '发现' }}
+        name="FlashExchangeScreen"
+        component={FlashExchangeScreen}
+        options={{ 
+          tabBarLabel: '闪兑',
+        }}
       />
       <Screen
         name="DappScreen"
         component={DappScreen}
-        options={{ tabBarLabel: 'Dapp' }}
+        options={{ 
+          tabBarLabel: 'Dapp',
+        }}
       />
       <Screen
         name="ProfileScreen"
         component={ProfileScreen}
-        options={{ tabBarLabel: '我的' }}
-      /> */}
+        options={{ 
+          tabBarLabel: '我的'
+        }}
+      />
     </Navigator>
   );
 }

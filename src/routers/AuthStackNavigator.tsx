@@ -10,6 +10,7 @@ import ImportPrivateKeyScreen from 'screens/CreateWallet/ImportPrivateKeyScreen'
 import ImportMnemonicScreen from 'screens/CreateWallet/ImportMnemonicScreen';
 import SuccessScreen from 'screens/SuccessScreen';
 
+import { Image } from 'react-native';
 import React from 'react';
 
 export type AuthStackParamList = {
@@ -29,7 +30,17 @@ const { Navigator, Screen } = createStackNavigator<AuthStackParamList>();
 
 export default function AuthStackNavigator() {
   return (
-    <Navigator screenOptions={{ headerBackTitle: '返回' }}>
+    <Navigator
+      screenOptions={{
+        headerStyle: { backgroundColor: '#3D73DD' },
+        headerBackTitleVisible: false,
+        headerTitleStyle: { fontSize: 18, fontWeight: 'bold', color: 'white' },
+        headerBackImage: () => (
+          <Image source={require('../../assets/icon-24-返回-light.png')} />
+        ),
+        headerLeftContainerStyle: { marginLeft: 20 },
+      }}
+    >
       <Screen
         name="LoginScreen"
         component={LoginScreen}
@@ -43,9 +54,6 @@ export default function AuthStackNavigator() {
       <Screen
         name="SetWalletNameScreen"
         component={SetWalletNameScreen}
-        // options={({ route }) => ({
-        //   title: `创建${route.params.title}钱包`,
-        // })}
         options={{ title: '设置钱包名' }}
       />
       <Screen
