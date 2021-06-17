@@ -5,23 +5,39 @@ import SetWalletNameScreen from 'screens/CreateWallet/SetWalletNameScreen';
 import SetWalletPwdScreen from 'screens/CreateWallet/SetWalletPwdScreen';
 import SafetyTipsScreen from 'screens/CreateWallet/SafetyTipsScreen';
 import BackupMnemonicScreen from 'screens/CreateWallet/BackupMnemonicScreen';
-
+import VerifyMnemonicScreen from 'screens/CreateWallet/VerifyMnemonicScreen';
+import ImportPrivateKeyScreen from 'screens/CreateWallet/ImportPrivateKeyScreen';
+import ImportMnemonicScreen from 'screens/CreateWallet/ImportMnemonicScreen';
+import SuccessScreen from 'screens/SuccessScreen';
+import {Image} from 'react-native'
 import React from 'react';
 
 export type AuthStackParamList = {
   LoginScreen: undefined;
-  SelectWalletScreen: undefined;
-  SetWalletNameScreen: undefined;
-  SetWalletPwdScreen: undefined;
-  SafetyTipsScreen: undefined;
-  BackupMnemonicScreen: undefined;
+  SuccessScreen: { title: string; accountInfo: object };
+  SelectWalletScreen: { loginType: string };
+  SetWalletNameScreen: { type: string; loginType?: string; desc?: string };
+  SetWalletPwdScreen: { accountInfo: object; loginType?: string };
+  SafetyTipsScreen: { accountInfo: object };
+  BackupMnemonicScreen: { accountInfo: object };
+  VerifyMnemonicScreen: { accountInfo: object };
+  ImportPrivateKeyScreen: { type: string; loginType: string };
+  ImportMnemonicScreen: { type: string; loginType: string };
 };
 
 const { Navigator, Screen } = createStackNavigator<AuthStackParamList>();
 
 export default function AuthStackNavigator() {
   return (
-    <Navigator screenOptions={{ headerBackTitle: '返回' }}>
+    <Navigator
+      screenOptions={{
+        headerStyle:{backgroundColor:'#3D73DD'},
+        headerBackTitleVisible:false,
+        headerTitleStyle:{fontSize:18,fontWeight:'bold',color:'white'},
+        headerBackImage:()=><Image source={require('../../assets/icon-24-返回-light.png')}/>,
+        headerLeftContainerStyle:{marginLeft:20,},
+      }}
+    >
       <Screen
         name="LoginScreen"
         component={LoginScreen}
@@ -35,9 +51,6 @@ export default function AuthStackNavigator() {
       <Screen
         name="SetWalletNameScreen"
         component={SetWalletNameScreen}
-        // options={({ route }) => ({
-        //   title: `创建${route.params.title}钱包`,
-        // })}
         options={{ title: '设置钱包名' }}
       />
       <Screen
@@ -49,6 +62,31 @@ export default function AuthStackNavigator() {
         name="SafetyTipsScreen"
         component={SafetyTipsScreen}
         options={{ title: '安全提示' }}
+      />
+      <Screen
+        name="BackupMnemonicScreen"
+        component={BackupMnemonicScreen}
+        options={{ title: '备份助记词' }}
+      />
+      <Screen
+        name="VerifyMnemonicScreen"
+        component={VerifyMnemonicScreen}
+        options={{ title: '验证助记词' }}
+      />
+      <Screen
+        name="ImportPrivateKeyScreen"
+        component={ImportPrivateKeyScreen}
+        options={{ title: '私钥导入' }}
+      />
+      <Screen
+        name="ImportMnemonicScreen"
+        component={ImportMnemonicScreen}
+        options={{ title: '助记词导入' }}
+      />
+      <Screen
+        name="SuccessScreen"
+        component={SuccessScreen}
+        options={{ headerShown: false }}
       />
     </Navigator>
   );

@@ -13,6 +13,19 @@ export type ScreensParamList = MainStackParamList &
   TabParamList &
   AuthStackParamList;
 
+export interface Account {
+  id: string;
+  address: string;
+  mnemonic?: string;
+  privateKey: string;
+  securityCode?: string;
+  walletName?: string;
+}
+
+export interface AccountList {
+  ETH: Array<Account>;
+}
+
 interface WithTimeStamp {
   createdAt: Date;
   updatedAt?: Date;
@@ -26,11 +39,8 @@ export interface ReduxState {
 }
 
 export interface User extends WithTimeStamp {
-  id: number;
-  avatar?: number;
-  name: string;
-  pwd: string;
   token: string;
+  expirationTime: Number;
 }
 
 export interface FeedLike extends WithTimeStamp {

@@ -1,47 +1,54 @@
 import React, { useState } from 'react';
-import {
-  StyleSheet,
-  View,
-  Text,
-  TextInput,
-  Alert,
-  SafeAreaView,
-} from 'react-native';
+import { StyleSheet, View, Text, TextInput, SafeAreaView } from 'react-native';
 import { Button } from 'react-native-elements';
-import { useDispatch } from 'react-redux';
-import { User } from 'types/types';
+import { Account } from 'types/types';
+import {
+  getAccount,
+  recoverAccountToMnemonic,
+  recoverAccountToPrivateKey,
+} from 'utils/ethers';
 import { navigate } from 'utils/navigationService';
-import { post } from 'utils/request';
-import actions from 'reduxState/actions';
 
-interface Props {}
-const SetWalletNameScreen = ({}: Props) => {
-  const dispatch = useDispatch();
-  const [isSigninInProgress, setIsSignupInProgress] = useState(false);
-  const [name, setName] = useState('');
-  let user: User;
-  async function signup() {
-    setIsSignupInProgress(true);
-    try {
-      const { data, msg } = await post('/user', {
-        name,
-      });
-      if (data) {
-        user = data;
-      } else if (msg) {
-        Alert.alert(msg);
-      }
-    } finally {
-      setIsSignupInProgress(false);
-    }
-    if (user) {
-      dispatch(actions.setUser(user));
-      setTimeout(() => {
-        Alert.alert('注册成功');
-      }, 200);
-    }
+interface Props {
+  route: {
+    params: {
+      type: string;
+      loginType: string;
+      desc: string;
+    };
+  };
+}
+const SetWalletNameScreen = (props: Props) => {
+  const { type } = props.route.params;
+  const { loginType } = props.route.params;
+  const { desc } = props.route.params;
+  console.log('====================================');
+  console.log(type);
+  console.log(loginType);
+  console.log(desc);
+  console.log('====================================');
+  const [walletName, setWalletName] = useState('');
+  let accountInfo: Account;
+  switch (loginType) {
+    case 'mnemonic':
+      accountInfo = recoverAccountToMnemonic(desc);
+      console.log('====================================');
+      console.log('mnemonic 解析', accountInfo);
+      console.log('====================================');
+      break;
+    case 'privateKey':
+      accountInfo = recoverAccountToPrivateKey(desc);
+      console.log('====================================');
+      console.log('privateKey 解析', accountInfo);
+      console.log('====================================');
+      break;
+    default:
+      accountInfo = getAccount();
+      console.log('====================================');
+      console.log('创建账号', accountInfo);
+      console.log('====================================');
+      break;
   }
-  const next = name.length <= 20 && name;
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.main}>
@@ -50,18 +57,22 @@ const SetWalletNameScreen = ({}: Props) => {
             钱包名称不能为空,不能大于20个字符
           </Text>
           <TextInput
+            maxLength={20}
             placeholder="钱包名称"
-            value={name}
+            value={walletName}
             style={styles.inputName}
-            onChangeText={setName}
+            onChangeText={setWalletName}
           />
         </View>
         <Button
           buttonStyle={styles.nextButton}
           onPress={() => {
-            navigate('SetWalletPwdScreen');
+            navigate('SetWalletPwdScreen', {
+              accountInfo: { ...accountInfo, walletName, type },
+              loginType,
+            });
           }}
-          disabled={isSigninInProgress || !next}
+          disabled={!walletName}
           title="下一步"
           titleStyle={styles.nextButtonTitle}
         />
@@ -77,7 +88,7 @@ const styles = StyleSheet.create({
   },
   main: {
     flex: 1,
-    marginHorizontal: 20,
+    marginHorizontal: 25,
     justifyContent: 'space-between',
   },
   inputContainer: {
@@ -101,6 +112,7 @@ const styles = StyleSheet.create({
     height: 55,
     borderRadius: 8,
     fontSize: 16,
+    backgroundColor: '#3B6ED5',
   },
   nextButtonTitle: {
     fontWeight: '600',

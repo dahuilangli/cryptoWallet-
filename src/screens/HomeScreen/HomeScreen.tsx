@@ -14,7 +14,7 @@ interface Props {}
 function HomeScreen({}: Props) {
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.header}>
+      {/* <View style={styles.header}>
         <Text style={styles.headerTitle}>动态</Text>
         <TouchableOpacity
           style={styles.postButton}
@@ -22,7 +22,7 @@ function HomeScreen({}: Props) {
         >
           <Icon name="plus" size={24} />
         </TouchableOpacity>
-      </View>
+      </View> */}
       {/* <FeedListScreen /> */}
     </SafeAreaView>
   );
