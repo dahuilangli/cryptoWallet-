@@ -79,7 +79,6 @@ function RootScreen() {
     }
   }
   const accountList = useSelector(selectAccountList);
-
   React.useEffect(() => {
     SplashScreen.hide();
     getToken();

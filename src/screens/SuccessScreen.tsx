@@ -13,6 +13,7 @@ import { useDispatch } from 'react-redux';
 import actions from 'reduxState/actions';
 import { Account } from 'types/types';
 
+import { setGenericPassword } from 'utils/keyChain';
 interface Props {
   route: {
     params: {
@@ -30,6 +31,7 @@ const SuccessScreen = ({ route }: Props) => {
   const dispatch = useDispatch();
   async function storageAccount() {
     try {
+      await setGenericPassword('account', JSON.stringify(accountInfo));
       await dispatch(actions.setAccountList(accountInfo));
     } catch (err) {
       Alert.alert(`${title}失败，请重新选择钱包后重试`);

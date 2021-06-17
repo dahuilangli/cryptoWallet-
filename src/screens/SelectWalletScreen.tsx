@@ -28,7 +28,7 @@ const list = [
   {
     name: 'ETH',
     avatar_url:
-      'https://tcs-ga.teambition.net/thumbnail/1126517802171e140ae13e1185afb2d0347f/w/200/h/200',
+      'https://ninga-dev.oss-cn-shanghai.aliyuncs.com/coin-icon/0xDCD289ECF644bEC54393ba6Ce8dB35e9B5Ff75e7/BSC/logo.png',
   },
 ];
 const SelectWalletScreen = (prop: Props) => {

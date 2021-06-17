@@ -9,9 +9,14 @@ import {
 import Icon from 'react-native-vector-icons/FontAwesome';
 // import FeedListScreen from 'screens/FeedListScreen/FeedListScreen';
 import { navigate } from 'utils/navigationService';
+import { setGenericPassword, getGenericPassword } from 'utils/keyChain';
 interface Props {}
 
 function HomeScreen({}: Props) {
+  // for (let index = 0; index < 10; index++) {
+  //   setGenericPassword(index.toString(), '密码' + index);
+  // }
+  getGenericPassword();
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
