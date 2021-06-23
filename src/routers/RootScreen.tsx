@@ -75,7 +75,7 @@ function RootScreen() {
     if (user) {
       dispatch(actions.setUser(user));
     } else {
-      Alert.alert('获取token失败，请检查网络后重试');
+      Alert.alert(i18n.t("checkNetwork"));
     }
   }
   const accountList = useSelector(selectAccountList);
