@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 import { WebView } from 'react-native-webview';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { ScreensParamList } from 'types/types';
+import { ScreensParamList } from 'actions/types';
 
 type WebScreenNavigationProp = StackNavigationProp<
   ScreensParamList,

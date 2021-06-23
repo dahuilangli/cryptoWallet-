@@ -1,19 +1,29 @@
 export { Dispatch } from 'redux';
-export { Action } from 'reduxState/actions';
-import { DataState } from 'reduxState/reducers/dataStateReducer';
-import { SettingsState } from 'reduxState/reducers/settingsStateReducer';
-import { UIState } from 'reduxState/reducers/uiStateReducer';
+import { DataState } from 'reducers/wallet';
+import { SettingsState } from 'reducers/settingsStateReducer';
+import { UIState } from 'reducers/uiStateReducer';
 export { UIState, DataState, SettingsState };
+import {ActionValue} from 'redux-type-actions';
 
 import { MainStackParamList } from 'routers/MainStackNavigator';
 import { TabParamList } from 'routers/TabNavigator';
 import { AuthStackParamList } from 'routers/AuthStackNavigator';
+import walletAction from './wallet';
 
 export type ScreensParamList = MainStackParamList &
   TabParamList &
   AuthStackParamList;
 
 export interface Account {
+  id: string;
+  address: string;
+  mnemonic?: string;
+  privateKey: string;
+  securityCode?: string;
+  walletName?: string;
+}
+
+export interface Token {
   id: string;
   address: string;
   mnemonic?: string;
@@ -78,6 +88,9 @@ export interface ReportResult {
 }
 
 export type ReportType = 'plant';
+
+export type WalletAction = ActionValue<typeof walletAction>;
+
 export interface Report extends WithTimeStamp {
   id: string;
   image: number;

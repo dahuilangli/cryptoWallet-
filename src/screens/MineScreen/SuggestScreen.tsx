@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Text, SafeAreaView, FlatList, Alert } from 'react-native';
 import { navigate } from 'utils/navigationService';
-import { ScreensParamList, Feed } from 'types/types';
+import { ScreensParamList, Feed } from 'actions/types';
 import { RouteProp, useRoute, useIsFocused } from '@react-navigation/native';
 import { TextInput } from 'react-native-gesture-handler';
 import { Button } from  'react-native-elements'

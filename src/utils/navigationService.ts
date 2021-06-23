@@ -1,7 +1,7 @@
 // Reference: Navigating without the navigation prop https://reactnavigation.org/docs/en/navigating-without-navigation-prop.html
 import { NavigationContainerRef } from '@react-navigation/core';
 import * as React from 'react';
-import { ScreensParamList } from 'types/types';
+import { ScreensParamList } from 'actions/types';
 
 export const navigationRef = React.createRef<NavigationContainerRef>();
 

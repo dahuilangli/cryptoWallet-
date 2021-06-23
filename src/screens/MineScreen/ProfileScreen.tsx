@@ -1,4 +1,5 @@
-import actions from 'reduxState/actions';
+import myAction from 'actions/my';
+import {getUser} from 'selector/wallet';
 import React, { useState } from 'react';
 import { Alert, StyleSheet, View, SafeAreaView, StatusBar, Platform, Text, Image } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
@@ -9,8 +10,7 @@ import ActionSheet from 'react-native-action-sheet';
 import pickImage from 'utils/pickImage';
 import { showLoadingModal, closeLoadingModal } from 'components/Dialog';
 import { post, put } from 'utils/request';
-import { selectUser } from 'reduxState/selectors';
-import { User } from 'types/types';
+import { User } from 'actions/types';
 
 interface Props { }
 
@@ -63,12 +63,12 @@ const list =  {
 
 function ProfileScreen({ }: Props) {
   const dispatch = useDispatch();
-  const user = useSelector(selectUser)!;
+  const user = useSelector(getUser)!;
   const setUser = React.useCallback(
-    (user: User) => dispatch(actions.setUser(user)),
+    (user: User) => dispatch(walletAction.setUser(user)),
     [dispatch],
   );
-  const logout = React.useCallback(() => dispatch(actions.logout()), [
+  const logout = React.useCallback(() => dispatch(myAction.logout()), [
     dispatch,
   ]);
 

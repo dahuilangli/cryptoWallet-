@@ -1,19 +1,19 @@
 import { createSelector } from 'reselect';
-import { ReduxState } from 'types/types';
+import { ReduxState } from 'actions/types';
 
 export const selectDataState = (reduxState: ReduxState) => reduxState.dataState;
 
-export const selectUser = createSelector(
+export const getUser = createSelector(
   selectDataState,
   (dataState) => dataState.user,
 );
 
-export const selectToken = createSelector(
+export const getToken = createSelector(
   selectDataState,
   (dataState) => dataState.token,
 );
 
-export const selectAccountList = createSelector(
+export const getAccountList = createSelector(
   selectDataState,
   (dataState) => dataState.accountList,
 );

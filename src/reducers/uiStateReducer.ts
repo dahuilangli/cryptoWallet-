@@ -1,10 +1,9 @@
 import produce from 'immer';
-import { Action } from 'types/types';
-
+import {WalletAction} from 'actions/types';
 export interface UIState {}
 export const initialState: Readonly<UIState> = {};
 
-export default (originalState = initialState, action: Action) =>
+export default (originalState = initialState, action: WalletAction) =>
   produce(originalState, state => {
     switch (action.type) {
     }

@@ -33,9 +33,7 @@ const list = [
 ];
 const SelectWalletScreen = (prop: Props) => {
   const { loginType } = prop.route.params;
-  console.log('====================================');
   console.log(loginType);
-  console.log('====================================');
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.main}>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, Text, TextInput, SafeAreaView } from 'react-native';
 import { Button } from 'react-native-elements';
-import { Account } from 'types/types';
+import { Account } from 'actions/types';
 import {
   getAccount,
   recoverAccountToMnemonic,
