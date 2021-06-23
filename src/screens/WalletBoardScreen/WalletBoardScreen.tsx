@@ -6,10 +6,7 @@ import {
   Text,
   Platform,
   Image,
-  Alert,
-  Modal,
   TouchableOpacity,
-  SectionList,
   TouchableHighlight,
 } from 'react-native';
 import { Button } from 'react-native-elements';
@@ -111,70 +108,7 @@ const DATA = [
 function WalletBoardScreen({}: Props) {
   let sectionList: any;
   const [selectItem, setSelectItem] = useState(0);
-  const [selectAddress, setSelectAddress] = useState(null);
-
-  const renderSectionItem = ({ item, index }) => {
-    return (
-      <TouchableOpacity
-        style={
-          selectAddress === item.address
-            ? styles.submenuItemS
-            : styles.submenuItem
-        }
-        key={index}
-        onPress={() => setSelectAddress(item.address)}
-      >
-        <View style={styles.itemName}>
-          <Text
-            style={
-              selectAddress === item.address
-                ? styles.itemNameTextS
-                : styles.itemNameText
-            }
-          >
-            {item?.walletName}
-          </Text>
-          {selectAddress === item.address ? (
-            <Image
-              style={styles.itemNameImage}
-              source={require('assets/icon-16-选中钱包.png')}
-            />
-          ) : undefined}
-        </View>
-        <Text
-          style={
-            selectAddress === item.address
-              ? styles.itemAddressS
-              : styles.itemAddress
-          }
-        >
-          {item?.address}
-        </Text>
-        <View style={styles.itemAmountContainer}>
-          <Text
-            style={
-              selectAddress === item.address
-                ? styles.itemAmountS
-                : styles.itemAmount
-            }
-          >
-            可用余额
-          </Text>
-          <Text
-            style={
-              selectAddress === item.address
-                ? styles.itemAmountTextS
-                : styles.itemAmountText
-            }
-          >
-            {item?.amount}
-          </Text>
-        </View>
-      </TouchableOpacity>
-    );
-  };
   function clickOnItem(index: number) {
-    console.log('index = ', index);
     setSelectItem(index);
     if (sectionList) {
       sectionList.scrollToLocation({
@@ -182,67 +116,6 @@ function WalletBoardScreen({}: Props) {
         itemIndex: 0,
         viewPosition: 0,
       });
-    }
-  }
-  function getItemLayout(data: any, index: number) {
-    let sectioinIndex = 0;
-    let offset = -180;
-    interface Item {
-      type: string;
-      index?: number;
-    }
-    let item: Item = { type: 'header' };
-    for (let i = 0; i < index; ++i) {
-      switch (item.type) {
-        case 'header':
-          {
-            let sectionData = data[sectioinIndex].data;
-            offset += 50;
-            sectionData.length === 0
-              ? (item = { type: 'footer' })
-              : (item = { type: 'row', index: 0 });
-          }
-          break;
-        case 'row':
-          {
-            let sectionData = data[sectioinIndex].data;
-            offset += 100;
-            ++item.index;
-            if (item.index === sectionData.length) {
-              item = { type: 'footer' };
-            }
-          }
-          break;
-        case 'footer':
-          item = { type: 'header' };
-          ++sectioinIndex;
-          break;
-        default:
-          console.log('err');
-      }
-    }
-
-    let length = 0;
-    switch (item.type) {
-      case 'header':
-        length = 50;
-        break;
-      case 'row':
-        length = 100;
-        break;
-      case 'footer':
-        length = 0;
-        break;
-    }
-    return { length: length, offset: offset, index };
-  }
-  function itemOnChanged({ viewableItems, changed }) {
-    let firstItem = viewableItems[0];
-    if (firstItem && firstItem.section) {
-      // 这里可以直接取到section的title
-      let name = firstItem.section.title;
-      let idx = DATA.findIndex((x) => x.title === name);
-      setSelectItem(idx);
     }
   }
   return (
@@ -259,18 +132,32 @@ function WalletBoardScreen({}: Props) {
             </TouchableHighlight>
           ))}
         </View>
-        <SectionList
-          ref={(o) => (sectionList = o)}
-          style={styles.submenu}
-          sections={DATA}
-          keyExtractor={(item) => item.address}
-          renderItem={renderSectionItem}
-          renderSectionHeader={({ section: { title } }) => (
-            <Text style={styles.submenuHeader}>{title}</Text>
-          )}
-          getItemLayout={getItemLayout}
-          onViewableItemsChanged={itemOnChanged}
-        />
+        <View style={styles.submenu}>
+          <Text style={styles.submenuHeader}>{DATA[selectItem]?.title}</Text>
+          <ScrollView scrollIndicatorInsets={{ right: -6 }}>
+            {DATA[selectItem]?.data.map((item, index) => (
+              <TouchableOpacity
+                style={styles.submenuItem}
+                key={index}
+                onPress={() => {}}
+              >
+                <Text style={styles.itemNameText}>{item?.walletName}</Text>
+                <View style={styles.itemName}>
+                  <Text style={styles.itemAddress}>{item?.address}</Text>
+
+                  <Image
+                    style={styles.itemNameImage}
+                    source={require('assets/icon-20-arrow-right.png')}
+                  />
+                </View>
+                <View style={styles.itemAmountContainer}>
+                  <Text style={styles.itemAmount}>可用余额</Text>
+                  <Text style={styles.itemAmountText}>{item?.amount}</Text>
+                </View>
+              </TouchableOpacity>
+            ))}
+          </ScrollView>
+        </View>
       </View>
       <View style={styles.buttonContainer}>
         <Button
@@ -313,6 +200,7 @@ const styles = StyleSheet.create({
   submenu: {
     paddingHorizontal: 15,
     marginBottom: 20,
+    flex: 1,
   },
   submenuHeader: {
     paddingVertical: 15,
@@ -320,12 +208,6 @@ const styles = StyleSheet.create({
     color: '#394867',
     backgroundColor: '#FFFFFF',
     fontWeight: '500',
-  },
-  submenuItemS: {
-    backgroundColor: '#3D73DD',
-    padding: 15,
-    borderRadius: 8,
-    marginBottom: 15,
   },
   submenuItem: {
     backgroundColor: '#F2F5F8',
@@ -339,8 +221,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   itemNameImage: {
-    width: 16,
-    height: 16,
+    width: 8.2,
+    height: 20,
   },
   itemAmountContainer: {
     flexDirection: 'row',
@@ -367,29 +249,7 @@ const styles = StyleSheet.create({
     fontWeight: '400',
     color: '#3D73DD',
   },
-  itemNameTextS: {
-    fontSize: 12,
-    fontWeight: '500',
-    color: '#FFFFFF',
-  },
-  itemAddressS: {
-    opacity: 0.5,
-    fontSize: 12,
-    fontWeight: '400',
-    color: '#FFFFFF',
-  },
-  itemAmountS: {
-    opacity: 0.5,
-    fontSize: 12,
-    fontWeight: '400',
-    color: '#FFFFFF',
-  },
-  itemAmountTextS: {
-    paddingStart: 5,
-    fontSize: 12,
-    fontWeight: '400',
-    color: '#FFFFFF',
-  },
+
   buttonContainer: {
     paddingTop: 15,
     paddingBottom: Platform.OS === 'ios' ? 30 : 15,

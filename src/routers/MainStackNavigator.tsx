@@ -16,6 +16,8 @@ import SetUpScreen from 'screens/MineScreen/SetUpScreen';
 import SearchScreen from 'screens/HomeScreen/SearchScreen';
 import CoinDetailScreen from 'screens/CoinDetailScreen/CoinDetailScreen';
 import WalletBoardScreen from 'screens/WalletBoardScreen/WalletBoardScreen';
+
+import TransferScreen from 'screens/TransferScreen/TransferScreen';
 // import FeedListScreen from 'screens/FeedListScreen/FeedListScreen';
 
 export type MainStackParamList = {
@@ -34,6 +36,7 @@ export type MainStackParamList = {
   SearchScreen: { coin: Array<string> };
   CoinDetailScreen: { title: string };
   WalletBoardScreen: undefined;
+  TransferScreen: undefined;
 };
 
 const { Navigator, Screen } = createStackNavigator<MainStackParamList>();
@@ -78,6 +81,14 @@ export default function MainStackNavigator() {
         component={WalletBoardScreen}
         options={{
           title: '钱包管理',
+        }}
+      />
+
+      <Screen
+        name="TransferScreen"
+        component={TransferScreen}
+        options={{
+          title: '转账',
         }}
       />
 

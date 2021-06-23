@@ -15,7 +15,11 @@ export default function App() {
   return (
     <WRootToastApp>
       <Provider store={ReduxStore}>
-        <StatusBar translucent={true} backgroundColor="transparent" barStyle={'light-content'}/>
+        <StatusBar
+          translucent={true}
+          backgroundColor="transparent"
+          barStyle={'light-content'}
+        />
         <PersistGate loading={null} persistor={persistor}>
           <RootSiblingParent>
             <RootScreen />

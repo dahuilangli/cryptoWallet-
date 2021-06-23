@@ -9,7 +9,6 @@ import {
   Alert,
   Modal,
   TouchableOpacity,
-  SectionList,
 } from 'react-native';
 import { Avatar, Button } from 'react-native-elements';
 import { navigate } from 'utils/navigationService';
@@ -54,6 +53,21 @@ const DATA = [
       {
         walletName: '钱包4',
         address: '0x32be34….8c102d84',
+        amount: 0,
+      },
+      {
+        walletName: '钱包5',
+        address: '0x32be35….8c102d84',
+        amount: 0,
+      },
+      {
+        walletName: '钱包6',
+        address: '0x32be36….8c102d84',
+        amount: 0,
+      },
+      {
+        walletName: '钱包7',
+        address: '0x32be37….8c102d84',
         amount: 0,
       },
     ],
@@ -110,146 +124,15 @@ const DATA = [
   },
 ];
 function HomeScreen({}: Props) {
-  let sectionList: any;
   const [modalVisible, setModalVisible] = useState(false);
   const [selectItem, setSelectItem] = useState(0);
-  const [selectAddress, setSelectAddress] = useState(null);
+  const [selectAddress, setSelectAddress] = useState('');
   // for (let index = 0; index < 10; index++) {
   //   setGenericPassword(index.toString(), '密码' + index);
   // }
   // getGenericPassword();
-
-  const renderSectionItem = ({ item, index }) => {
-    return (
-      <TouchableOpacity
-        style={
-          selectAddress === item.address
-            ? styles.submenuItemS
-            : styles.submenuItem
-        }
-        key={index}
-        onPress={() => setSelectAddress(item.address)}
-      >
-        <View style={styles.itemName}>
-          <Text
-            style={
-              selectAddress === item.address
-                ? styles.itemNameTextS
-                : styles.itemNameText
-            }
-          >
-            {item?.walletName}
-          </Text>
-          {selectAddress === item.address ? (
-            <Image
-              style={styles.itemNameImage}
-              source={require('assets/icon-16-选中钱包.png')}
-            />
-          ) : undefined}
-        </View>
-        <Text
-          style={
-            selectAddress === item.address
-              ? styles.itemAddressS
-              : styles.itemAddress
-          }
-        >
-          {item?.address}
-        </Text>
-        <View style={styles.itemAmountContainer}>
-          <Text
-            style={
-              selectAddress === item.address
-                ? styles.itemAmountS
-                : styles.itemAmount
-            }
-          >
-            可用余额
-          </Text>
-          <Text
-            style={
-              selectAddress === item.address
-                ? styles.itemAmountTextS
-                : styles.itemAmountText
-            }
-          >
-            {item?.amount}
-          </Text>
-        </View>
-      </TouchableOpacity>
-    );
-  };
   function clickOnItem(index: number) {
-    console.log('index = ', index);
     setSelectItem(index);
-    if (sectionList) {
-      sectionList.scrollToLocation({
-        sectionIndex: index,
-        itemIndex: 0,
-        viewPosition: 0,
-      });
-    }
-  }
-  function getItemLayout(data: any, index: number) {
-    let sectioinIndex = 0;
-    let offset = -180;
-    interface Item {
-      type: string;
-      index?: number;
-    }
-    let item: Item = { type: 'header' };
-    for (let i = 0; i < index; ++i) {
-      switch (item.type) {
-        case 'header':
-          {
-            let sectionData = data[sectioinIndex].data;
-            offset += 50;
-            sectionData.length === 0
-              ? (item = { type: 'footer' })
-              : (item = { type: 'row', index: 0 });
-          }
-          break;
-        case 'row':
-          {
-            let sectionData = data[sectioinIndex].data;
-            offset += 100;
-            ++item.index;
-            if (item.index === sectionData.length) {
-              item = { type: 'footer' };
-            }
-          }
-          break;
-        case 'footer':
-          item = { type: 'header' };
-          ++sectioinIndex;
-          break;
-        default:
-          console.log('err');
-      }
-    }
-
-    let length = 0;
-    switch (item.type) {
-      case 'header':
-        length = 50;
-        break;
-      case 'row':
-        length = 100;
-        break;
-      case 'footer':
-        length = 0;
-        break;
-    }
-    return { length: length, offset: offset, index };
-  }
-  function itemOnChanged({ viewableItems, changed }) {
-    let firstItem = viewableItems[0];
-    if (firstItem && firstItem.section) {
-      // 这里可以直接取到section的title
-      let name = firstItem.section.title;
-      let idx = DATA.findIndex((x) => x.title === name);
-      setSelectItem(idx);
-    }
   }
   const list = [
     {
@@ -307,6 +190,7 @@ function HomeScreen({}: Props) {
                 buttonStyle={styles.button}
                 title="转账"
                 titleStyle={styles.buttonTitle}
+                onPress={() => navigate('TransferScreen')}
               />
               <Button
                 ViewComponent={LinearGradient}
@@ -425,18 +309,71 @@ function HomeScreen({}: Props) {
                   </TouchableHighlight>
                 ))}
               </View>
-              <SectionList
-                ref={(o) => (sectionList = o)}
-                style={styles.submenu}
-                sections={DATA}
-                keyExtractor={(item) => item.address}
-                renderItem={renderSectionItem}
-                renderSectionHeader={({ section: { title } }) => (
-                  <Text style={styles.submenuHeader}>{title}</Text>
-                )}
-                getItemLayout={getItemLayout}
-                onViewableItemsChanged={itemOnChanged}
-              />
+              <View style={styles.submenu}>
+                <Text style={styles.submenuHeader}>
+                  {DATA[selectItem]?.title}
+                </Text>
+                <ScrollView scrollIndicatorInsets={{ right: -6 }}>
+                  {DATA[selectItem]?.data.map((item, index) => (
+                    <TouchableOpacity
+                      style={
+                        selectAddress === item.address
+                          ? styles.submenuItemS
+                          : styles.submenuItem
+                      }
+                      key={index}
+                      onPress={() => setSelectAddress(item.address)}
+                    >
+                      <View style={styles.itemName}>
+                        <Text
+                          style={
+                            selectAddress === item.address
+                              ? styles.itemNameTextS
+                              : styles.itemNameText
+                          }
+                        >
+                          {item?.walletName}
+                        </Text>
+                        {selectAddress === item.address ? (
+                          <Image
+                            style={styles.itemNameImage}
+                            source={require('assets/icon-16-选中钱包.png')}
+                          />
+                        ) : undefined}
+                      </View>
+                      <Text
+                        style={
+                          selectAddress === item.address
+                            ? styles.itemAddressS
+                            : styles.itemAddress
+                        }
+                      >
+                        {item?.address}
+                      </Text>
+                      <View style={styles.itemAmountContainer}>
+                        <Text
+                          style={
+                            selectAddress === item.address
+                              ? styles.itemAmountS
+                              : styles.itemAmount
+                          }
+                        >
+                          可用余额
+                        </Text>
+                        <Text
+                          style={
+                            selectAddress === item.address
+                              ? styles.itemAmountTextS
+                              : styles.itemAmountText
+                          }
+                        >
+                          {item?.amount}
+                        </Text>
+                      </View>
+                    </TouchableOpacity>
+                  ))}
+                </ScrollView>
+              </View>
             </View>
           </View>
         </View>
@@ -599,7 +536,6 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 8,
     width: screenWidth,
     height: (screenHeight * 2) / 3,
-    paddingBottom: 60,
   },
   headView: {
     flexDirection: 'row',
@@ -629,6 +565,7 @@ const styles = StyleSheet.create({
   },
   groupView: {
     flexDirection: 'row',
+    flex: 1,
   },
   menu: {
     backgroundColor: '#F2F5F8',
@@ -646,7 +583,7 @@ const styles = StyleSheet.create({
   },
   submenu: {
     paddingHorizontal: 15,
-    marginBottom: 20,
+    flex: 1,
   },
   submenuHeader: {
     paddingVertical: 15,
