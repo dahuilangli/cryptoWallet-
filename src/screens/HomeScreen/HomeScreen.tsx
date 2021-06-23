@@ -5,15 +5,17 @@ import {
   View,
   TouchableOpacity,
   Text,
+  NavigatorIOS
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 // import FeedListScreen from 'screens/FeedListScreen/FeedListScreen';
 import { navigate } from 'utils/navigationService';
+
 interface Props {}
 
 function HomeScreen({}: Props) {
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       {/* <View style={styles.header}>
         <Text style={styles.headerTitle}>动态</Text>
         <TouchableOpacity
@@ -24,7 +26,7 @@ function HomeScreen({}: Props) {
         </TouchableOpacity>
       </View> */}
       {/* <FeedListScreen /> */}
-    </SafeAreaView>
+    </View>
   );
 }
 const styles = StyleSheet.create({

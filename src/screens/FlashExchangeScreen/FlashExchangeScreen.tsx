@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -9,16 +9,17 @@ import {
   Alert,
   Modal,
   TouchableWithoutFeedback,
-  
+  Keyboard,
+  KeyboardAvoidingView,
+  Platform,
 } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { screenHeight, screenWidth } from 'utils/constants';
 import { navigate } from 'utils/navigationService';
-import { Avatar, Button } from 'react-native-elements';
-
+import { Avatar, Header } from 'react-native-elements';
 const list = [
-  
+
   {
     name: 'ETH',
     avatar_url: require('assets/img-40-coointype-eth.png'),
@@ -28,7 +29,7 @@ const list = [
     name: 'STO',
     avatar_url: require('assets/img-40-coointype-sto.png'),
     type: 'privateKey',
-  },{
+  }, {
     name: 'BSC',
     avatar_url: require('assets/img-40-coointype-币安.png'),
     type: 'mnemonic',
@@ -38,248 +39,273 @@ const list = [
     avatar_url: require('assets/img-40-coointype-USDT.png'),
     type: 'mnemonic',
   },
-  
+
 ];
 
 
-interface Props {}
-function FlashExchangeScreen({}: Props) {
-  const [outImage,setOutImage] = useState(require('assets/img-40-coointype-eth.png'));
-  const [inPutImage,setInPutImage] = useState(require('assets/img-40-coointype-USDT.png'));
-  const [outName,setOutName] = useState('ETH');
-  const [inPutName,setInPutName] = useState('USDT');
+interface Props { }
+function FlashExchangeScreen({ }: Props) {
+  const [outImage, setOutImage] = useState(require('assets/img-40-coointype-eth.png'));
+  const [inPutImage, setInPutImage] = useState(require('assets/img-40-coointype-USDT.png'));
+  const [outName, setOutName] = useState('ETH');
+  const [inPutName, setInPutName] = useState('USDT');
   const [modalVisible, setModalVisible] = useState(false);
   const [modalVisible1, setModalVisible1] = useState(false);
-  const [currentChange,setCurrentChange] = useState(1);
-  const [outNumber,setOutNumber] = useState('');
-  const [inNumber,setInNumber] = useState('');
+  const [currentChange, setCurrentChange] = useState(1);
+  const [outNumber, setOutNumber] = useState('');
+  const [inNumber, setInNumber] = useState('');
+
   return (
-   
-    <SafeAreaView style={styles.container}>
-      <View style = {styles.backgroundView}>
-        <View style = {styles.firstView}>
-          <TouchableOpacity 
-          style = {styles.input} 
-          onPress = {()=>{
-            setModalVisible(true);
-            setCurrentChange(1);
-          }}
+    <View style={styles.container}>
+      <Header
+        placement="center"
+        rightComponent={{ text: '记录', style: { fontSize: 16, fontWeight: 'bold', color: 'white' } }}
+        centerComponent={{ text: '闪兑', style: { fontSize: 18, fontWeight: 'bold', color: 'white' } }}
+        containerStyle={{
+          backgroundColor: '#3D73DD',
+        }}
+      />
+      {/* <SafeAreaView style={styles.container}> */}
+      <View style={styles.backgroundView}>
+        <View style={styles.firstView}>
+          <TouchableOpacity
+            style={styles.input}
+            onPress={() => {
+              setModalVisible(true);
+              setCurrentChange(1);
+            }}
           >
-            <Image style = {styles.inputImage} source = {outImage}/>
-            <Text style = {styles.inputText}>{outName}</Text>
+            <Image style={styles.inputImage} source={outImage} />
+            <Text style={styles.inputText}>{outName}</Text>
           </TouchableOpacity>
-          <TouchableOpacity 
-          style = {styles.input} 
-          onPress = {()=>{
-            setModalVisible(true);
-            setCurrentChange(2);
-          }}
+          <TouchableOpacity
+            style={styles.input}
+            onPress={() => {
+              setModalVisible(true);
+              setCurrentChange(2);
+            }}
           >
-            <Text style = {styles.outText}>{inPutName}</Text>
-            <Image style = {styles.outImage} source = {inPutImage}/>
+            <Text style={styles.outText}>{inPutName}</Text>
+            <Image style={styles.outImage} source={inPutImage} />
           </TouchableOpacity>
         </View>
-        <View style = {styles.lineView}/>
-        <TouchableOpacity 
-          onPress = {()=>{
+        <View style={styles.lineView} />
+        <TouchableOpacity
+          onPress={() => {
             setInPutImage(outImage);
             setOutImage(inPutImage);
             setInPutName(outName);
             setOutName(inPutName);
           }}>
-          <Image style = {styles.exchange} source = {require('assets/icon-40-闪兑切换.png') }/>
+          <Image style={styles.exchange} source={require('assets/icon-40-闪兑切换.png')} />
         </TouchableOpacity>
-        <View style = {styles.secondView}>
-          <View style = {styles.centerViewone}>
-            <Text style = {styles.centerOut}>转出</Text>
-            <View style = {styles.inputView}>
+        <View style={styles.secondView}>
+          <View style={styles.centerViewone}>
+            <Text style={styles.centerOut}>转出</Text>
+            <View style={styles.inputView}>
               <TextInput
                 placeholder="转出数量"
                 style={styles.inputNumber}
-                onChangeText = {(text:string) => setOutNumber(text)}
+                onChangeText={(text: string) => setOutNumber(text)}
               >
               </TextInput>
             </View>
           </View>
-          <View style = {styles.centerViewtwo}>
-            <Text style = {styles.centerinput}>转入</Text>
-            <View style = {styles.outView}>
+          <View style={styles.centerViewtwo}>
+            <Text style={styles.centerinput}>转入</Text>
+            <View style={styles.outView}>
               <TextInput
                 placeholder="收到数量"
                 style={styles.outNumber}
-                onChangeText = {(text:string) => setInNumber(text)}
+                onChangeText={(text: string) => setInNumber(text)}
               >
               </TextInput>
             </View>
           </View>
         </View>
-        <View style = {styles.bottomView}>
-          <View style = {{flexDirection:'row'}}>
-            <Text style = {styles.useText}>可用</Text>
-            <Text style = {styles.useNumber}>0.023875129 ETH</Text>
+        <View style={styles.bottomView}>
+          <View style={{ flexDirection: 'row' }}>
+            <Text style={styles.useText}>可用</Text>
+            <Text style={styles.useNumber}>0.023875129 ETH</Text>
           </View>
-          <Text style = {styles.rateText}>汇率  1 ETH ≈ 786.564 USDT</Text>
-          <Text style = {styles.rateText}>手续费  0.03%</Text>
-          <TouchableOpacity style = {styles.exchangeBtn} onPress ={()=>{
-            if(inPutName === outName){
-              Alert.alert('兑换名称不能一致');
+          <Text style={styles.rateText}>汇率  1 ETH ≈ 786.564 USDT</Text>
+          <Text style={styles.rateText}>手续费  0.03%</Text>
+          <TouchableOpacity style={styles.exchangeBtn} onPress={() => {
+            if (inPutName === outName) {
               return;
             }
             setModalVisible1(true);
           }}>
-            <Text style = {styles.changeText}>兑换</Text>
+            <Text style={styles.changeText}>兑换</Text>
           </TouchableOpacity>
         </View>
-        
+
         <Modal
-        animationType='fade'
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => {
-          setModalVisible(!modalVisible);
-        }}
-      >
-        <View style={styles.centeredView}>
-          <TouchableWithoutFeedback
-            style={{ ...styles.outView }}
-            onPress={() => {
-              setModalVisible(!modalVisible);
-            }}
-          >
-            <View style={styles.outContair} />
-          </TouchableWithoutFeedback>
-          <View style={styles.modalView}>
-            <View style={styles.headView}>
-              <Text style={styles.headText}>导入方式</Text>
-              <TouchableWithoutFeedback
-                style={{ ...styles.openButton }}
-                onPress={() => {
-                  setModalVisible(!modalVisible);
-                }}
-              >
-                <Image
-                  style={styles.textStyle}
-                  source={require('assets/icon-20-close.png')}
-                />
-              </TouchableWithoutFeedback>
-            </View>
-            <View style={styles.groupView}>
-              {list.map((item, i) => (
-                <TouchableOpacity
-                  style={styles.list}
-                  key={i}
+          animationType='fade'
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={() => {
+            setModalVisible(!modalVisible);
+          }}
+        >
+          <View style={styles.centeredView}>
+            <TouchableWithoutFeedback
+              // style={{ ...styles.outView }}
+              onPress={() => {
+                setModalVisible(!modalVisible);
+              }}
+            >
+              <View style={styles.outContair} />
+            </TouchableWithoutFeedback>
+            <View style={styles.modalView}>
+              <View style={styles.headView}>
+                <Text style={styles.headText}>导入方式</Text>
+                <TouchableWithoutFeedback
+                  style={{ ...styles.openButton }}
                   onPress={() => {
                     setModalVisible(!modalVisible);
-                     currentChange === 1 ? 
-                     (
-                        setOutImage(item.avatar_url),
-                        setOutName(item.name) 
-                     ): 
-                     (
-                        setInPutImage(item.avatar_url),
-                        setInPutName(item.name)
-                     );
                   }}
                 >
-                  <View style={styles.lineView} />
-                  <View style={styles.listItem}>
-                    <Avatar
-                      rounded
-                      source={item.avatar_url}
-                      containerStyle={styles.avatar}
-                    />
-                    <Text style={styles.text}>{item.name}</Text>
-                    
-                  </View>
-                </TouchableOpacity>
-              ))}
-              <View style={styles.lineView} />
+                  <Image
+                    style={styles.textStyle}
+                    source={require('assets/icon-20-close.png')}
+                  />
+                </TouchableWithoutFeedback>
+              </View>
+              <View style={styles.groupView}>
+                {list.map((item, i) => (
+                  <TouchableOpacity
+                    style={styles.list}
+                    key={i}
+                    onPress={() => {
+                      setModalVisible(!modalVisible);
+                      currentChange === 1 ?
+                        (
+                          setOutImage(item.avatar_url),
+                          setOutName(item.name)
+                        ) :
+                        (
+                          setInPutImage(item.avatar_url),
+                          setInPutName(item.name)
+                        );
+                    }}
+                  >
+                    <View style={styles.lineView} />
+                    <View style={styles.listItem}>
+                      <Avatar
+                        rounded
+                        source={item.avatar_url}
+                        containerStyle={styles.avatar}
+                      />
+                      <Text style={styles.text}>{item.name}</Text>
+                      {!!(currentChange === 1 && item.name === outName) && <Avatar
+                        source={require('assets/icon-20-选中-样式1.png')}
+                        containerStyle={styles.selected}
+                      />}
+                      {!!(currentChange === 2 && item.name === inPutName) && <Avatar
+                        source={require('assets/icon-20-选中-样式1.png')}
+                        containerStyle={styles.selected}
+                      />}
+                    </View>
+                  </TouchableOpacity>
+                ))}
+                <View style={styles.lineView} />
+              </View>
             </View>
           </View>
-        </View>
-      </Modal>
+        </Modal>
 
-      <Modal
-        animationType='fade'
-        transparent={true}
-        visible={modalVisible1}
-        onRequestClose={() => {
-          setModalVisible1(!modalVisible1);
-        }}
-      >
-        <View style={styles.centeredView}>
-          <TouchableWithoutFeedback
-            style={{ ...styles.outView }}
-            onPress={() => {
-              setModalVisible1(!modalVisible1);
-            }}
-          >
-            <View style={styles.outContair} />
-          </TouchableWithoutFeedback>
-          <View style={styles.modalView1}>
-            <View style={styles.headView}>
-              <Text style={styles.headText}>确认闪兑</Text>
+        <Modal
+          animationType='fade'
+          transparent={true}
+          visible={modalVisible1}
+          onRequestClose={() => {
+            setModalVisible1(!modalVisible1);
+          }}
+        >
+          <View style={styles.centeredView}>
+            <TouchableWithoutFeedback
+              onPress={() => {
+                setModalVisible1(!modalVisible1);
+              }}
+            >
+              <View style={styles.outContair} />
+            </TouchableWithoutFeedback>
+            <KeyboardAvoidingView
+              behavior={Platform.OS == "ios" ? "position" : "height"}
+            >
               <TouchableWithoutFeedback
-                style={{ ...styles.openButton }}
-                onPress={() => {
-                  setModalVisible1(!modalVisible1);
-                }}
+                onPress={Keyboard.dismiss}
               >
-                <Image
-                  style={styles.textStyle}
-                  source={require('assets/icon-20-close.png')}
-                />
+                <View style={styles.modalView2}>
+                  <View style={styles.headView}>
+                    <Text style={styles.headText}>确认闪兑</Text>
+                    <TouchableOpacity
+                      style={{ ...styles.openButton }}
+                      onPress={() => {
+                        setModalVisible1(!modalVisible1);
+                      }}
+                    >
+                      <Image
+                        style={styles.textStyle}
+                        source={require('assets/icon-20-close.png')}
+                      />
+                    </TouchableOpacity>
+                  </View>
+                  <View style={styles.centerView1}>
+                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                      <Image source={outImage} style={styles.outImage2} />
+                      <Text style={styles.outName2}>{outName}</Text>
+                      <Text style={styles.outNumber2}>-{outNumber}</Text>
+                    </View>
+                    <Image style={styles.dianImage} source={require('assets/img-40-coointype-币安.png')} />
+                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                      <Image source={inPutImage} style={styles.outImage2} />
+                      <Text style={styles.outName2}>{inPutName}</Text>
+                      <Text style={styles.inNumber2}>+{inNumber}</Text>
+                    </View>
+                  </View>
+                  <View style={styles.lineView1}></View>
+                  <View style={styles.centerView1}>
+                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                      <Text style={styles.poundage}>手续费</Text>
+                      <Text style={styles.des}>0.023875129 ETH</Text>
+                    </View>
+                    <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 20 }}>
+                      <Text style={styles.poundage}>汇率</Text>
+                      <Text style={styles.des}>1 ETH ≈ 786.564 USDT</Text>
+                    </View>
+                  </View>
+                  <View style={styles.lineView1}></View>
+                  <View style={styles.passView}>
+                    <TextInput
+                      placeholder="请输入安全密码"
+                      style={styles.passwordNumber}
+                      onChangeText={(text: string) => { }}
+                    >
+                    </TextInput>
+                  </View>
+                  <View style={styles.bottomView1}>
+                    <TouchableOpacity style={styles.sureBtn} onPress={() => {
+                      if (inPutName === outName) {
+                        Alert.alert('兑换名称不能一致');
+                        return;
+                      }
+                      setModalVisible1(true);
+                    }}>
+                      <Text style={styles.changeText}>确认兑换</Text>
+                    </TouchableOpacity>
+                  </View>
+                </View>
               </TouchableWithoutFeedback>
-            </View>
-            <View style = {styles.centerView1}>
-              <View style={{flexDirection:'row',alignItems:'center'}}>
-                <Image source={outImage} style = {styles.outImage2}/>
-                <Text style = {styles.outName2}>{outName}</Text>
-                <Text style = {styles.outNumber2}>-{outNumber}</Text>
-              </View>
-              <Image style = {styles.dianImage} source = {require('assets/img-40-coointype-币安.png')}/>
-              <View style={{flexDirection:'row',alignItems:'center'}}>
-                <Image source={inPutImage} style = {styles.outImage2}/>
-                <Text style = {styles.outName2}>{inPutName}</Text>
-                <Text style = {styles.inNumber2}>+{inNumber}</Text>
-              </View>
-            </View>
-            <View style = {styles.lineView1}></View>
-            <View style = {styles.centerView1}>
-              <View style={{flexDirection:'row',alignItems:'center'}}>
-                <Text style = {styles.poundage}>手续费</Text>
-                <Text style = {styles.des}>0.023875129 ETH</Text>
-              </View>
-              <View style={{flexDirection:'row',alignItems:'center',marginTop:20}}>
-                <Text style = {styles.poundage}>汇率</Text>
-                <Text style = {styles.des}>1 ETH ≈ 786.564 USDT</Text>
-              </View>
-            </View>
-            <View style = {styles.lineView1}></View>
-            <View style = {styles.passView}>
-              <TextInput
-                placeholder="请输入安全密码"
-                style={styles.passwordNumber}
-                onChangeText = {(text:string) =>{}}
-              >
-              </TextInput>
-            </View>
-            <TouchableOpacity style = {styles.sureBtn} onPress ={()=>{
-            if(inPutName === outName){
-              Alert.alert('兑换名称不能一致');
-              return;
-            }
-            setModalVisible1(true);
-          }}>
-            <Text style = {styles.changeText}>确认兑换</Text>
-          </TouchableOpacity>
+            </KeyboardAvoidingView>
           </View>
-        </View>
-      </Modal>
-                  
-      
+        </Modal>
+
+
       </View>
-    </SafeAreaView>
+      {/* </SafeAreaView> */}
+    </View>
   );
 }
 const styles = StyleSheet.create({
@@ -287,152 +313,151 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#efefef',
   },
-  backgroundView:{
-    backgroundColor:'#FFFFFF',
-    height:360,
+  backgroundView: {
+    backgroundColor: '#FFFFFF',
+    height: 360,
   },
-  firstView:{
-    flexDirection:'row',
-    justifyContent:'space-between',
+  firstView: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
-  input:{
-    height:80,
-    flexDirection:'row',
+  input: {
+    height: 80,
+    flexDirection: 'row',
   },
-  inputImage:{
-    marginLeft:20,
-    marginTop:20,
-    width:40,
-    height:40,
+  inputImage: {
+    marginLeft: 20,
+    marginTop: 20,
+    width: 40,
+    height: 40,
   },
-  inputText:{
-    marginLeft:10,
-    marginTop:30,
-    height:20,
-    fontSize:18,
-    fontWeight:'400',
-    color:'#616D86',
+  inputText: {
+    marginLeft: 10,
+    marginTop: 30,
+    height: 20,
+    fontSize: 18,
+    fontWeight: '400',
+    color: '#616D86',
   },
-  outImage:{
-    marginRight:20,
-    marginTop:20,
-    width:40,
-    height:40,
+  outImage: {
+    marginRight: 20,
+    marginTop: 20,
+    width: 40,
+    height: 40,
   },
-  outText:{
-    marginRight:10,
-    marginTop:30,
-    height:20,
-    fontSize:18,
-    fontWeight:'400',
-    color:'#616D86',
+  outText: {
+    marginRight: 10,
+    marginTop: 30,
+    height: 20,
+    fontSize: 18,
+    fontWeight: '400',
+    color: '#616D86',
   },
-  lineView:{
-    backgroundColor:'#E9EDF1',
-    width:screenWidth,
-    height:0.5,
+  lineView: {
+    backgroundColor: '#E9EDF1',
+    width: screenWidth,
+    height: 0.5,
   },
-  exchange:{
-    width:40,
-    height:40,
-    marginTop:-20,
-    marginLeft:screenWidth/2-20,
+  exchange: {
+    width: 40,
+    height: 40,
+    marginTop: -20,
+    marginLeft: screenWidth / 2 - 20,
   },
-  secondView:{
-    flexDirection:'row',
-    justifyContent:'space-between',
+  secondView: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
-  centerViewone:{
-    alignItems:'flex-start',
+  centerViewone: {
+    alignItems: 'flex-start',
   },
-  centerViewtwo:{
-    alignItems:'flex-end',
+  centerViewtwo: {
+    alignItems: 'flex-end',
   },
-  centerOut:{
-    marginLeft:20,
-    height:20,
+  centerOut: {
+    marginLeft: 20,
+    height: 20,
 
   },
-  inputView:{
-    marginLeft:20,
-    height:55,
-    width:screenWidth/2-27.5,
-    marginTop:10,
-    backgroundColor:'#F2F5F8',
-    borderRadius:8,
+  inputView: {
+    marginLeft: 20,
+    height: 55,
+    width: screenWidth / 2 - 27.5,
+    marginTop: 10,
+    backgroundColor: '#F2F5F8',
+    borderRadius: 8,
   },
-  inputNumber:{
-    marginLeft:15,
-    height:55,
-    marginRight:15,
-    fontSize:14,
-    width:screenWidth/2-57.5,
-    fontWeight:'400',
-    color:'#9CA4B3',
+  inputNumber: {
+    marginLeft: 15,
+    height: 55,
+    marginRight: 15,
+    fontSize: 14,
+    width: screenWidth / 2 - 57.5,
+    fontWeight: '400',
+    color: '#9CA4B3',
   },
-  centerinput:{
-    marginRight:20,
-    height:20,
+  centerinput: {
+    marginRight: 20,
+    height: 20,
   },
-  outView:{
-    marginRight:20,
-    height:55,
-    width:screenWidth/2-27.5,
-    marginTop:10,
-    backgroundColor:'#F2F5F8',
-    borderRadius:8,
-    alignItems:'flex-end',
+  outView: {
+    marginRight: 20,
+    width: screenWidth / 2 - 27.5,
+    marginTop: 10,
+    backgroundColor: '#F2F5F8',
+    borderRadius: 8,
+    alignItems: 'flex-end',
   },
-  outNumber:{
-    marginLeft:15,
-    height:55,
-    marginRight:15,
-    fontSize:14,
-    fontWeight:'400',
-    width:screenWidth/2-57.5,
-    color:'#9CA4B3',
-    textAlign:'right',
+  outNumber: {
+    marginLeft: 15,
+    height: 55,
+    marginRight: 15,
+    fontSize: 14,
+    fontWeight: '400',
+    width: screenWidth / 2 - 57.5,
+    color: '#9CA4B3',
+    textAlign: 'right',
   },
-  bottomView:{
-    marginTop:20,
-    marginLeft:20,
-    width:screenWidth-40,
+  bottomView: {
+    marginTop: 20,
+    marginLeft: 20,
+    width: screenWidth - 40,
     // alignItems:'flex-start',
   },
-  useText:{
-    height:20,
-    fontSize:12,
-    fontWeight:'500',
-    color:'#9CA4B3',
+  useText: {
+    height: 20,
+    fontSize: 12,
+    fontWeight: '500',
+    color: '#9CA4B3',
   },
-  useNumber:{
-    marginLeft:6,
-    height:20,
-    fontSize:12,
-    fontWeight:'500',
-    color:'#3D73DD',
+  useNumber: {
+    marginLeft: 6,
+    height: 20,
+    fontSize: 12,
+    fontWeight: '500',
+    color: '#3D73DD',
   },
-  rateText:{
-    height:20,
-    fontSize:12,
-    fontWeight:'500',
-    color:'#9CA4B3',
+  rateText: {
+    height: 20,
+    fontSize: 12,
+    fontWeight: '500',
+    color: '#9CA4B3',
   },
-  exchangeBtn:{
-    marginTop:20,
-    width:screenWidth-40,
-    height:55,
-    backgroundColor:'#3B6ED5',
-    borderRadius:8,
-    alignItems:'center',
+  exchangeBtn: {
+    marginTop: 20,
+    width: screenWidth - 40,
+    height: 55,
+    backgroundColor: '#3B6ED5',
+    borderRadius: 8,
+    alignItems: 'center',
   },
-  changeText:{
-    marginTop:17.5,
-    marginBottom:20,
-    height:20,
-    color:'white',
-    fontSize:16,
-    fontWeight:'600',
+  changeText: {
+    marginTop: 17.5,
+    marginBottom: 20,
+    height: 20,
+    color: 'white',
+    fontSize: 16,
+    fontWeight: '600',
   },
   centeredView: {
     flex: 1,
@@ -440,9 +465,6 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     alignItems: 'center',
   },
-  // outView: {
-  //   height: screenHeight - 214,
-  // },
   outContair: {
     flex: 1,
     width: screenWidth,
@@ -452,22 +474,19 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 8,
     borderTopRightRadius: 8,
     width: screenWidth,
-    height: (list.length+1)*60+34,
+    height: (list.length + 1) * 60 + 34,
   },
-  modalView1: {
+  modalView2: {
     backgroundColor: 'white',
     borderTopLeftRadius: 8,
     borderTopRightRadius: 8,
     width: screenWidth,
-    height: 485,
   },
   headView: {
     flexDirection: 'row',
-    marginTop: 0,
     height: 60,
-    width: screenWidth,
-    borderBottomColor:'#E9EDF1',
-    borderBottomWidth:0.5,
+    borderBottomColor: '#E9EDF1',
+    borderBottomWidth: 0.5,
   },
   headText: {
     marginTop: 20,
@@ -499,6 +518,10 @@ const styles = StyleSheet.create({
     width: 24,
     height: 24,
   },
+  selected: {
+    width: 20,
+    height: 20,
+  },
   text: {
     flex: 1,
     marginLeft: 10,
@@ -507,86 +530,87 @@ const styles = StyleSheet.create({
     fontWeight: '400',
   },
   groupView: {},
-  centerView1:{
-    marginVertical:17,
-    marginHorizontal:20,
-    flexDirection:'column',
+  centerView1: {
+    marginVertical: 17,
+    marginHorizontal: 20,
+    flexDirection: 'column',
     // alignItems:'center',
   },
-  outImage2:{
-    width:30,
-    height:30,
+  outImage2: {
+    width: 30,
+    height: 30,
   },
-  outName2:{
-    marginLeft:10,
-    height:20,
-    width:screenWidth/2-60,
-    fontSize:16,
-    fontWeight:'400',
+  outName2: {
+    marginLeft: 10,
+    height: 20,
+    width: screenWidth / 2 - 60,
+    fontSize: 16,
+    fontWeight: '400',
   },
-  outNumber2:{
-    width:screenWidth/2-20,
-    color:'#DD3D50',
-    textAlign:'right',
-    height:20,
-    fontSize:18,
-    fontWeight:'400',
+  outNumber2: {
+    width: screenWidth / 2 - 20,
+    color: '#DD3D50',
+    textAlign: 'right',
+    height: 20,
+    fontSize: 18,
+    fontWeight: '400',
   },
-  inNumber2:{
-    width:screenWidth/2-20,
-    color:'#3DDD94',
-    textAlign:'right',
-    height:20,
-    fontSize:18,
-    fontWeight:'400',
+  inNumber2: {
+    width: screenWidth / 2 - 20,
+    color: '#3DDD94',
+    textAlign: 'right',
+    height: 20,
+    fontSize: 18,
+    fontWeight: '400',
   },
-  dianImage:{
-    marginLeft:14.5,
-    marginVertical:1,
-    width:1,
-    height:14,
+  dianImage: {
+    marginLeft: 14.5,
+    marginVertical: 1,
+    width: 1,
+    height: 14,
   },
-  lineView1:{
-    marginHorizontal:20,
-    backgroundColor:'#E9EDF1',
-    height:0.5,
+  lineView1: {
+    marginHorizontal: 20,
+    backgroundColor: '#E9EDF1',
+    height: 0.5,
   },
-  poundage:{
-    height:20,
-    width:screenWidth/2-20,
-    color:'#616D86',
-    fontSize:14,
-    fontWeight:'500',
+  poundage: {
+    height: 20,
+    width: screenWidth / 2 - 20,
+    color: '#616D86',
+    fontSize: 14,
+    fontWeight: '500',
   },
-  des:{
-    width:screenWidth/2-20,
-    color:'#616D86',
-    textAlign:'right',
-    height:20,
-    fontSize:14,
-    fontWeight:'400',
+  des: {
+    width: screenWidth / 2 - 20,
+    color: '#616D86',
+    textAlign: 'right',
+    height: 20,
+    fontSize: 14,
+    fontWeight: '400',
   },
-  passView:{
-    margin:20,
-    height:55,
-    backgroundColor:'#F2F5F8',
-    borderRadius:8,
+  passView: {
+    margin: 20,
+    height: 55,
+    backgroundColor: '#F2F5F8',
+    borderRadius: 8,
   },
-  passwordNumber:{
-    marginLeft:20,
-    height:55,
-    marginRight:20,
-    fontSize:14,
-    width:screenWidth-40,
-    fontWeight:'400',
-    color:'#616D86',
+  passwordNumber: {
+    marginHorizontal: 20,
+    height: 55,
+    fontSize: 14,
+    fontWeight: '400',
+    color: '#616D86',
   },
-  sureBtn:{
-    marginHorizontal:20,
-    height:55,
-    backgroundColor:'#3B6ED5',
-    borderRadius:8,
-    alignItems:'center',
+  sureBtn: {
+    marginHorizontal: 20,
+    height: 55,
+    backgroundColor: '#3B6ED5',
+    borderRadius: 8,
+    alignItems: 'center',
   },
+  bottomView1:{
+    height:109,
+  }
 });
 export default FlashExchangeScreen;

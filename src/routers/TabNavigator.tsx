@@ -38,6 +38,7 @@ function TabNavigator() {
       <Screen
         name="HomeScreen"
         component={HomeScreen}
+        
         options={{ 
           tabBarLabel: '钱包',
         }}

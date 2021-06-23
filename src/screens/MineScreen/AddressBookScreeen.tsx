@@ -61,8 +61,6 @@ function AddressBookScreen({}: Props) {
   const [selectedId, setSelectedId] = useState(null);
 
   const renderItem = ({ item }) => {
-    const backgroundColor = item.name === selectedId ? "#6e3b6e" : "#f9c2ff";
-
     return (
       <Item
         item={item}
@@ -87,9 +85,7 @@ function AddressBookScreen({}: Props) {
         keyExtractor={(item) => item.id}
         extraData={selectedId}
         >
-          <View >
-
-          </View>
+        
         </FlatList>
         
       </SafeAreaView>
@@ -114,6 +110,7 @@ const styles = StyleSheet.create({
     headView:{
       height:55,
       flexDirection:'row',
+      
     },
     desView:{
       marginLeft:15,
