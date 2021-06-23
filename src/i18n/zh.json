@@ -1,4 +1,7 @@
 {
-    "checkNetwork": "请检查网络"
- 
+  "checkNetwork": "checkNetwork",
+  "wallet":{
+    "create": "创建新钱包"
   }
+
+}

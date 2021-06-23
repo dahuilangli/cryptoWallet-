@@ -1,4 +1,7 @@
 {
-    "checkNetwork": "checkNetwork"
- 
+  "checkNetwork": "checkNetwork",
+  "wallet":{
+    "create": "wallet create"
   }
+
+}
