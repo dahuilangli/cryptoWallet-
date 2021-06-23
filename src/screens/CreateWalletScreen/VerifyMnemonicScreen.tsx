@@ -11,7 +11,7 @@ import { Button } from 'react-native-elements';
 import { navigate } from 'utils/navigationService';
 
 // import { post } from 'utils/request';
-import { Account } from 'types/types';
+import { Account } from 'actions/types';
 
 interface Props {
   route: {

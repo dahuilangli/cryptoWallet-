@@ -1,15 +1,12 @@
 import { apiEndpoint } from 'utils/constants';
-import { ReduxStore } from 'reduxState/store';
-import { selectToken } from 'reduxState/selectors';
-import actions from 'reduxState/actions';
+import {ReduxStore}  from 'store';
+import  {getToken} from 'selector/wallet';
+import myAction from 'actions/my';
 
 interface RequestOptions extends RequestInit {
   timeout?: number;
 }
 
-export function getToken() {
-  return selectToken(ReduxStore.getState());
-}
 
 const falseResult = { ok: false, data: null };
 async function request(
@@ -30,7 +27,7 @@ async function request(
       headers: {
         ...(additionalHeader || {}),
         ...(options.headers || {}),
-        Authorization: `Bearer ${getToken()}`,
+        Authorization: `Bearer ${getToken(ReduxStore.getState())}`,
       },
     }).catch((_e) => undefined),
     new Promise<undefined>((resolve) =>
@@ -39,7 +36,7 @@ async function request(
   ]);
   if (resp) {
     if (resp.status === 401) {
-      ReduxStore.dispatch(actions.logout());
+      ReduxStore.dispatch(myAction.logout());
       return falseResult;
     }
     const text = await resp.text();

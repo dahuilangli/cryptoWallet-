@@ -10,8 +10,8 @@ import {
   Alert,
 } from 'react-native';
 import { useDispatch } from 'react-redux';
-import actions from 'reduxState/actions';
-import { Account } from 'types/types';
+import walletAction from 'actions/wallet';
+import { Account } from 'actions/types';
 
 // import { setGenericPassword } from 'utils/keyChain';
 interface Props {
@@ -32,7 +32,7 @@ const SuccessScreen = ({ route }: Props) => {
   async function storageAccount() {
     try {
       // await setGenericPassword('account', JSON.stringify(accountInfo));
-      await dispatch(actions.setAccountList(accountInfo));
+      await dispatch(walletAction.setAccountList(accountInfo));
     } catch (err) {
       Alert.alert(`${title}失败，请重新选择钱包后重试`);
     }

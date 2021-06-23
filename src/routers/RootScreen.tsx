@@ -4,13 +4,13 @@ import { navigationRef } from 'utils/navigationService';
 import MainStackNavigator from './MainStackNavigator';
 import AuthStackNavigator from './AuthStackNavigator';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectAccountList } from 'reduxState/selectors';
 import SplashScreen from 'react-native-splash-screen';
 import qs from 'qs';
 import { get } from 'utils/request';
-import { User } from 'types/types';
+import { User } from 'actions/types';
 import DeviceInfo from 'react-native-device-info';
-import actions from 'reduxState/actions';
+import walletAction from 'actions/wallet';
+import {getAccountList} from 'selector/wallet';
 import { Alert } from 'react-native';
 
 function RootScreen() {
@@ -73,12 +73,12 @@ function RootScreen() {
     } finally {
     }
     if (user) {
-      dispatch(actions.setUser(user));
+      dispatch(walletAction.setUser(user));
     } else {
       Alert.alert(i18n.t("checkNetwork"));
     }
   }
-  const accountList = useSelector(selectAccountList);
+  const accountList = useSelector(getAccountList);
   React.useEffect(() => {
     SplashScreen.hide();
     getToken();

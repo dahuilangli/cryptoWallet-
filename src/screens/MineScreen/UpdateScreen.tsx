@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Text, SafeAreaView, FlatList ,Image} from 'react-native';
 import { navigate } from 'utils/navigationService';
-import { ScreensParamList, Feed } from 'types/types';
+import { ScreensParamList, Feed } from 'actions/types';
 import { RouteProp, useRoute, useIsFocused } from '@react-navigation/native';
 import DeviceInfo from 'react-native-device-info'
 

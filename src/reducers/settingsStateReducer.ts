@@ -1,5 +1,6 @@
 import produce from 'immer';
-import { Action } from 'types/types';
+
+import {WalletAction} from 'actions/types';
 
 export interface SettingsState {}
 export const initialState: Readonly<SettingsState> = {};
