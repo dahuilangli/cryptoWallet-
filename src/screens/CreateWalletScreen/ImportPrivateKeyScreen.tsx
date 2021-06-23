@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, Text, TextInput, SafeAreaView } from 'react-native';
 import { Button } from 'react-native-elements';
+import { WToast } from 'react-native-smart-tip';
+import { recoverAccountToPrivateKey } from 'utils/ethers';
 import { navigate } from 'utils/navigationService';
 interface Props {
   route: {
@@ -38,13 +40,24 @@ const ImportPrivateKeyScreen = (props: Props) => {
         </View>
         <Button
           buttonStyle={styles.nextButton}
-          onPress={() =>
-            navigate('SetWalletNameScreen', {
-              type,
-              loginType: 'privateKey',
-              desc: privateKey,
-            })
-          }
+          onPress={() => {
+            try {
+              recoverAccountToPrivateKey(
+                privateKey.replace(/(^\s*)|(\s*$)/g, ''),
+              );
+              navigate('SetWalletNameScreen', {
+                type,
+                loginType: 'privateKey',
+                desc: privateKey.replace(/(^\s*)|(\s*$)/g, ''),
+              });
+            } catch (error) {
+              WToast.show({
+                data: '请填写正确的私钥',
+                duration: WToast.duration.LONG,
+                position: WToast.position.CENTER,
+              });
+            }
+          }}
           disabled={!privateKey}
           title="下一步"
           titleStyle={styles.nextButtonTitle}

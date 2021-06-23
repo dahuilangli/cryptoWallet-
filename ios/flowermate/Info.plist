@@ -40,11 +40,11 @@
 		</dict>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>请求使用您的摄像头以便拍摄图片</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>请求使用您的摄像头以便扫描二维码</string>
+	<!-- <key>NSLocationWhenInUseUsageDescription</key>
 	<string>请求获得您的位置以便地图定位</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>请求访问您的相册以便上传图片</string>
+	<string>请求访问您的相册以便上传图片</string> -->
 	<key>UIAppFonts</key>
 	<array>
 		<string>MaterialIcons.ttf</string>

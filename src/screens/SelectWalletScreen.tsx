@@ -77,7 +77,7 @@ const SelectWalletScreen = (prop: Props) => {
               <Text style={styles.text}>{item.name}</Text>
               <Image
                 style={styles.icon}
-                source={require('assets/arrow-right.png')}
+                source={require('assets/icon-20-arrow-right.png')}
               />
             </View>
           </TouchableOpacity>

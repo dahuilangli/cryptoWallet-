@@ -7803,6 +7803,13 @@ react-native-action-sheet@^2.2.0:
   resolved "https://registry.npm.taobao.org/react-native-action-sheet/download/react-native-action-sheet-2.2.0.tgz#309a87f53bf4e7b17fdd9d24b10b8dcbaebb7230"
   integrity sha1-MJqH9Tv057F/3Z0ksQuNy667cjA=
 
+react-native-camera@^3.44.1:
+  version "3.44.1"
+  resolved "https://registry.nlark.com/react-native-camera/download/react-native-camera-3.44.1.tgz#60e7d60fe778c1fc59d0579b64c63c3c1a59865a"
+  integrity sha1-YOfWD+d4wfxZ0FebZMY8PBpZhlo=
+  dependencies:
+    prop-types "^15.6.2"
+
 react-native-debugger-open@^0.3.25:
   version "0.3.25"
   resolved "https://registry.npm.taobao.org/react-native-debugger-open/download/react-native-debugger-open-0.3.25.tgz#4e735f7fb5eb10befe81e16d1dcc54b9f1a2d1d8"
@@ -7818,22 +7825,6 @@ react-native-device-info@^8.1.3:
   resolved "https://registry.nlark.com/react-native-device-info/download/react-native-device-info-8.1.3.tgz#022fc01372632bf80c0a6d201aab53344efc715f"
   integrity sha1-Ai/AE3JjK/gMCm0gGqtTNE78cV8=
 
-react-native-easy-guesture-responder@^1.1.2, react-native-easy-guesture-responder@^1.1.3:
-  version "1.1.3"
-  resolved "https://registry.npm.taobao.org/react-native-easy-guesture-responder/download/react-native-easy-guesture-responder-1.1.3.tgz#0a9c0e8eb68b9b43b4f86e4689786ba7525cc1b9"
-  integrity sha1-CpwOjraLm0O0+G5GiXhrp1Jcwbk=
-  dependencies:
-    prop-types "^15.6.2"
-
-react-native-easy-view-transformer@^1.2.0:
-  version "1.2.0"
-  resolved "https://registry.npm.taobao.org/react-native-easy-view-transformer/download/react-native-easy-view-transformer-1.2.0.tgz#4281b351c169a38763bdcdf00138cb1f40c69e07"
-  integrity sha1-QoGzUcFpo4djvc3wATjLH0DGngc=
-  dependencies:
-    prop-types "^15.6.2"
-    react-native-easy-guesture-responder "^1.1.2"
-    react-native-scrolling "^1.0.2"
-
 react-native-elements@^3.4.1:
   version "3.4.1"
   resolved "https://registry.nlark.com/react-native-elements/download/react-native-elements-3.4.1.tgz#74ea15a9369b05abf4f7421f0ce236ca01fedfe1"
@@ -7847,16 +7838,6 @@ react-native-elements@^3.4.1:
     opencollective-postinstall "^2.0.3"
     react-native-ratings "^7.3.0"
     react-native-size-matters "^0.3.1"
-
-react-native-gallery-swiper@1.26.4:
-  version "1.26.4"
-  resolved "https://registry.npm.taobao.org/react-native-gallery-swiper/download/react-native-gallery-swiper-1.26.4.tgz#c9041cb36a36477865b648d9e40f2a65ec93a695"
-  integrity sha1-yQQcs2o2R3hltkjZ5A8qZeyTppU=
-  dependencies:
-    prop-types "^15.6.2"
-    react-native-easy-guesture-responder "^1.1.3"
-    react-native-image-transformer "^1.5.1"
-    react-native-page-list "^1.1.3"
 
 react-native-gesture-handler@^1.8.0:
   version "1.8.0"
@@ -7880,14 +7861,6 @@ react-native-image-crop-picker@^0.35.0:
   resolved "https://registry.npm.taobao.org/react-native-image-crop-picker/download/react-native-image-crop-picker-0.35.0.tgz#a93450028354a7d7576a3e107fa627693f509e63"
   integrity sha1-qTRQAoNUp9dXaj4Qf6YnaT9QnmM=
 
-react-native-image-transformer@^1.5.1:
-  version "1.5.1"
-  resolved "https://registry.npm.taobao.org/react-native-image-transformer/download/react-native-image-transformer-1.5.1.tgz#33e7061d4312e79f459529e2bfc10a83dd21adc9"
-  integrity sha1-M+cGHUMS559FlSniv8EKg90hrck=
-  dependencies:
-    prop-types "^15.6.2"
-    react-native-easy-view-transformer "^1.2.0"
-
 react-native-iphone-x-helper@^1.2.1:
   version "1.2.1"
   resolved "https://registry.npm.taobao.org/react-native-iphone-x-helper/download/react-native-iphone-x-helper-1.2.1.tgz#645e2ffbbb49e80844bb4cbbe34a126fda1e6772"
@@ -7902,15 +7875,6 @@ react-native-linear-gradient@^2.5.6:
   version "2.5.6"
   resolved "https://registry.npm.taobao.org/react-native-linear-gradient/download/react-native-linear-gradient-2.5.6.tgz#96215cbc5ec7a01247a20890888aa75b834d44a0"
   integrity sha1-liFcvF7HoBJHogiQiIqnW4NNRKA=
-
-react-native-page-list@^1.1.3:
-  version "1.1.3"
-  resolved "https://registry.npm.taobao.org/react-native-page-list/download/react-native-page-list-1.1.3.tgz#4b90895ca4bb2da07529f36f57e545db99671e03"
-  integrity sha1-S5CJXKS7LaB1KfNvV+VF25lnHgM=
-  dependencies:
-    prop-types "^15.6.2"
-    react-native-easy-guesture-responder "^1.1.2"
-    react-native-scrolling "^1.0.2"
 
 react-native-ratings@^7.3.0:
   version "7.6.1"
@@ -7941,13 +7905,6 @@ react-native-screens@^2.11.0:
   version "2.11.0"
   resolved "https://registry.npm.taobao.org/react-native-screens/download/react-native-screens-2.11.0.tgz?cache=0&sync_timestamp=1600251675980&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Freact-native-screens%2Fdownload%2Freact-native-screens-2.11.0.tgz#34b30b07c2d04aa100cba984b944b303bfa43ea6"
   integrity sha1-NLMLB8LQSqEAy6mEuUSzA7+kPqY=
-
-react-native-scrolling@^1.0.2:
-  version "1.0.3"
-  resolved "https://registry.npm.taobao.org/react-native-scrolling/download/react-native-scrolling-1.0.3.tgz#ad3e964070d6a8c713f1bd703171ab26d83ab5d5"
-  integrity sha1-rT6WQHDWqMcT8b1wMXGrJtg6tdU=
-  dependencies:
-    prop-types "^15.6.2"
 
 react-native-size-matters@^0.3.1:
   version "0.3.1"
