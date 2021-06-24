@@ -9,6 +9,10 @@ import {
   TextInput,
   Modal,
   TouchableWithoutFeedback,
+  Keyboard,
+  KeyboardAvoidingView,
+  Platform,
+  Alert,
 } from 'react-native';
 import { Avatar, Button } from 'react-native-elements';
 import { screenHeight, screenWidth } from 'utils/constants';
@@ -17,6 +21,7 @@ interface Props {}
 function TransferScreen({}: Props) {
   const [modalVisible, setModalVisible] = useState(false);
   const [transferConfirm, setTransferConfirm] = useState(false);
+  const [riskWarning, setRiskWarning] = useState(false);
 
   const [receivingAddress, setReceivingAddress] = useState('');
   const [transferAmount, setTransferAmount] = useState('');
@@ -67,115 +72,123 @@ function TransferScreen({}: Props) {
   ];
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.main}>
-        <View style={styles.bodyContainer}>
-          <Text style={styles.coinType}>转账币种</Text>
-          <TouchableOpacity
-            style={styles.selectCoin}
-            onPress={() => setModalVisible(!modalVisible)}
-          >
-            <Image
-              style={styles.coinLogo}
-              source={require('assets/img-40-coointype-eth.png')}
-            />
-            <View style={styles.coinNameList}>
-              <Text style={styles.coinName}>ETH</Text>
-              <Text style={styles.coinNameInfo}>余额: 0.0043 ETH</Text>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <View style={styles.main}>
+          <View style={styles.bodyContainer}>
+            <Text style={styles.coinType}>转账币种</Text>
+            <TouchableOpacity
+              style={styles.selectCoin}
+              onPress={() => setModalVisible(!modalVisible)}
+            >
+              <Image
+                style={styles.coinLogo}
+                source={require('assets/img-40-coointype-eth.png')}
+              />
+              <View style={styles.coinNameList}>
+                <Text style={styles.coinName}>ETH</Text>
+                <Text style={styles.coinNameInfo}>余额: 0.0043 ETH</Text>
+              </View>
+              <Image
+                style={styles.coinGo}
+                source={require('assets/icon-20-arrow-right.png')}
+              />
+            </TouchableOpacity>
+
+            <Text style={styles.coinTypeS}>收款地址</Text>
+            <View style={styles.inputContainer}>
+              <TextInput
+                placeholder="请输入或粘贴钱包地址"
+                style={styles.addressInput}
+                value={receivingAddress}
+                onChangeText={setReceivingAddress}
+              />
+              <Image
+                style={styles.inputRightIcon}
+                source={require('assets/icon-20-地址本.png')}
+              />
             </View>
-            <Image
-              style={styles.coinGo}
-              source={require('assets/icon-20-arrow-right.png')}
-            />
-          </TouchableOpacity>
 
-          <Text style={styles.coinTypeS}>收款地址</Text>
-          <View style={styles.inputContainer}>
-            <TextInput
-              placeholder="请输入或粘贴钱包地址"
-              style={styles.addressInput}
-              value={receivingAddress}
-              onChangeText={setReceivingAddress}
-            />
-            <Image
-              style={styles.inputRightIcon}
-              source={require('assets/icon-20-地址本.png')}
-            />
-          </View>
+            <Text style={styles.coinTypeS}>转账数量</Text>
+            <View style={styles.inputContainer}>
+              <TextInput
+                placeholder="请输入转账数量"
+                keyboardType="numeric"
+                style={styles.addressInput}
+                value={transferAmount}
+                onChangeText={setTransferAmount}
+              />
+            </View>
 
-          <Text style={styles.coinTypeS}>转账数量</Text>
-          <View style={styles.inputContainer}>
-            <TextInput
-              placeholder="请输入转账数量"
-              keyboardType="numeric"
-              style={styles.addressInput}
-              value={transferAmount}
-              onChangeText={setTransferAmount}
-            />
-          </View>
-
-          <Text style={styles.coinTypeS}>矿工费</Text>
-          <View style={styles.gasContainer}>
-            {gasList.map((item, index) => (
-              <TouchableOpacity
-                style={
-                  gasIndex === index
-                    ? // eslint-disable-next-line react-native/no-inline-styles
-                      {
-                        ...styles.gasItem,
-                        borderColor: '#3D73DD',
-                        borderWidth: 0.5,
-                      }
-                    : styles.gasItem
-                }
-                onPress={() => setGasIndex(index)}
-              >
-                <Text
-                  style={
-                    gasIndex === index
-                      ? // eslint-disable-next-line react-native/no-inline-styles
-                        { ...styles.gasItemTitle, color: '#3D73DD' }
-                      : styles.gasItemTitle
-                  }
-                >
-                  {item?.title}
-                </Text>
-                <Text
-                  style={
-                    gasIndex === index
-                      ? // eslint-disable-next-line react-native/no-inline-styles
-                        { ...styles.gasItemSum, color: '#3D73DD', opacity: 0.5 }
-                      : styles.gasItemSum
-                  }
-                >
-                  {item?.quantity} {item?.coin}
-                </Text>
-                <Text
+            <Text style={styles.coinTypeS}>矿工费</Text>
+            <View style={styles.gasContainer}>
+              {gasList.map((item, index) => (
+                <TouchableOpacity
+                  key={item.title}
                   style={
                     gasIndex === index
                       ? // eslint-disable-next-line react-native/no-inline-styles
                         {
-                          ...styles.gasItemSums,
-                          color: '#3D73DD',
-                          opacity: 0.5,
+                          ...styles.gasItem,
+                          borderColor: '#3D73DD',
+                          borderWidth: 0.5,
                         }
-                      : styles.gasItemSums
+                      : styles.gasItem
                   }
+                  onPress={() => setGasIndex(index)}
                 >
-                  ≈￥{item?.cny} {item?.coin}
-                </Text>
-              </TouchableOpacity>
-            ))}
+                  <Text
+                    style={
+                      gasIndex === index
+                        ? // eslint-disable-next-line react-native/no-inline-styles
+                          { ...styles.gasItemTitle, color: '#3D73DD' }
+                        : styles.gasItemTitle
+                    }
+                  >
+                    {item?.title}
+                  </Text>
+                  <Text
+                    style={
+                      gasIndex === index
+                        ? // eslint-disable-next-line react-native/no-inline-styles
+                          {
+                            ...styles.gasItemSum,
+                            color: '#3D73DD',
+                            opacity: 0.5,
+                          }
+                        : styles.gasItemSum
+                    }
+                  >
+                    {item?.quantity} {item?.coin}
+                  </Text>
+                  <Text
+                    style={
+                      gasIndex === index
+                        ? // eslint-disable-next-line react-native/no-inline-styles
+                          {
+                            ...styles.gasItemSums,
+                            color: '#3D73DD',
+                            opacity: 0.5,
+                          }
+                        : styles.gasItemSums
+                    }
+                  >
+                    ≈￥{item?.cny} {item?.coin}
+                  </Text>
+                </TouchableOpacity>
+              ))}
+            </View>
+          </View>
+          <View style={styles.buttonContainer}>
+            <Button
+              buttonStyle={styles.buttonStyle}
+              title="确定"
+              titleStyle={styles.buttonTitle}
+              onPress={() => setTransferConfirm(!transferConfirm)}
+            />
           </View>
         </View>
-        <View style={styles.buttonContainer}>
-          <Button
-            buttonStyle={styles.buttonStyle}
-            title="确定"
-            titleStyle={styles.buttonTitle}
-            onPress={() => setTransferConfirm(!transferConfirm)}
-          />
-        </View>
-      </View>
+      </TouchableWithoutFeedback>
+      {/* 选择币种Model */}
       <Modal
         animationType="fade"
         transparent={true}
@@ -213,7 +226,7 @@ function TransferScreen({}: Props) {
               {list.map((item, i) => (
                 <TouchableOpacity
                   style={styles.list}
-                  key={i}
+                  key={item.coinName}
                   onPress={() => {
                     setSelectCoinIndex(i);
 
@@ -243,6 +256,7 @@ function TransferScreen({}: Props) {
         </View>
       </Modal>
 
+      {/* 输入安全密码Model */}
       <Modal
         animationType="fade"
         transparent={true}
@@ -261,70 +275,86 @@ function TransferScreen({}: Props) {
           >
             <View style={styles.outContair} />
           </TouchableWithoutFeedback>
-          <View style={styles.modalView}>
-            <View style={styles.headView}>
-              <Text style={styles.headText}>请输入安全密码</Text>
-              <TouchableOpacity
-                style={{ ...styles.openButton }}
-                onPress={() => {
-                  setTransferConfirm(!transferConfirm);
-                }}
-              >
-                <Image
-                  style={styles.textStyle}
-                  source={require('assets/icon-20-close.png')}
-                />
-              </TouchableOpacity>
-            </View>
-            <View style={styles.groupView}>
-              <View style={styles.codeInputView}>
-                <TextInput placeholder="输入密码" style={styles.codeInput} />
-                <View style={styles.codeButtonView}>
-                  <Button
-                    buttonStyle={styles.buttonStyle}
-                    title="确定"
-                    titleStyle={styles.buttonTitle}
-                    onPress={() => setTransferConfirm(!transferConfirm)}
-                  />
-                  <Button
-                    buttonStyle={styles.cancelButtonStyle}
-                    title="取消"
-                    titleStyle={styles.cancelButtonTitle}
-                    onPress={() => setTransferConfirm(!transferConfirm)}
-                  />
+          <KeyboardAvoidingView
+            behavior={Platform.OS === 'ios' ? 'position' : 'height'}
+          >
+            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+              <View style={styles.modalView}>
+                <View style={styles.headView}>
+                  <Text style={styles.headText}>请输入安全密码</Text>
+                  <TouchableOpacity
+                    style={{ ...styles.openButton }}
+                    onPress={() => {
+                      setTransferConfirm(!transferConfirm);
+                    }}
+                  >
+                    <Image
+                      style={styles.textStyle}
+                      source={require('assets/icon-20-close.png')}
+                    />
+                  </TouchableOpacity>
                 </View>
+                <View style={styles.groupView}>
+                  <View style={styles.codeInputView}>
+                    <TextInput
+                      secureTextEntry
+                      placeholder="输入密码"
+                      style={styles.codeInput}
+                    />
+                    <View style={styles.codeButtonView}>
+                      <Button
+                        buttonStyle={styles.buttonStyle}
+                        title="确定"
+                        titleStyle={styles.buttonTitle}
+                        onPress={() => {
+                          setTransferConfirm(!transferConfirm);
+                          setTimeout(() => {
+                            setRiskWarning(!riskWarning);
+                          }, 150);
+                        }}
+                      />
+                      <Button
+                        buttonStyle={styles.cancelButtonStyle}
+                        title="取消"
+                        titleStyle={styles.cancelButtonTitle}
+                        onPress={() => setTransferConfirm(!transferConfirm)}
+                      />
+                    </View>
+                  </View>
+                </View>
+                <View style={styles.lineView} />
               </View>
-            </View>
-            <View style={styles.lineView} />
-          </View>
+            </TouchableWithoutFeedback>
+          </KeyboardAvoidingView>
         </View>
       </Modal>
 
+      {/* 风险提示Model */}
       <Modal
         animationType="fade"
         transparent={true}
         hardwareAccelerated={true}
-        visible={modalVisible}
+        visible={riskWarning}
         onRequestClose={() => {
-          setModalVisible(!modalVisible);
+          setRiskWarning(!riskWarning);
         }}
       >
         <View style={styles.centeredView}>
           <TouchableWithoutFeedback
             style={{ ...styles.outView }}
             onPress={() => {
-              setModalVisible(!modalVisible);
+              setRiskWarning(!riskWarning);
             }}
           >
             <View style={styles.outContair} />
           </TouchableWithoutFeedback>
           <View style={styles.modalView}>
-            <View style={styles.headView}>
-              <Text style={styles.headText}>选择币种</Text>
+            <View style={styles.headViews}>
+              <Text style={styles.headText} />
               <TouchableWithoutFeedback
                 style={{ ...styles.openButton }}
                 onPress={() => {
-                  setModalVisible(!modalVisible);
+                  setRiskWarning(!riskWarning);
                 }}
               >
                 <Image
@@ -334,33 +364,38 @@ function TransferScreen({}: Props) {
               </TouchableWithoutFeedback>
             </View>
             <View style={styles.groupView}>
-              {list.map((item, i) => (
-                <TouchableOpacity
-                  style={styles.list}
-                  key={i}
-                  onPress={() => {
-                    setSelectCoinIndex(i);
-
-                    setTimeout(() => {
-                      setModalVisible(!modalVisible);
-                    }, 150);
-                  }}
-                >
-                  <Avatar
-                    rounded
-                    source={item.avatar_url}
-                    containerStyle={styles.avatar}
-                  />
-                  <Text style={styles.listCoinName}>{item.coinName}</Text>
-                  {selectCoinIndex === i ? (
-                    <Avatar
-                      rounded
-                      source={require('assets/icon-20-选中-样式1.png')}
-                      containerStyle={styles.avatarSelect}
-                    />
-                  ) : undefined}
-                </TouchableOpacity>
-              ))}
+              <View style={styles.alignItemsCenter}>
+                <Image
+                  style={styles.warning}
+                  source={require('assets/safetyWarning.png')}
+                />
+              </View>
+              <Text style={styles.warningTitle}>风险提示</Text>
+              <View style={styles.warningDesc}>
+                <Text style={styles.descText}>
+                  1. 请务必在转账操作前，仔细核对转账地址信息。
+                </Text>
+                <Text style={{ ...styles.descText, ...styles.paddingTop_30 }}>
+                  2.
+                  您的转账行为一旦完成，对应的资产所有权将由变更为目标地址所对应的账户所有人享有。
+                </Text>
+                <Text style={{ ...styles.descText, ...styles.paddingTop_30 }}>
+                  3.
+                  确保转账属于自愿行为，并确认不涉及任何传销，非法集资，诈骗等违法情形。谨防上当受骗，避免造成不必要的财产损失。
+                </Text>
+              </View>
+              <Button
+                type="clear"
+                buttonStyle={styles.warningButtonStyle}
+                title="我知道了"
+                titleStyle={styles.buttonTitle}
+                onPress={() => {
+                  Alert.alert('点击了');
+                  setTimeout(() => {
+                    setRiskWarning(!riskWarning);
+                  }, 150);
+                }}
+              />
             </View>
             <View style={styles.lineView} />
           </View>
@@ -508,6 +543,13 @@ const styles = StyleSheet.create({
     borderBottomWidth: 0.5,
     borderBottomColor: '#E9EDF1',
   },
+  headViews: {
+    flexDirection: 'row',
+    // alignItems: 'center',
+    marginTop: 0,
+    height: 60,
+    width: screenWidth,
+  },
   headText: {
     marginTop: 20,
     marginBottom: 20,
@@ -582,6 +624,41 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#616D86',
     fontWeight: '600',
+  },
+  alignItemsCenter: {
+    alignItems: 'center',
+  },
+  warning: {
+    width: 120,
+    height: 120,
+    resizeMode: 'center',
+  },
+  warningTitle: {
+    paddingVertical: 15,
+    fontSize: 20,
+    color: '#394867',
+    fontWeight: '500',
+    textAlign: 'center',
+  },
+  warningDesc: {
+    paddingHorizontal: 20,
+  },
+  descText: {
+    fontSize: 14,
+    color: '#616D86',
+    lineHeight: 25,
+    fontWeight: '400',
+  },
+  paddingTop_30: {
+    paddingTop: 30,
+  },
+  warningButtonStyle: {
+    marginHorizontal: 20,
+    backgroundColor: '#3B6ED5',
+    borderRadius: 8,
+    height: 55,
+    marginTop: 30,
+    marginBottom: 20,
   },
 });
 export default TransferScreen;

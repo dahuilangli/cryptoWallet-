@@ -139,7 +139,7 @@ function WalletBoardScreen({}: Props) {
               <TouchableOpacity
                 style={styles.submenuItem}
                 key={index}
-                onPress={() => {}}
+                onPress={() => navigate('WalletDetailScreen')}
               >
                 <Text style={styles.itemNameText}>{item?.walletName}</Text>
                 <View style={styles.itemName}>

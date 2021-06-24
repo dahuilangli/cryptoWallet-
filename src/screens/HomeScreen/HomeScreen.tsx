@@ -175,9 +175,10 @@ function HomeScreen({}: Props) {
             </View>
             <View style={styles.buttonContainer}>
               <Button
+                type="clear"
                 ViewComponent={LinearGradient}
                 linearGradientProps={{
-                  colors: ['rgba(255,255,255,.8)', 'rgba(255,255,255,1)'],
+                  colors: ['rgba(255,255,255,0.8)', 'rgba(255,255,255,1)'],
                   start: { x: 0, y: 0 },
                   end: { x: 0, y: 1 },
                 }}
@@ -193,6 +194,7 @@ function HomeScreen({}: Props) {
                 onPress={() => navigate('TransferScreen')}
               />
               <Button
+                type="clear"
                 ViewComponent={LinearGradient}
                 icon={
                   <Image
@@ -201,13 +203,14 @@ function HomeScreen({}: Props) {
                   />
                 }
                 linearGradientProps={{
-                  colors: ['rgba(255,255,255,.8)', 'rgba(255,255,255,1)'],
+                  colors: ['rgba(255,255,255,0.8)', 'rgba(255,255,255,1)'],
                   start: { x: 0, y: 0 },
                   end: { x: 0, y: 1 },
                 }}
                 buttonStyle={styles.buttonOne}
                 title="收款"
                 titleStyle={styles.buttonTitle}
+                onPress={() => navigate('ReceivePaymentScreen')}
               />
             </View>
           </View>
@@ -314,14 +317,14 @@ function HomeScreen({}: Props) {
                   {DATA[selectItem]?.title}
                 </Text>
                 <ScrollView scrollIndicatorInsets={{ right: -6 }}>
-                  {DATA[selectItem]?.data.map((item, index) => (
+                  {DATA[selectItem]?.data.map((item) => (
                     <TouchableOpacity
                       style={
                         selectAddress === item.address
                           ? styles.submenuItemS
                           : styles.submenuItem
                       }
-                      key={index}
+                      key={item.address}
                       onPress={() => setSelectAddress(item.address)}
                     >
                       <View style={styles.itemName}>

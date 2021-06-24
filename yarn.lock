@@ -1409,6 +1409,11 @@
     "@nodelib/fs.scandir" "2.1.3"
     fastq "^1.6.0"
 
+"@react-native-clipboard/clipboard@^1.8.2":
+  version "1.8.2"
+  resolved "https://registry.nlark.com/@react-native-clipboard/clipboard/download/@react-native-clipboard/clipboard-1.8.2.tgz?cache=0&sync_timestamp=1623823237897&other_urls=https%3A%2F%2Fregistry.nlark.com%2F%40react-native-clipboard%2Fclipboard%2Fdownload%2F%40react-native-clipboard%2Fclipboard-1.8.2.tgz#454000db103442e830026566e3c2a436e9b3f781"
+  integrity sha1-RUAA2xA0QugwAmVm48KkNumz94E=
+
 "@react-native-community/async-storage@^1.12.0":
   version "1.12.0"
   resolved "https://registry.npm.taobao.org/@react-native-community/async-storage/download/@react-native-community/async-storage-1.12.0.tgz#d2fc65bc08aa1c3e9514bbe9fe7095eab8e8aca3"
@@ -7761,6 +7766,11 @@ punycode@^2.1.0, punycode@^2.1.1:
   version "2.1.1"
   resolved "https://registry.npm.taobao.org/punycode/download/punycode-2.1.1.tgz#b58b010ac40c22c5657616c8d2c2c02c7bf479ec"
   integrity sha1-tYsBCsQMIsVldhbI0sLALHv0eew=
+
+qrcode-generator@^1.4.4:
+  version "1.4.4"
+  resolved "https://registry.npm.taobao.org/qrcode-generator/download/qrcode-generator-1.4.4.tgz#63f771224854759329a99048806a53ed278740e7"
+  integrity sha1-Y/dxIkhUdZMpqZBIgGpT7SeHQOc=
 
 qs@6.7.0:
   version "6.7.0"

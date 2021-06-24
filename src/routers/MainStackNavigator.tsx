@@ -15,9 +15,13 @@ import AddressBookEditorScreen from 'screens/MineScreen/AddressBookEditorScreen'
 import SetUpScreen from 'screens/MineScreen/SetUpScreen';
 import SearchScreen from 'screens/HomeScreen/SearchScreen';
 import CoinDetailScreen from 'screens/CoinDetailScreen/CoinDetailScreen';
+// 钱包管理
 import WalletBoardScreen from 'screens/WalletBoardScreen/WalletBoardScreen';
-
+import WalletDetailScreen from 'screens/WalletBoardScreen/WalletDetailScreen';
+import ExportMnemonicScreen from 'screens/WalletBoardScreen/ExportMnemonicScreen';
+// 转账收款
 import TransferScreen from 'screens/TransferScreen/TransferScreen';
+import ReceivePaymentScreen from 'screens/ReceivePaymentScreen/ReceivePaymentScreen';
 // import FeedListScreen from 'screens/FeedListScreen/FeedListScreen';
 
 export type MainStackParamList = {
@@ -36,7 +40,10 @@ export type MainStackParamList = {
   SearchScreen: { coin: Array<string> };
   CoinDetailScreen: { title: string };
   WalletBoardScreen: undefined;
+  WalletDetailScreen: undefined;
   TransferScreen: undefined;
+  ReceivePaymentScreen: undefined;
+  ExportMnemonicScreen: undefined;
 };
 
 const { Navigator, Screen } = createStackNavigator<MainStackParamList>();
@@ -83,12 +90,33 @@ export default function MainStackNavigator() {
           title: '钱包管理',
         }}
       />
+      <Screen
+        name="WalletDetailScreen"
+        component={WalletDetailScreen}
+        options={{
+          title: '钱包详情',
+        }}
+      />
+      <Screen
+        name="ExportMnemonicScreen"
+        component={ExportMnemonicScreen}
+        options={{
+          title: '备份助记词',
+        }}
+      />
 
       <Screen
         name="TransferScreen"
         component={TransferScreen}
         options={{
           title: '转账',
+        }}
+      />
+      <Screen
+        name="ReceivePaymentScreen"
+        component={ReceivePaymentScreen}
+        options={{
+          title: '收款',
         }}
       />
 
