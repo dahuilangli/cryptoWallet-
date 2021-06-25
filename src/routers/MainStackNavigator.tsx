@@ -1,7 +1,7 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { Image } from 'react-native';
+import { Image,Text } from 'react-native';
 
 import TabNavigator from './TabNavigator';
 import WebScreen from 'screens/WebScreen';

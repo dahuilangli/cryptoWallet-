@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, Text, SafeAreaView, TouchableOpacity, Image, Button, Alert } from 'react-native';
-import { TextInput } from 'react-native-gesture-handler';
+import { StyleSheet, View, Text, SafeAreaView, TouchableOpacity, Image, Button, Alert,TextInput } from 'react-native';
+// import { TextInput } from 'react-native-gesture-handler';
 import { navigate } from 'components/navigationService';
 
 interface Props {
