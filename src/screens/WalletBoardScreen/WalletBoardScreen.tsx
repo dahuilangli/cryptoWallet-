@@ -153,7 +153,7 @@ function WalletBoardScreen({}: Props) {
                   />
                 </View>
                 <View style={styles.itemAmountContainer}>
-                  <Text style={styles.itemAmount}>可用余额</Text>
+                  <Text style={styles.itemAmount}>{i18n.t("AvailableBalance")}</Text>
                   <Text style={styles.itemAmountText}>{item?.amount}</Text>
                 </View>
               </TouchableOpacity>

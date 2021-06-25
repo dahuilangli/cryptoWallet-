@@ -5,9 +5,10 @@ import {
   Text,
   SafeAreaView,
   FlatList,
-  StatusBar,
+  TouchableOpacity,
   Image,
 } from 'react-native';
+import i18n from "i18n";
 import { navigate } from 'components/navigationService';
 import { ScreensParamList, Feed } from 'actions/types';
 import { RouteProp, useRoute, useIsFocused } from '@react-navigation/native';
@@ -15,22 +16,62 @@ import { RouteProp, useRoute, useIsFocused } from '@react-navigation/native';
 type AboutUsScreenRouteProp = RouteProp<ScreensParamList, 'AboutUsScreen'>;
 interface Props {}
 
-function AboutUsScreen({}: Props) {
+const list = [
+  {
+    name: '官网',
+    img: require('assets/icon-30-关于我们-官网.png'),
+    url: ''
+  },
+  {
+    name: '公众号',
+    img: require('assets/icon-30-关于我们-官网.png'),
+    url: ''
+  },
+  {
+    name: 'Telegram',
+    img: require('assets/icon-30-关于我们-官网.png'),
+    url: ''
+  },
+  {
+    name: 'Twitter',
+    img: require('assets/icon-30-关于我们-官网.png'),
+    url: ''
+  }
+]
+
+function AboutUsScreen({ }: Props) {
   return (
     <View style={styles.backView}>
+
       <SafeAreaView style={styles.container}>
         <View style={styles.headView}>
-          <Image
-            source={require('assets/icon-125-aboutuslogo.png')}
-            style={styles.iconImage}
-          />
-          <Text style={styles.nameLabel}>项目名称</Text>
+          <Image source={require('assets/icon-125-aboutuslogo.png')} style={styles.iconImage} />
+          <Text style={styles.nameLabel}>{i18n.t("projectname")}</Text>
         </View>
-        {/* <FlatList >
-
-          </FlatList> */}
+        <View style={styles.bottomView}>
+          {
+            list.map((item, i) => (
+              <TouchableOpacity style={styles.itemStyle}>
+                <View style={styles.firstView}>
+                  <Image
+                    style = {styles.LeftImage}
+                    source = {item.img}
+                  />
+                  <Text style = {styles.nameText}>{item.name}</Text>
+                </View >
+                <View style={styles.secondView}>
+                  <Image
+                    style = {styles.rightImage}
+                    source = {require('assets/icon-20-arrow-right.png')}
+                  />
+                </View>
+              </TouchableOpacity>
+            ))
+          }
+        </View>
       </SafeAreaView>
     </View>
+
   );
 }
 

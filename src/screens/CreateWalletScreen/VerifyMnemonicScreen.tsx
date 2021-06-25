@@ -65,7 +65,7 @@ const VerifyMnemonicScreen = (props: Props) => {
       <View style={styles.main}>
         <View>
           <Text style={styles.presentText}>
-            请根据您抄写的助记词, 按顺序选择填充
+            {i18n.t("mnemonicwordscopied")}
           </Text>
           <View style={styles.newMnemonicList}>
             <View style={styles.newMnemonic}>

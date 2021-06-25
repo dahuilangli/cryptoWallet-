@@ -1,7 +1,8 @@
 import Clipboard from '@react-native-clipboard/clipboard';
+import i18next from 'i18n';
 import React from 'react';
 import { StyleSheet, View, SafeAreaView, Text } from 'react-native';
-
+import i18n from 'i18n'
 import { Button } from 'react-native-elements';
 import { WToast } from 'react-native-smart-tip';
 
@@ -28,7 +29,7 @@ const ExportPrivateKeyScreen = ({}: Props) => {
     <SafeAreaView style={styles.container}>
       <View style={styles.main}>
         <Text style={styles.presentText}>
-          请备份私钥至安全地方{'\n'}一旦泄露, 可能会导致资产损失
+          {i18n.t("backupprivatekeytosafeplace")}{'\n'}{i18n.t("Onceleakeditmaycauseassetloss")}
         </Text>
         <View style={styles.privateKeyContainer}>
           <Text style={styles.privateKeyText}>{privateKey}</Text>
@@ -37,7 +38,7 @@ const ExportPrivateKeyScreen = ({}: Props) => {
         <Button
           buttonStyle={styles.nextButton}
           onPress={copyToClipboard}
-          title="复制私钥"
+          title={i18n.t("Copyprivatekey")}
           titleStyle={styles.nextButtonTitle}
         />
       </View>

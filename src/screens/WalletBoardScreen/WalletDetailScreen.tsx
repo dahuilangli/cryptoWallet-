@@ -17,6 +17,7 @@ import {
 import { Button } from 'react-native-elements';
 import { WToast } from 'react-native-smart-tip';
 import { navigate } from 'components/navigationService';
+import i18n from 'i18n'
 import {SCREENHEIGHT,SCREENWIDTH} from "config/constants"
 
 interface Props {}
@@ -84,7 +85,7 @@ function WalletDetailScreen({}: Props) {
                 ...styles.paddingHorizontal_20,
               }}
             >
-              <Text style={styles.title}>钱包地址</Text>
+              <Text style={styles.title}>{i18n.t("walletaddress")}</Text>
               <Image
                 style={styles.icon_20}
                 source={require('assets/icon-20-copy.png')}
@@ -112,7 +113,7 @@ function WalletDetailScreen({}: Props) {
               ...styles.borderBootom,
             }}
           >
-            <Text style={styles.title}>导出助记词</Text>
+            <Text style={styles.title}>{i18n.t("exportmnemonic")}</Text>
             <Image
               style={styles.right}
               source={require('assets/icon-20-arrow-right.png')}
@@ -126,7 +127,7 @@ function WalletDetailScreen({}: Props) {
               ...styles.borderBootom,
             }}
           >
-            <Text style={styles.title}>导出私钥</Text>
+            <Text style={styles.title}>{i18n.t("exportprivatekey")}</Text>
             <Image
               style={styles.right}
               source={require('assets/icon-20-arrow-right.png')}
@@ -140,7 +141,7 @@ function WalletDetailScreen({}: Props) {
               ...styles.borderBootom,
             }}
           >
-            <Text style={styles.title}>修改密码</Text>
+            <Text style={styles.title}>{i18n.t("changePassword")}</Text>
             <Image
               style={styles.right}
               source={require('assets/icon-20-arrow-right.png')}
@@ -150,7 +151,7 @@ function WalletDetailScreen({}: Props) {
       </View>
       <Button
         buttonStyle={styles.button}
-        title="删除钱包"
+        title={i18n.t("deletewallet")}
         onPress={() => setTransferConfirm(!transferConfirm)}
         titleStyle={styles.buttonTitle}
       />
@@ -180,7 +181,7 @@ function WalletDetailScreen({}: Props) {
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
               <View style={styles.modalView}>
                 <View style={styles.headView}>
-                  <Text style={styles.headText}>请输入安全密码</Text>
+                  <Text style={styles.headText}>{i18n.t("entersecurepassword")}</Text>
                   <TouchableOpacity
                     style={{ ...styles.openButton }}
                     onPress={() => {
@@ -198,14 +199,14 @@ function WalletDetailScreen({}: Props) {
                     <TextInput
                       style={styles.codeInput}
                       secureTextEntry
-                      placeholder="输入密码"
+                      placeholder={i18n.t("enterpassword")}
                       value={pwd}
                       onChangeText={setPwd}
                     />
                     <View style={styles.codeButtonView}>
                       <Button
                         buttonStyle={styles.buttonStyle}
-                        title="确定"
+                        title={i18n.t("sure")}
                         titleStyle={styles.buttonModelTitle}
                         onPress={() => {
                           if (pwd === pwds) {
@@ -228,7 +229,7 @@ function WalletDetailScreen({}: Props) {
                       />
                       <Button
                         buttonStyle={styles.cancelButtonStyle}
-                        title="取消"
+                        title={i18n.t("cancel")}
                         titleStyle={styles.cancelButtonTitle}
                         onPress={() => setTransferConfirm(!transferConfirm)}
                       />
@@ -267,7 +268,7 @@ function WalletDetailScreen({}: Props) {
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
               <View style={styles.modalView}>
                 <View style={styles.headView}>
-                  <Text style={styles.headText}>修改钱包名称</Text>
+                  <Text style={styles.headText}>{i18n.t("modifywalletname")}</Text>
                   <TouchableOpacity
                     style={{ ...styles.openButton }}
                     onPress={() => {
@@ -284,20 +285,20 @@ function WalletDetailScreen({}: Props) {
                   <View style={styles.codeInputView}>
                     <TextInput
                       style={styles.codeInput}
-                      placeholder="输入钱包名称"
+                      placeholder={i18n.t("enterwalletname")}
                       value={wallName}
                       onChangeText={setWallName}
                     />
                     <View style={styles.codeButtonView}>
                       <Button
                         buttonStyle={styles.buttonStyle}
-                        title="确定"
+                        title={i18n.t("sure")}
                         titleStyle={styles.buttonModelTitle}
                         onPress={() => (name = wallName)}
                       />
                       <Button
                         buttonStyle={styles.cancelButtonStyle}
-                        title="取消"
+                        title={i18n.t("cancel")}
                         titleStyle={styles.cancelButtonTitle}
                         onPress={() => setWallNameModel(!wallNameModel)}
                       />

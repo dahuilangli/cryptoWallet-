@@ -83,7 +83,7 @@
   "confirmsecuritypassword":"Confirm secure password",
 
 
-
+  "AvailableBalance":"Available Balance",
   "Transfer":"Transfer",
   "Receive":"Receive",
   "assets":"Assets",
@@ -112,7 +112,13 @@
   "Connectingtowallet":"Connecting to wallet",
   "Anyonegetsmnemonicphrasecantransferyourassets":"Anyone gets mnemonic phrase can transfer your assets",
   "backupandkeepmnemonicwordsinsecureenvironment":"backup and keep mnemonic words in secure environment",
+  "backupprivatekeytosafeplace":"Backup privatekey to safe place",
+  "Onceleakeditmaycauseassetloss":"Once leaked, it may cause asset loss",
+  "Copyprivatekey":"Copy Privatekey",
+  "Pleaseentercorrectprivatekey":"Please enter correct privatekey",
+  "mnemonicwordscopied":"Please fill in order according to the mnemonic words you copied",
   "Gobackup":"Go Backup",
+  "Pleaseentercorrectmnemonic":"Please enter correct mnemonic",
   "becontinued":"Be Continued",
   "Backuplater":"Backup Later",
   "barcodeinformation":"Barcode Information",
@@ -120,7 +126,14 @@
   "Importsuccessful":"Import Successful",
   "Createdsuccessfully":"Created Successfully",
   "searchresult":"Search Result",
-  "EnterDappname":"Enter Dapp name"
-  
-
+  "EnterDappname":"Enter Dapp name",
+  "exportmnemonic":"Export Mnemonic",
+  "exportprivatekey":"Export Privatekey",
+  "changePassword":"Change Password",
+  "deletewallet":"Delete Wallet",
+  "modifywalletname":"Modify Wallet Name",
+  "enterwalletname":"Enter wallet name",
+  "walletdetails":"Wallet Details",
+  "Backupprivatekey":"Backup Privatekey",
+  "scan":"Scan"
 }

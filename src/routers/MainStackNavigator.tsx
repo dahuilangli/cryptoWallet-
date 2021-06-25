@@ -102,28 +102,28 @@ export default function MainStackNavigator() {
         name="WalletDetailScreen"
         component={WalletDetailScreen}
         options={{
-          title: '钱包详情',
+          title: i18n.t("walletdetails"),
         }}
       />
       <Screen
         name="ExportMnemonicScreen"
         component={ExportMnemonicScreen}
         options={{
-          title: '备份助记词',
+          title: i18n.t("Backupmnemonic"),
         }}
       />
       <Screen
         name="ExportPrivateKeyScreen"
         component={ExportPrivateKeyScreen}
         options={{
-          title: '备份私钥',
+          title: i18n.t("Backupprivatekey"),
         }}
       />
       <Screen
         name="EditPwdScreen"
         component={EditPwdScreen}
         options={{
-          title: '修改密码',
+          title: i18n.t("changePassword"),
         }}
       />
       <Screen
@@ -148,7 +148,7 @@ export default function MainStackNavigator() {
       <Screen
         name="ScanQRCode"
         component={ScanQRCode}
-        options={{ title : '扫一扫' }}
+        options={{ title : i18n.t("Scan") }}
       />
       <Screen
         name="CoinDetailScreen"

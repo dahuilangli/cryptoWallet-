@@ -76,7 +76,7 @@ function TransferScreen({}: Props) {
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View style={styles.main}>
           <View style={styles.bodyContainer}>
-            <Text style={styles.coinType}>转账币种</Text>
+            <Text style={styles.coinType}>{i18n.t("Transfercurrency")}</Text>
             <TouchableOpacity
               style={styles.selectCoin}
               onPress={() => setModalVisible(!modalVisible)}
@@ -87,7 +87,7 @@ function TransferScreen({}: Props) {
               />
               <View style={styles.coinNameList}>
                 <Text style={styles.coinName}>ETH</Text>
-                <Text style={styles.coinNameInfo}>余额: 0.0043 ETH</Text>
+                <Text style={styles.coinNameInfo}>{i18n.t("Balance")}: 0.0043 ETH</Text>
               </View>
               <Image
                 style={styles.coinGo}
@@ -95,10 +95,10 @@ function TransferScreen({}: Props) {
               />
             </TouchableOpacity>
 
-            <Text style={styles.coinTypeS}>收款地址</Text>
+            <Text style={styles.coinTypeS}>{i18n.t("receiveaddress")}</Text>
             <View style={styles.inputContainer}>
               <TextInput
-                placeholder="请输入或粘贴钱包地址"
+                placeholder={i18n.t("enterWalAdd")}
                 style={styles.addressInput}
                 value={receivingAddress}
                 onChangeText={setReceivingAddress}
@@ -109,10 +109,10 @@ function TransferScreen({}: Props) {
               />
             </View>
 
-            <Text style={styles.coinTypeS}>转账数量</Text>
+            <Text style={styles.coinTypeS}>{i18n.t("transferamount")}</Text>
             <View style={styles.inputContainer}>
               <TextInput
-                placeholder="请输入转账数量"
+                placeholder={i18n.t("entertransferamount")}
                 keyboardType="numeric"
                 style={styles.addressInput}
                 value={transferAmount}
@@ -120,7 +120,7 @@ function TransferScreen({}: Props) {
               />
             </View>
 
-            <Text style={styles.coinTypeS}>矿工费</Text>
+            <Text style={styles.coinTypeS}>{i18n.t("Minerfee")}</Text>
             <View style={styles.gasContainer}>
               {gasList.map((item, index) => (
                 <TouchableOpacity
@@ -182,7 +182,7 @@ function TransferScreen({}: Props) {
           <View style={styles.buttonContainer}>
             <Button
               buttonStyle={styles.buttonStyle}
-              title="确定"
+              title={i18n.t("sure")}
               titleStyle={styles.buttonTitle}
               onPress={() => setTransferConfirm(!transferConfirm)}
             />

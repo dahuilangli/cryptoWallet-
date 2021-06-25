@@ -53,7 +53,7 @@ const ImportPrivateKeyScreen = (props: Props) => {
               });
             } catch (error) {
               WToast.show({
-                data: '请填写正确的私钥',
+                data: i18n.t("Pleaseentercorrectprivatekey"),
                 duration: WToast.duration.LONG,
                 position: WToast.position.CENTER,
               });

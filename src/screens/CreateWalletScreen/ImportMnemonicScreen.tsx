@@ -14,6 +14,7 @@ import { recoverAccountToMnemonic } from 'helper/ethers';
 import { navigate } from 'components/navigationService';
 
 import { WToast } from 'react-native-smart-tip';
+import i18n from 'i18n';
 
 interface Props {
   route: {
@@ -59,7 +60,7 @@ const ImportMnemonicScreen = (props: Props) => {
         <View style={styles.main}>
           <View style={styles.inputContainer}>
             <Text style={styles.presentText}>
-              请按顺序输入您的12位助记词, 用空格区隔
+              {i18n.t("mnemonicimportDes")}
             </Text>
             <View style={styles.inputName}>
               <UselessTextInput
@@ -71,7 +72,7 @@ const ImportMnemonicScreen = (props: Props) => {
                 onChangeText={(text: string) => setMnemonic(text)}
                 autoComplete={false}
                 value={mnemonic}
-                placeholder="请填写"
+                placeholder={i18n.t("Please fill out")}
               />
             </View>
           </View>
@@ -89,7 +90,7 @@ const ImportMnemonicScreen = (props: Props) => {
                 });
               } catch (error) {
                 WToast.show({
-                  data: '请填写正确的助记词',
+                  data: i18n.t("Pleaseentercorrectmnemonic"),
                   duration: WToast.duration.LONG,
                   position: WToast.position.CENTER,
                 });
