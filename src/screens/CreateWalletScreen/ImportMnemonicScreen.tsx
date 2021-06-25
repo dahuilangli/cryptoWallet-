@@ -63,6 +63,7 @@ const ImportMnemonicScreen = (props: Props) => {
             </Text>
             <View style={styles.inputName}>
               <UselessTextInput
+                style={styles.TextInput}
                 multiline
                 numberOfLines={4}
                 enablesReturnKeyAutomatically
@@ -128,9 +129,11 @@ const styles = StyleSheet.create({
     height: 110,
     backgroundColor: '#FFFFFF',
     borderRadius: 8,
-    paddingHorizontal: 17.5,
     justifyContent: 'center',
-    alignItems: 'center',
+  },
+  TextInput: {
+    paddingHorizontal: 17.5,
+    textAlign: 'center',
   },
   nextButton: {
     height: 55,
