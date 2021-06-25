@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { screenWidth } from 'utils/constants';
 import { StyleSheet, View, Text, SafeAreaView, FlatList, TouchableOpacity, Image, Alert } from 'react-native';
 interface Props {
   route: {

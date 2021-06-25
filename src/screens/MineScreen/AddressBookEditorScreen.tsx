@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Text, SafeAreaView, TouchableOpacity, Image, Button, Alert } from 'react-native';
-import { screenWidth } from 'utils/constants';
 import { TextInput } from 'react-native-gesture-handler';
-import { navigate } from 'utils/navigationService';
-import i18next from 'i18n';
+import { navigate } from 'components/navigationService';
 
 interface Props {
     route: {

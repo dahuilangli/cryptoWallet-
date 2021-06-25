@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Text, SafeAreaView, Image ,FlatList, Alert} from 'react-native';
-import { navigate } from 'utils/navigationService';
-import { ScreensParamList, Feed } from 'types/types';
+import { navigate } from 'components/navigationService';
+import { ScreensParamList, Feed } from 'actions/types';
 import { RouteProp, useRoute, useIsFocused } from '@react-navigation/native';
 import { ListItem} from 'react-native-elements';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { screenWidth } from 'utils/constants';
 
 
 type SetUpScreenRouteProp = RouteProp<ScreensParamList, 'SetUpScreen'>;

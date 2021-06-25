@@ -6,11 +6,10 @@ import {
 import { WebView } from 'react-native-webview';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { ScreensParamList } from 'types/types';
-import { screenWidth } from 'utils/constants';
+import { ScreensParamList } from 'actions/types';
 import { Image } from 'react-native-elements/dist/image/Image';
 import { event } from 'react-native-reanimated';
-import { navigate } from 'utils/navigationService';
+import { navigate } from 'components/navigationService';
 import { Text } from 'react-native-elements';
 import i18next from 'i18n';
 
