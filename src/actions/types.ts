@@ -1,26 +1,14 @@
-<<<<<<< HEAD:src/actions/types.ts
-import { DataState } from 'reducer/dataStateReducer';
-import { SettingsState } from 'reducer/settingsStateReducer';
-import { UIState } from 'reducer/uiStateReducer';
-=======
 export { Dispatch } from 'redux';
-import { DataState } from 'reducers/wallet';
+import { DataState } from 'reducers/dataStateReducer';
 import { SettingsState } from 'reducers/settingsStateReducer';
 import { UIState } from 'reducers/uiStateReducer';
->>>>>>> master:src/types/types.ts
 export { UIState, DataState, SettingsState };
-import {ActionValue} from 'redux-type-actions';
-
 import {ActionValue} from 'redux-type-actions';
 
 import { MainStackParamList } from 'routers/MainStackNavigator';
 import { TabParamList } from 'routers/TabNavigator';
 import { AuthStackParamList } from 'routers/AuthStackNavigator';
 import walletAction from './wallet';
-<<<<<<< HEAD:src/actions/types.ts
-
-=======
->>>>>>> master:src/types/types.ts
 
 export type ScreensParamList = MainStackParamList &
   TabParamList &
