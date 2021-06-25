@@ -13,6 +13,7 @@ export const initialState: Readonly<DataState> = {
 };
 export const selectDataState = (reduxState: ReduxState) => reduxState.dataState;
 
+
 export default (originalState = initialState, walletAction: WalletAction) =>
   produce(originalState, (state) => {
     switch (walletAction.type) {
@@ -24,21 +25,11 @@ export default (originalState = initialState, walletAction: WalletAction) =>
         state.accountList?.push(walletAction.payload);
         return;
       case 'getUser':
-          return createSelector(
-            selectDataState,
-            (dataState) => dataState.user,
-          );
+          return state.user;
     case "getAccountList":
-      console.log(321321332)
-        return createSelector(
-        selectDataState,
-        (dataState) => dataState.accountList,
-      )
+        return state.accountList;
       case 'getToken':
-          return createSelector(
-            selectDataState,
-            (dataState) => dataState.accountList,
-          );
+          return state.accountList;
       default:
           return;
     }
