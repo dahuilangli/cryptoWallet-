@@ -48,7 +48,7 @@ function WalletDetailScreen({}: Props) {
   };
 
   function goNavigate(screenName: string) {
-    if (navigateName) {
+    if (screenName) {
       setNavigateName(screenName);
       setPwd('');
       setTransferConfirm(!transferConfirm);
@@ -214,7 +214,7 @@ function WalletDetailScreen({}: Props) {
                               case 'privateKey':
                                 navigate('ExportPrivateKeyScreen');
                                 break;
-                              case 'Mnemonic':
+                              case 'mnemonic':
                                 navigate('ExportMnemonicScreen');
                                 break;
                               case 'editPwd':
@@ -299,7 +299,7 @@ function WalletDetailScreen({}: Props) {
                         buttonStyle={styles.cancelButtonStyle}
                         title="取消"
                         titleStyle={styles.cancelButtonTitle}
-                        onPress={() => setTransferConfirm(!transferConfirm)}
+                        onPress={() => setWallNameModel(!wallNameModel)}
                       />
                     </View>
                   </View>

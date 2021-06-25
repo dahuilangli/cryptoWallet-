@@ -25,6 +25,8 @@ import CoinDetailScreen from 'screens/CoinDetailScreen/CoinDetailScreen';
 import WalletBoardScreen from 'screens/WalletBoardScreen/WalletBoardScreen';
 import WalletDetailScreen from 'screens/WalletBoardScreen/WalletDetailScreen';
 import ExportMnemonicScreen from 'screens/WalletBoardScreen/ExportMnemonicScreen';
+import ExportPrivateKeyScreen from 'screens/WalletBoardScreen/ExportPrivateKeyScreen';
+
 // 转账收款
 import TransferScreen from 'screens/TransferScreen/TransferScreen';
 import ReceivePaymentScreen from 'screens/ReceivePaymentScreen/ReceivePaymentScreen';
@@ -55,6 +57,7 @@ export type MainStackParamList = {
   ReceivePaymentScreen: undefined;
   ExportMnemonicScreen: undefined;
   DappWebScreen: { title?: string; uri: string; item: {} }
+  ExportPrivateKeyScreen: undefined;
 };
 
 const { Navigator, Screen } = createStackNavigator<MainStackParamList>();
@@ -116,6 +119,13 @@ export default function MainStackNavigator() {
         component={WalletBoardScreen}
         options={{
           title: i18n.t("Walletmanagement"),
+        }}
+      />
+      <Screen
+        name="ExportPrivateKeyScreen"
+        component={ExportPrivateKeyScreen}
+        options={{
+          title: '备份私钥',
         }}
       />
       <Screen

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import {
   StyleSheet,
+  SafeAreaView,
   View,
   Text,
   Image,
@@ -36,27 +37,29 @@ const LoginScreen = ({}: Props) => {
   return (
     <LinearGradient colors={['#1D4692', '#263C75']} style={styles.container}>
       <StatusBar barStyle="light-content" />
-      <View style={styles.logoContainer}>
-        <Image style={styles.logo} source={require('assets/logo.png')} />
-        <Text style={styles.logoText}>MORLEYSTONE</Text>
-      </View>
-      <View style={styles.buttonContainer}>
-        <Button
-          buttonStyle={styles.newCreate}
-          onPress={() => {
-            navigate('SelectWalletScreen', { loginType: 'new' });
-          }}
-          title={i18n.t("createnewwallet")}
-          titleStyle={styles.newCreateTitle}
-        />
-        <Button
-          type="outline"
-          buttonStyle={styles.already}
-          onPress={() => setModalVisible(true)}
-          title={i18n.t("haveawallet")}
-          titleStyle={styles.alreadyTitle}
-        />
-      </View>
+      <SafeAreaView style={styles.flex_1}>
+        <View style={styles.logoContainer}>
+          <Image style={styles.logo} source={require('assets/logo.png')} />
+          <Text style={styles.logoText}>MORLEYSTONE</Text>
+        </View>
+        <View style={styles.buttonContainer}>
+          <Button
+            buttonStyle={styles.newCreate}
+            onPress={() => {
+              navigate('SelectWalletScreen', { loginType: 'new' });
+            }}
+            title={i18n.t('wallet.create')}
+            titleStyle={styles.newCreateTitle}
+          />
+          <Button
+            type="outline"
+            buttonStyle={styles.already}
+            onPress={() => setModalVisible(true)}
+            title="已有钱包"
+            titleStyle={styles.alreadyTitle}
+          />
+        </View>
+      </SafeAreaView>
       <Modal
         animationType="fade"
         transparent={true}
@@ -140,7 +143,7 @@ const styles = StyleSheet.create({
     fontSize: 28,
   },
   buttonContainer: {
-    paddingVertical: 15,
+    paddingBottom: 15,
   },
   newCreate: {
     height: 55,
@@ -231,6 +234,9 @@ const styles = StyleSheet.create({
     width: SCREENWIDTH,
     height: 0.5,
     backgroundColor: '#E9EDF1',
+  },
+  flex_1: {
+    flex: 1,
   },
 });
 export default LoginScreen;
