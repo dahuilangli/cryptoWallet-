@@ -38,7 +38,6 @@ function TabNavigator() {
       <Screen
         name="HomeScreen"
         component={HomeScreen}
-        
         options={{ 
           tabBarLabel: i18n.t("wallet"),
         }}

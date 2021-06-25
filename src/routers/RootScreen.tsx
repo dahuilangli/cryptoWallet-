@@ -3,7 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { navigationRef } from 'components/navigationService';
 import MainStackNavigator from './MainStackNavigator';
 import AuthStackNavigator from './AuthStackNavigator';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import SplashScreen from 'react-native-splash-screen';
 import apis from 'apis';
 import { User } from 'actions/types';
@@ -52,7 +52,7 @@ function RootScreen() {
   //   await console.log('程序是否允许在模拟器中:', DeviceInfo.isEmulator());
   //   await console.log('是否是平板电脑:', DeviceInfo.isTablet());
   // }
-  
+
   // const accountList = useSelector(wallet.getAccountList);
   const accountList = wallet.getAccountList;
   React.useEffect(() => {

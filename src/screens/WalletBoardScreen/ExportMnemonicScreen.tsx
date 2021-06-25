@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
   },
   main: {
     flex: 1,
-    marginHorizontal: 25,
+    marginHorizontal: 20,
     justifyContent: 'space-between',
   },
   presentText: {

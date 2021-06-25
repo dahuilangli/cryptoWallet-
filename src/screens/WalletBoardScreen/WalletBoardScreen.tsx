@@ -125,6 +125,7 @@ function WalletBoardScreen({}: Props) {
         <View style={styles.menu}>
           {modelLeft.map((item, index) => (
             <TouchableHighlight
+              key={index}
               underlayColor="transparent"
               style={index === selectItem ? styles.menuItemS : styles.menuItem}
               onPress={() => clickOnItem(index)}

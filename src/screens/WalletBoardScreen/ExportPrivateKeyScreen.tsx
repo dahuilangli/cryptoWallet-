@@ -4,7 +4,7 @@ import { StyleSheet, View, SafeAreaView, Text } from 'react-native';
 
 import { Button } from 'react-native-elements';
 import { WToast } from 'react-native-smart-tip';
-import { goBack } from 'utils/navigationService';
+
 interface Props {}
 
 const show = () => {
@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
   },
   main: {
     flex: 1,
-    marginHorizontal: 25,
+    marginHorizontal: 20,
   },
   presentText: {
     color: '#9CA4B3',
