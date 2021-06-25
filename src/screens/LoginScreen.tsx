@@ -55,7 +55,7 @@ const LoginScreen = ({}: Props) => {
             type="outline"
             buttonStyle={styles.already}
             onPress={() => setModalVisible(true)}
-            title="已有钱包"
+            title={i18n.t("haveawallet")}
             titleStyle={styles.alreadyTitle}
           />
         </View>
