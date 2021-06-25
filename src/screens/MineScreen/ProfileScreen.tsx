@@ -1,15 +1,14 @@
-import myAction from 'actions/my';
-import {getUser} from 'selector/wallet';
+import walletAction from 'actions/wallet';
 import React, { useState } from 'react';
 import { Alert, StyleSheet, View, SafeAreaView, StatusBar, Platform, Text, Image } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
-import { navigate } from 'utils/navigationService';
+import { navigate } from 'components/navigationService';
 import { ListItem , Avatar} from 'react-native-elements';
-import { getUserAvatar, screenWidth } from 'utils/constants';
+// import { getUserAvatar, screenWidth } from 'constants/constants';
 import ActionSheet from 'react-native-action-sheet';
-import pickImage from 'utils/pickImage';
+import pickImage from 'components/pickImage';
 import { showLoadingModal, closeLoadingModal } from 'components/Dialog';
-import { post, put } from 'utils/request';
+import { post, put } from 'apis/helper';
 import { User } from 'actions/types';
 
 interface Props { }
@@ -63,14 +62,12 @@ const list =  {
 
 function ProfileScreen({ }: Props) {
   const dispatch = useDispatch();
-  const user = useSelector(getUser)!;
+  const user = useSelector(walletAction.getUser)!;
   const setUser = React.useCallback(
     (user: User) => dispatch(walletAction.setUser(user)),
     [dispatch],
   );
-  const logout = React.useCallback(() => dispatch(myAction.logout()), [
-    dispatch,
-  ]);
+ 
 
   const checkAppVersion = false;
   const checkMessage = false;

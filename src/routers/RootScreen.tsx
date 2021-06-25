@@ -1,17 +1,13 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import { navigationRef } from 'utils/navigationService';
+import { navigationRef } from 'components/navigationService';
 import MainStackNavigator from './MainStackNavigator';
 import AuthStackNavigator from './AuthStackNavigator';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import SplashScreen from 'react-native-splash-screen';
-import qs from 'qs';
-import { get } from 'utils/request';
+import apis from 'apis';
 import { User } from 'actions/types';
-import DeviceInfo from 'react-native-device-info';
-import walletAction from 'actions/wallet';
-import {getAccountList} from 'selector/wallet';
-import { Alert } from 'react-native';
+import wallet from 'actions/wallet';
 
 function RootScreen() {
   const dispatch = useDispatch();
@@ -56,36 +52,16 @@ function RootScreen() {
   //   await console.log('程序是否允许在模拟器中:', DeviceInfo.isEmulator());
   //   await console.log('是否是平板电脑:', DeviceInfo.isTablet());
   // }
-  async function getToken() {
-    try {
-      const { data }: any = await get(
-        `/device_authorization?${qs.stringify({
-          deviveID: DeviceInfo.getUniqueId(),
-          mobileModel: DeviceInfo.getModel(),
-          appVersion: DeviceInfo.getSystemName(),
-        })}`,
-      );
-      user = data;
-    } catch (err) {
-      console.log('====================================');
-      console.log(err);
-      console.log('====================================');
-    } finally {
-    }
-    if (user) {
-      dispatch(walletAction.setUser(user));
-    } else {
-      Alert.alert(i18n.t("checkNetwork"));
-    }
-  }
-  const accountList = useSelector(getAccountList);
+  
+  // const accountList = useSelector(wallet.getAccountList);
+  const accountList = wallet.getAccountList;
   React.useEffect(() => {
     SplashScreen.hide();
-    getToken();
+    apis.common.getToken();
   });
   return (
     <NavigationContainer ref={navigationRef}>
-      {accountList.length > 0 ? <MainStackNavigator /> : <AuthStackNavigator />}
+      {accountList.length >= 0 ? <MainStackNavigator /> : <AuthStackNavigator />}
     </NavigationContainer>
   );
 }

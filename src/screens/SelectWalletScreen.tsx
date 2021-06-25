@@ -11,7 +11,7 @@ import { Avatar } from 'react-native-elements';
 // import TouchableScale from 'react-native-touchable-scale'; // https://github.com/kohver/react-native-touchable-scale
 // import LinearGradient from 'react-native-linear-gradient'; // Only if no expo
 
-import { navigate } from 'utils/navigationService';
+import { navigate } from 'components/navigationService';
 interface Props {
   route: {
     params: {

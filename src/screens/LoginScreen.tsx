@@ -13,9 +13,8 @@ import {
 
 import LinearGradient from 'react-native-linear-gradient';
 import { Avatar, Button } from 'react-native-elements';
-import { navigate } from 'utils/navigationService';
+import { navigate } from 'components/navigationService';
 // import Icon from 'react-native-vector-icons/FontAwesome';
-import { screenHeight, screenWidth } from 'utils/constants';
 interface Props {}
 const list = [
   {

@@ -6,8 +6,7 @@ import {
   TouchableOpacity,
   Text,
 } from 'react-native';
-import { screenWidth } from 'utils/constants';
-import { navigate } from 'utils/navigationService';
+import { navigate } from 'components/navigationService';
 import Swiper from 'react-native-swiper'
 interface Props { }
 function DappScreen({ }: Props) {

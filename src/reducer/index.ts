@@ -1,5 +1,5 @@
 import dataStateReducer from './dataStateReducer';
-import walletReducer from '../reducers/walletStateReducer';
+import walletReducer from './walletStateReducer';
 import AsyncStorage from '@react-native-community/async-storage';
 import { createKeychainStorage } from 'redux-persist-keychain-storage';
 import settingsStateReducer from './settingsStateReducer';
@@ -29,4 +29,3 @@ export const rootReducer = combineReducers({
         ),
         settingsState: settingsStateReducer,
       });
-   

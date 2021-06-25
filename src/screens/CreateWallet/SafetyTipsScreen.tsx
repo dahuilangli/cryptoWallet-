@@ -8,7 +8,7 @@ import {
   Image,
 } from 'react-native';
 import { Button } from 'react-native-elements';
-import { navigate } from 'utils/navigationService';
+import { navigate } from 'components/navigationService';
 
 interface Props {
   route: {

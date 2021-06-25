@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 
 import { Button } from 'react-native-elements';
-import { navigate } from 'utils/navigationService';
+import { navigate } from 'components/navigationService';
 
 // import { post } from 'utils/request';
 import { Account } from 'actions/types';

@@ -7,7 +7,7 @@ import {
   ActivityIndicator,
   ImageSourcePropType,
 } from 'react-native';
-import { navigate } from 'utils/navigationService';
+import { navigate } from 'components/navigationService';
 import { Card, Button } from 'react-native-elements';
 // @ts-ignore
 import GallerySwiper from 'react-native-gallery-swiper';

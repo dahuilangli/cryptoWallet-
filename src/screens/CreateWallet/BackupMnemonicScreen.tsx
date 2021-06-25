@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, View, SafeAreaView, Text } from 'react-native';
 
 import { Button } from 'react-native-elements';
-import { navigate } from 'utils/navigationService';
+import { navigate } from 'components/navigationService';
 interface Props {
   route: {
     params: {

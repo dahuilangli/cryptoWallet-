@@ -13,8 +13,7 @@ import {
 } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { screenHeight, screenWidth } from 'utils/constants';
-import { navigate } from 'utils/navigationService';
+import { navigate } from 'components/navigationService';
 import { Avatar, Button } from 'react-native-elements';
 
 const list = [

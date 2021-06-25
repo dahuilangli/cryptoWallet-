@@ -14,7 +14,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Image, Alert } from 'react-native';
 // import FeedListScreen from 'screens/FeedListScreen/FeedListScreen';
 import React from 'react';
-import { navigate } from 'utils/navigationService';
+import { navigate } from 'components/navigationService';
 
 export type MainStackParamList = {
   TabNavigator: undefined;

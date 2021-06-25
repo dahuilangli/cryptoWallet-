@@ -8,8 +8,8 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 // import FeedListScreen from 'screens/FeedListScreen/FeedListScreen';
-import { navigate } from 'utils/navigationService';
-import { setGenericPassword, getGenericPassword } from 'utils/keyChain';
+import { navigate } from 'components/navigationService';
+import { setGenericPassword, getGenericPassword } from 'helper/keyChain';
 interface Props {}
 
 function HomeScreen({}: Props) {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { post } from 'utils/request';
+import { post } from 'apis/helper';
 import { Alert, Text } from 'react-native';
 import {
   showLoadingModal,
@@ -8,7 +8,7 @@ import {
 } from 'components/Dialog';
 import  walletAction  from 'actions/wallet';
 import { Location } from 'actions/types';
-import pickImage from 'utils/pickImage';
+import pickImage from 'components/pickImage';
 import { ReduxStore } from 'store';
 
 export function showCamera() {

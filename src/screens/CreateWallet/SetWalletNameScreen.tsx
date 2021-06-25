@@ -6,8 +6,8 @@ import {
   getAccount,
   recoverAccountToMnemonic,
   recoverAccountToPrivateKey,
-} from 'utils/ethers';
-import { navigate } from 'utils/navigationService';
+} from 'helper/ethers';
+import { navigate } from 'components/navigationService';
 
 interface Props {
   route: {

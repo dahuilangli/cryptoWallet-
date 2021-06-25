@@ -1,14 +1,15 @@
-export { Dispatch } from 'redux';
-import { DataState } from 'reducers/wallet';
-import { SettingsState } from 'reducers/settingsStateReducer';
-import { UIState } from 'reducers/uiStateReducer';
+import { DataState } from 'reducer/dataStateReducer';
+import { SettingsState } from 'reducer/settingsStateReducer';
+import { UIState } from 'reducer/uiStateReducer';
 export { UIState, DataState, SettingsState };
+
 import {ActionValue} from 'redux-type-actions';
 
 import { MainStackParamList } from 'routers/MainStackNavigator';
 import { TabParamList } from 'routers/TabNavigator';
 import { AuthStackParamList } from 'routers/AuthStackNavigator';
 import walletAction from './wallet';
+
 
 export type ScreensParamList = MainStackParamList &
   TabParamList &

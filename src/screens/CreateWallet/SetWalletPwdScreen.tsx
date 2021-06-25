@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, View, Text, TextInput, SafeAreaView } from 'react-native';
 
 import { Button } from 'react-native-elements';
-import { navigate } from 'utils/navigationService';
+import { navigate } from 'components/navigationService';
 // import { WToast } from 'react-native-smart-tip';
 
 interface Props {
