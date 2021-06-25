@@ -12,7 +12,7 @@ import {
 import { Avatar } from 'react-native-elements';
 import { goBack } from 'components/navigationService';
 import LinearGradient from 'react-native-linear-gradient';
-import i18next from 'i18n';
+import i18n from "i18n";
 interface Props {}
 
 function SearchScreen({}: Props) {

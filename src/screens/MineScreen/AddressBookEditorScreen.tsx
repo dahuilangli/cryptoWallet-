@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Text, SafeAreaView, TouchableOpacity, Image, Button, Alert,TextInput } from 'react-native';
 // import { TextInput } from 'react-native-gesture-handler';
 import { navigate } from 'components/navigationService';
-
+import i18n from "i18n";
 interface Props {
     route: {
         params: {

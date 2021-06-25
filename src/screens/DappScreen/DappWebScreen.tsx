@@ -3,7 +3,7 @@ import {
     StyleSheet, Modal,
     TouchableWithoutFeedback, View, TouchableOpacity
 } from 'react-native';
-
+import i18n from "i18n";
 import {  SCREENWIDTH } from 'config/constants';
 import { WebView } from 'react-native-webview';
 import { RouteProp } from '@react-navigation/native';

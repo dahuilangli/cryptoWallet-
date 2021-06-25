@@ -6,7 +6,7 @@ import { ScreensParamList, Feed } from 'actions/types';
 import { RouteProp, useRoute, useIsFocused } from '@react-navigation/native';
 import { ListItem} from 'react-native-elements';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-
+import i18n from "i18n";
 
 type SetUpScreenRouteProp = RouteProp<ScreensParamList, 'SetUpScreen'>;
 interface Props {

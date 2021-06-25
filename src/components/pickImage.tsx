@@ -1,4 +1,5 @@
 import ActionSheet from 'react-native-action-sheet';
+import i18n from "i18n";
 import ImagePicker, {
   Image as ImageFile,
 } from 'react-native-image-crop-picker';

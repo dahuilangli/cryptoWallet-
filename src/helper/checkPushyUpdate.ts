@@ -1,5 +1,5 @@
 import { Platform, Alert, Linking } from 'react-native';
-
+import i18n from "i18n";
 import {
   isFirstTime,
   isRolledBack,

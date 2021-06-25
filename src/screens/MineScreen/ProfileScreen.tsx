@@ -18,6 +18,7 @@ import pickImage from 'components/pickImage';
 import { showLoadingModal, closeLoadingModal } from 'components/Dialog';
 import { post, put } from 'apis/helper';
 import { User } from 'actions/types';
+import i18n from "i18n";
 
 interface Props {}
 

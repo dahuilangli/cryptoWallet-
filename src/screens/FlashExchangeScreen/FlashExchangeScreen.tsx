@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import {Header } from 'react-native-elements';
+import i18n from "i18n";
 import {
   SafeAreaView,
   StyleSheet,
@@ -13,8 +14,9 @@ import {
   Keyboard,
   KeyboardAvoidingView,
   Platform,
+  TextInput
 } from 'react-native';
-import { TextInput } from 'react-native-gesture-handler';
+import {SCREENHEIGHT,SCREENWIDTH} from "config/constants";
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { navigate } from 'components/navigationService';
 import { Avatar, Button } from 'react-native-elements';

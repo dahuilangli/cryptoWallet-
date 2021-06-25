@@ -4,7 +4,7 @@ import { navigate } from 'components/navigationService';
 import { ScreensParamList, Feed } from 'actions/types';
 import { RouteProp, useRoute, useIsFocused } from '@react-navigation/native';
 import DeviceInfo from 'react-native-device-info';
-import i18next from 'i18n';
+import i18n from "i18n";
 
 type UpdateScreenRouteProp = RouteProp<ScreensParamList, 'UpdateScreen'>;
 interface Props { }

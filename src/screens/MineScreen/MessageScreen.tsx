@@ -5,7 +5,7 @@ import { navigate } from 'components/navigationService';
 import { ScreensParamList, Feed } from 'actions/types';
 import {  SCREENWIDTH } from 'config/constants';
 import { RouteProp, useRoute, useIsFocused } from '@react-navigation/native';
-
+import i18n from "i18n";
 
 
 type MessageScreenRouteProp = RouteProp<ScreensParamList, 'MessageScreen'>;

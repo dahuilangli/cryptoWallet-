@@ -1,4 +1,4 @@
-import i18next from 'i18n';
+import i18n from "i18n";
 import React, { useState } from 'react';
 import { StyleSheet, View, Text, TextInput, SafeAreaView } from 'react-native';
 

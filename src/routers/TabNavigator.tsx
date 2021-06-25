@@ -5,7 +5,7 @@ import HomeScreen from 'screens/HomeScreen/HomeScreen';
 import FlashExchangeScreen from 'screens/FlashExchangeScreen/FlashExchangeScreen';
 import DappScreen from 'screens/DappScreen/DappScreen';
 import Icon from 'react-native-vector-icons/FontAwesome';
-
+import i18n from "i18n";
 export type TabParamList = {
   HomeScreen: undefined;
   ProfileScreen: undefined;

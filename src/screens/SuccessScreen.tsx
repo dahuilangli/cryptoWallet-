@@ -12,6 +12,7 @@ import {
 import { useDispatch } from 'react-redux';
 import walletAction from 'actions/wallet';
 import { Account } from 'actions/types';
+import i18n from "i18n";
 
 // import { setGenericPassword } from 'utils/keyChain';
 interface Props {

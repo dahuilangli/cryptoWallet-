@@ -3,7 +3,8 @@ import { StyleSheet, View, Text, SafeAreaView ,FlatList,TouchableOpacity, Alert 
 import { navigate } from 'components/navigationService';
 import { ScreensParamList, Feed } from 'actions/types';
 import { RouteProp, useRoute, useIsFocused } from '@react-navigation/native';
-
+import i18n from "i18n";
+import {SCREENHEIGHT,SCREENWIDTH} from "config/constants";
 
 type AddressBookScreenRouteProp = RouteProp<ScreensParamList, 'AddressBookScreen'>;
 interface Props {}
@@ -113,7 +114,7 @@ const styles = StyleSheet.create({
     },
     desView:{
       marginLeft:15,
-      width:screenWidth-130,
+      width:SCREENWIDTH-130,
     },
     nameLabel:{
       marginTop:15,

@@ -4,7 +4,7 @@ import { navigate } from 'components/navigationService';
 import { ScreensParamList, Feed } from 'actions/types';
 import { RouteProp, useRoute, useIsFocused } from '@react-navigation/native';
 import { Button } from  'react-native-elements'
-
+import i18n from "i18n";
 
 type SuggestScreenRouteProp = RouteProp<ScreensParamList, 'SuggestScreen'>;
 interface Props {}

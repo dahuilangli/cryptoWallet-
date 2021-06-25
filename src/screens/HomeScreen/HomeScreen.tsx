@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import i18n from "i18n";
 import {
   ScrollView,
   StyleSheet,
@@ -11,7 +12,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
-import {SCREENHEIGHT,SCREENWIDTH} from "config/constants"
+import {SCREENHEIGHT,SCREENWIDTH} from "config/constants";
 import { Avatar, Button } from 'react-native-elements';
 import { navigate } from 'components/navigationService';
 import LinearGradient from 'react-native-linear-gradient';

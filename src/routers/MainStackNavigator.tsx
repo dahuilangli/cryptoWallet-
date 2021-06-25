@@ -2,7 +2,7 @@ import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Image,Text } from 'react-native';
-
+import i18n from "i18n";
 import TabNavigator from './TabNavigator';
 import WebScreen from 'screens/WebScreen';
 import AboutUsScreen from 'screens/MineScreen/AboutUsScreen';

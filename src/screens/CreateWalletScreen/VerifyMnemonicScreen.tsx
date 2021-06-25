@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   Text,
 } from 'react-native';
-
+import i18n from "i18n";
 import { Button } from 'react-native-elements';
 import { navigate } from 'components/navigationService';
 

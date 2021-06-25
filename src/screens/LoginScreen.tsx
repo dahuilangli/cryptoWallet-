@@ -15,6 +15,7 @@ import {SCREENHEIGHT,SCREENWIDTH} from "config/constants"
 import LinearGradient from 'react-native-linear-gradient';
 import { Avatar, Button } from 'react-native-elements';
 import { navigate } from 'components/navigationService';
+import i18n from "i18n";
 // import Icon from 'react-native-vector-icons/FontAwesome';
 interface Props {}
 const list = [

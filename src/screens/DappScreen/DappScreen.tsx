@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import i18n from "i18n";
 import {
   SafeAreaView,
   StyleSheet,
@@ -9,6 +10,7 @@ import {
   Modal,
   TouchableWithoutFeedback,
 } from 'react-native';
+import {SCREENHEIGHT,SCREENWIDTH} from "config/constants";
 import { navigate } from 'components/navigationService';
 import Swiper from 'react-native-swiper'
 import { ListItem, Avatar } from 'react-native-elements';
@@ -134,7 +136,7 @@ function DappScreen({ }: Props) {
             marginBottom: 15,
           }} />}
           paginationStyle={{
-            left: screenWidth - 52,
+            left: SCREENWIDTH - 52,
             right: 20,
           }}
 
@@ -186,8 +188,8 @@ const styles = StyleSheet.create({
   wrapper: {
   },
   banner: {
-    width: screenWidth,
-    height: screenWidth * 240 / 375,
+    width: SCREENWIDTH,
+    height: SCREENWIDTH * 240 / 375,
   },
   header: {
     marginTop: 40,
@@ -235,7 +237,7 @@ const styles = StyleSheet.create({
   searchInput: {
     height: 20,
     marginLeft: 10,
-    width: screenWidth - 120,
+    width: SCREENWIDTH - 120,
     fontSize: 13,
     fontWeight: '400',
     color: '#D4D8E1',
@@ -268,11 +270,11 @@ const styles = StyleSheet.create({
   },
   itemStyle: {
     height: 70,
-    width: screenWidth,
+    width: SCREENWIDTH,
   },
   itemView: {
     height: 70,
-    width: screenWidth,
+    width: SCREENWIDTH,
     alignItems: 'center',
     flexDirection: 'row',
   },

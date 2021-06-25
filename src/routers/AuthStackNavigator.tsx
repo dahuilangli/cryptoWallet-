@@ -10,7 +10,7 @@ import ImportPrivateKeyScreen from 'screens/CreateWalletScreen/ImportPrivateKeyS
 import ImportMnemonicScreen from 'screens/CreateWalletScreen/ImportMnemonicScreen';
 import SuccessScreen from 'screens/SuccessScreen';
 import CameraScreen from 'components/Camera';
-
+import i18n from "i18n";
 import { Image, TouchableOpacity } from 'react-native';
 import React from 'react';
 import { navigate } from 'components/navigationService';
