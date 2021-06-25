@@ -3,6 +3,7 @@ import { StyleSheet, View, Text, SafeAreaView, TouchableOpacity, Image, Button, 
 // import { TextInput } from 'react-native-gesture-handler';
 import { navigate } from 'components/navigationService';
 import i18n from "i18n";
+import {SCREENHEIGHT,SCREENWIDTH} from "config/constants"
 interface Props {
     route: {
         params: {
@@ -106,7 +107,7 @@ const styles = StyleSheet.create({
     typeName: {
         marginLeft: 10,
         height: 20,
-        width: screenWidth - 138,
+        width: SCREENWIDTH - 138,
         color: '#394867',
         fontSize: 14,
         fontWeight: '500',
