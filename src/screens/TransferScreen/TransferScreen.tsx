@@ -15,6 +15,7 @@ import {
   Alert,
 } from 'react-native';
 import { Avatar, Button } from 'react-native-elements';
+import {SCREENHEIGHT,SCREENWIDTH} from "config/constants"
 interface Props {}
 
 function TransferScreen({}: Props) {
@@ -476,7 +477,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
     borderRadius: 8,
     padding: 15,
-    width: (screenWidth - (40 + 20)) / 3,
+    width: (SCREENWIDTH - (40 + 20)) / 3,
   },
   gasItemTitle: {
     fontSize: 14,
@@ -514,24 +515,24 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   outView: {
-    height: screenHeight - 214,
+    height: SCREENHEIGHT - 214,
   },
   outContair: {
     flex: 1,
-    width: screenWidth,
+    width: SCREENWIDTH,
   },
   modalView: {
     backgroundColor: 'white',
     borderTopLeftRadius: 8,
     borderTopRightRadius: 8,
-    width: screenWidth,
+    width: SCREENWIDTH,
   },
   headView: {
     flexDirection: 'row',
     // alignItems: 'center',
     marginTop: 0,
     height: 60,
-    width: screenWidth,
+    width: SCREENWIDTH,
     borderBottomWidth: 0.5,
     borderBottomColor: '#E9EDF1',
   },
@@ -540,13 +541,13 @@ const styles = StyleSheet.create({
     // alignItems: 'center',
     marginTop: 0,
     height: 60,
-    width: screenWidth,
+    width: SCREENWIDTH,
   },
   headText: {
     marginTop: 20,
     marginBottom: 20,
     width: 200,
-    marginLeft: screenWidth / 2 - 100,
+    marginLeft: SCREENWIDTH / 2 - 100,
     fontSize: 16,
     fontWeight: '600',
     color: '#616D86',
@@ -560,7 +561,7 @@ const styles = StyleSheet.create({
     width: 20,
     height: 20,
     marginTop: 20,
-    marginLeft: screenWidth / 2 - 135,
+    marginLeft: SCREENWIDTH / 2 - 135,
   },
   list: {
     flexDirection: 'row',
@@ -587,7 +588,7 @@ const styles = StyleSheet.create({
   },
   groupView: {},
   lineView: {
-    width: screenWidth,
+    width: SCREENWIDTH,
     height: 30,
   },
   //   安全密码model

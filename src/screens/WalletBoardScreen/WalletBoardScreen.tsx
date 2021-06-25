@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   TouchableHighlight,
 } from 'react-native';
+import {SCREENHEIGHT,SCREENWIDTH} from "config/constants"
 import { Button } from 'react-native-elements';
 import { navigate } from 'components/navigationService';
 interface Props {}
@@ -261,13 +262,13 @@ const styles = StyleSheet.create({
   button: {
     backgroundColor: '#3B6ED5',
     borderRadius: 8,
-    width: (screenWidth - (40 + 15)) / 2,
+    width: (SCREENWIDTH - (40 + 15)) / 2,
     paddingVertical: 15,
   },
   buttonOne: {
     backgroundColor: '#263C75',
     borderRadius: 8,
-    width: (screenWidth - (40 + 15)) / 2,
+    width: (SCREENWIDTH - (40 + 15)) / 2,
     paddingVertical: 15,
     marginLeft: 15,
   },

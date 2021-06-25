@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import {SCREENHEIGHT,SCREENWIDTH} from "config/constants"
 import { StyleSheet, View, Text, SafeAreaView, Image ,FlatList, Alert} from 'react-native';
 import { navigate } from 'components/navigationService';
 import { ScreensParamList, Feed } from 'actions/types';
@@ -114,10 +115,10 @@ const styles = StyleSheet.create({
           fontSize:14,
           fontWeight:'500',
           color:'#394867',
-          width:screenWidth/2-35
+          width:SCREENWIDTH/2-35
       },
       imageText:{
-          marginLeft:screenWidth/2-55,
+          marginLeft:SCREENWIDTH/2-55,
           width:20,
           height:20,
       }

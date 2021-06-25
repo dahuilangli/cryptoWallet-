@@ -370,14 +370,14 @@ const styles = StyleSheet.create({
   },
   lineView: {
     backgroundColor: '#E9EDF1',
-    width: screenWidth,
+    width: SCREENWIDTH,
     height: 0.5,
   },
   exchange: {
     width: 40,
     height: 40,
     marginTop: -20,
-    marginLeft: screenWidth / 2 - 20,
+    marginLeft: SCREENWIDTH / 2 - 20,
   },
   secondView: {
     flexDirection: 'row',
@@ -397,7 +397,7 @@ const styles = StyleSheet.create({
   inputView: {
     marginLeft: 20,
     height: 55,
-    width: screenWidth / 2 - 27.5,
+    width: SCREENWIDTH / 2 - 27.5,
     marginTop: 10,
     backgroundColor: '#F2F5F8',
     borderRadius: 8,
@@ -407,7 +407,7 @@ const styles = StyleSheet.create({
     height: 55,
     marginRight: 15,
     fontSize: 14,
-    width: screenWidth / 2 - 57.5,
+    width: SCREENWIDTH / 2 - 57.5,
     fontWeight: '400',
     color: '#9CA4B3',
   },
@@ -417,7 +417,7 @@ const styles = StyleSheet.create({
   },
   outView: {
     marginRight: 20,
-    width: screenWidth / 2 - 27.5,
+    width: SCREENWIDTH / 2 - 27.5,
     marginTop: 10,
     backgroundColor: '#F2F5F8',
     borderRadius: 8,
@@ -429,14 +429,14 @@ const styles = StyleSheet.create({
     marginRight: 15,
     fontSize: 14,
     fontWeight: '400',
-    width: screenWidth / 2 - 57.5,
+    width: SCREENWIDTH / 2 - 57.5,
     color: '#9CA4B3',
     textAlign: 'right',
   },
   bottomView: {
     marginTop: 20,
     marginLeft: 20,
-    width: screenWidth - 40,
+    width: SCREENWIDTH - 40,
     // alignItems:'flex-start',
   },
   useText: {
@@ -460,7 +460,7 @@ const styles = StyleSheet.create({
   },
   exchangeBtn: {
     marginTop: 20,
-    width: screenWidth - 40,
+    width: SCREENWIDTH - 40,
     height: 55,
     backgroundColor: '#3B6ED5',
     borderRadius: 8,
@@ -482,20 +482,20 @@ const styles = StyleSheet.create({
   },
   outContair: {
     flex: 1,
-    width: screenWidth,
+    width: SCREENWIDTH,
   },
   modalView: {
     backgroundColor: 'white',
     borderTopLeftRadius: 8,
     borderTopRightRadius: 8,
-    width: screenWidth,
+    width: SCREENWIDTH,
     height: (list.length + 1) * 60 + 34,
   },
   modalView2: {
     backgroundColor: 'white',
     borderTopLeftRadius: 8,
     borderTopRightRadius: 8,
-    width: screenWidth,
+    width: SCREENWIDTH,
   },
   headView: {
     flexDirection: 'row',
@@ -507,7 +507,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
     marginBottom: 20,
     width: 200,
-    marginLeft: screenWidth / 2 - 100,
+    marginLeft: SCREENWIDTH / 2 - 100,
     fontSize: 16,
     fontWeight: '600',
     color: '#616D86',
@@ -521,7 +521,7 @@ const styles = StyleSheet.create({
     width: 20,
     height: 20,
     marginTop: 20,
-    marginLeft: screenWidth / 2 - 135,
+    marginLeft: SCREENWIDTH / 2 - 135,
   },
   list: {},
   listItem: {
@@ -558,12 +558,12 @@ const styles = StyleSheet.create({
   outName2: {
     marginLeft: 10,
     height: 20,
-    width: screenWidth / 2 - 60,
+    width: SCREENWIDTH / 2 - 60,
     fontSize: 16,
     fontWeight: '400',
   },
   outNumber2: {
-    width: screenWidth / 2 - 20,
+    width: SCREENWIDTH / 2 - 20,
     color: '#DD3D50',
     textAlign: 'right',
     height: 20,
@@ -571,7 +571,7 @@ const styles = StyleSheet.create({
     fontWeight: '400',
   },
   inNumber2: {
-    width: screenWidth / 2 - 20,
+    width: SCREENWIDTH / 2 - 20,
     color: '#3DDD94',
     textAlign: 'right',
     height: 20,
@@ -591,13 +591,13 @@ const styles = StyleSheet.create({
   },
   poundage: {
     height: 20,
-    width: screenWidth / 2 - 20,
+    width: SCREENWIDTH / 2 - 20,
     color: '#616D86',
     fontSize: 14,
     fontWeight: '500',
   },
   des: {
-    width: screenWidth / 2 - 20,
+    width: SCREENWIDTH / 2 - 20,
     color: '#616D86',
     textAlign: 'right',
     height: 20,

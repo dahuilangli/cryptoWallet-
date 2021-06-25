@@ -3,6 +3,7 @@ import { StyleSheet, View, Text, SafeAreaView, FlatList, TouchableOpacity,Image 
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { navigate } from 'components/navigationService';
 import { ScreensParamList, Feed } from 'actions/types';
+import {  SCREENWIDTH } from 'config/constants';
 import { RouteProp, useRoute, useIsFocused } from '@react-navigation/native';
 
 
@@ -157,7 +158,7 @@ function MessageScreen({ }: Props) {
         // 选中的字体的颜色
         activeTintColor: '#3D73DD',
         labelStyle: { fontSize: 14, fontWeight: '600', with: 200, },
-        indicatorStyle: { width: 28, backgroundColor: '#3D73DD', marginLeft: screenWidth / 4 - 14 },
+        indicatorStyle: { width: 28, backgroundColor: '#3D73DD', marginLeft: SCREENWIDTH / 4 - 14 },
         tabStyle: { height: 50 },
       }}
     >

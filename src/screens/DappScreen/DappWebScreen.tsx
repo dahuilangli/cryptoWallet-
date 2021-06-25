@@ -3,6 +3,8 @@ import {
     StyleSheet, Modal,
     TouchableWithoutFeedback, View, TouchableOpacity
 } from 'react-native';
+
+import {  SCREENWIDTH } from 'config/constants';
 import { WebView } from 'react-native-webview';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -132,7 +134,7 @@ const styles = StyleSheet.create({
     outView: {
         marginRight: 20,
         height: 55,
-        width: screenWidth / 2 - 27.5,
+        width: SCREENWIDTH / 2 - 27.5,
         marginTop: 10,
         backgroundColor: '#F2F5F8',
         borderRadius: 8,
@@ -140,13 +142,13 @@ const styles = StyleSheet.create({
     },
     outContair: {
         flex: 1,
-        width: screenWidth,
+        width: SCREENWIDTH,
     },
     modalView: {
         backgroundColor: 'white',
         borderTopLeftRadius: 8,
         borderTopRightRadius: 8,
-        width: screenWidth,
+        width: SCREENWIDTH,
         flexDirection: 'column',
         alignItems: 'center'
     },
@@ -155,7 +157,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         height: 40,
         marginLeft: 20,
-        width: screenWidth - 40,
+        width: SCREENWIDTH - 40,
     },
     textStyle: {
         width: 20,
@@ -191,7 +193,7 @@ const styles = StyleSheet.create({
     },
     tipBtn:{
         height:55,
-        width:screenWidth/2-27.5,
+        width:SCREENWIDTH/2-27.5,
         marginLeft:15,
         justifyContent:'center',
         alignItems:'center',
@@ -201,7 +203,7 @@ const styles = StyleSheet.create({
     },
     tipBtn1:{
         height:55,
-        width:screenWidth/2-27.5,
+        width:SCREENWIDTH/2-27.5,
         marginLeft:15,
         justifyContent:'center',
         alignItems:'center',

@@ -10,6 +10,8 @@ import {
   Animated,
 } from 'react-native';
 import { Button } from 'react-native-elements';
+
+import {  SCREENWIDTH } from 'config/constants';
 import { navigate } from 'components/navigationService';
 import StickyHeader from 'components/StickyHeader';
 interface Props {
@@ -392,13 +394,13 @@ const styles = StyleSheet.create({
   button: {
     backgroundColor: '#3B6ED5',
     borderRadius: 8,
-    width: (screenWidth - (40 + 15)) / 2,
+    width: (SCREENWIDTH - (40 + 15)) / 2,
     paddingVertical: 15,
   },
   buttonOne: {
     backgroundColor: '#263C75',
     borderRadius: 8,
-    width: (screenWidth - (40 + 15)) / 2,
+    width: (SCREENWIDTH - (40 + 15)) / 2,
     paddingVertical: 15,
     marginLeft: 15,
   },

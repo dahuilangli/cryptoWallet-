@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import {SCREENHEIGHT,SCREENWIDTH} from "config/constants"
 import { StyleSheet, View, Text, SafeAreaView, FlatList, TouchableOpacity, Image, Alert } from 'react-native';
 interface Props {
   route: {
@@ -91,7 +92,7 @@ const styles = StyleSheet.create({
   typeName: {
     marginLeft: 10,
     height: 20,
-    width: screenWidth - 138,
+    width: SCREENWIDTH - 138,
     color: '#394867',
     fontSize: 14,
     fontWeight: '500',

@@ -1,7 +1,13 @@
 
+import { Dimensions } from 'react-native';
+
 export const HOST = 'http://121.43.176.103';
 
 export const API_ENDPOINT = `${HOST}/api/service`;
+
+
+export const SCREENHEIGHT = Dimensions.get('window').height
+export const SCREENWIDTH = Dimensions.get('window').width
 
 export const GETIMAGEURL = (imageId: number) =>
   `${API_ENDPOINT}/file/${imageId}`;

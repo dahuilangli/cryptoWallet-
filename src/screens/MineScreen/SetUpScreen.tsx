@@ -5,7 +5,7 @@ import { ScreensParamList, Feed } from 'actions/types';
 import { RouteProp, useRoute, useIsFocused } from '@react-navigation/native';
 import { ListItem } from 'react-native-elements';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import i18next from 'i18n';
+import {SCREENHEIGHT,SCREENWIDTH} from "config/constants"
 
 
 type SetUpScreenRouteProp = RouteProp<ScreensParamList, 'SetUpScreen'>;
@@ -58,13 +58,13 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: '500',
     color: '#394867',
-    width: screenWidth / 2 - 20,
+    width: SCREENWIDTH / 2 - 20,
   },
   content: {
     fontSize: 14,
     fontWeight: '400',
     color: '#9CA4B3',
-    width: screenWidth / 2 - 40,
+    width: SCREENWIDTH / 2 - 40,
     textAlign: 'right'
   },
   right: {

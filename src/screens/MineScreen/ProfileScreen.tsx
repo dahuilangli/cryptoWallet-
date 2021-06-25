@@ -12,7 +12,7 @@ import {
 import { useSelector, useDispatch } from 'react-redux';
 import { navigate } from 'components/navigationService';
 import { ListItem , Header} from 'react-native-elements';
-// import { getUserAvatar, screenWidth } from 'constants/constants';
+import {  SCREENWIDTH } from 'config/constants';
 import ActionSheet from 'react-native-action-sheet';
 import pickImage from 'components/pickImage';
 import { showLoadingModal, closeLoadingModal } from 'components/Dialog';
@@ -131,7 +131,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#F2F5F8',
   },
   listGroup: {
-    width: screenWidth,
+    width: SCREENWIDTH,
     marginTop: 20,
   },
 

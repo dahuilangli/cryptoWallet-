@@ -10,6 +10,7 @@ import {
   TouchableWithoutFeedback,
   TouchableOpacity,
 } from 'react-native';
+import {SCREENHEIGHT,SCREENWIDTH} from "config/constants"
 
 import LinearGradient from 'react-native-linear-gradient';
 import { Avatar, Button } from 'react-native-elements';
@@ -167,17 +168,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   outView: {
-    height: screenHeight - 214,
+    height: SCREENHEIGHT - 214,
   },
   outContair: {
     flex: 1,
-    width: screenWidth,
+    width: SCREENWIDTH,
   },
   modalView: {
     backgroundColor: 'white',
     borderTopLeftRadius: 8,
     borderTopRightRadius: 8,
-    width: screenWidth,
+    width: SCREENWIDTH,
     height: 214,
   },
   headView: {
@@ -185,13 +186,13 @@ const styles = StyleSheet.create({
     // alignItems: 'center',
     marginTop: 0,
     height: 60,
-    width: screenWidth,
+    width: SCREENWIDTH,
   },
   headText: {
     marginTop: 20,
     marginBottom: 20,
     width: 200,
-    marginLeft: screenWidth / 2 - 100,
+    marginLeft: SCREENWIDTH / 2 - 100,
     fontSize: 16,
     fontWeight: '600',
     color: '#616D86',
@@ -205,7 +206,7 @@ const styles = StyleSheet.create({
     width: 20,
     height: 20,
     marginTop: 20,
-    marginLeft: screenWidth / 2 - 135,
+    marginLeft: SCREENWIDTH / 2 - 135,
   },
   list: {},
   listItem: {
@@ -226,7 +227,7 @@ const styles = StyleSheet.create({
   },
   groupView: {},
   lineView: {
-    width: screenWidth,
+    width: SCREENWIDTH,
     height: 0.5,
     backgroundColor: '#E9EDF1',
   },

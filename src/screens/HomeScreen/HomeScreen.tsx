@@ -10,6 +10,8 @@ import {
   Modal,
   TouchableOpacity,
 } from 'react-native';
+
+import {SCREENHEIGHT,SCREENWIDTH} from "config/constants"
 import { Avatar, Button } from 'react-native-elements';
 import { navigate } from 'components/navigationService';
 import LinearGradient from 'react-native-linear-gradient';
@@ -449,12 +451,12 @@ const styles = StyleSheet.create({
   },
   button: {
     borderRadius: 8,
-    width: (screenWidth - (40 + 15)) / 2,
+    width: (SCREENWIDTH - (40 + 15)) / 2,
     paddingVertical: 15,
   },
   buttonOne: {
     borderRadius: 8,
-    width: (screenWidth - (40 + 15)) / 2,
+    width: (SCREENWIDTH - (40 + 15)) / 2,
     paddingVertical: 15,
     marginLeft: 15,
   },
@@ -524,18 +526,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   outView: {
-    // height: screenHeight - 214,
+    // height: SCREENHEIGHT - 214,
   },
   outContair: {
     flex: 1,
-    width: screenWidth,
+    width: SCREENWIDTH,
   },
   modalView: {
     backgroundColor: 'white',
     borderTopLeftRadius: 8,
     borderTopRightRadius: 8,
-    width: screenWidth,
-    height: (screenHeight * 2) / 3,
+    width: SCREENWIDTH,
+    height: (SCREENHEIGHT * 2) / 3,
   },
   headView: {
     flexDirection: 'row',

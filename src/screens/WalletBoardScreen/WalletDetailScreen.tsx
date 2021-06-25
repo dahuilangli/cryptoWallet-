@@ -17,6 +17,7 @@ import {
 import { Button } from 'react-native-elements';
 import { WToast } from 'react-native-smart-tip';
 import { navigate } from 'components/navigationService';
+import {SCREENHEIGHT,SCREENWIDTH} from "config/constants"
 
 interface Props {}
 function WalletDetailScreen({}: Props) {
@@ -380,11 +381,11 @@ const styles = StyleSheet.create({
 
   //   安全密码model
   outView: {
-    height: screenHeight - 214,
+    height: SCREENHEIGHT - 214,
   },
   outContair: {
     flex: 1,
-    width: screenWidth,
+    width: SCREENWIDTH,
   },
   codeButtonView: {
     marginTop: 20,
@@ -410,14 +411,14 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderTopLeftRadius: 8,
     borderTopRightRadius: 8,
-    width: screenWidth,
+    width: SCREENWIDTH,
   },
 
   headText: {
     marginTop: 20,
     marginBottom: 20,
     width: 200,
-    marginLeft: screenWidth / 2 - 100,
+    marginLeft: SCREENWIDTH / 2 - 100,
     fontSize: 16,
     fontWeight: '600',
     color: '#616D86',
@@ -432,14 +433,14 @@ const styles = StyleSheet.create({
     width: 20,
     height: 20,
     marginTop: 20,
-    marginLeft: screenWidth / 2 - 135,
+    marginLeft: SCREENWIDTH / 2 - 135,
   },
   headView: {
     flexDirection: 'row',
     // alignItems: 'center',
     marginTop: 0,
     height: 60,
-    width: screenWidth,
+    width: SCREENWIDTH,
     borderBottomWidth: 0.5,
     borderBottomColor: '#E9EDF1',
   },
@@ -457,7 +458,7 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
   lineView: {
-    width: screenWidth,
+    width: SCREENWIDTH,
     height: 30,
   },
 
