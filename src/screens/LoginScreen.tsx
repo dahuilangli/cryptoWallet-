@@ -48,14 +48,14 @@ const LoginScreen = ({}: Props) => {
             onPress={() => {
               navigate('SelectWalletScreen', { loginType: 'new' });
             }}
-            title={i18n.t('wallet.create')}
+            title={i18n.t('createnewwallet')}
             titleStyle={styles.newCreateTitle}
           />
           <Button
             type="outline"
             buttonStyle={styles.already}
             onPress={() => setModalVisible(true)}
-            title="已有钱包"
+            title={i18n.t("haveawallet")}
             titleStyle={styles.alreadyTitle}
           />
         </View>

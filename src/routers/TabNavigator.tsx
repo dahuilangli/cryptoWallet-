@@ -1,4 +1,5 @@
 import React from 'react';
+import {Image} from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import ProfileScreen from 'screens/MineScreen/ProfileScreen';
 import HomeScreen from 'screens/HomeScreen/HomeScreen';
@@ -19,22 +20,32 @@ function TabNavigator() {
   return (
     <Navigator
       screenOptions={({ route }) => ({
-        tabBarIcon: ({ color, size }) => {
+        tabBarIcon: ({focused, color, size }) => {
           const routeName = route.name;
-          let iconName = '';
+          let selectImage;
+          let normalImage;
           if (routeName === 'HomeScreen') {
-            iconName = 'home';
+            selectImage = require('assets/icon-24-wallet-selected.png');
+            normalImage = require('assets/icon-24-wallet-normal.png');
           } else if (routeName === 'FlashExchangeScreen') {
-            iconName = 'flash';
+            selectImage = require('assets/icon-24-闪兑-selected.png');
+            normalImage = require('assets/icon-24-闪兑-normal.png');
           } else if (routeName === 'ProfileScreen') {
-            iconName = 'user';
+            selectImage = require('assets/icon-24-我的-selected.png');
+            normalImage = require('assets/icon-24-我的-normal.png');
           } else if (routeName === 'DappScreen') {
-            iconName = 'thrid';
+            selectImage = require('assets/icon-24-dapp-selected.png');
+            normalImage = require('assets/icon-24-dapp-normal.png');
           }
-          return <Icon name={iconName} size={size} color={color!} />;
+          return <Image source = {focused?selectImage:normalImage} />;
         },
       })}
+      tabBarOptions = {{
+        activeTintColor:'#3B6ED5',
+        inactiveTintColor:'#263C75',
+      }}
     >
+      
       <Screen
         name="HomeScreen"
         component={HomeScreen}

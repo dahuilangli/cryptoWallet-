@@ -94,6 +94,7 @@ const ScanQRCode = () => {
     const onBarCodeRead = (result) => {
         const { data } = result; //只要拿到data就可以了
         //扫码后的操作
+        console.log('=============================');
         console.log(data);
         Alert.alert(data);
     };

@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { NavigationContainer } from '@react-navigation/native';
 import { navigationRef } from 'components/navigationService';
 import MainStackNavigator from './MainStackNavigator';
