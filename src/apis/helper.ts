@@ -15,14 +15,15 @@ const jwtHeaders:object  = {
     }
 }
 
-export function post(url: string, body: object, options: RequestOptions = {}) {
-  return axios.post(API_ENDPOINT+url, body,headers)
+export async function post(url: string, body: object, options: RequestOptions = {}) {
+  const result =await axios.post(API_ENDPOINT+url, body,headers)
   .then(function (response) {
-    return response;
+    return response.data;
   })
   .catch(function (error) {
     console.log(error);
   });
+  return  result;
 }
 
 export function put(url: string, body: object, options: RequestOptions = {}) {

@@ -48,7 +48,7 @@ const LoginScreen = ({}: Props) => {
             onPress={() => {
               navigate('SelectWalletScreen', { loginType: 'new' });
             }}
-            title={i18n.t('wallet.create')}
+            title={i18n.t('createnewwallet')}
             titleStyle={styles.newCreateTitle}
           />
           <Button

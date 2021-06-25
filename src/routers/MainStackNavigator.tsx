@@ -26,6 +26,7 @@ import WalletBoardScreen from 'screens/WalletBoardScreen/WalletBoardScreen';
 import WalletDetailScreen from 'screens/WalletBoardScreen/WalletDetailScreen';
 import ExportMnemonicScreen from 'screens/WalletBoardScreen/ExportMnemonicScreen';
 import ExportPrivateKeyScreen from 'screens/WalletBoardScreen/ExportPrivateKeyScreen';
+import EditPwdScreen from 'screens/WalletBoardScreen/EditPwdScreen';
 
 // 转账收款
 import TransferScreen from 'screens/TransferScreen/TransferScreen';
@@ -57,8 +58,10 @@ export type MainStackParamList = {
   TransferScreen: undefined;
   ReceivePaymentScreen: undefined;
   ExportMnemonicScreen: undefined;
-  DappWebScreen: { title?: string; uri: string; item: {} }
   ExportPrivateKeyScreen: undefined;
+  EditPwdScreen: undefined;
+
+  DappWebScreen: { title?: string; uri: string; item: {} }
 };
 
 const { Navigator, Screen } = createStackNavigator<MainStackParamList>();
@@ -89,6 +92,55 @@ export default function MainStackNavigator() {
         options={{ headerShown: false }}
       />
       <Screen
+        name="WalletBoardScreen"
+        component={WalletBoardScreen}
+        options={{
+          title: i18n.t("Walletmanagement"),
+        }}
+      />
+      <Screen
+        name="WalletDetailScreen"
+        component={WalletDetailScreen}
+        options={{
+          title: '钱包详情',
+        }}
+      />
+      <Screen
+        name="ExportMnemonicScreen"
+        component={ExportMnemonicScreen}
+        options={{
+          title: '备份助记词',
+        }}
+      />
+      <Screen
+        name="ExportPrivateKeyScreen"
+        component={ExportPrivateKeyScreen}
+        options={{
+          title: '备份私钥',
+        }}
+      />
+      <Screen
+        name="EditPwdScreen"
+        component={EditPwdScreen}
+        options={{
+          title: '修改密码',
+        }}
+      />
+      <Screen
+        name="TransferScreen"
+        component={TransferScreen}
+        options={{
+          title: i18n.t("Transfer"),
+        }}
+      />
+      <Screen
+        name="ReceivePaymentScreen"
+        component={ReceivePaymentScreen}
+        options={{
+          title: i18n.t("Receive"),
+        }}
+      />
+      <Screen
         name="DappSearchScreen"
         component={DappSearchScreen}
         options={{ headerShown: false }}
@@ -115,27 +167,8 @@ export default function MainStackNavigator() {
           title: i18n.t("flashrecord"),
         }}
       />
-      <Screen
-        name="WalletBoardScreen"
-        component={WalletBoardScreen}
-        options={{
-          title: i18n.t("Walletmanagement"),
-        }}
-      />
-      <Screen
-        name="ExportPrivateKeyScreen"
-        component={ExportPrivateKeyScreen}
-        options={{
-          title: '备份私钥',
-        }}
-      />
-      <Screen
-        name="TransferScreen"
-        component={TransferScreen}
-        options={{
-          title: i18n.t("Transfer"),
-        }}
-      />
+      
+      
       <Screen
         name="AddressBookScreen"
         component={AddressBookScreen}

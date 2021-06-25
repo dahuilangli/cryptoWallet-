@@ -177,6 +177,7 @@ function HomeScreen({}: Props) {
             </View>
             <View style={styles.buttonContainer}>
               <Button
+                type="clear"
                 ViewComponent={LinearGradient}
                 linearGradientProps={{
                   colors: ['rgba(255,255,255,.8)', 'rgba(255,255,255,1)'],
@@ -211,6 +212,7 @@ function HomeScreen({}: Props) {
                 buttonStyle={styles.buttonOne}
                 title={i18n.t("Receive")}
                 titleStyle={styles.buttonTitle}
+                onPress={() => navigate('ReceivePaymentScreen')}
               />
             </View>
           </View>
