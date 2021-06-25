@@ -12,19 +12,16 @@
 ├── scripts // 放一些自动化辅助脚本
 └── src
  ├── components // 全局复用的非全屏组件
+ ├── actoins // 所有action
+ ├── config // 项目全局配置,常量,变量
+ ├── helper // 第三方库调用或者hooks函数
+ ├── i18n // 国际化
+ ├── reducer // statte
  ├── routers // 页面路由结构声明(stack, tab, drawer)
  ├── screens // 全屏页面组件(可以继续嵌套 components)
- ├── reduxState // redux 相关
- │   ├── actions.ts
- │    ├── reducers
- │    ├── store.ts
- │   └── selectors.ts
  ├── types // 类型声明
- ├── utils // 辅助函数、常量、配置等
- │   ├── navService.ts
- │   ├── constants.ts
- │   ├── config.ts
- │   └── request.ts
+ ├── sagas // 异步流程
+ ├── store // state存储
  └── App.tsx
 ```
 ## 环境配置
