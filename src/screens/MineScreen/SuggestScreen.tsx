@@ -13,27 +13,27 @@ interface Props {}
 function SuggestScreen({}: Props) {
     return (
         <SafeAreaView style={styles.container}>
-          <Text style = {styles.email}>您的邮箱</Text>
+          <Text style = {styles.email}>{i18n.t("yourmailbox")}</Text>
           <View style = {styles.whiteView}>
-            <TextInput style = {styles.input}  placeholder="请输入邮箱地址">
+            <TextInput style = {styles.input}  placeholder={i18n.t("enteremailaddress")}>
               
             </TextInput>
           </View>
-          <Text style = {styles.email}>您的钱包地址</Text>
+          <Text style = {styles.email}>{i18n.t("yourwalletaddress")}</Text>
           <View style = {styles.whiteView}>
-            <TextInput style = {styles.input}  placeholder="请输入钱包地址">
+            <TextInput style = {styles.input}  placeholder={i18n.t("enterWalAdd")}>
               
             </TextInput>
           </View>
-          <Text style = {styles.email}>问题描述</Text>
+          <Text style = {styles.email}>{i18n.t("problemDescription")}</Text>
           <View style = {styles.questView}>
-            <TextInput style = {styles.input}  placeholder="请描述您遇到的问题" multiline >
+            <TextInput style = {styles.input}  placeholder={i18n.t("enterproblemDescription")} multiline >
               
             </TextInput>
           </View>
           <View style = {styles.main}>
             <Button 
-            title='提交' 
+            title={i18n.t("submit")}
             titleStyle = {styles.Tlabel}
             buttonStyle = {styles.Tbutton}
             onPress = {() => Alert.alert('123') }

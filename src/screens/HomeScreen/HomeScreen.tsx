@@ -148,7 +148,7 @@ function HomeScreen({}: Props) {
             <TouchableOpacity onPress={() => setModalVisible(true)}>
               <Image source={require('assets/icon-24-切换钱包-light.png')} />
             </TouchableOpacity>
-            <Text style={styles.headerTitle}>钱包</Text>
+            <Text style={styles.headerTitle}>{i18n.t("wallet")}</Text>
             <TouchableOpacity onPress={() => navigate('PostFeedScreen')}>
               <Image
                 style={styles.image}
@@ -174,10 +174,9 @@ function HomeScreen({}: Props) {
             </View>
             <View style={styles.buttonContainer}>
               <Button
-                type="clear"
                 ViewComponent={LinearGradient}
                 linearGradientProps={{
-                  colors: ['rgba(255,255,255,0.8)', 'rgba(255,255,255,1)'],
+                  colors: ['rgba(255,255,255,.8)', 'rgba(255,255,255,1)'],
                   start: { x: 0, y: 0 },
                   end: { x: 0, y: 1 },
                 }}
@@ -188,7 +187,7 @@ function HomeScreen({}: Props) {
                   />
                 }
                 buttonStyle={styles.button}
-                title="转账"
+                title={i18n.t("Transfer")}
                 titleStyle={styles.buttonTitle}
                 onPress={() => navigate('TransferScreen')}
               />
@@ -207,16 +206,15 @@ function HomeScreen({}: Props) {
                   end: { x: 0, y: 1 },
                 }}
                 buttonStyle={styles.buttonOne}
-                title="收款"
+                title={i18n.t("Receive")}
                 titleStyle={styles.buttonTitle}
-                onPress={() => navigate('ReceivePaymentScreen')}
               />
             </View>
           </View>
         </View>
         <View style={styles.assetsContainer}>
           <View style={styles.assetsHeard}>
-            <Text style={styles.assetsHeardTitle}>资产</Text>
+            <Text style={styles.assetsHeardTitle}>{i18n.t("assets")}</Text>
             <TouchableOpacity
               onPress={() => navigate('SearchScreen', { coin: ['ETH'] })}
             >
@@ -284,7 +282,7 @@ function HomeScreen({}: Props) {
                   source={require('assets/icon-24-钱包管理.png')}
                 />
               </TouchableOpacity>
-              <Text style={styles.headText}>选择钱包</Text>
+              <Text style={styles.headText}>{i18n.t("choosewallet")}</Text>
               <TouchableOpacity
                 style={{ ...styles.openButton }}
                 onPress={() => {
@@ -316,7 +314,7 @@ function HomeScreen({}: Props) {
                   {DATA[selectItem]?.title}
                 </Text>
                 <ScrollView scrollIndicatorInsets={{ right: -6 }}>
-                  {DATA[selectItem]?.data.map((item) => (
+                  {DATA[selectItem]?.data.map((item, index) => (
                     <TouchableOpacity
                       style={
                         selectAddress === item.address

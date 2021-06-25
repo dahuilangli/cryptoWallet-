@@ -1,4 +1,3 @@
-import walletAction from 'actions/wallet';
 import React, { useState } from 'react';
 import {
   Alert,
@@ -12,7 +11,7 @@ import {
 } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { navigate } from 'components/navigationService';
-import { ListItem , Avatar} from 'react-native-elements';
+import { ListItem , Header} from 'react-native-elements';
 // import { getUserAvatar, screenWidth } from 'constants/constants';
 import ActionSheet from 'react-native-action-sheet';
 import pickImage from 'components/pickImage';
@@ -25,14 +24,14 @@ interface Props {}
 const list = {
   top: [
     {
-      name: '地址本',
+      name: i18n.t("Addressbook"),
       leftIcon: require('assets/icon-24-地址薄.png'),
       rightIcon: require('assets/icon-20-arrow-right.png'),
       navigate: () =>
         navigate('AddressBookScreen', { title: '地址本', showMyself: true }),
     },
     {
-      name: '消息通知',
+      name:i18n.t("Message"),
       leftIcon: require('assets/icon-24-消息通知.png'),
       rightIcon: require('assets/icon-20-arrow-right.png'),
       navigate: () => navigate('MessageScreen'),
@@ -40,49 +39,46 @@ const list = {
   ],
   content: [
     {
-      name: '使用设置',
+      name: i18n.t("Usesettings"),
       leftIcon: require('assets/icon-24-使用设置.png'),
       rightIcon: require('assets/icon-20-arrow-right.png'),
-      navigate: () => navigate('SetUpScreen'),
-    },
-    {
-      name: '帮助反馈',
+      navigate: () => navigate('SetUpScreen')
+    }, {
+      name: i18n.t("HelpFeedback"),
       leftIcon: require('assets/icon-24-反馈帮助.png'),
       rightIcon: require('assets/icon-20-arrow-right.png'),
-      navigate: () => navigate('SuggestScreen'),
-    },
-    {
-      name: '版本更新',
+      navigate: () => navigate('SuggestScreen')
+    }, {
+      name: i18n.t("versionupdate"),
       leftIcon: require('assets/icon-24-版本更新.png'),
       rightIcon: require('assets/icon-20-arrow-right.png'),
-      navigate: () => navigate('UpdateScreen'),
-    },
-    {
-      name: '用户协议',
+      navigate: () => navigate('UpdateScreen')
+
+    }, {
+      name: i18n.t("UserAgreement"),
       leftIcon: require('assets/icon-24-协议.png'),
       rightIcon: require('assets/icon-20-arrow-right.png'),
-      navigate: () =>
-        navigate('WebScreen', {
-          title: '用户协议',
-          uri: 'https://mystone.io/flashRedemption.html',
-        }),
-    },
-    {
-      name: '关于我们',
+      navigate: () => navigate('WebScreen', { title: i18n.t("UserAgreement"), uri: 'https://mystone.io/flashRedemption.html' })
+    }, {
+      name: i18n.t("aboutus"),
       leftIcon: require('assets/icon-24-关于我们.png'),
       rightIcon: require('assets/icon-20-arrow-right.png'),
-      navigate: () => navigate('AboutUsScreen'),
-    },
-  ],
-};
-function ProfileScreen({}: Props) {
+      navigate: () => navigate('AboutUsScreen')
+    }
+  ]
+
+}
+
+function ProfileScreen({ }: Props) {
   const dispatch = useDispatch();
-  const user = useSelector(walletAction.getUser)!;
-  const setUser = React.useCallback(
-    (user: User) => dispatch(walletAction.setUser(user)),
-    [dispatch],
-  );
- 
+  // const user = useSelector(selectUser)!;
+  // const setUser = React.useCallback(
+  //   (user: User) => dispatch(actions.setUser(user)),
+  //   [dispatch],
+  // );
+  // const logout = React.useCallback(() => dispatch(actions.logout()), [
+  //   dispatch,
+  // ]);
 
   const checkAppVersion = false;
   const checkMessage = false;

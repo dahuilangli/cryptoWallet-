@@ -3,11 +3,23 @@ import { NavigationContainer } from '@react-navigation/native';
 import { navigationRef } from 'components/navigationService';
 import MainStackNavigator from './MainStackNavigator';
 import AuthStackNavigator from './AuthStackNavigator';
+<<<<<<< HEAD
 import { useDispatch } from 'react-redux';
 import SplashScreen from 'react-native-splash-screen';
 import apis from 'apis';
 import { User } from 'actions/types';
 import wallet from 'actions/wallet';
+=======
+import { useDispatch, useSelector } from 'react-redux';
+import SplashScreen from 'react-native-splash-screen';
+import qs from 'qs';
+import { get } from 'utils/request';
+import { User } from 'actions/types';
+import DeviceInfo from 'react-native-device-info';
+import walletAction from 'actions/wallet';
+import {getAccountList} from 'selector/wallet';
+import { Alert } from 'react-native';
+>>>>>>> master
 
 function RootScreen() {
   const dispatch = useDispatch();

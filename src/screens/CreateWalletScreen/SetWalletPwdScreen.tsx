@@ -1,3 +1,4 @@
+import i18next from 'i18n';
 import React, { useState } from 'react';
 import { StyleSheet, View, Text, TextInput, SafeAreaView } from 'react-native';
 
@@ -29,9 +30,9 @@ const SetWalletPwdScreen = (props: Props) => {
     <SafeAreaView style={styles.container}>
       <View style={styles.main}>
         <View style={styles.inputContainer}>
-          <Text style={styles.presentText}>安全密码不能为空, 必须是6-12位</Text>
+          <Text style={styles.presentText}>{i18n.t("securityPassWordDes")}</Text>
           <TextInput
-            placeholder="设置安全密码"
+            placeholder={i18n.t("setsecurepassword")}
             maxLength={12}
             value={pwd}
             style={styles.inputPwd}
@@ -39,7 +40,7 @@ const SetWalletPwdScreen = (props: Props) => {
             secureTextEntry
           />
           <TextInput
-            placeholder="确认安全密码"
+            placeholder={i18n.t("confirmsecuritypassword")}
             maxLength={12}
             value={securityCode}
             style={styles.inputsecurityCode}
@@ -52,7 +53,7 @@ const SetWalletPwdScreen = (props: Props) => {
           onPress={() => {
             if (loginType) {
               navigate('SuccessScreen', {
-                title: '导入成功',
+                title: i18n.t("Importsuccessful"),
                 accountInfo: accountInfo,
               });
             } else {
@@ -62,7 +63,7 @@ const SetWalletPwdScreen = (props: Props) => {
             }
           }}
           disabled={!checkPwd}
-          title="下一步"
+          title={i18n.t("NextStep")}
           titleStyle={styles.nextButtonTitle}
         />
       </View>

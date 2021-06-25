@@ -53,7 +53,7 @@ const VerifyMnemonicScreen = (props: Props) => {
     let account: Account;
     try {
       account = accountInfo;
-      navigate('SuccessScreen', { title: '创建成功', accountInfo: account });
+      navigate('SuccessScreen', { title: i18n.t("Createdsuccessfully"), accountInfo: account });
     } catch (err) {
       console.log('====================================');
       console.log(err);
@@ -104,7 +104,7 @@ const VerifyMnemonicScreen = (props: Props) => {
         <Button
           buttonStyle={styles.nextButton}
           onPress={storageAccount}
-          title="确认"
+          title={i18n.t("sure")}
           disabled={!verifyMnemonic}
           titleStyle={styles.nextButtonTitle}
         />
@@ -143,14 +143,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   newListItem: {
-    width: '30.33%',
+    width: '30%',
     borderRadius: 8,
     margin: 5,
     paddingBottom: 8,
     backgroundColor: 'rgba(245, 248, 253, 100)',
   },
   newItemWarp: {
-    padding: 6,
+    paddingVertical: 6,
   },
   newWarpIndex: {
     textAlign: 'justify',
@@ -173,13 +173,12 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
   },
   listItem: {
-    width: '30.33%',
+    width: '30%',
     borderRadius: 8,
     backgroundColor: '#FFFFFF',
     margin: 5,
   },
   itemWarp: {
-    paddingHorizontal: 23.5,
     paddingVertical: 16,
   },
   warpIndex: {

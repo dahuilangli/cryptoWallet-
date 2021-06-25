@@ -53,7 +53,7 @@ const SuccessScreen = ({ route }: Props) => {
       <StatusBar barStyle="dark-content" />
       <Image style={styles.logo} source={require('assets/success.png')} />
       <Text style={styles.title}>{title}</Text>
-      <Text style={styles.desc}>正在接入钱包</Text>
+      <Text style={styles.desc}>{i18n.t("Connectingtowallet")}</Text>
       <Animated.Image
         style={[styles.circle, { transform: [{ rotate: spin }] }]}
         source={require('assets/loading.png')}

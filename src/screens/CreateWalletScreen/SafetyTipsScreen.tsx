@@ -1,3 +1,4 @@
+import i18next from 'i18n';
 import React from 'react';
 import {
   StyleSheet,
@@ -27,11 +28,11 @@ const SafetyTipsScreen = (props: Props) => {
             style={styles.warning}
             source={require('assets/safetyWarning.png')}
           />
-          <Text style={styles.presentTitle}>安全提示</Text>
+          <Text style={styles.presentTitle}>{i18n.t("Safetytips")}</Text>
           <Text style={styles.warningDesc}>
-            任何得到助记词的用户都能够将您的资产转走
+            {i18n.t("Anyonegetsmnemonicphrasecantransferyourassets")}
             {'\n'}
-            请务必在安全的环境下备份以及保管好助记词
+            {i18n.t("backupandkeepmnemonicwordsinsecureenvironment")}
           </Text>
         </View>
         <Button
@@ -39,15 +40,15 @@ const SafetyTipsScreen = (props: Props) => {
           onPress={() => {
             navigate('BackupMnemonicScreen', { accountInfo });
           }}
-          title="前往备份"
+          title={i18n.t("Gobackup")}
           titleStyle={styles.nextButtonTitle}
         />
         <Button
           buttonStyle={styles.noneButton}
           onPress={() => {
-            Alert.alert('未完待续');
+            Alert.alert(i18n.t("becontinued"));
           }}
-          title="稍后备份"
+          title={i18n.t("Backuplater")}
           titleStyle={styles.noneButtonTitle}
         />
       </View>

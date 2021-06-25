@@ -1,6 +1,7 @@
 import 'config/configure';
 import 'react-native-get-random-values';
 import '@ethersproject/shims';
+import 'utils/global';
 
 import 'config/global';
 

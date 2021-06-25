@@ -161,13 +161,13 @@ function WalletBoardScreen({}: Props) {
       <View style={styles.buttonContainer}>
         <Button
           buttonStyle={styles.button}
-          title="创建钱包"
+          title={i18n.t("Createwallet")}
           onPress={() => navigate('SelectWalletScreen', { loginType: 'new' })}
           titleStyle={styles.buttonTitle}
         />
         <Button
           buttonStyle={styles.buttonOne}
-          title="导入钱包"
+          title={i18n.t("Importwallet")}
           onPress={() => navigate('SelectWalletScreen')}
           titleStyle={styles.buttonTitle}
         />

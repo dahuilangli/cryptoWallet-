@@ -21,7 +21,7 @@ function SearchScreen({}: Props) {
   // }
   // getGenericPassword();
   let obj = {
-    title: '我的资产',
+    title: i18n.t("Myassets"),
     data: [
       {
         name: 'ETH',
@@ -51,7 +51,7 @@ function SearchScreen({}: Props) {
             source={require('assets/icon-20-搜索.png')}
           />
           <TextInput
-            placeholder="输入Token名称或合约地址"
+            placeholder={i18n.t("EnterTokenorcontractaddress")}
             value={coinName}
             style={styles.coinNameText}
             onChangeText={setCoinName}
@@ -59,7 +59,7 @@ function SearchScreen({}: Props) {
           />
         </View>
         <TouchableOpacity onPress={goBack} style={styles.goBlack}>
-          <Text style={styles.goBlackText}>取消</Text>
+          <Text style={styles.goBlackText}>{i18n.t("cancel")}</Text>
         </TouchableOpacity>
       </View>
     );

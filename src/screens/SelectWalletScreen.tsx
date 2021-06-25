@@ -37,7 +37,7 @@ const SelectWalletScreen = (prop: Props) => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.main}>
-        <Text style={styles.presentText}>选择需要创建的钱包类型</Text>
+        <Text style={styles.presentText}>{i18n.t("Selectwallettypetobecreated")}</Text>
         {list.map((item, i) => (
           <TouchableOpacity
             style={styles.list}

@@ -155,7 +155,7 @@ function CoinDetailScreen({ route }: Props) {
           </StickyHeader>
 
           <View style={styles.transactions}>
-            <Text style={styles.transactionsTitle}>交易记录</Text>
+            <Text style={styles.transactionsTitle}>{i18n.t("Transaction Record")}</Text>
             <View style={styles.transactionsList}>
               {list.map((item, i) => (
                 <View style={styles.list} key={i}>
@@ -165,10 +165,10 @@ function CoinDetailScreen({ route }: Props) {
                       <View style={styles.listNavStatus}>
                         <Text style={styles.statusText}>
                           {item?.status > 0
-                            ? '已完成'
+                            ? i18n.t("completed")
                             : item?.status < 0
-                            ? '失败'
-                            : '进行中'}
+                            ? i18n.t("failure")
+                            : i18n.t("processing")}
                         </Text>
                       </View>
                       <View style={styles.listNavAmount}>
@@ -176,9 +176,9 @@ function CoinDetailScreen({ route }: Props) {
                       </View>
                     </View>
                     <View style={styles.listNavDesc}>
-                      <Text style={styles.descText}>交易时间:{item?.time}</Text>
+                      <Text style={styles.descText}>{i18n.t("transactiontime")}:{item?.time}</Text>
                       <Text style={styles.descText}>
-                        手续费:{item?.gas} ETH
+                        {i18n.t("handlefee")}:{item?.gas} ETH
                       </Text>
                     </View>
                     <TouchableOpacity
@@ -213,7 +213,7 @@ function CoinDetailScreen({ route }: Props) {
             />
           }
           buttonStyle={styles.button}
-          title="转账"
+          title={i18n.t("Transfer")}
           titleStyle={styles.buttonTitle}
         />
         <Button
@@ -224,7 +224,7 @@ function CoinDetailScreen({ route }: Props) {
             />
           }
           buttonStyle={styles.buttonOne}
-          title="收款"
+          title={i18n.t("Receive")}
           titleStyle={styles.buttonTitle}
         />
       </View>

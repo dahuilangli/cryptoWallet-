@@ -1,3 +1,4 @@
+import i18next from 'i18n';
 import React, { useState } from 'react';
 import { StyleSheet, View, Text, TextInput, SafeAreaView } from 'react-native';
 import { Button } from 'react-native-elements';
@@ -27,14 +28,14 @@ const ImportPrivateKeyScreen = (props: Props) => {
     <SafeAreaView style={styles.container}>
       <View style={styles.main}>
         <View style={styles.inputContainer}>
-          <Text style={styles.presentText}>请输入私钥或扫描二维码</Text>
+          <Text style={styles.presentText}>{i18n.t("enterprivatekeyorscanQRcode")}</Text>
           <View style={styles.inputName}>
             <UselessTextInput
               multiline
               numberOfLines={4}
               onChangeText={(text: string) => setPrivateKey(text)}
               value={privateKey}
-              placeholder="请填写"
+              placeholder={i18n.t("Please fill out")}
             />
           </View>
         </View>
@@ -59,7 +60,7 @@ const ImportPrivateKeyScreen = (props: Props) => {
             }
           }}
           disabled={!privateKey}
-          title="下一步"
+          title={i18n.t("NextStep")}
           titleStyle={styles.nextButtonTitle}
         />
       </View>

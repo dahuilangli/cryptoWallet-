@@ -208,7 +208,7 @@ function TransferScreen({}: Props) {
           </TouchableWithoutFeedback>
           <View style={styles.modalView}>
             <View style={styles.headView}>
-              <Text style={styles.headText}>选择币种</Text>
+              <Text style={styles.headText}>{i18n.t("Choosecurrency")}</Text>
               <TouchableWithoutFeedback
                 style={{ ...styles.openButton }}
                 onPress={() => {
@@ -275,12 +275,14 @@ function TransferScreen({}: Props) {
             <View style={styles.outContair} />
           </TouchableWithoutFeedback>
           <KeyboardAvoidingView
-            behavior={Platform.OS === 'ios' ? 'position' : 'height'}
+            behavior={Platform.OS == "ios" ? "position" : "height"}
           >
-            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+            <TouchableWithoutFeedback
+              onPress={Keyboard.dismiss}
+            >
               <View style={styles.modalView}>
                 <View style={styles.headView}>
-                  <Text style={styles.headText}>请输入安全密码</Text>
+                  <Text style={styles.headText}>{i18n.t("entersecurepassword")}</Text>
                   <TouchableOpacity
                     style={{ ...styles.openButton }}
                     onPress={() => {
@@ -295,26 +297,17 @@ function TransferScreen({}: Props) {
                 </View>
                 <View style={styles.groupView}>
                   <View style={styles.codeInputView}>
-                    <TextInput
-                      secureTextEntry
-                      placeholder="输入密码"
-                      style={styles.codeInput}
-                    />
+                    <TextInput placeholder={i18n.t("enterpassword")} style={styles.codeInput} />
                     <View style={styles.codeButtonView}>
                       <Button
                         buttonStyle={styles.buttonStyle}
-                        title="确定"
+                        title={i18n.t("sure")}
                         titleStyle={styles.buttonTitle}
-                        onPress={() => {
-                          setTransferConfirm(!transferConfirm);
-                          setTimeout(() => {
-                            setRiskWarning(!riskWarning);
-                          }, 150);
-                        }}
+                        onPress={() => setTransferConfirm(!transferConfirm)}
                       />
                       <Button
                         buttonStyle={styles.cancelButtonStyle}
-                        title="取消"
+                        title={i18n.t("cancel")}
                         titleStyle={styles.cancelButtonTitle}
                         onPress={() => setTransferConfirm(!transferConfirm)}
                       />

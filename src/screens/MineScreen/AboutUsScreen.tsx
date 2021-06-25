@@ -59,7 +59,43 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#394867',
     fontSize: 24,
-    justifyContent: 'center',
+    justifyContent: 'center'
+  },
+  bottomView: {
+    marginTop: 50,
+    justifyContent: 'flex-start',
+  },
+  itemStyle: {
+    marginHorizontal: 20,
+    backgroundColor: 'white',
+    height: 60,
+    marginBottom: 10,
+    flexDirection: 'row',
+    justifyContent:'space-between',
+    alignItems: 'center',
+    borderRadius: 8,
+  },
+  firstView: {
+    marginLeft:15,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  LeftImage:{
+    width:30,
+    height:30,
+  },
+  nameText:{
+    marginLeft:10,
+    fontSize:14,
+    color:'#394867',
+    fontWeight:'500',
+  },
+  secondView: {
+    marginRight:15,
+  },
+  rightImage:{
+    width:8,
+    height:20,
   },
 });
 
