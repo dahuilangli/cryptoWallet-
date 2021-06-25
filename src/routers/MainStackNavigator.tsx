@@ -62,7 +62,6 @@ export type MainStackParamList = {
   EditPwdScreen: undefined;
 
   DappWebScreen: { title?: string; uri: string; item: {} }
-  DappSearchScreen: undefined;
 };
 
 const { Navigator, Screen } = createStackNavigator<MainStackParamList>();
