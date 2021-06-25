@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import {
   StyleSheet,
+  SafeAreaView,
   View,
   Text,
   Image,
@@ -18,12 +19,12 @@ import { navigate } from 'components/navigationService';
 interface Props {}
 const list = [
   {
-    name: i18n.t("mnemonicimport"),
+    name: i18n.t('mnemonicimport'),
     avatar_url: require('assets/icon-20-导入-词.png'),
     type: 'mnemonic',
   },
   {
-    name: i18n.t("privatekeyimport"),
+    name: i18n.t('privatekeyimport'),
     avatar_url: require('assets/icon-20-导入-私钥.png'),
     type: 'privateKey',
   },
@@ -34,27 +35,29 @@ const LoginScreen = ({}: Props) => {
   return (
     <LinearGradient colors={['#1D4692', '#263C75']} style={styles.container}>
       <StatusBar barStyle="light-content" />
-      <View style={styles.logoContainer}>
-        <Image style={styles.logo} source={require('assets/logo.png')} />
-        <Text style={styles.logoText}>MORLEYSTONE</Text>
-      </View>
-      <View style={styles.buttonContainer}>
-        <Button
-          buttonStyle={styles.newCreate}
-          onPress={() => {
-            navigate('SelectWalletScreen', { loginType: 'new' });
-          }}
-          title={i18n.t("createnewwallet")}
-          titleStyle={styles.newCreateTitle}
-        />
-        <Button
-          type="outline"
-          buttonStyle={styles.already}
-          onPress={() => setModalVisible(true)}
-          title={i18n.t("haveawallet")}
-          titleStyle={styles.alreadyTitle}
-        />
-      </View>
+      <SafeAreaView style={styles.flex_1}>
+        <View style={styles.logoContainer}>
+          <Image style={styles.logo} source={require('assets/logo.png')} />
+          <Text style={styles.logoText}>MORLEYSTONE</Text>
+        </View>
+        <View style={styles.buttonContainer}>
+          <Button
+            buttonStyle={styles.newCreate}
+            onPress={() => {
+              navigate('SelectWalletScreen', { loginType: 'new' });
+            }}
+            title={i18n.t('wallet.create')}
+            titleStyle={styles.newCreateTitle}
+          />
+          <Button
+            type="outline"
+            buttonStyle={styles.already}
+            onPress={() => setModalVisible(true)}
+            title="已有钱包"
+            titleStyle={styles.alreadyTitle}
+          />
+        </View>
+      </SafeAreaView>
       <Modal
         animationType="fade"
         transparent={true}
@@ -75,7 +78,7 @@ const LoginScreen = ({}: Props) => {
           </TouchableWithoutFeedback>
           <View style={styles.modalView}>
             <View style={styles.headView}>
-              <Text style={styles.headText}>{i18n.t("importmethod")}</Text>
+              <Text style={styles.headText}>{i18n.t('importmethod')}</Text>
               <TouchableWithoutFeedback
                 style={{ ...styles.openButton }}
                 onPress={() => {
@@ -138,7 +141,7 @@ const styles = StyleSheet.create({
     fontSize: 28,
   },
   buttonContainer: {
-    paddingVertical: 15,
+    paddingBottom: 15,
   },
   newCreate: {
     height: 55,
@@ -229,6 +232,9 @@ const styles = StyleSheet.create({
     width: screenWidth,
     height: 0.5,
     backgroundColor: '#E9EDF1',
+  },
+  flex_1: {
+    flex: 1,
   },
 });
 export default LoginScreen;

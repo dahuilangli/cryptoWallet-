@@ -1,7 +1,7 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { Image } from 'react-native';
+import { Image, Text } from 'react-native';
 
 import TabNavigator from './TabNavigator';
 import WebScreen from 'screens/WebScreen';
@@ -25,6 +25,8 @@ import CoinDetailScreen from 'screens/CoinDetailScreen/CoinDetailScreen';
 import WalletBoardScreen from 'screens/WalletBoardScreen/WalletBoardScreen';
 import WalletDetailScreen from 'screens/WalletBoardScreen/WalletDetailScreen';
 import ExportMnemonicScreen from 'screens/WalletBoardScreen/ExportMnemonicScreen';
+import ExportPrivateKeyScreen from 'screens/WalletBoardScreen/ExportPrivateKeyScreen';
+
 // 转账收款
 import TransferScreen from 'screens/TransferScreen/TransferScreen';
 import ReceivePaymentScreen from 'screens/ReceivePaymentScreen/ReceivePaymentScreen';
@@ -41,7 +43,7 @@ export type MainStackParamList = {
   SetUpScreen: undefined;
   FlashRecordScreen: undefined;
   ScanQRCode: undefined;
-  LanguageSetScreen: { title?: string; };
+  LanguageSetScreen: { title?: string };
   AddressBookScreen: { title: string; showMyself?: boolean };
   AddressBookEditorScreen: { title?: string; item: {} };
   AddressTypeScreen: { type?: string };
@@ -54,7 +56,8 @@ export type MainStackParamList = {
   TransferScreen: undefined;
   ReceivePaymentScreen: undefined;
   ExportMnemonicScreen: undefined;
-  DappWebScreen: { title?: string; uri: string; item: {} }
+  DappWebScreen: { title?: string; uri: string; item: {} };
+  ExportPrivateKeyScreen: undefined;
 };
 
 const { Navigator, Screen } = createStackNavigator<MainStackParamList>();
@@ -85,6 +88,28 @@ export default function MainStackNavigator() {
         options={{ headerShown: false }}
       />
       <Screen
+        name="WalletDetailScreen"
+        component={WalletDetailScreen}
+        options={{
+          title: '钱包详情',
+        }}
+      />
+      <Screen
+        name="SearchScreen"
+        component={SearchScreen}
+        options={{ headerShown: false }}
+      />
+      <Screen
+        name="SearchScreen"
+        component={SearchScreen}
+        options={{ headerShown: false }}
+      />
+      <Screen
+        name="SearchScreen"
+        component={SearchScreen}
+        options={{ headerShown: false }}
+      />
+      <Screen
         name="DappSearchScreen"
         component={DappSearchScreen}
         options={{ headerShown: false }}
@@ -92,7 +117,7 @@ export default function MainStackNavigator() {
       <Screen
         name="ScanQRCode"
         component={ScanQRCode}
-        options={{ title : '扫一扫' }}
+        options={{ title: '扫一扫' }}
       />
       <Screen
         name="CoinDetailScreen"
@@ -108,66 +133,97 @@ export default function MainStackNavigator() {
         name="FlashRecordScreen"
         component={FlashRecordScreen}
         options={{
-          title: i18n.t("flashrecord"),
+          title: i18n.t('flashrecord'),
         }}
       />
       <Screen
         name="WalletBoardScreen"
         component={WalletBoardScreen}
         options={{
-          title: i18n.t("Walletmanagement"),
+          title: i18n.t('Walletmanagement'),
         }}
       />
+      <Screen
+        name="ExportPrivateKeyScreen"
+        component={ExportPrivateKeyScreen}
+        options={{
+          title: '备份私钥',
+        }}
+      />
+      <Screen
+        name="ExportMnemonicScreen"
+        component={ExportMnemonicScreen}
+        options={{
+          title: '备份助记词',
+        }}
+      />
+
       <Screen
         name="TransferScreen"
         component={TransferScreen}
         options={{
-          title: i18n.t("Transfer"),
+          title: i18n.t('Transfer'),
+        }}
+      />
+      <Screen
+        name="ReceivePaymentScreen"
+        component={ReceivePaymentScreen}
+        options={{
+          title: '收款',
         }}
       />
       <Screen
         name="AddressBookScreen"
         component={AddressBookScreen}
         options={{
-          title: i18n.t("Addressbook"),
+          title: i18n.t('Addressbook'),
           headerBackTitle: 'flase',
-          headerRight: () => <TouchableOpacity
-            onPress={() => navigate('AddressBookEditorScreen', { item: {}, title: i18n.t("newpayee") })}
-          >
-            <Image source={require('assets/icon-24-添加-light.png')} />
-          </TouchableOpacity>,
+          headerRight: () => (
+            <TouchableOpacity
+              onPress={() =>
+                navigate('AddressBookEditorScreen', {
+                  item: {},
+                  title: i18n.t('newpayee'),
+                })
+              }
+            >
+              <Image source={require('assets/icon-24-添加-light.png')} />
+            </TouchableOpacity>
+          ),
           headerRightContainerStyle: { marginRight: 20 },
         }}
       />
       <Screen
         name="AddressBookEditorScreen"
         component={AddressBookEditorScreen}
-
         options={({ route }) => ({
           title: route.params.title,
-          headerRight: () => route.params.title === i18n.t("editpayee") && <TouchableOpacity
-            onPress={() => navigate('AddressBookScreen')}
-          >
-            <Text style={{ color: 'white', fontSize: 14, fontWeight: '500' }}>{i18n.t("delete")}</Text>
-          </TouchableOpacity>,
+          headerRight: () =>
+            route.params.title === i18n.t('editpayee') && (
+              <TouchableOpacity onPress={() => navigate('AddressBookScreen')}>
+                <Text
+                  style={{ color: 'white', fontSize: 14, fontWeight: '500' }}
+                >
+                  {i18n.t('delete')}
+                </Text>
+              </TouchableOpacity>
+            ),
           headerRightContainerStyle: { marginRight: 20 },
         })}
-
-
       />
 
       <Screen
         name="AddressTypeScreen"
         component={AddressTypeScreen}
         options={{
-          title: i18n.t("chooseaddresstype"),
+          title: i18n.t('chooseaddresstype'),
         }}
       />
       <Screen
         name="SetUpScreen"
         component={SetUpScreen}
         options={{
-          title: i18n.t("Usesettings"),
+          title: i18n.t('Usesettings'),
         }}
       />
       <Screen
@@ -181,35 +237,35 @@ export default function MainStackNavigator() {
         name="AboutUsScreen"
         component={AboutUsScreen}
         options={{
-          title: i18n.t("aboutus"),
+          title: i18n.t('aboutus'),
         }}
       />
       <Screen
         name="SuggestScreen"
         component={SuggestScreen}
         options={{
-          title: i18n.t("HelpFeedback"),
+          title: i18n.t('HelpFeedback'),
         }}
       />
       <Screen
         name="UpdateScreen"
         component={UpdateScreen}
         options={{
-          title: i18n.t("versionupdate"),
+          title: i18n.t('versionupdate'),
         }}
       />
       <Screen
         name="PostFeedScreen"
         component={PostFeedScreen}
         options={{
-          title: i18n.t("Message"),
+          title: i18n.t('Message'),
         }}
       />
       <Screen
         name="MessageScreen"
         component={MessageScreen}
         options={{
-          title: i18n.t("Message"),
+          title: i18n.t('Message'),
         }}
       />
       <Screen
