@@ -13,22 +13,7 @@ interface Props {
     };
   };
 }
-// const toastOpts = {
-//   data: 'Success',
-//   textColor: '#ffffff',
-//   backgroundColor: '#444444',
-//   duration: WToast.duration.LONG, //1.SHORT 2.LONG
-//   position: WToast.position.CENTER, // 1.TOP 2.CENTER 3.BOTTOM
-//   icon: (
-//     <Image
-//       source={{
-//         uri:
-//           'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1445367555,278299601&fm=26&gp=0.jpg',
-//       }}
-//       style={{ width: 32, height: 32, resizeMode: 'contain' }}
-//     />
-//   ),
-// };
+
 const SetWalletPwdScreen = (props: Props) => {
   const { accountInfo } = props.route.params;
   const { loginType } = props.route.params;

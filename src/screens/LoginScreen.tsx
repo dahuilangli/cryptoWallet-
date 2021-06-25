@@ -124,7 +124,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   logoContainer: {
-    flex: 2,
+    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -138,7 +138,7 @@ const styles = StyleSheet.create({
     fontSize: 28,
   },
   buttonContainer: {
-    flex: 0.5,
+    paddingVertical: 15,
   },
   newCreate: {
     height: 55,

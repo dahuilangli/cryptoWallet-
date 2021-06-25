@@ -1,3 +1,6 @@
 {
-  "name": "screens"
+  "name": "screens",
+  "devDependencies": {
+    "@types/react-native-qrcode": "^0.2.2"
+  }
 }
