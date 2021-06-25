@@ -5,6 +5,7 @@ import 'react-native-get-random-values';
 
 // 导入 ethers shims (**BEFORE** ethers)
 import '@ethersproject/shims';
+import 'utils/global';
 
 import { AppRegistry } from 'react-native';
 import App from 'routers/App';

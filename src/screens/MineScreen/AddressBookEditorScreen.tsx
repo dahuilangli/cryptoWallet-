@@ -3,6 +3,7 @@ import { StyleSheet, View, Text, SafeAreaView, TouchableOpacity, Image, Button, 
 import { screenWidth } from 'utils/constants';
 import { TextInput } from 'react-native-gesture-handler';
 import { navigate } from 'utils/navigationService';
+import i18next from 'i18n';
 
 interface Props {
     route: {
@@ -25,7 +26,7 @@ function AddressBookEditorScreen(props: Props) {
     return (
         <SafeAreaView style={styles.container}>
             <View>
-                <Text style={styles.typeText}>地址类型</Text>
+                <Text style={styles.typeText}>{i18n.t("addresstype")}</Text>
                 <TouchableOpacity
                     onPress={() =>
                         navigate('AddressTypeScreen', {
@@ -39,39 +40,39 @@ function AddressBookEditorScreen(props: Props) {
                         <Image style={styles.rightImage} source={require('assets/icon-20-arrow-right.png')}></Image>
                     </View>
                 </TouchableOpacity>
-                <Text style={styles.typeText}>地址名称</Text>
+                <Text style={styles.typeText}>{i18n.t("addressname")}</Text>
                 <View style={styles.nameView}>
                     <TextInput
                         style={styles.nameInput}
-                        placeholder="请出入地址名称"
+                        placeholder={i18n.t("enterAddName")}
                         defaultValue = {item.name}
                         onChangeText={(text: string) => ({})}
                     >
 
                     </TextInput>
                 </View>
-                <Text style={styles.typeText}>备注 (选填)</Text>
+                <Text style={styles.typeText}>{i18n.t("marks")}</Text>
                 <View style={styles.nameView}>
                     <TextInput
                         style={styles.nameInput}
-                        placeholder="请输入钱包备注"
+                        placeholder={i18n.t("enterWalMark")}
                         defaultValue = {item.subtitle}
                         onChangeText={(text: string) => ('')}>
                     </TextInput>
                 </View>
-                <Text style={styles.typeText}>钱包地址</Text>
+                <Text style={styles.typeText}>{i18n.t("walletaddress")}</Text>
                 <View style={styles.addressView}>
                     <TextInput
                         style={styles.addressInput}
                         multiline
-                        placeholder="粘贴钱包地址"
+                        placeholder={i18n.t("pasteWalAddress")}
                         defaultValue = {item.pkey}
                         onChangeText={(text: string) => ('')}>
                     </TextInput>
                 </View>
             </View>
             <TouchableOpacity onPress={({ }) => (Alert.alert('1111'))} style={styles.surebtn}>
-                <Text style={styles.sureText}>确定</Text>
+                <Text style={styles.sureText}>{i18n.t("sure")}</Text>
             </TouchableOpacity>
         </SafeAreaView>
     );

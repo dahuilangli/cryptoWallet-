@@ -1,3 +1,4 @@
+import i18next from 'i18n';
 import React, { useState } from 'react';
 import { StyleSheet, View, Text, TextInput, SafeAreaView } from 'react-native';
 import { Button } from 'react-native-elements';
@@ -54,11 +55,11 @@ const SetWalletNameScreen = (props: Props) => {
       <View style={styles.main}>
         <View style={styles.inputContainer}>
           <Text style={styles.presentText}>
-            钱包名称不能为空,不能大于20个字符
+            {i18n.t("walletnamedes")}
           </Text>
           <TextInput
             maxLength={20}
-            placeholder="钱包名称"
+            placeholder={i18n.t("Wallet Name")}
             value={walletName}
             style={styles.inputName}
             onChangeText={setWalletName}
@@ -73,7 +74,7 @@ const SetWalletNameScreen = (props: Props) => {
             });
           }}
           disabled={!walletName}
-          title="下一步"
+          title={i18n.t("NextStep")}
           titleStyle={styles.nextButtonTitle}
         />
       </View>

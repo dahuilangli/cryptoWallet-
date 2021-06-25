@@ -80,7 +80,7 @@ function LanguageSetScreen(props: Props) {
     return (
         <SafeAreaView style={styles.container}>
         <FlatList 
-        data={title==='货币单位'?list1:list} 
+        data={title===i18n.t("currencyUnit")?list1:list} 
         style={styles.item}
         renderItem={renderItem}
         keyExtractor={(item) => item.name}

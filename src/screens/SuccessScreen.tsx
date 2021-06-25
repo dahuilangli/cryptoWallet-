@@ -10,9 +10,11 @@ import {
   Alert,
 } from 'react-native';
 import { useDispatch } from 'react-redux';
-import actions from 'reduxState/actions';
-import { Account } from 'types/types';
+import walletAction from 'actions/wallet';
+import { Account } from 'actions/types';
+import i18next from 'i18n';
 
+// import { setGenericPassword } from 'utils/keyChain';
 interface Props {
   route: {
     params: {
@@ -30,7 +32,8 @@ const SuccessScreen = ({ route }: Props) => {
   const dispatch = useDispatch();
   async function storageAccount() {
     try {
-      await dispatch(actions.setAccountList(accountInfo));
+      // await setGenericPassword('account', JSON.stringify(accountInfo));
+      await dispatch(walletAction.setAccountList(accountInfo));
     } catch (err) {
       Alert.alert(`${title}失败，请重新选择钱包后重试`);
     }
@@ -51,7 +54,7 @@ const SuccessScreen = ({ route }: Props) => {
       <StatusBar barStyle="dark-content" />
       <Image style={styles.logo} source={require('assets/success.png')} />
       <Text style={styles.title}>{title}</Text>
-      <Text style={styles.desc}>正在接入钱包</Text>
+      <Text style={styles.desc}>{i18n.t("Connectingtowallet")}</Text>
       <Animated.Image
         style={[styles.circle, { transform: [{ rotate: spin }] }]}
         source={require('assets/loading.png')}

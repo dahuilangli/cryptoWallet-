@@ -1,7 +1,7 @@
 import React from 'react';
 import { StatusBar } from 'react-native';
 import { Provider } from 'react-redux';
-import { ReduxStore, persistor } from 'reduxState/store';
+import  {ReduxStore,persistor} from 'store';
 import RootScreen from './RootScreen';
 import { PersistGate } from 'redux-persist/es/integration/react';
 import { RootSiblingParent } from 'react-native-root-siblings';
@@ -15,7 +15,11 @@ export default function App() {
   return (
     <WRootToastApp>
       <Provider store={ReduxStore}>
-        <StatusBar translucent={true} backgroundColor="transparent" barStyle={'light-content'}/>
+        <StatusBar
+          translucent={true}
+          backgroundColor="transparent"
+          barStyle={'light-content'}
+        />
         <PersistGate loading={null} persistor={persistor}>
           <RootSiblingParent>
             <RootScreen />

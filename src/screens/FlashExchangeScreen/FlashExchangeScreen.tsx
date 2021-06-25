@@ -18,6 +18,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { screenHeight, screenWidth } from 'utils/constants';
 import { navigate } from 'utils/navigationService';
 import { Avatar, Header } from 'react-native-elements';
+import i18next from 'i18n';
 const list = [
 
   {
@@ -59,13 +60,21 @@ function FlashExchangeScreen({ }: Props) {
     <View style={styles.container}>
       <Header
         placement="center"
-        rightComponent={{ text: '记录', style: { fontSize: 16, fontWeight: 'bold', color: 'white' } }}
-        centerComponent={{ text: '闪兑', style: { fontSize: 18, fontWeight: 'bold', color: 'white' } }}
+        rightComponent={
+          <TouchableOpacity 
+            onPress = {() => navigate('FlashRecordScreen')}
+          >
+            <Text style = {styles.rightBtn}>{i18n.t("record")}</Text>
+          </TouchableOpacity>
+        }
+        rightContainerStyle = {{alignItems:'flex-end',justifyContent:'center',}}
+        centerComponent={{ text: i18n.t("flash"), style: { fontSize: 18, fontWeight: 'bold', color: 'white' ,} }}
         containerStyle={{
           backgroundColor: '#3D73DD',
+          flexDirection:'row',
+          alignItems: 'center',
         }}
       />
-      {/* <SafeAreaView style={styles.container}> */}
       <View style={styles.backgroundView}>
         <View style={styles.firstView}>
           <TouchableOpacity
@@ -91,20 +100,21 @@ function FlashExchangeScreen({ }: Props) {
         </View>
         <View style={styles.lineView} />
         <TouchableOpacity
+          style = {styles.exchange}
           onPress={() => {
             setInPutImage(outImage);
             setOutImage(inPutImage);
             setInPutName(outName);
             setOutName(inPutName);
           }}>
-          <Image style={styles.exchange} source={require('assets/icon-40-闪兑切换.png')} />
+          <Image style={{width:40,height:40}} source={require('assets/icon-40-闪兑切换.png')} />
         </TouchableOpacity>
         <View style={styles.secondView}>
           <View style={styles.centerViewone}>
-            <Text style={styles.centerOut}>转出</Text>
+            <Text style={styles.centerOut}>{i18n.t("transferout")}</Text>
             <View style={styles.inputView}>
               <TextInput
-                placeholder="转出数量"
+                placeholder={i18n.t("numberoftransfers")}
                 style={styles.inputNumber}
                 onChangeText={(text: string) => setOutNumber(text)}
               >
@@ -112,10 +122,10 @@ function FlashExchangeScreen({ }: Props) {
             </View>
           </View>
           <View style={styles.centerViewtwo}>
-            <Text style={styles.centerinput}>转入</Text>
+            <Text style={styles.centerinput}>{i18n.t("transferin")}</Text>
             <View style={styles.outView}>
               <TextInput
-                placeholder="收到数量"
+                placeholder={i18n.t("numberreceive")}
                 style={styles.outNumber}
                 onChangeText={(text: string) => setInNumber(text)}
               >
@@ -125,18 +135,18 @@ function FlashExchangeScreen({ }: Props) {
         </View>
         <View style={styles.bottomView}>
           <View style={{ flexDirection: 'row' }}>
-            <Text style={styles.useText}>可用</Text>
+            <Text style={styles.useText}>{i18n.t("Available")}</Text>
             <Text style={styles.useNumber}>0.023875129 ETH</Text>
           </View>
-          <Text style={styles.rateText}>汇率  1 ETH ≈ 786.564 USDT</Text>
-          <Text style={styles.rateText}>手续费  0.03%</Text>
+          <Text style={styles.rateText}>{i18n.t("exchangerate")}  1 ETH ≈ 786.564 USDT</Text>
+          <Text style={styles.rateText}>{i18n.t("handlefee")}  0.03%</Text>
           <TouchableOpacity style={styles.exchangeBtn} onPress={() => {
             if (inPutName === outName) {
               return;
             }
             setModalVisible1(true);
           }}>
-            <Text style={styles.changeText}>兑换</Text>
+            <Text style={styles.changeText}>{i18n.t("exchange")}</Text>
           </TouchableOpacity>
         </View>
 
@@ -159,7 +169,7 @@ function FlashExchangeScreen({ }: Props) {
             </TouchableWithoutFeedback>
             <View style={styles.modalView}>
               <View style={styles.headView}>
-                <Text style={styles.headText}>导入方式</Text>
+                <Text style={styles.headText}>{i18n.t("importmethod")}</Text>
                 <TouchableWithoutFeedback
                   style={{ ...styles.openButton }}
                   onPress={() => {
@@ -239,7 +249,7 @@ function FlashExchangeScreen({ }: Props) {
               >
                 <View style={styles.modalView2}>
                   <View style={styles.headView}>
-                    <Text style={styles.headText}>确认闪兑</Text>
+                    <Text style={styles.headText}>{i18n.t("confirmflash")}</Text>
                     <TouchableOpacity
                       style={{ ...styles.openButton }}
                       onPress={() => {
@@ -268,18 +278,18 @@ function FlashExchangeScreen({ }: Props) {
                   <View style={styles.lineView1}></View>
                   <View style={styles.centerView1}>
                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                      <Text style={styles.poundage}>手续费</Text>
+                      <Text style={styles.poundage}>{i18n.t("handlefee")}</Text>
                       <Text style={styles.des}>0.023875129 ETH</Text>
                     </View>
                     <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 20 }}>
-                      <Text style={styles.poundage}>汇率</Text>
+                      <Text style={styles.poundage}>{i18n.t("exchangerate")}</Text>
                       <Text style={styles.des}>1 ETH ≈ 786.564 USDT</Text>
                     </View>
                   </View>
                   <View style={styles.lineView1}></View>
                   <View style={styles.passView}>
                     <TextInput
-                      placeholder="请输入安全密码"
+                      placeholder={i18n.t("entersecurepassword")}
                       style={styles.passwordNumber}
                       onChangeText={(text: string) => { }}
                     >
@@ -293,7 +303,7 @@ function FlashExchangeScreen({ }: Props) {
                       }
                       setModalVisible1(true);
                     }}>
-                      <Text style={styles.changeText}>确认兑换</Text>
+                      <Text style={styles.changeText}>{i18n.t("confirmredemption")}</Text>
                     </TouchableOpacity>
                   </View>
                 </View>
@@ -304,7 +314,6 @@ function FlashExchangeScreen({ }: Props) {
 
 
       </View>
-      {/* </SafeAreaView> */}
     </View>
   );
 }
@@ -316,6 +325,12 @@ const styles = StyleSheet.create({
   backgroundView: {
     backgroundColor: '#FFFFFF',
     height: 360,
+  },
+  rightBtn:{
+    color: 'white' ,
+    fontSize:14,
+    fontWeight:'500',
+    textAlign:'center',
   },
   firstView: {
     flexDirection: 'row',

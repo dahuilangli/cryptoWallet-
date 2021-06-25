@@ -1,4 +1,3 @@
-import actions from 'reduxState/actions';
 import React, { useState } from 'react';
 import { Alert, StyleSheet, View, SafeAreaView, StatusBar, Platform, Text, Image } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
@@ -9,21 +8,21 @@ import ActionSheet from 'react-native-action-sheet';
 import pickImage from 'utils/pickImage';
 import { showLoadingModal, closeLoadingModal } from 'components/Dialog';
 import { post, put } from 'utils/request';
-import { selectUser } from 'reduxState/selectors';
-import { User } from 'types/types';
+import { User } from 'actions/types';
+import i18next from 'i18n';
 
 interface Props { }
 
 const list = {
   top: [
     {
-      name: '地址本',
+      name: i18n.t("Addressbook"),
       leftIcon: require('assets/icon-24-地址薄.png'),
       rightIcon: require('assets/icon-20-arrow-right.png'),
       navigate: () => navigate('AddressBookScreen', { title: '地址本', showMyself: true })
     },
     {
-      name: '消息通知',
+      name:i18n.t("Message"),
       leftIcon: require('assets/icon-24-消息通知.png'),
       rightIcon: require('assets/icon-20-arrow-right.png'),
       navigate: () => navigate('MessageScreen')
@@ -31,28 +30,28 @@ const list = {
   ],
   content: [
     {
-      name: '使用设置',
+      name: i18n.t("Usesettings"),
       leftIcon: require('assets/icon-24-使用设置.png'),
       rightIcon: require('assets/icon-20-arrow-right.png'),
       navigate: () => navigate('SetUpScreen')
     }, {
-      name: '帮助反馈',
+      name: i18n.t("HelpFeedback"),
       leftIcon: require('assets/icon-24-反馈帮助.png'),
       rightIcon: require('assets/icon-20-arrow-right.png'),
       navigate: () => navigate('SuggestScreen')
     }, {
-      name: '版本更新',
+      name: i18n.t("versionupdate"),
       leftIcon: require('assets/icon-24-版本更新.png'),
       rightIcon: require('assets/icon-20-arrow-right.png'),
       navigate: () => navigate('UpdateScreen')
 
     }, {
-      name: '用户协议',
+      name: i18n.t("UserAgreement"),
       leftIcon: require('assets/icon-24-协议.png'),
       rightIcon: require('assets/icon-20-arrow-right.png'),
-      navigate: () => navigate('WebScreen', { title: '用户协议', uri: 'https://mystone.io/flashRedemption.html' })
+      navigate: () => navigate('WebScreen', { title: i18n.t("UserAgreement"), uri: 'https://mystone.io/flashRedemption.html' })
     }, {
-      name: '关于我们',
+      name: i18n.t("aboutus"),
       leftIcon: require('assets/icon-24-关于我们.png'),
       rightIcon: require('assets/icon-20-arrow-right.png'),
       navigate: () => navigate('AboutUsScreen')
@@ -63,14 +62,14 @@ const list = {
 
 function ProfileScreen({ }: Props) {
   const dispatch = useDispatch();
-  const user = useSelector(selectUser)!;
-  const setUser = React.useCallback(
-    (user: User) => dispatch(actions.setUser(user)),
-    [dispatch],
-  );
-  const logout = React.useCallback(() => dispatch(actions.logout()), [
-    dispatch,
-  ]);
+  // const user = useSelector(selectUser)!;
+  // const setUser = React.useCallback(
+  //   (user: User) => dispatch(actions.setUser(user)),
+  //   [dispatch],
+  // );
+  // const logout = React.useCallback(() => dispatch(actions.logout()), [
+  //   dispatch,
+  // ]);
 
   const checkAppVersion = false;
   const checkMessage = false;
@@ -78,7 +77,7 @@ function ProfileScreen({ }: Props) {
     <View style={styles.container}>
       <Header
         placement="center"
-        centerComponent={{ text: '个人中心', style: { fontSize: 18, fontWeight: 'bold', color: 'white' ,height:24} }}
+        centerComponent={{ text: i18n.t("Personalcenter"), style: { fontSize: 18, fontWeight: 'bold', color: 'white' ,height:24} }}
         containerStyle={{
           backgroundColor: '#3D73DD',
         }}

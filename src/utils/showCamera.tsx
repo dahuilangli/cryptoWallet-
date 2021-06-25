@@ -6,18 +6,18 @@ import {
   closeLoadingModal,
   showImageResultDialog,
 } from 'components/Dialog';
-import { selectLocation } from 'reduxState/selectors';
-import { Location } from 'types/types';
+import  walletAction  from 'actions/wallet';
+import { Location } from 'actions/types';
 import pickImage from 'utils/pickImage';
-import { ReduxStore } from 'reduxState/store';
+import { ReduxStore } from 'store';
 
 export function showCamera() {
-  const location: Location | undefined = selectLocation(ReduxStore.getState());
-  if (location) {
-    recognizeImage(location.lon, location.lat);
-  } else {
-    Alert.alert('尚未获得当前定位');
-  }
+  // const location: Location | undefined = walletAction.getLocation(ReduxStore.getState());
+  // if (location) {
+  //   recognizeImage(location.lon, location.lat);
+  // } else {
+  //   Alert.alert('尚未获得当前定位');
+  // }
 }
 
 async function recognizeImage(lon: number, lat: number) {

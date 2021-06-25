@@ -163,7 +163,7 @@
 				ORGANIZATIONNAME = Facebook;
 				TargetAttributes = {
 					13B07F861A680F5B00A75B9A = {
-						DevelopmentTeam = JD75Q9JJL2;
+						DevelopmentTeam = Y3DJRPG42K;
 						LastSwiftMigration = 1140;
 					};
 				};
@@ -366,7 +366,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 3;
 				DEAD_CODE_STRIPPING = NO;
-				DEVELOPMENT_TEAM = JD75Q9JJL2;
+				DEVELOPMENT_TEAM = Y3DJRPG42K;
 				INFOPLIST_FILE = flowermate/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -391,7 +391,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 3;
-				DEVELOPMENT_TEAM = JD75Q9JJL2;
+				DEVELOPMENT_TEAM = Y3DJRPG42K;
 				INFOPLIST_FILE = flowermate/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

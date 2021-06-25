@@ -1,3 +1,4 @@
+import i18next from 'i18n';
 import React, { useState } from 'react';
 import { StyleSheet, View, Text, TextInput, SafeAreaView } from 'react-native';
 import { Button } from 'react-native-elements';
@@ -26,7 +27,7 @@ const ImportMnemonicScreen = (props: Props) => {
       <View style={styles.main}>
         <View style={styles.inputContainer}>
           <Text style={styles.presentText}>
-            请按顺序输入您的12位助记词, 用空格区隔
+            {i18n.t("mnemonicimportDes")}
           </Text>
           <View style={styles.inputName}>
             <UselessTextInput
@@ -34,7 +35,7 @@ const ImportMnemonicScreen = (props: Props) => {
               numberOfLines={4}
               onChangeText={(text: string) => setMnemonic(text)}
               value={mnemonic}
-              placeholder="请填写"
+              placeholder={i18n.t("Please fill out")}
             />
           </View>
         </View>
@@ -48,7 +49,7 @@ const ImportMnemonicScreen = (props: Props) => {
             })
           }
           disabled={!mnemonic}
-          title="下一步"
+          title={i18n.t("NextStep")}
           titleStyle={styles.nextButtonTitle}
         />
       </View>

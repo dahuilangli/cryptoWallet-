@@ -16,15 +16,16 @@ import { Avatar, Button } from 'react-native-elements';
 import { navigate } from 'utils/navigationService';
 // import Icon from 'react-native-vector-icons/FontAwesome';
 import { screenHeight, screenWidth } from 'utils/constants';
+import i18next from 'i18n';
 interface Props {}
 const list = [
   {
-    name: '助记词导入',
+    name: i18n.t("mnemonicimport"),
     avatar_url: require('assets/icon-20-导入-词.png'),
     type: 'mnemonic',
   },
   {
-    name: '私钥导入',
+    name: i18n.t("privatekeyimport"),
     avatar_url: require('assets/icon-20-导入-私钥.png'),
     type: 'privateKey',
   },
@@ -45,14 +46,14 @@ const LoginScreen = ({}: Props) => {
           onPress={() => {
             navigate('SelectWalletScreen', { loginType: 'new' });
           }}
-          title="创建新钱包"
+          title={i18n.t("createnewwallet")}
           titleStyle={styles.newCreateTitle}
         />
         <Button
           type="outline"
           buttonStyle={styles.already}
           onPress={() => setModalVisible(true)}
-          title="已有钱包"
+          title={i18n.t("haveawallet")}
           titleStyle={styles.alreadyTitle}
         />
       </View>
@@ -76,7 +77,7 @@ const LoginScreen = ({}: Props) => {
           </TouchableWithoutFeedback>
           <View style={styles.modalView}>
             <View style={styles.headView}>
-              <Text style={styles.headText}>导入方式</Text>
+              <Text style={styles.headText}>{i18n.t("importmethod")}</Text>
               <TouchableWithoutFeedback
                 style={{ ...styles.openButton }}
                 onPress={() => {

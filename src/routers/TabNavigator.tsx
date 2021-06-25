@@ -40,14 +40,14 @@ function TabNavigator() {
         component={HomeScreen}
         
         options={{ 
-          tabBarLabel: '钱包',
+          tabBarLabel: i18n.t("wallet"),
         }}
       />
       <Screen
         name="FlashExchangeScreen"
         component={FlashExchangeScreen}
         options={{ 
-          tabBarLabel: '闪兑',
+          tabBarLabel: i18n.t("flash"),
         }}
       />
       <Screen
@@ -61,7 +61,7 @@ function TabNavigator() {
         name="ProfileScreen"
         component={ProfileScreen}
         options={{ 
-          tabBarLabel: '我的'
+          tabBarLabel: i18n.t("Mine")
         }}
       />
     </Navigator>

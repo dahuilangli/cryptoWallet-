@@ -6,6 +6,7 @@ import { RouteProp, useRoute, useIsFocused } from '@react-navigation/native';
 import { ListItem } from 'react-native-elements';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { screenWidth } from 'utils/constants';
+import i18next from 'i18n';
 
 
 type SetUpScreenRouteProp = RouteProp<ScreensParamList, 'SetUpScreen'>;
@@ -13,11 +14,11 @@ interface Props { }
 const list = [
 
   {
-    name: '语言设置',
+    name: i18n.t("languagesettings"),
     content: '简体中文',
   },
   {
-    name: '货币单位',
+    name: i18n.t("currencyUnit"),
     content: 'CNY',
   },
 
@@ -32,7 +33,7 @@ function SetUpScreen({ }: Props) {
             <TouchableOpacity
               style={{ flexDirection: 'column' }}
               onPress={() => (
-                navigate('LanguageSetScreen',{title:i===0?'语言设置':'货币单位'})
+                navigate('LanguageSetScreen',{title:i===0?i18n.t("languagesettings"):i18n.t("currencyUnit")})
             )}>
               <View style={{ height: 60.5, flexDirection: 'row', alignItems: 'center', backgroundColor: 'white' }}>
                 <Text style={styles.title}>{item.name}</Text>

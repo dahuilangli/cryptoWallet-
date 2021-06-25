@@ -15,6 +15,7 @@ import Swiper from 'react-native-swiper'
 import { ListItem, Avatar } from 'react-native-elements';
 import { Image } from 'react-native-elements/dist/image/Image';
 import { FlatList, TextInput } from 'react-native-gesture-handler';
+import i18next from 'i18n';
 interface Props {
 
 }
@@ -152,18 +153,21 @@ function DappScreen({ }: Props) {
       </View>
       <View style={styles.searchView}>
         <TouchableOpacity
-          style = {{flexDirection:'row',alignItems:'center'}}
+          style = {{flexDirection:'row',alignItems:'center',justifyContent:'center'}}
           onPress={() => {
-            navigate('DappScreen');
+            navigate('DappSearchScreen');
           }}
         >
           <Image style={styles.searchImage} source={require('assets/icon-20-搜索.png')} />
-          <Text style={styles.searchInput}>搜索或输入Dapp网址</Text>
+          <Text style={styles.searchInput}>{i18n.t("enterDappURL")}</Text>
         </TouchableOpacity>
-
-        <Image style={styles.scanImage} source={require('assets/icon-20-扫一扫.png')} />
+        <TouchableOpacity style={styles.scanImage} onPress={() => {
+            navigate('ScanQRCode');
+          }}>
+        <Image style={{width:20,height:20}} source={require('assets/icon-20-扫一扫.png')} />
+        </TouchableOpacity>
       </View>
-      <Text style={styles.recentText}>最近</Text>
+      <Text style={styles.recentText}>{i18n.t("recent")}</Text>
       <View style={styles.smallLine} />
       <View style={styles.bigLine} />
       <FlatList

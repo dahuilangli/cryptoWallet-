@@ -6,6 +6,7 @@ import { RouteProp, useRoute, useIsFocused, NavigationContainer } from '@react-n
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { screenWidth } from 'utils/constants';
 import { Image } from 'react-native-elements/dist/image/Image';
+import i18next from 'i18n';
 
 type MessageScreenRouteProp = RouteProp<ScreensParamList, 'MessageScreen'>;
 interface Props { }
@@ -161,8 +162,8 @@ function MessageScreen({ }: Props) {
         tabStyle: { height: 50 },
       }}
     >
-      <Tab.Screen name="平台通知" component={HomeScreen} />
-      <Tab.Screen name="交易信息" component={SettingsScreen} />
+      <Tab.Screen name={i18n.t("platformnotice")} component={HomeScreen} />
+      <Tab.Screen name={i18n.t("tradeInformation")} component={SettingsScreen} />
     </Tab.Navigator>
   );
 }

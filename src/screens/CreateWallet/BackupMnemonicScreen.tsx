@@ -1,3 +1,4 @@
+import i18next from 'i18n';
 import React from 'react';
 import { StyleSheet, View, SafeAreaView, Text } from 'react-native';
 
@@ -19,7 +20,7 @@ const BackupMnemonicScreen = (props: Props) => {
       <View style={styles.main}>
         <View>
           <Text style={styles.presentText}>
-            按正确的顺序记录这些单词{'\n'}并将他们保存在安全的地方, 建议手动抄写
+            {i18n.t("Recordwordsincorrectorder")}{'\n'}{i18n.t("keepthemnsafeplaceManualtranscriptionisrecommended")}
           </Text>
           <View style={styles.mnemonicList}>
             {mnemonicList &&
@@ -42,7 +43,7 @@ const BackupMnemonicScreen = (props: Props) => {
               accountInfo: { ...accountInfo, mnemonics: mnemonicList },
             });
           }}
-          title="下一步"
+          title={i18n.t("NextStep")}
           titleStyle={styles.nextButtonTitle}
         />
       </View>

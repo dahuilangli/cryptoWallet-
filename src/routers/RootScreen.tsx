@@ -4,13 +4,13 @@ import { navigationRef } from 'utils/navigationService';
 import MainStackNavigator from './MainStackNavigator';
 import AuthStackNavigator from './AuthStackNavigator';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectAccountList } from 'reduxState/selectors';
 import SplashScreen from 'react-native-splash-screen';
 import qs from 'qs';
 import { get } from 'utils/request';
-import { User } from 'types/types';
+import { User } from 'actions/types';
 import DeviceInfo from 'react-native-device-info';
-import actions from 'reduxState/actions';
+import walletAction from 'actions/wallet';
+import {getAccountList} from 'selector/wallet';
 import { Alert } from 'react-native';
 
 function RootScreen() {
@@ -67,26 +67,27 @@ function RootScreen() {
       );
       user = data;
     } catch (err) {
-      console.log('====================================');
+      console.log('1111111111===================================');
       console.log(err);
       console.log('====================================');
     } finally {
     }
     if (user) {
-      dispatch(actions.setUser(user));
+      dispatch(walletAction.setUser(user));
     } else {
-      Alert.alert('获取token失败，请检查网络后重试');
+      // Alert.alert(i18n.t("checkNetwork"));
     }
   }
-  const accountList = useSelector(selectAccountList);
-
+  const accountList = useSelector(getAccountList);
+  console.log('------------------------------------');
+  console.log(accountList);
+  console.log('====================================');
   React.useEffect(() => {
     SplashScreen.hide();
     getToken();
   });
   return (
     <NavigationContainer ref={navigationRef}>
-      {/* accountList.length */}
       {1 > 0 ? <MainStackNavigator /> : <AuthStackNavigator />}
     </NavigationContainer>
   );

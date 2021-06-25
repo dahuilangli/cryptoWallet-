@@ -9,10 +9,14 @@ import VerifyMnemonicScreen from 'screens/CreateWallet/VerifyMnemonicScreen';
 import ImportPrivateKeyScreen from 'screens/CreateWallet/ImportPrivateKeyScreen';
 import ImportMnemonicScreen from 'screens/CreateWallet/ImportMnemonicScreen';
 import SuccessScreen from 'screens/SuccessScreen';
-import {Image} from 'react-native'
+import CameraScreen from 'components/Camera';
+
+import { Image, TouchableOpacity } from 'react-native';
 import React from 'react';
+import { navigate } from 'utils/navigationService';
 
 export type AuthStackParamList = {
+  CameraScreen: undefined;
   LoginScreen: undefined;
   SuccessScreen: { title: string; accountInfo: object };
   SelectWalletScreen: { loginType: string };
@@ -31,11 +35,11 @@ export default function AuthStackNavigator() {
   return (
     <Navigator
       screenOptions={{
-        headerStyle:{backgroundColor:'#3D73DD'},
-        headerBackTitleVisible:false,
-        headerTitleStyle:{fontSize:18,fontWeight:'bold',color:'white'},
-        headerBackImage:()=><Image source={require('../../assets/icon-24-返回-light.png')}/>,
-        headerLeftContainerStyle:{marginLeft:20,},
+        headerStyle: { backgroundColor: '#3D73DD' },
+        headerBackTitleVisible: false,
+        headerTitleStyle: { fontSize: 18, fontWeight: 'bold', color: 'white' },
+        headerBackImage: () => <Image source={require('../../assets/icon-24-返回-light.png')} />,
+        headerLeftContainerStyle: { marginLeft: 20, },
       }}
     >
       <Screen
@@ -46,47 +50,60 @@ export default function AuthStackNavigator() {
       <Screen
         name="SelectWalletScreen"
         component={SelectWalletScreen}
-        options={{ title: '选择钱包' }}
+        options={{ title: i18n.t('choosewallet') }}
       />
       <Screen
         name="SetWalletNameScreen"
         component={SetWalletNameScreen}
-        options={{ title: '设置钱包名' }}
+        options={{ title: i18n.t("setwalletname") }}
       />
       <Screen
         name="SetWalletPwdScreen"
         component={SetWalletPwdScreen}
-        options={{ title: '设置安全密码' }}
+        options={{ title: i18n.t("setsecurepassword") }}
       />
       <Screen
         name="SafetyTipsScreen"
         component={SafetyTipsScreen}
-        options={{ title: '安全提示' }}
+        options={{ title: i18n.t("Safetytips") }}
       />
       <Screen
         name="BackupMnemonicScreen"
         component={BackupMnemonicScreen}
-        options={{ title: '备份助记词' }}
+        options={{ title: i18n.t("Backupmnemonic") }}
       />
       <Screen
         name="VerifyMnemonicScreen"
         component={VerifyMnemonicScreen}
-        options={{ title: '验证助记词' }}
+        options={{ title: i18n.t("Verificationmnemonic") }}
       />
       <Screen
         name="ImportPrivateKeyScreen"
         component={ImportPrivateKeyScreen}
-        options={{ title: '私钥导入' }}
+        options={{
+          title: i18n.t("privatekeyimport"),
+          headerRight: () => (
+            <TouchableOpacity onPress={() => navigate('CameraScreen')}>
+              <Image source={require('assets/icon-24-扫一扫-light.png')} />
+            </TouchableOpacity>
+          ),
+          headerRightContainerStyle: { marginEnd: 20 },
+        }}
       />
       <Screen
         name="ImportMnemonicScreen"
         component={ImportMnemonicScreen}
-        options={{ title: '助记词导入' }}
+        options={{ title: i18n.t("mnemonicimport") }}
       />
       <Screen
         name="SuccessScreen"
         component={SuccessScreen}
         options={{ headerShown: false }}
+      />
+      <Screen
+        name="CameraScreen"
+        component={CameraScreen}
+        options={{ title: undefined }}
       />
     </Navigator>
   );

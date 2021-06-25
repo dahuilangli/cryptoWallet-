@@ -12,6 +12,7 @@ import { Image } from 'react-native-elements/dist/image/Image';
 import { event } from 'react-native-reanimated';
 import { navigate } from 'utils/navigationService';
 import { Text } from 'react-native-elements';
+import i18next from 'i18n';
 
 type WebScreenNavigationProp = StackNavigationProp<
     ScreensParamList,
@@ -97,7 +98,7 @@ export default function DappWebScreen({ navigation, route }: Props) {
                                     navigate('DappScreen');
                                 }}
                             >
-                                <Text style = {styles.tipText}>不再提示</Text>
+                                <Text style = {styles.tipText}>{i18n.t("noremindagain")}</Text>
                             </TouchableOpacity>
                             <TouchableOpacity
                                 style={{ ...styles.tipBtn1 }}
@@ -105,7 +106,7 @@ export default function DappWebScreen({ navigation, route }: Props) {
                                     setModalVisible(!modalVisible);
                                 }}
                             >
-                                <Text style = {styles.knowText}>我知道了</Text>
+                                <Text style = {styles.knowText}>{i18n.t("Iknow")}</Text>
                             </TouchableOpacity>
                         </View>
                     </View>

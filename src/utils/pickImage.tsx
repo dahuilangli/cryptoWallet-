@@ -24,7 +24,7 @@ export default function pickImage(): Promise<ImageFile | null> {
   return new Promise(resolve => {
     ActionSheet.showActionSheetWithOptions(
       {
-        options: ['拍摄', '从相册选择', '取消'],
+        options: ['拍摄', '从相册选择', i18n.t("cancel")],
         cancelButtonIndex: 2,
       },
       buttonIndex => {

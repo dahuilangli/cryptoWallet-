@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Text, SafeAreaView ,FlatList,TouchableOpacity, Alert ,Image} from 'react-native';
 import { navigate } from 'utils/navigationService';
-import { ScreensParamList, Feed } from 'types/types';
+import { ScreensParamList, Feed } from 'actions/types';
 import { RouteProp, useRoute, useIsFocused } from '@react-navigation/native';
 import { screenWidth } from 'utils/constants';
+import i18next from 'i18n';
 
 
 type AddressBookScreenRouteProp = RouteProp<ScreensParamList, 'AddressBookScreen'>;
@@ -66,7 +67,7 @@ function AddressBookScreen({}: Props) {
         item={item}
         onPress={() =>
           navigate('AddressBookEditorScreen', {
-            title:'编辑收款人',
+            title:i18n.t("editpayee"),
             item:item,
           })
         }
@@ -103,7 +104,7 @@ const styles = StyleSheet.create({
     marginItem:{
       marginLeft:20,
       marginRight:20,
-      marginTop:20,
+      marginTop:15,
       backgroundColor:'#FFFFFF',
       borderRadius:8,
     },

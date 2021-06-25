@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Alert, StyleSheet, View, Text, Image, TextInput } from 'react-native';
-import { ScreensParamList } from 'types/types';
+import { ScreensParamList } from 'actions/types';
 import { post } from 'utils/request';
 import UploadButton from 'components/UploadButton';
 import ZoomImage from 'components/ZoomImage';
