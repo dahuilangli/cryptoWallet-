@@ -394,7 +394,7 @@ PODS:
     - React-RCTImage
   - RNVectorIcons (7.1.0):
     - React
-  - SSZipArchive (2.4.2)
+  - SSZipArchive (2.4.1)
   - TOCropViewController (2.6.0)
   - Yoga (1.14.0)
   - YogaKit (1.18.1):
@@ -633,7 +633,7 @@ SPEC CHECKSUMS:
   RNReanimated: d9da990fc90123f4ffbfdda93d00fc15174863a8
   RNScreens: 21b73c94c9117e1110a79ee0ee80c93ccefed8ce
   RNVectorIcons: bc69e6a278b14842063605de32bec61f0b251a59
-  SSZipArchive: e7b4f3d9e780c2acc1764cd88fbf2de28f26e5b2
+  SSZipArchive: 5232069783e7495861062b54ab3b7f8d4426bbb6
   TOCropViewController: 3105367e808b7d3d886a74ff59bf4804e7d3ab38
   Yoga: 7d13633d129fd179e01b8953d38d47be90db185a
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a

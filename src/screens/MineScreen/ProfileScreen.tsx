@@ -84,7 +84,16 @@ function ProfileScreen({ }: Props) {
   const checkAppVersion = false;
   const checkMessage = false;
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
+      <Header
+        placement="center"
+        centerComponent={{ text: i18n.t("Personalcenter"), style: { fontSize: 18, fontWeight: 'bold', color: 'white' ,} }}
+        containerStyle={{
+          backgroundColor: '#3D73DD',
+          flexDirection:'row',
+          alignItems: 'center',
+        }}
+      />
       <View style={styles.listGroup}>
         {list.top.map((item, i) => (
           <ListItem
@@ -123,7 +132,7 @@ function ProfileScreen({ }: Props) {
           ))}
         </View>
       </View>
-    </SafeAreaView>
+    </View>
   );
 }
 const styles = StyleSheet.create({

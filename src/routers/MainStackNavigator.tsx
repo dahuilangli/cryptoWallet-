@@ -50,6 +50,7 @@ export type MainStackParamList = {
   FeedListScreen: { title: string; showMyself?: boolean };
   WebScreen: { title?: string; uri: string };
   SearchScreen: { coin: Array<string> };
+  DappSearchScreen: {coin: Array<string> };
   CoinDetailScreen: { title: string };
   WalletBoardScreen: undefined;
   WalletDetailScreen: undefined;

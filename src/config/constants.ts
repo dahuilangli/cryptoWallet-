@@ -13,7 +13,6 @@ export const SCREENWIDTH = Dimensions.get('window').width
 export const GETIMAGEURL = (imageId: number) =>
   `${API_ENDPOINT}/file/${imageId}`;
 
-eval("i18n=i18ns;")
 export const DEFAULTAVATAR =
   'https://tb2.bdstatic.com/tb/static-pb/img/head_80.jpg';
 
