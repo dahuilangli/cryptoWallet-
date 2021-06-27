@@ -233,7 +233,7 @@ function HomeScreen({}: Props) {
             {list.map((item, i) => (
               <TouchableOpacity
                 style={styles.assetsList}
-                key={i}
+                key={item.name}
                 onPress={() =>
                   navigate('CoinDetailScreen', { title: item.name })
                 }
@@ -304,6 +304,7 @@ function HomeScreen({}: Props) {
               <View style={styles.menu}>
                 {modelLeft.map((item, index) => (
                   <TouchableHighlight
+                    key={item.title}
                     underlayColor="transparent"
                     style={
                       index === selectItem ? styles.menuItemS : styles.menuItem
