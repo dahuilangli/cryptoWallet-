@@ -364,7 +364,7 @@ function HomeScreen({}: Props) {
                               : styles.itemAmount
                           }
                         >
-                          可用余额
+                          {i18n.t("AvailableBalance")}
                         </Text>
                         <Text
                           style={

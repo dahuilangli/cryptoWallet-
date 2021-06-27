@@ -84,7 +84,7 @@
   "confirmsecuritypassword":"确认安全密码",
 
 
-
+  "AvailableBalance":"可用余额",
   "Transfer":"转账",
   "Receive":"收款",
   "assets":"资产",
@@ -113,6 +113,12 @@
   "Connectingtowallet":"正在接入钱包",
   "Anyonegetsmnemonicphrasecantransferyourassets":"任何得到助记词的用户都能够将您的资产转走",
   "backupandkeepmnemonicwordsinsecureenvironment":"请务必在安全的环境下备份以及保管好助记词",
+  "backupprivatekeytosafeplace":"请备份私钥至安全地方",
+  "Onceleakeditmaycauseassetloss":"一旦泄露, 可能会导致资产损失",
+  "mnemonicwordscopied":"请根据您抄写的助记词, 按顺序选择填充",
+  "Copyprivatekey":"复制私钥",
+  "Pleaseentercorrectprivatekey":"请填写正确的私钥",
+  "Pleaseentercorrectmnemonic":"请填写正确的助记词",
   "Gobackup":"前往备份",
   "becontinued":"未完待续",
   "Backuplater":"稍后备份",
@@ -121,5 +127,14 @@
   "Importsuccessful":"'导入成功'",
   "Createdsuccessfully":"创建成功",
   "searchresult":"搜索结果",
-  "EnterDappname":"请输入Dapp名称"
+  "EnterDappname":"请输入Dapp名称",
+  "exportmnemonic":"导出助记词",
+  "exportprivatekey":"导出私钥",
+  "changePassword":"修改密码",
+  "deletewallet":"删除钱包",
+  "modifywalletname":"修改钱包名称",
+  "enterwalletname":"输入钱包名称",
+  "walletdetails":"钱包详情",
+  "Backupprivatekey":"备份私钥",
+  "scan":"扫一扫"
 }
