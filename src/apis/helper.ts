@@ -14,16 +14,20 @@ const jwtHeaders:object  = {
      "Authorization": 'Bearer ' + "xxxx"
     }
 }
+const client =  axios.create({ //all axios can be used, shown in axios documentation
+  baseURL:API_ENDPOINT,
+  responseType: 'json'
+});
 
 export async function post(url: string, body: object, options: RequestOptions = {}) {
-  const result =await axios.post(API_ENDPOINT+url, body,headers)
+  const {data} =await axios.post(API_ENDPOINT+url, body,headers)
   .then(function (response) {
     return response.data;
   })
   .catch(function (error) {
     console.log(error);
   });
-  return  result;
+  return data;
 }
 
 export function put(url: string, body: object, options: RequestOptions = {}) {

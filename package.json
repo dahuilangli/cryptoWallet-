@@ -63,11 +63,13 @@
     "react-native-webview": "^10.9.2",
     "react-redux": "^7.2.1",
     "redux": "^4.0.5",
+    "redux-axios-middleware": "^4.0.1",
     "redux-devtools-extension": "^2.13.8",
     "redux-logger": "^3.0.6",
     "redux-persist": "^6.0.0",
     "redux-persist-keychain-storage": "^0.1.1",
     "redux-saga": "^1.1.3",
+    "redux-thunk": "^2.3.0",
     "redux-type-actions": "^1.1.0",
     "reselect": "^4.0.0",
     "yarn": "^1.22.10"

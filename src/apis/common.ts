@@ -8,6 +8,6 @@ export async function getToken(){
         mobile_type: DeviceInfo.getSystemName(),
         sys_version:DeviceInfo.getSystemVersion()
       };
-      const  data : any = await helper.post('/sys/device_authorization',body);
-      console.log(data);
-}
+      const result = await helper.post('/sys/device_authorization',body)
+      return result
+    }
