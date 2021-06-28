@@ -33,21 +33,12 @@ const SetWalletNameScreen = (props: Props) => {
   switch (loginType) {
     case 'mnemonic':
       accountInfo = recoverAccountToMnemonic(desc);
-      console.log('====================================');
-      console.log('mnemonic 解析', accountInfo);
-      console.log('====================================');
       break;
     case 'privateKey':
       accountInfo = recoverAccountToPrivateKey(desc);
-      console.log('====================================');
-      console.log('privateKey 解析', accountInfo);
-      console.log('====================================');
       break;
     default:
       accountInfo = getAccount();
-      console.log('====================================');
-      console.log('创建账号', accountInfo);
-      console.log('====================================');
       break;
   }
   return (

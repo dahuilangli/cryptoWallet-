@@ -1,6 +1,5 @@
 import { API_ENDPOINT } from 'config/constants';
 import axios from "axios";
-import { getTokenForApp } from "./common";
 import DeviceInfo from 'react-native-device-info';
 
 
@@ -27,6 +26,15 @@ async function getAuth() {
     }
     return headers;
   }
+}
+export async function getTokenForApp(){
+  const result = await AsyncStorage.getItem('persist:data')
+  if(result != null){
+    const tt = JSON.parse(result)
+ 
+    return tt.token;
+  }
+  return null;
 }
 export async function get(url: string, body: object, options: RequestOptions = {}) {
   return client.get(API_ENDPOINT + url, { params: body, headers })

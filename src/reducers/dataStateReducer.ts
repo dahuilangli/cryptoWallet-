@@ -39,6 +39,9 @@ const reducer =  (originalState = initialState, walletAction: WalletAction) =>
       case 'setAccountList':
         state.accountList?.push(walletAction.payload);
         return;
+      case 'getHelp':
+          console.log(walletAction.payload);
+        return;
       case 'GET_TOKEN_SUCCESS':
        state.token = walletAction.payload;
       case 'GET_TOKEN_ERROR':
