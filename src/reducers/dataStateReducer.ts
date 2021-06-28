@@ -44,9 +44,7 @@ const reducer =  (originalState = initialState, walletAction: WalletAction) =>
         return;
       case 'GET_TOKEN_SUCCESS':
        state.token = walletAction.payload;
-       console.log(state);
       case 'GET_TOKEN_ERROR':
-       console.log(state);
       default:
           return;
     }

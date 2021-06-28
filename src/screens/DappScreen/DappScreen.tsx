@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import i18n from "i18n";
 import {
   SafeAreaView,
@@ -7,19 +7,26 @@ import {
   StatusBar,
   TouchableOpacity,
   Text,
-  Modal,
-  TouchableWithoutFeedback,
+  Image,
 } from 'react-native';
-import {SCREENHEIGHT,SCREENWIDTH} from "config/constants";
+import { SCREENHEIGHT, SCREENWIDTH } from "config/constants";
 import { navigate } from 'components/navigationService';
 import Swiper from 'react-native-swiper'
 import { ListItem, Avatar } from 'react-native-elements';
-import { Image } from 'react-native-elements/dist/image/Image';
 import { FlatList, TextInput } from 'react-native-gesture-handler';
-import i18next from 'i18n';
+
+import * as helper from 'apis/helper'
+import { useIsFocused } from '@react-navigation/native';
 interface Props {
 
 }
+interface response {
+  id: number,
+  forward: any,
+  img_pic: string, 
+  release: string
+}
+
 
 const list = [
   {
@@ -84,6 +91,23 @@ const list = [
 
 function DappScreen({ }: Props) {
 
+  const [bannerlistData, setBannerListData] = useState([]);
+  const isFocused = useIsFocused();
+  useEffect(() => {
+    if (isFocused) {
+      getBanner();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isFocused]);
+  async function getBanner() {
+    const { data } = await helper.get('/dapp/banner', {})
+    console.log('===========/dapp/banner=============');
+    console.log(data);
+    console.log('====================================');
+    if (data && data.length) {
+      setBannerListData(data)
+    }
+  }
   const keyExtractor = (item: any, index: { toString: () => any; }) => index.toString()
 
   const renderItem = ({ item }) => (
@@ -141,20 +165,14 @@ function DappScreen({ }: Props) {
           }}
 
         >
-          <View style={styles.slide1}>
-            <Text style={styles.text}>青衣</Text>
-          </View>
-          <View style={styles.slide1}>
-            <Text style={styles.text}>冷秋</Text>
-          </View>
-          <View style={styles.slide1}>
-            <Text style={styles.text}>听雨</Text>
-          </View>
+          {bannerlistData.map((item: response, index) => (
+            <Image key={item.id} source={{ uri: item.img_pic }} style={styles.slide1}/>
+          ))}
         </Swiper>
       </View>
       <View style={styles.searchView}>
         <TouchableOpacity
-          style = {{flexDirection:'row',alignItems:'center',justifyContent:'center'}}
+          style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}
           onPress={() => {
             navigate('DappSearchScreen');
           }}
@@ -163,9 +181,9 @@ function DappScreen({ }: Props) {
           <Text style={styles.searchInput}>{i18n.t("enterDappURL")}</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.scanImage} onPress={() => {
-            navigate('ScanQRCode');
-          }}>
-        <Image style={{width:20,height:20}} source={require('assets/icon-20-扫一扫.png')} />
+          navigate('ScanQRCode');
+        }}>
+          <Image style={{ width: 20, height: 20 }} source={require('assets/icon-20-扫一扫.png')} />
         </TouchableOpacity>
       </View>
       <Text style={styles.recentText}>{i18n.t("recent")}</Text>
@@ -208,9 +226,6 @@ const styles = StyleSheet.create({
   },
   slide1: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#9bebe5'
   },
   text: {
     color: '#ff6fa3',
