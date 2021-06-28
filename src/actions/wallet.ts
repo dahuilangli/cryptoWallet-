@@ -35,7 +35,7 @@ export const GET_TOKEN = ()=>async (dispath: any)=>{
 export const GETHELP = ()=>async (dispath: any)=>{
   try{
   apis.common.help().then(data=>{
-   console.log(data)
+  //  console.log(data)
   })
   }catch(error){
     dispath(Wallet.GET_TOKEN_ERROR())

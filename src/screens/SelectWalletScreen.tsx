@@ -38,10 +38,7 @@ const list = [
   },
 ];
 const SelectWalletScreen = (prop: Props) => {
-  const dispatch = useDispatch();
-  React.useEffect(() => {
-    dispatch(GETHELP());
-  });
+  
   const { loginType } = prop.route.params;
   console.log(loginType);
   return (
@@ -57,6 +54,7 @@ const SelectWalletScreen = (prop: Props) => {
                 case 'new':
                   navigate('SetWalletNameScreen', {
                     type: item.name,
+                    loginType: 'mnemonic',
                   });
                   break;
                 case 'mnemonic':
