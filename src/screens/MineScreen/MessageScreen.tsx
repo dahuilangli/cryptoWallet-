@@ -6,10 +6,13 @@ import { ScreensParamList, Feed } from 'actions/types';
 import {  SCREENWIDTH } from 'config/constants';
 import { RouteProp, useRoute, useIsFocused } from '@react-navigation/native';
 import i18n from "i18n";
+import * as helper from 'apis/helper'
 
 
 type MessageScreenRouteProp = RouteProp<ScreensParamList, 'MessageScreen'>;
 interface Props { }
+
+
 
 const list1 = [
   {
@@ -56,7 +59,7 @@ const list2 = [
 ]
 
 function HomeScreen() {
-
+  
   const Item1 = ({ item1, onPress1, style1 }) => (
     <TouchableOpacity onPress={onPress1} style={[styles.background, style1]}>
       <View style={styles.headView}>

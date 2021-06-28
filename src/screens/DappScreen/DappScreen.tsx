@@ -132,6 +132,7 @@ function DappScreen({ }: Props) {
 
       <View style={styles.banner} >
         <Swiper
+          key = {bannerlistData.length}
           style={styles.wrapper}
           // removeClippedSubviews={true}
           // showsButtons={false}         //显示控制按钮

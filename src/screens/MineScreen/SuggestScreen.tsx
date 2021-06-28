@@ -4,12 +4,15 @@ import { navigate } from 'components/navigationService';
 import { ScreensParamList, Feed } from 'actions/types';
 import { RouteProp, useRoute, useIsFocused } from '@react-navigation/native';
 import { Button } from  'react-native-elements'
+import * as helper from 'apis/helper'
 import i18n from "i18n";
 
 type SuggestScreenRouteProp = RouteProp<ScreensParamList, 'SuggestScreen'>;
 interface Props {}
 
 function SuggestScreen({}: Props) {
+
+  
     return (
         <SafeAreaView style={styles.container}>
           <Text style = {styles.email}>{i18n.t("yourmailbox")}</Text>
