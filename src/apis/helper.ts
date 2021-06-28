@@ -1,6 +1,5 @@
 import { API_ENDPOINT } from 'config/constants';
 import axios from "axios";
-import {getTokenForApp} from "./common";
 
 import AsyncStorage from '@react-native-community/async-storage';
 
@@ -15,6 +14,16 @@ const client =  axios.create({ //all axios can be used, shown in axios documenta
   baseURL:API_ENDPOINT,
   responseType: 'json'
 });
+
+export async function getTokenForApp(){
+  const result = await AsyncStorage.getItem('persist:data')
+  if(result != null){
+    const tt = JSON.parse(result)
+ 
+    return tt.token;
+  }
+  return null;
+}
 async function getAuth(){
   const Authorization =  await getTokenForApp();
   if(Authorization){
@@ -27,9 +36,10 @@ async function getAuth(){
     return headers;
   }
 }
-export function get(url: string, body: object, options: RequestOptions = {}) {
- 
-  return client.get(API_ENDPOINT+url, {params:body, headers})
+export async function get(url: string, body: object, options: RequestOptions = {}) {
+  const rest = await getAuth().then(data=>data); 
+  // console.log
+  return client.get(API_ENDPOINT+url, {params:body, headers:rest})
   .then(function (response) {
     return response;
   })

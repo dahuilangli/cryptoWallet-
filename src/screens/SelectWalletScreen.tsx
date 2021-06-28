@@ -1,6 +1,8 @@
 import React from 'react';
 import i18n from "i18n";
 
+import {GETHELP} from "actions/wallet"
+
 import { useDispatch, useSelector } from 'react-redux';
 import {
   StyleSheet,
@@ -16,7 +18,6 @@ import { Avatar } from 'react-native-elements';
 
 import { navigate } from 'components/navigationService';
 
-import {GET_TOKEN} from "actions/wallet"
 interface Props {
   route: {
     params: {
@@ -39,7 +40,7 @@ const list = [
 const SelectWalletScreen = (prop: Props) => {
   const dispatch = useDispatch();
   React.useEffect(() => {
-    dispatch(GET_TOKEN());
+    dispatch(GETHELP());
   });
   const { loginType } = prop.route.params;
   console.log(loginType);
