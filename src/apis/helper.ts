@@ -44,9 +44,6 @@ export async function get(url: string, body: object, options: RequestOptions = {
 
   return client.get(API_ENDPOINT + url, { params: body, headers: rest })
     .then(function (response) {
-      console.log('===========response==================');
-      console.log(response);
-      console.log('====================================');
       return response.data;
     })
     .catch(function (error) {
