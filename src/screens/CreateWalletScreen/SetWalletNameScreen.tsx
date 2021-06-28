@@ -23,10 +23,8 @@ const SetWalletNameScreen = (props: Props) => {
   const { type } = props.route.params;
   const { loginType } = props.route.params;
   const [walletName, setWalletName] = useState('');
-  let accountInfo: Account = genWallet();
-  let accountInfo1: Account = importByprivateKey("xxx");
-  console.log(accountInfo1)
-  useEffect(() => {});
+  
+  
   
   return (
     <SafeAreaView style={styles.container}>
