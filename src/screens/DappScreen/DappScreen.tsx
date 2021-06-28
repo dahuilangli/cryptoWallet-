@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import i18n from "i18n";
 import {
   SafeAreaView,
@@ -18,6 +18,7 @@ import { Image } from 'react-native-elements/dist/image/Image';
 import { FlatList, TextInput } from 'react-native-gesture-handler';
 
 import * as helper from 'apis/helper'
+import { useIsFocused } from '@react-navigation/native';
 interface Props {
 
 }
@@ -84,10 +85,17 @@ const list = [
 ]
 
 function DappScreen({ }: Props) {
+  const isFocused = useIsFocused();
+  useEffect(() => {
+    if (isFocused) {
+      getBanner();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isFocused]);
   async function getBanner(){
-      const result: any = await helper.jwtGet('/dapp/banner', {})
+      const result: any = await helper.get('/dapp/banner', {})
       console.log('==============banner=================');
-      console.log(JSON.stringify(result,null, 5));
+      console.log(JSON.stringify(result.data,null, 5));
       console.log('====================================');
   }
   getBanner()

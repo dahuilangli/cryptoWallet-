@@ -1,6 +1,5 @@
 import * as helper from "./helper"
 import DeviceInfo from 'react-native-device-info';
-import qs from 'qs';
 
 import AsyncStorage from '@react-native-community/async-storage';
 export async function getToken(){
@@ -17,7 +16,6 @@ export async function getTokenForApp(){
      const result = await AsyncStorage.getItem('persist:data')
      if(result != null){
        const tt = JSON.parse(result)
-    
        return tt.token;
      }
      return null;
