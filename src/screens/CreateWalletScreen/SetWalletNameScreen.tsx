@@ -1,12 +1,12 @@
 import i18n from "i18n";
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, View, Text, TextInput, SafeAreaView } from 'react-native';
 import { Button } from 'react-native-elements';
 import { Account } from 'actions/types';
 import {
-  getAccount,
-  recoverAccountToMnemonic,
-  recoverAccountToPrivateKey,
+  genWallet,
+  importByprivateKey,
+  importByMnemonic,
 } from 'helper/ethers';
 import { navigate } from 'components/navigationService';
 
@@ -22,25 +22,12 @@ interface Props {
 const SetWalletNameScreen = (props: Props) => {
   const { type } = props.route.params;
   const { loginType } = props.route.params;
-  const { desc } = props.route.params;
-  console.log('====================================');
-  console.log(type);
-  console.log(loginType);
-  console.log(desc);
-  console.log('====================================');
   const [walletName, setWalletName] = useState('');
-  let accountInfo: Account;
-  switch (loginType) {
-    case 'mnemonic':
-      accountInfo = recoverAccountToMnemonic(desc);
-      break;
-    case 'privateKey':
-      accountInfo = recoverAccountToPrivateKey(desc);
-      break;
-    default:
-      accountInfo = getAccount();
-      break;
-  }
+  let accountInfo: Account = genWallet();
+  let accountInfo1: Account = importByprivateKey("xxx");
+  console.log(accountInfo1)
+  useEffect(() => {});
+  
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.main}>

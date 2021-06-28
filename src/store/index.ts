@@ -5,9 +5,7 @@ import { persistReducer, persistStore } from 'redux-persist';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import createSagaMiddleware from 'redux-saga';
 import logger from 'redux-logger';
-import axiosMiddleware from 'redux-axios-middleware';
 import {sagas} from 'sagas';
-import {client} from "apis";
 import thunkMiddleware from "redux-thunk";
 
 const sagaMiddleware = createSagaMiddleware()
@@ -23,7 +21,8 @@ const persistedReducer = persistReducer(
   rootReducer,
 );
 
-export  const ReduxStore = createStore(persistedReducer, composeWithDevTools(applyMiddleware(thunkMiddleware,axiosMiddleware(client),sagaMiddleware,logger)));
+// export  const ReduxStore = createStore(persistedReducer, composeWithDevTools(applyMiddleware(thunkMiddleware,sagaMiddleware,logger)));
+export  const ReduxStore = createStore(persistedReducer, composeWithDevTools(applyMiddleware(thunkMiddleware,sagaMiddleware)));
 
 sagaMiddleware.run(sagas);
 export const persistor = persistStore(ReduxStore)
