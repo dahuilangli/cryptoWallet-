@@ -16,7 +16,8 @@ import Swiper from 'react-native-swiper'
 import { ListItem, Avatar } from 'react-native-elements';
 import { Image } from 'react-native-elements/dist/image/Image';
 import { FlatList, TextInput } from 'react-native-gesture-handler';
-import i18next from 'i18n';
+
+import * as helper from 'apis/helper'
 interface Props {
 
 }
@@ -83,7 +84,13 @@ const list = [
 ]
 
 function DappScreen({ }: Props) {
-
+  async function getBanner(){
+      const result: any = await helper.jwtGet('/dapp/banner', {})
+      console.log('==============banner=================');
+      console.log(JSON.stringify(result,null, 5));
+      console.log('====================================');
+  }
+  getBanner()
   const keyExtractor = (item: any, index: { toString: () => any; }) => index.toString()
 
   const renderItem = ({ item }) => (

@@ -20,7 +20,8 @@ function RootScreen() {
   console.log(accountlist);
   return (
     <NavigationContainer ref={navigationRef}>
-      {accountlist.length > 0 ? <MainStackNavigator /> : <AuthStackNavigator />}
+      <MainStackNavigator />
+      {/* {accountlist.length > 0 ? <MainStackNavigator /> : <AuthStackNavigator />} */}
     </NavigationContainer>
   );
 }

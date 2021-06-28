@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-community/async-storage';
-import {rootReducer} from '../reducers';
+import {rootReducer} from 'reducers';
 import {createStore,applyMiddleware } from 'redux';
 import { persistReducer, persistStore } from 'redux-persist';
 import { composeWithDevTools } from 'redux-devtools-extension';
