@@ -5,8 +5,11 @@ import { navigate } from 'components/navigationService';
 import { ScreensParamList, Feed } from 'actions/types';
 import { RouteProp, useRoute, useIsFocused } from '@react-navigation/native';
 import { ListItem} from 'react-native-elements';
+import { get } from 'apis/helper'
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import i18n from "i18n";
+import { url } from 'inspector';
+import { getDeviceId } from 'react-native-device-info';
 
 type SetUpScreenRouteProp = RouteProp<ScreensParamList, 'SetUpScreen'>;
 interface Props {
@@ -63,9 +66,7 @@ const Item = ({ item, onPress, style}) => (
   );
 
 function LanguageSetScreen(props: Props) {
-    const { title } = props.route.params;
-    console.log(title);
-    
+    const { title } = props.route.params;    
   const renderItem = ({ item }) => {
     return (
       <Item

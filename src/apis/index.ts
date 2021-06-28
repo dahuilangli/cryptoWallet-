@@ -6,12 +6,19 @@ import axios from "axios";
 const headers:object  = {
     headers: { 'Content-Type': 'application/json'}
   }
-  const jwtHeaders:object  = {
+  
+let Authorization : string| null = "";
+(async function getAuth(){
+    Authorization =  await common.getTokenForApp();
+})()
+const jwtHeaders:object  = {
     headers: {
        'Content-Type': 'application/json',
-       "Authorization": 'Bearer ' + "xxxx"
+       "Authorization": 'Bearer ' + Authorization
       }
-  }
+  };
+console.log(jwtHeaders);
+console.log(111111);
 export const client =  axios.create({ 
     baseURL:API_ENDPOINT,
     responseType: 'json'
