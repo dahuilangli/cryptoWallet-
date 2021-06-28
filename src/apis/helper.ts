@@ -8,14 +8,26 @@ import AsyncStorage from '@react-native-community/async-storage';
 interface RequestOptions extends RequestInit {
   timeout?: number;
 }
-let headers: object | undefined = {
-  'Content-Type': 'application/json',
-  'Device': 'xxx',
-}
 const client = axios.create({ //all axios can be used, shown in axios documentation
   baseURL: API_ENDPOINT,
   responseType: 'json'
 });
+
+
+let headers: object | undefined = {
+  'Content-Type': 'application/json',
+  'Device': 'xxx',
+  "Authorization": `Bearer xxx`,
+}
+
+export async function getTokenForApp(){
+  const result = await AsyncStorage.getItem('persist:data')
+  if(result != null){
+    const tt = JSON.parse(result)
+    return tt.token;
+  }
+  return null;
+}
 async function getAuth() {
   const Authorization = await getTokenForApp();
   if (Authorization) {
@@ -27,19 +39,15 @@ async function getAuth() {
     return headers;
   }
 }
-export async function getTokenForApp(){
-  const result = await AsyncStorage.getItem('persist:data')
-  if(result != null){
-    const tt = JSON.parse(result)
- 
-    return tt.token;
-  }
-  return null;
-}
 export async function get(url: string, body: object, options: RequestOptions = {}) {
-  return client.get(API_ENDPOINT + url, { params: body, headers })
+  const rest = await getAuth().then(data => data);
+
+  return client.get(API_ENDPOINT + url, { params: body, headers: rest })
     .then(function (response) {
-      return response;
+      console.log('===========response==================');
+      console.log(response);
+      console.log('====================================');
+      return response.data;
     })
     .catch(function (error) {
       console.log(error);
