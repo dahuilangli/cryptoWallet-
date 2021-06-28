@@ -34,11 +34,13 @@ const Data = [
 
 
 function AddressTypeScreen(props: Props) {
+  console.log(props.route.params.type)
+  const [selectItem, setSelectItem] = useState(props.route.params.type);
   const Item = ({ item, onPress, style }) => (
     <TouchableOpacity onPress={onPress} style={style}>
         <Image style={styles.typeImage} source={item.avatar_url}></Image>
         <Text style={styles.typeName}>{item.name}</Text>
-        <Image style={styles.rightImage} source={require('assets/icon-20-选择-off.png')}></Image>
+        <Image style={styles.rightImage} source={ selectItem === item.name? require('assets/icon-20-选择-on.png'):require('assets/icon-20-选择-off.png')}></Image>
     </TouchableOpacity>
   );
 
@@ -47,7 +49,7 @@ function AddressTypeScreen(props: Props) {
       <Item
         item={item}
         onPress={() =>
-          Alert.alert('11111')
+          setSelectItem(item.name)
         }
         style={styles.marginItem}
       />

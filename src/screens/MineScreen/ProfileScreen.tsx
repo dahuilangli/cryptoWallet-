@@ -81,8 +81,8 @@ function ProfileScreen({ }: Props) {
   //   dispatch,
   // ]);
 
-  const checkAppVersion = false;
-  const checkMessage = false;
+  const checkAppVersion = true;
+  const checkMessage = true;
   return (
     <View style={styles.container}>
       <Header
@@ -110,6 +110,9 @@ function ProfileScreen({ }: Props) {
                 {item.name}
               </ListItem.Title>
             </ListItem.Content>
+            {
+              checkMessage&&i===1 ?<View style = {styles.messageshow}></View>:<View></View>
+            }
             <Image source={item.rightIcon} style={styles.rightIcon} />
           </ListItem>
         ))}
@@ -127,6 +130,9 @@ function ProfileScreen({ }: Props) {
                   {item.name}
                 </ListItem.Title>
               </ListItem.Content>
+              {
+                i === 2 && checkAppVersion ?<Image style = {styles.versionShow} source = {require('assets/new-vision.png')}></Image>:<Text></Text>
+              }
               <Image source={item.rightIcon} style={styles.rightIcon} />
             </ListItem>
           ))}
@@ -162,5 +168,15 @@ const styles = StyleSheet.create({
     width: 8,
     height: 20,
   },
+  messageshow:{
+    backgroundColor:'#FF2943',
+    width:6,
+    height:6,
+    borderRadius:3,
+  },
+  versionShow:{
+    width:32,
+    height:16,
+  }
 });
 export default ProfileScreen;

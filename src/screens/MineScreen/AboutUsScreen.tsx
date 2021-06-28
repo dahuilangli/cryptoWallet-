@@ -11,6 +11,7 @@ import {
 import i18n from "i18n";
 import { navigate } from 'components/navigationService';
 import { ScreensParamList, Feed } from 'actions/types';
+import {help} from 'apis/common'
 import { RouteProp, useRoute, useIsFocused } from '@react-navigation/native';
 
 type AboutUsScreenRouteProp = RouteProp<ScreensParamList, 'AboutUsScreen'>;
@@ -38,6 +39,7 @@ const list = [
     url: ''
   }
 ]
+const list2 = help()
 
 function AboutUsScreen({ }: Props) {
   return (

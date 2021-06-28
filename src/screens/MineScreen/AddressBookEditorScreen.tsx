@@ -10,6 +10,7 @@ interface Props {
             title: string,
             item: {
                 id:string,
+                type:string,
                 name: string,
                 avatar_url: any,
                 subtitle:string,
@@ -29,13 +30,13 @@ function AddressBookEditorScreen(props: Props) {
                 <TouchableOpacity
                     onPress={() =>
                         navigate('AddressTypeScreen', {
-                            type: item.name,
+                            type: item.type,
                         })
                     }
                 >
                     <View style={styles.typeView}>
                         <Image style={styles.typeImage} source={item.avatar_url}></Image>
-                        <Text style={styles.typeName}>{item.name}</Text>
+                        <Text style={styles.typeName}>{item.type}</Text>
                         <Image style={styles.rightImage} source={require('assets/icon-20-arrow-right.png')}></Image>
                     </View>
                 </TouchableOpacity>
@@ -128,7 +129,6 @@ const styles = StyleSheet.create({
         marginTop: 18,
         height: 20,
         fontSize: 14,
-        color: '#C4C8D2',
         fontWeight: '400',
     },
     addressView: {
@@ -141,7 +141,6 @@ const styles = StyleSheet.create({
         marginHorizontal: 15,
         marginVertical: 18,
         fontSize: 14,
-        color: '#C4C8D2',
         fontWeight: '400',
     },
     surebtn: {
