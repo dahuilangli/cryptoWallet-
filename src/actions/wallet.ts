@@ -24,6 +24,7 @@ export const GET_TOKEN = ()=>async (dispath: any)=>{
   try{
   apis.common.getToken().then(data=>{
     dispath(Wallet.GET_TOKEN_SUCCESS(data.token))})
+   
   }catch(error){
     dispath(Wallet.GET_TOKEN_ERROR())
 }
