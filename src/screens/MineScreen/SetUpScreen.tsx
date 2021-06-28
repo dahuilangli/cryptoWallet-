@@ -23,7 +23,7 @@ const list = [
 
 ]
 function SetUpScreen({ }: Props) {
-
+  
   return (
     <SafeAreaView style={styles.container}>
       <View style={{ marginTop: 20 }}>

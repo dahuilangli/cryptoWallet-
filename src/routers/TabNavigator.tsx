@@ -71,7 +71,7 @@ function TabNavigator() {
         name="ProfileScreen"
         component={ProfileScreen}
         options={{ 
-          tabBarLabel: i18n.t("Mine")
+          tabBarLabel: i18n.t("mine")
         }}
       />
     </Navigator>

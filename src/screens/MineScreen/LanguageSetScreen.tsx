@@ -64,7 +64,8 @@ const Item = ({ item, onPress, style}) => (
 
 function LanguageSetScreen(props: Props) {
     const { title } = props.route.params;
-
+    console.log(title);
+    
   const renderItem = ({ item }) => {
     return (
       <Item

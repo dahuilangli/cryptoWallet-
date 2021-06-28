@@ -12,6 +12,7 @@ interface Props {}
 const list = [
   {
     id:'1',
+    type:'ETH',
     name: 'Jason的小号',
     avatar_url: require('assets/img-40-coointype-eth.png'),
     subtitle: '我的第二个ETH钱包',
@@ -19,6 +20,7 @@ const list = [
   },
   {
     id:'2',
+    type:'ETH',
     name: 'Chris Jackson',
     avatar_url: require('assets/img-40-coointype-pk.png'),
     subtitle: 'Vice Chairman',
@@ -26,6 +28,7 @@ const list = [
   },
   {
     id:'1',
+    type:'STO',
     name: 'Jason的小号',
     avatar_url: require('assets/img-40-coointype-eth.png'),
     subtitle: '我的第二个ETH钱包',
@@ -33,6 +36,7 @@ const list = [
   },
   {
     id:'2',
+    type:'ETH',
     name: 'Chris Jackson',
     avatar_url: require('assets/img-40-coointype-pk.png'),
     subtitle: 'Vice Chairman',
