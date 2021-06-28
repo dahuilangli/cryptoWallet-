@@ -13,11 +13,10 @@ function RootScreen() {
   React.useEffect(() => {
     SplashScreen.hide();
     dispatch(GET_TOKEN());
-  },[dispatch]);
+  });
 
-  // const accountlist = useSelector(getAccountList)
-  const accountlist:any = []
-  console.log(accountlist);
+  const accountlist = useSelector(getAccountList)
+  
   return (
     <NavigationContainer ref={navigationRef}>
       <MainStackNavigator />

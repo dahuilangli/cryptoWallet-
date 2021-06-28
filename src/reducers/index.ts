@@ -13,7 +13,7 @@ export const rootReducer = combineReducers({
         uiState: uiStateReducer,
         dataState: persistReducer(
           {
-            key: 'wallet',
+            key: 'data',
             storage: AsyncStorage,
             blacklist: ['location', 'mapLocation'],
           },
@@ -29,3 +29,5 @@ export const rootReducer = combineReducers({
         ),
         settingsState: settingsStateReducer,
       });
+
+  

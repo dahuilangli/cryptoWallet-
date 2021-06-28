@@ -1,5 +1,7 @@
 import React from 'react';
 import i18n from "i18n";
+
+import { useDispatch, useSelector } from 'react-redux';
 import {
   StyleSheet,
   SafeAreaView,
@@ -13,6 +15,8 @@ import { Avatar } from 'react-native-elements';
 // import LinearGradient from 'react-native-linear-gradient'; // Only if no expo
 
 import { navigate } from 'components/navigationService';
+
+import {GET_TOKEN} from "actions/wallet"
 interface Props {
   route: {
     params: {
@@ -33,6 +37,10 @@ const list = [
   },
 ];
 const SelectWalletScreen = (prop: Props) => {
+  const dispatch = useDispatch();
+  React.useEffect(() => {
+    dispatch(GET_TOKEN());
+  });
   const { loginType } = prop.route.params;
   console.log(loginType);
   return (

@@ -1,9 +1,7 @@
 import produce from 'immer';
 import { createSelector } from 'reselect';
-import Wallet from "actions/wallet";
-import  apis from 'apis';
-import {createDraft, finishDraft} from "immer"
 import { User, Account,WalletAction,ReduxState } from 'actions/types';
+
 
 export interface DataState {
   user?: User;
@@ -23,12 +21,16 @@ export const getUser = createSelector(
   (dataState) => dataState.user,
 );
 
+export const getSelectorToken = createSelector(
+  selectDataState,
+  (dataState) => dataState.token,
+);
+
 export const getAccountList = createSelector(
   selectDataState,
   (dataState) => dataState.accountList,
 );
 
-const  draft  = createDraft(initialState)
 const reducer =  (originalState = initialState, walletAction: WalletAction) =>
   produce(originalState,  (state) => {
     switch (walletAction.type) {
