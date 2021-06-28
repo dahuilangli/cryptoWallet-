@@ -1,57 +1,77 @@
 // Import the ethers library
 import { ethers } from 'ethers';
+import {Account} from "actions/types";
 
-//生成随机ID：GUID
-function genId() {
-  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'
-    .replace(/[xy]/g, function (c) {
-      var r = (Math.random() * 16) | 0,
-        v = c == 'x' ? r : (r & 0x3) | 0x8;
-      return v.toString(16);
-    })
-    .toUpperCase();
+interface Wallet {
+  address:  string,
+  privateKey: string,
 }
 
-export function getAccount() {
-  try {
-    let wallet = ethers.Wallet.createRandom();
-    let account = {
-      id: genId(),
+export function genWallet(){
+  try{
+    var privateKey = ethers.utils.randomBytes(32);
+    var wallet = new ethers.Wallet(privateKey);
+  console.log(wallet.mnemonic.phrase);
+    const  account = {
       address: wallet.address,
       privateKey: wallet.privateKey,
-      mnemonic: wallet.mnemonic.phrase,
-    };
+    }
     return account;
-  } catch (error) {
-    throw '错误' + error;
+  }catch(error){
+    console.log(error);
+    return <Account>{};
   }
 }
-
-export function recoverAccountToMnemonic(monic: string) {
+export function importByMnemonic(mnemonic: string){
   try {
-    let mnemonic = ethers.Wallet.fromMnemonic(monic);
+    let mnemonic = ethers.utils.entropyToMnemonic(ethers.utils.randomBytes(16));
+    let wallet = ethers.Wallet.fromMnemonic(mnemonic);
     let account = {
-      id: genId(),
-      privateKey: mnemonic.privateKey,
-      address: new ethers.Wallet(mnemonic.privateKey).address,
-      mnemonic: monic,
+      privateKey: wallet.privateKey,
+      address: wallet.address,
+      mnemonic: mnemonic,
     };
+    console.log(account)
     return account;
   } catch (error) {
-    throw '错误' + error;
+    console.log(error);
+    return <Account>{};
   }
 }
-
-export function recoverAccountToPrivateKey(privateKey: string) {
+// export function importByMnemonic(){
+//   try {
+//     let seed = ethers.utils.entropyToMnemonic(ethers.utils.randomBytes(16));
+//     console.log(seed)
+//     console.log(3123213)
+//     // var mnemonic = ethers.utils.HDNode.fromMnemonic(seed);
+//     let mnemonic = ethers.Wallet.fromMnemonic(seed);
+//     let account = {
+//       privateKey: mnemonic.privateKey,
+//       address: new ethers.Wallet(mnemonic.privateKey).address,
+//       mnemonic: seed,
+//     };
+//     console.log(account)
+//     return account;
+//   } catch (error) {
+//     console.log(error);
+//     return <Account>{};
+//   }
+// }
+export function importByprivateKey(privateKey: any){
   try {
+    let privateKey = ethers.utils.randomBytes(32);
     let wallet = new ethers.Wallet(privateKey);
     let account = {
-      id: genId(),
-      privateKey,
+      privateKey:ethers.utils.isHexString(privateKey),
       address: wallet.address,
     };
     return account;
   } catch (error) {
-    throw '错误' + error;
+    console.log(error);
+    return <Account>{};
   }
+}
+export function backupMnemonic(){
+
+
 }

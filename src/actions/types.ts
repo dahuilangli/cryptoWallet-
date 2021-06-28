@@ -15,7 +15,6 @@ export type ScreensParamList = MainStackParamList &
   AuthStackParamList;
 
 export interface Account {
-  id: string;
   address: string;
   mnemonic?: string;
   privateKey: string;

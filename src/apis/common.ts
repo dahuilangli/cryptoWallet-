@@ -19,7 +19,5 @@ export async function getToken(){
 
 export async function help(){
     const result = await helper.get('/sys/about',{})
-    console.log(result)
-    console.log(111111)
     return result
 }
