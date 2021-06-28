@@ -10,41 +10,56 @@ import {
   TextInput,
 } from 'react-native';
 import { Avatar } from 'react-native-elements';
-import { goBack } from 'components/navigationService';
+import { goBack, navigate } from 'components/navigationService';
 import LinearGradient from 'react-native-linear-gradient';
 import i18n from "i18n";
-interface Props {}
+import * as helper from 'apis/helper'
+import { Alert } from 'react-native';
+interface Props { }
 
-function SearchScreen({}: Props) {
-  const [coinName, setCoinName] = useState('');
+interface responseItem {
+  category: number,
+  deep_link: any,
+  logo: string,
+  name: string,
+  protocol: string,
+}
+function SearchScreen({ }: Props) {
+  const [dappName, setDappName] = useState('');
+  const [seachDataList, setSeachDataList] = useState([]);
+
   // for (let index = 0; index < 10; index++) {
   //   setGenericPassword(index.toString(), '密码' + index);
   // }
   // getGenericPassword();
-  let obj = {
-    title: i18n.t("searchresult"),
-    data: [
-      {
-        name: 'Etherscan',
-        content: 'ETH区块链浏览器',
-        avatar_url: require('assets/img-40-coointype-eth.png'),
-      },
-      {
-        name: 'Gas Now',
-        content: '基于以太坊交易内存池预测',
-        avatar_url: require('assets/img-40-coointype-币安.png'),
-      },
-    ],
-  };
+
 
   async function seachName(name: string) {
     if (name) {
-      obj.title = '搜索结果';
+      let params = {
+        keyword: name
+      }
+      const { data } = await helper.get('/dapp/search', params)
+      console.log('====================================');
+      console.log(data);
+      console.log('====================================');
+      if (data && data.length) {
+        setSeachDataList(data)
+      }
     }
+    return
   }
 
-  function HeardsOption() {
-    return (
+  async function onSubmit(name: string) {
+    if (name && /^([hH][tT]{2}[pP]:\/\/|[hH][tT]{2}[pP][sS]:\/\/)(.)+$/.test(name)) {
+      Alert.alert('网址')
+    } else {
+      await seachName(name)
+    }
+  }
+  return (
+    <LinearGradient colors={['#3060C2', '#3B6ED5']} style={styles.container}>
+      <View style={styles.main}>
       <View style={styles.header}>
         <View style={styles.coinNameContainer}>
           <Image
@@ -53,38 +68,41 @@ function SearchScreen({}: Props) {
           />
           <TextInput
             placeholder={i18n.t("EnterDappname")}
-            value={coinName}
+            value={dappName}
             style={styles.coinNameText}
-            onChangeText={setCoinName}
-            onSubmitEditing={() => seachName(coinName)}
+            onChangeText={(text) => setDappName(text)}
+            onSubmitEditing={() => onSubmit(dappName)}
           />
         </View>
         <TouchableOpacity onPress={goBack} style={styles.goBlack}>
           <Text style={styles.goBlackText}>{i18n.t("cancel")}</Text>
         </TouchableOpacity>
       </View>
-    );
-  }
-  return (
-    <LinearGradient colors={['#3060C2', '#3B6ED5']} style={styles.container}>
-      <View style={styles.main}>
-        <HeardsOption />
         <View style={styles.assetsContainer}>
-          <View style={styles.assetsHeard}>
-            <Text style={styles.assetsHeardTitle}>{obj.title}</Text>
-          </View>
+          {seachDataList?.length > 0 ? (
+            <View style={styles.assetsHeard}>
+              <Text style={styles.assetsHeardTitle}>{i18n.t("searchresult")}</Text>
+            </View>
+          ) : null }
           <ScrollView>
-            {obj.data.map((item, i) => (
-              <TouchableOpacity style={styles.assetsList} key={i}>
+            {seachDataList.map((item: responseItem, i) => (
+              <TouchableOpacity style={styles.assetsList} key={i}
+              onPress={() =>
+                navigate('WebScreen', {
+                  title: item.name,
+                  uri: item.deep_link,
+                })
+              }>
                 <View style={styles.assetsListItem}>
                   <Avatar
                     rounded
-                    source={item.avatar_url}
+                    title={item.name[0]}
+                    source={{ uri: item.logo}}
                     containerStyle={styles.itemAvatar}
                   />
                   <View style={styles.itemDesc}>
                     <Text style={styles.descTitle}>{item.name}</Text>
-                    <Text style={styles.descInfo}>{item.content}</Text>
+                    <Text style={styles.descInfo}>{item.deep_link}</Text>
                   </View>
                 </View>
               </TouchableOpacity>
