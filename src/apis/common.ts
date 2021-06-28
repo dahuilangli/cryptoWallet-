@@ -1,8 +1,6 @@
 import * as helper from "./helper"
 import DeviceInfo from 'react-native-device-info';
-import qs from 'qs';
 
-import AsyncStorage from '@react-native-community/async-storage';
 export async function getToken(){
     const body = {
         device_id: DeviceInfo.getUniqueId(),
@@ -10,15 +8,18 @@ export async function getToken(){
         mobile_type: DeviceInfo.getSystemName(),
         sys_version:DeviceInfo.getSystemVersion()
       };
-      const result = await helper.post('/sys/device_authorization',body)
-      return result
+      const tt = await helper.getTokenForApp();
+      if(tt == null){
+        const result = await helper.post('/sys/device_authorization',body)
+        return result
+      }
+      return null;
+      
     }
-export async function getTokenForApp(){
-     const result = await AsyncStorage.getItem('persist:data')
-     if(result != null){
-       const tt = JSON.parse(result)
-    
-       return tt.token;
-     }
-     return null;
+
+export async function help(){
+    const result = await helper.get('/sys/about',{})
+    console.log(result)
+    console.log(111111)
+    return result
 }

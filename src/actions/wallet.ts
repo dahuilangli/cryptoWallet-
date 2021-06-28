@@ -15,6 +15,7 @@ const Wallet = createActions({
     setAccountList: createAction<Account>(),
     setLocation: createAction<Location>(),
     getUser: NoArgAction,
+    getHelp: NoArgAction,
     getAccountList: NoArgAction,
     GET_TOKEN_SUCCESS: StringAction,
     GET_TOKEN_ERROR: NoArgAction,
@@ -23,8 +24,19 @@ const Wallet = createActions({
 export const GET_TOKEN = ()=>async (dispath: any)=>{
   try{
   apis.common.getToken().then(data=>{
-    dispath(Wallet.GET_TOKEN_SUCCESS(data.token))})
-   
+    if(data != null){
+      dispath(Wallet.GET_TOKEN_SUCCESS(data.token))}
+    }
+  )
+  }catch(error){
+    dispath(Wallet.GET_TOKEN_ERROR())
+}
+}
+export const GETHELP = ()=>async (dispath: any)=>{
+  try{
+  apis.common.help().then(data=>{
+   console.log(data)
+  })
   }catch(error){
     dispath(Wallet.GET_TOKEN_ERROR())
 }
