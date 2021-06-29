@@ -21,11 +21,11 @@ async function getLanauage() {
 
 const language: any = getLanauage()
 i18next.use(initReactI18next).init({
-  fallbackLng: language || 'en',
+  fallbackLng: 'en',
   debug: true,
   resources: {
     en: { translation: en },
-    'zh-CN': { translation: zh },
+    zn: { translation: zh },
   },
 });
 
