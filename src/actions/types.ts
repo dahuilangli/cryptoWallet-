@@ -24,6 +24,15 @@ export interface Account {
   password?:string;
 }
 
+export interface DappRecentItem {
+  category?: string,
+  defi?: string,
+  deep_link: string,
+  logo?: string,
+  name: string,
+  protocol?: string,
+}
+
 export interface Token {
   id: string;
   address: string;

@@ -1,13 +1,13 @@
 import produce from 'immer';
 import { createSelector } from 'reselect';
-import { User, Account, WalletAction, ReduxState } from 'actions/types';
+import { User, Account, WalletAction, ReduxState, DappRecentItem } from 'actions/types';
 
 
 export interface DataState {
   user?: User;
   accountList: Array<Account>;
   token: string;
-  dappSearchList: Array<any>;
+  dappSearchList: Array<DappRecentItem>;
 }
 export const initialState: Readonly<DataState> = {
   token: '',
@@ -47,10 +47,18 @@ const reducer = (originalState = initialState, walletAction: WalletAction) =>
         state.accountList?.push(walletAction.payload);
         return;
       case 'setDappSearchList':
-        state.dappSearchList?.push(walletAction.payload);
-        console.log('===========setDappSearchList==============');
-        console.log(state);
-        console.log('====================================');
+        let payload = walletAction.payload;
+        let list = state.dappSearchList;
+        if (list.length > 0) {
+          list.map((x, i) => {
+            if (x.deep_link === payload.deep_link) {
+              list.splice(i, 1);
+            }
+          })
+          list.unshift(payload);
+        } else {
+          list.unshift(payload);
+        }
         return;
       case 'getHelp':
         console.log(walletAction.payload);

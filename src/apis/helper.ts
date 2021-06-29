@@ -71,6 +71,9 @@ async function getAuth() {
       'Device': DeviceInfo.getUniqueId(),
       "Authorization": `Bearer ${JSON.parse(Authorization)}`,
     }
+    console.log('====================================');
+    console.log(DeviceInfo.getUniqueId());
+    console.log('====================================');
   }
   return headers;
 }
