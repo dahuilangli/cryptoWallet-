@@ -7,7 +7,7 @@ import {
   genWallet,
   importByprivateKey,
   importByMnemonic,
-} from 'helper/ethers';
+} from 'wallet/ethers';
 import { navigate } from 'components/navigationService';
 
 interface Props {

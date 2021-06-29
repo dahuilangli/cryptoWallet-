@@ -6,7 +6,25 @@ interface Wallet {
   address:  string,
   privateKey: string,
 }
+//1010 ht
+interface Coin {
+  name: string;
+  type: number; 
+}
+export function getPath(type: any){
+  let coinType = 60;
+  if(type == 'eth'){
+    coinType = 60;
+  }else if( type == 'ht'){
+    coinType = 1010;
+  }else if( type == 'bnb'){
+    coinType = 714;
+  }
 
+  const path = "m/40'/{coinType}'/0'/0/0";
+
+  return path;
+}
 export function genWallet(){
     let mnemonic = ethers.utils.entropyToMnemonic(ethers.utils.randomBytes(16))
     var wallet =  ethers.utils.HDNode.fromMnemonic(mnemonic);
@@ -41,7 +59,20 @@ export function importByprivateKey(privateKey: any){
     return account;
   
 }
-export function backupMnemonic(){
 
+export function transform(){
+  var provider =  ethers.getDefaultProvider("ropsten");
 
+  let privateKey = ethers.utils.randomBytes(32);
+
+  let wallet = new ethers.Wallet(privateKey);
+  var activeWallet = wallet.connect(provider);
+
+  activeWallet.sendTransaction({
+    to:"xxx",
+    value: "xxx",
+
+  }).then(function(tx) {
+            console.log(tx);
+        });
 }

@@ -23,15 +23,15 @@ const Wallet = createActions({
   });
   
 export const GET_TOKEN = ()=>async (dispath: any)=>{
-  try{
+  // try{
   apis.common.getToken().then(data=>{
     if(data != null){
       dispath(Wallet.GET_TOKEN_SUCCESS(data.token))}
-    }
-  )
-  }catch(error){
-    dispath(Wallet.GET_TOKEN_ERROR())
-}
+    }).catch(function(error) {
+      console.log(error);
+      dispath(Wallet.GET_TOKEN_ERROR());
+    });
+
 }
 export const GETHELP = ()=>async (dispath: any)=>{
   try{

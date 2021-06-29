@@ -59,7 +59,7 @@ export async function getTokenForApp(){
   const result = await AsyncStorage.getItem('persist:data')
   if(result != null){
     const tt = JSON.parse(result)
-    return tt.token;
+    return tt.token == "" ? null : tt.token;
   }
   return null;
 }
