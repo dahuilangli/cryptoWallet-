@@ -11,37 +11,43 @@ import {
 import i18n from "i18n";
 import { navigate } from 'components/navigationService';
 import { ScreensParamList, Feed } from 'actions/types';
-import {help} from 'apis/common'
+import * as helper from 'apis/helper'
 import { RouteProp, useRoute, useIsFocused } from '@react-navigation/native';
 
 type AboutUsScreenRouteProp = RouteProp<ScreensParamList, 'AboutUsScreen'>;
 interface Props {}
+interface response {
+  id: number,
+  language:string,
+  rank: number,
+  state:number,
+  title:string,
+  type:number,
+  icon:string,
+  content:string,
+}
 
-const list = [
-  {
-    name: '官网',
-    img: require('assets/icon-30-关于我们-官网.png'),
-    url: ''
-  },
-  {
-    name: '公众号',
-    img: require('assets/icon-30-关于我们-官网.png'),
-    url: ''
-  },
-  {
-    name: 'Telegram',
-    img: require('assets/icon-30-关于我们-官网.png'),
-    url: ''
-  },
-  {
-    name: 'Twitter',
-    img: require('assets/icon-30-关于我们-官网.png'),
-    url: ''
-  }
-]
-const list2 = help()
 
 function AboutUsScreen({ }: Props) {
+  const [aboutlistData, setAboutListData] = useState([]);
+  const isFocused = useIsFocused();
+  useEffect(() => {
+    if (isFocused) {
+      getAbout();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isFocused]);
+  async function getAbout() {
+    const { data } = await helper.get('/sys/about', {})
+    console.log('===========/sys/aboutr=============');
+    console.log(data);
+    console.log('====================================');
+    if (data && data.length) {
+      setAboutListData(data)
+    }
+  }
+
+
   return (
     <View style={styles.backView}>
 
@@ -52,14 +58,14 @@ function AboutUsScreen({ }: Props) {
         </View>
         <View style={styles.bottomView}>
           {
-            list.map((item, i) => (
-              <TouchableOpacity style={styles.itemStyle}>
+            aboutlistData.map((item:response, i) => (
+              <TouchableOpacity style={styles.itemStyle} onPress = {() => navigate('WebScreen', { title: item.title, uri: item.content })}>
                 <View style={styles.firstView}>
                   <Image
                     style = {styles.LeftImage}
-                    source = {item.img}
+                    source = {{uri:item.icon}}
                   />
-                  <Text style = {styles.nameText}>{item.name}</Text>
+                  <Text style = {styles.nameText}>{item.title}</Text>
                 </View >
                 <View style={styles.secondView}>
                   <Image

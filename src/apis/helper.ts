@@ -71,8 +71,8 @@ async function getAuth() {
       'Device': DeviceInfo.getUniqueId(),
       "Authorization": `Bearer ${JSON.parse(Authorization)}`,
     }
-    return headers;
   }
+  return headers;
 }
 export async function get(url: string, params: object, options: RequestOptions = {}) {
   const rest = await getAuth().then(data => data);
@@ -87,6 +87,7 @@ export async function get(url: string, params: object, options: RequestOptions =
 }
 
 export async function post(url: string, body: object, options: RequestOptions = {}) {
+ 
   const rest = await getAuth().then(data => data);
   const { data } = await client.post(API_ENDPOINT + url, body, rest)
     .then(function (response) {
