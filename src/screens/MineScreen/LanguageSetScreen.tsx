@@ -37,6 +37,7 @@ function LanguageSetScreen(props: Props) {
     const { title } = props.route.params;
     const [languagelistData, setLanguageListData] = useState([]);
     const [coinlistData, setCoinListData] = useState([]);
+    const [selectItem, setSelectItem] = useState({});
     const isFocused = useIsFocused();
     useEffect(() => {
         if (isFocused) {
@@ -44,7 +45,7 @@ function LanguageSetScreen(props: Props) {
         }
     }, [isFocused]);
     async function getLanguage() {
-        const { data } = await helper.get('/sys/language', {})
+        const { data } = await helper.get('/sys/language', {})        
         if (data && data.length) {
             setLanguageListData(data)
         }
@@ -59,16 +60,26 @@ function LanguageSetScreen(props: Props) {
     const Item = ({ item, onPress, style }) => (
         <TouchableOpacity onPress={onPress} style={style}>
             <Text style={styles.nameText}>{title === i18n.t("currencyUnit") ?item.currency:item.language}</Text>
-            <Image style={styles.imageText} source={item.select ? require('assets/icon-20-选择-on.png') : require('assets/icon-20-选择-off.png')}></Image>
+            <Image style={styles.imageText} source={selectItem===item ? require('assets/icon-20-选择-on.png') : require('assets/icon-20-选择-off.png')}></Image>
         </TouchableOpacity>
     );
     const renderItem = ({item}) => {
         return (
             <Item
                 item={item}
-                onPress={() => (
-                    Alert.alert('11111')
-                )
+                onPress={() => {
+                    switch (title) {
+                        case i18n.t("currencyUnit"):
+                            setSelectItem(item)
+                            break;
+                        case i18n.t("languagesettings"):
+                            setSelectItem(item)
+                            i18n.changeLanguage(item.code)
+                            break;
+                        default:
+                            break;
+                    }
+                }
                 }
                 style={styles.marginItem}
             />

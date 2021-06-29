@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { StyleSheet, View, Text, TextInput, SafeAreaView } from 'react-native';
 import { Button } from 'react-native-elements';
 import { WToast } from 'react-native-smart-tip';
-import { recoverAccountToPrivateKey } from 'helper/ethers';
+import { recoverAccountToPrivateKey } from 'wallet/ethers';
 import { navigate } from 'components/navigationService';
 interface Props {
   route: {

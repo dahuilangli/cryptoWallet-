@@ -7,7 +7,7 @@ import {
   genWallet,
   importByprivateKey,
   importByMnemonic,
-} from 'helper/ethers';
+} from 'wallet/ethers';
 import { navigate } from 'components/navigationService';
 
 interface Props {
@@ -23,10 +23,8 @@ const SetWalletNameScreen = (props: Props) => {
   const { type } = props.route.params;
   const { loginType } = props.route.params;
   const [walletName, setWalletName] = useState('');
-  let accountInfo: Account = genWallet();
-  let accountInfo1: Account = importByprivateKey("xxx");
-  console.log(accountInfo1)
-  useEffect(() => {});
+  
+  
   
   return (
     <SafeAreaView style={styles.container}>

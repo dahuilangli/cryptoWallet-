@@ -7769,7 +7769,7 @@ react-native-easy-view-transformer@^1.2.0:
     react-native-easy-guesture-responder "^1.1.2"
     react-native-scrolling "^1.0.2"
 
-react-native-elements@^3.4.1:
+react-native-elements@^3.4.2:
   version "3.4.2"
   resolved "https://registry.nlark.com/react-native-elements/download/react-native-elements-3.4.2.tgz#66602be9c5e0e0a2a831913adec80ff6518d1ee2"
   integrity sha1-ZmAr6cXg4KKoMZE63sgP9lGNHuI=
