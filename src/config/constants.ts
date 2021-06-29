@@ -2,9 +2,9 @@
 import { Dimensions } from 'react-native';
 import * as i18ns from "../i18n"
 
-// export const HOST = 'http://192.168.2.21:80';
+export const HOST = 'http://192.168.2.21:80';
 
-export const HOST = 'http://121.43.176.103';
+// export const HOST = 'http://121.43.176.103';
 
 export const API_ENDPOINT = `${HOST}/api/service`;
 

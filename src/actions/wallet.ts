@@ -6,14 +6,14 @@ import {
     StringAction
   } from 'redux-type-actions';
 
-import { Account, Location, User } from 'actions/types';
+import { Account, Location, User, DappRecentItem } from 'actions/types';
   
 
 import  apis from 'apis';
 const Wallet = createActions({
     setUser: createAction<User>(),
     setAccountList: createAction<Account>(),
-    setDappSearchList: createAction<any>(),
+    setDappSearchList: createAction<DappRecentItem>(),
     setLocation: createAction<Location>(),
     getUser: NoArgAction,
     getHelp: NoArgAction,
