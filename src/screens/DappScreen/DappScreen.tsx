@@ -15,8 +15,11 @@ import Swiper from 'react-native-swiper'
 import { ListItem, Avatar } from 'react-native-elements';
 import { FlatList, TextInput } from 'react-native-gesture-handler';
 
-import * as helper from 'apis/helper'
+import { getDappSearchList } from 'reducers/dataStateReducer';
 import { useIsFocused } from '@react-navigation/native';
+import { useSelector } from 'react-redux';
+
+import * as helper from 'apis/helper'
 interface Props {
 
 }
@@ -90,7 +93,10 @@ const list = [
 ]
 
 function DappScreen({ }: Props) {
-
+  const dppSearchList = useSelector(getDappSearchList)
+  console.log('====================================');
+  console.log(dppSearchList);
+  console.log('====================================');
   const [bannerlistData, setBannerListData] = useState([]);
   const isFocused = useIsFocused();
   useEffect(() => {

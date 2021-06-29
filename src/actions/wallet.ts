@@ -13,6 +13,7 @@ import  apis from 'apis';
 const Wallet = createActions({
     setUser: createAction<User>(),
     setAccountList: createAction<Account>(),
+    setDappSearchList: createAction<any>(),
     setLocation: createAction<Location>(),
     getUser: NoArgAction,
     getHelp: NoArgAction,

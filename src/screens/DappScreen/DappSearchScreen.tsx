@@ -14,7 +14,8 @@ import { goBack, navigate } from 'components/navigationService';
 import LinearGradient from 'react-native-linear-gradient';
 import i18n from "i18n";
 import * as helper from 'apis/helper'
-import { Alert } from 'react-native';
+import { useDispatch } from 'react-redux';
+import walletAction from 'actions/wallet';
 interface Props { }
 
 interface responseItem {
@@ -25,14 +26,9 @@ interface responseItem {
   protocol: string,
 }
 function SearchScreen({ }: Props) {
+  const dispatch = useDispatch();
   const [dappName, setDappName] = useState('');
   const [seachDataList, setSeachDataList] = useState([]);
-
-  // for (let index = 0; index < 10; index++) {
-  //   setGenericPassword(index.toString(), '密码' + index);
-  // }
-  // getGenericPassword();
-
 
   async function seachName(name: string) {
     if (name) {
@@ -40,7 +36,7 @@ function SearchScreen({ }: Props) {
         keyword: name
       }
       const { data } = await helper.get('/dapp/search', params)
-      console.log('====================================');
+      console.log('=============/dapp/search===============');
       console.log(data);
       console.log('====================================');
       if (data && data.length) {
@@ -50,9 +46,25 @@ function SearchScreen({ }: Props) {
     return
   }
 
+  async function goWebView(item: responseItem) {
+    dispatch(walletAction.setDappSearchList(item));
+    navigate('WebScreen', {
+      title: item.name,
+      uri: item.deep_link,
+    })
+  }
   async function onSubmit(name: string) {
     if (name && /^([hH][tT]{2}[pP]:\/\/|[hH][tT]{2}[pP][sS]:\/\/)(.)+$/.test(name)) {
-      Alert.alert('网址')
+      let re = /(\w+):\/\/([^\/:]+)(:\d*)?([^# ]*)/;
+      let found: any = name.match(re);
+      let item: responseItem = {
+        category: found[2],
+        deep_link: name,
+        logo: '',
+        name: found[2],
+        protocol: '',
+      }
+      await goWebView(item)
     } else {
       await seachName(name)
     }
@@ -60,44 +72,38 @@ function SearchScreen({ }: Props) {
   return (
     <LinearGradient colors={['#3060C2', '#3B6ED5']} style={styles.container}>
       <View style={styles.main}>
-      <View style={styles.header}>
-        <View style={styles.coinNameContainer}>
-          <Image
-            style={styles.coinNameIcon}
-            source={require('assets/icon-20-搜索.png')}
-          />
-          <TextInput
-            placeholder={i18n.t("EnterDappname")}
-            value={dappName}
-            style={styles.coinNameText}
-            onChangeText={(text) => setDappName(text)}
-            onSubmitEditing={() => onSubmit(dappName)}
-          />
+        <View style={styles.header}>
+          <View style={styles.coinNameContainer}>
+            <Image
+              style={styles.coinNameIcon}
+              source={require('assets/icon-20-搜索.png')}
+            />
+            <TextInput
+              placeholder={i18n.t("EnterDappname")}
+              value={dappName}
+              style={styles.coinNameText}
+              onChangeText={(text) => setDappName(text)}
+              onSubmitEditing={() => onSubmit(dappName)}
+            />
+          </View>
+          <TouchableOpacity onPress={goBack} style={styles.goBlack}>
+            <Text style={styles.goBlackText}>{i18n.t("cancel")}</Text>
+          </TouchableOpacity>
         </View>
-        <TouchableOpacity onPress={goBack} style={styles.goBlack}>
-          <Text style={styles.goBlackText}>{i18n.t("cancel")}</Text>
-        </TouchableOpacity>
-      </View>
         <View style={styles.assetsContainer}>
           {seachDataList?.length > 0 ? (
             <View style={styles.assetsHeard}>
               <Text style={styles.assetsHeardTitle}>{i18n.t("searchresult")}</Text>
             </View>
-          ) : null }
+          ) : null}
           <ScrollView>
             {seachDataList.map((item: responseItem, i) => (
-              <TouchableOpacity style={styles.assetsList} key={i}
-              onPress={() =>
-                navigate('WebScreen', {
-                  title: item.name,
-                  uri: item.deep_link,
-                })
-              }>
+              <TouchableOpacity style={styles.assetsList} key={item.name + i} onPress={() => goWebView(item)}>
                 <View style={styles.assetsListItem}>
                   <Avatar
                     rounded
-                    title={item.name[0]}
-                    source={{ uri: item.logo}}
+                    title="EM"
+                    source={{ uri: item.logo }}
                     containerStyle={styles.itemAvatar}
                   />
                   <View style={styles.itemDesc}>
