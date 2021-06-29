@@ -49,7 +49,7 @@ export type MainStackParamList = {
   AddressBookEditorScreen: { title?: string; item: {} };
   AddressTypeScreen: { type?: string };
   FeedListScreen: { title: string; showMyself?: boolean };
-  WebScreen: { title?: string; uri: string };
+  WebScreen: { title?: any; uri: string };
   SearchScreen: { coin: Array<string> };
   DappSearchScreen: {coin: Array<string> };
   CoinDetailScreen: { title: string };

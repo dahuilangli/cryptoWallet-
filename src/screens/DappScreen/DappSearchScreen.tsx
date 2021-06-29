@@ -10,81 +10,105 @@ import {
   TextInput,
 } from 'react-native';
 import { Avatar } from 'react-native-elements';
-import { goBack } from 'components/navigationService';
+import { goBack, navigate } from 'components/navigationService';
 import LinearGradient from 'react-native-linear-gradient';
 import i18n from "i18n";
-interface Props {}
+import * as helper from 'apis/helper'
+import { useDispatch } from 'react-redux';
+import walletAction from 'actions/wallet';
+interface Props { }
 
-function SearchScreen({}: Props) {
-  const [coinName, setCoinName] = useState('');
-  // for (let index = 0; index < 10; index++) {
-  //   setGenericPassword(index.toString(), '密码' + index);
-  // }
-  // getGenericPassword();
-  let obj = {
-    title: i18n.t("searchresult"),
-    data: [
-      {
-        name: 'Etherscan',
-        content: 'ETH区块链浏览器',
-        avatar_url: require('assets/img-40-coointype-eth.png'),
-      },
-      {
-        name: 'Gas Now',
-        content: '基于以太坊交易内存池预测',
-        avatar_url: require('assets/img-40-coointype-币安.png'),
-      },
-    ],
-  };
+interface responseItem {
+  category: number,
+  deep_link: any,
+  logo: string,
+  name: string,
+  protocol: string,
+}
+function SearchScreen({ }: Props) {
+  const dispatch = useDispatch();
+  const [dappName, setDappName] = useState('');
+  const [seachDataList, setSeachDataList] = useState([]);
 
   async function seachName(name: string) {
     if (name) {
-      obj.title = '搜索结果';
+      let params = {
+        keyword: name
+      }
+      const { data } = await helper.get('/dapp/search', params)
+      console.log('=============/dapp/search===============');
+      console.log(data);
+      console.log('====================================');
+      if (data && data.length) {
+        setSeachDataList(data)
+      }
     }
+    return
   }
 
-  function HeardsOption() {
-    return (
-      <View style={styles.header}>
-        <View style={styles.coinNameContainer}>
-          <Image
-            style={styles.coinNameIcon}
-            source={require('assets/icon-20-搜索.png')}
-          />
-          <TextInput
-            placeholder={i18n.t("EnterDappname")}
-            value={coinName}
-            style={styles.coinNameText}
-            onChangeText={setCoinName}
-            onSubmitEditing={() => seachName(coinName)}
-          />
-        </View>
-        <TouchableOpacity onPress={goBack} style={styles.goBlack}>
-          <Text style={styles.goBlackText}>{i18n.t("cancel")}</Text>
-        </TouchableOpacity>
-      </View>
-    );
+  async function goWebView(item: responseItem) {
+    dispatch(walletAction.setDappSearchList(item));
+    navigate('WebScreen', {
+      title: item.name,
+      uri: item.deep_link,
+    })
+  }
+  async function onSubmit(name: string) {
+    if (name && /^([hH][tT]{2}[pP]:\/\/|[hH][tT]{2}[pP][sS]:\/\/)(.)+$/.test(name)) {
+      let re = /(\w+):\/\/([^\/:]+)(:\d*)?([^# ]*)/;
+      let found: any = name.match(re);
+      let item: responseItem = {
+        category: found[2],
+        deep_link: name,
+        logo: '',
+        name: found[2],
+        protocol: '',
+      }
+      await goWebView(item)
+    } else {
+      await seachName(name)
+    }
   }
   return (
     <LinearGradient colors={['#3060C2', '#3B6ED5']} style={styles.container}>
       <View style={styles.main}>
-        <HeardsOption />
-        <View style={styles.assetsContainer}>
-          <View style={styles.assetsHeard}>
-            <Text style={styles.assetsHeardTitle}>{obj.title}</Text>
+        <View style={styles.header}>
+          <View style={styles.coinNameContainer}>
+            <Image
+              style={styles.coinNameIcon}
+              source={require('assets/icon-20-搜索.png')}
+            />
+            <TextInput
+              placeholder={i18n.t("EnterDappname")}
+              value={dappName}
+              style={styles.coinNameText}
+              onChangeText={(text) => setDappName(text)}
+              onSubmitEditing={() => onSubmit(dappName)}
+            />
           </View>
+          <TouchableOpacity onPress={goBack} style={styles.goBlack}>
+            <Text style={styles.goBlackText}>{i18n.t("cancel")}</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.assetsContainer}>
+          {seachDataList?.length > 0 ? (
+            <View style={styles.assetsHeard}>
+              <Text style={styles.assetsHeardTitle}>{i18n.t("searchresult")}</Text>
+            </View>
+          ) : null}
           <ScrollView>
-            {obj.data.map((item, i) => (
-              <TouchableOpacity style={styles.assetsList} key={i}>
+            {seachDataList.map((item: responseItem, i) => (
+              <TouchableOpacity style={styles.assetsList} key={item.name + i} onPress={() => goWebView(item)}>
                 <View style={styles.assetsListItem}>
                   <Avatar
                     rounded
-                    source={item.avatar_url}
+                    title="EM"
+                    source={{ uri: item.logo }}
                     containerStyle={styles.itemAvatar}
                   />
                   <View style={styles.itemDesc}>
                     <Text style={styles.descTitle}>{item.name}</Text>
-                    <Text style={styles.descInfo}>{item.content}</Text>
+                    <Text style={styles.descInfo}>{item.deep_link}</Text>
                   </View>
                 </View>
               </TouchableOpacity>
