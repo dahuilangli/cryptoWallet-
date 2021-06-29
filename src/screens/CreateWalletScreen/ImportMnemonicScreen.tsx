@@ -10,7 +10,7 @@ import {
   // Image,
 } from 'react-native';
 import { Button } from 'react-native-elements';
-import { recoverAccountToMnemonic } from 'wallet/ethers';
+import { recoverAccountToMnemonic } from 'wallets/ethsWallet';
 import { navigate } from 'components/navigationService';
 
 import { WToast } from 'react-native-smart-tip';

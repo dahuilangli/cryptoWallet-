@@ -18,7 +18,7 @@ import { navigate } from 'components/navigationService';
 export type AuthStackParamList = {
   CameraScreen: undefined;
   LoginScreen: undefined;
-  SuccessScreen: { title: string; accountInfo: object };
+  SuccessScreen: { title: string | undefined; accountInfo: object };
   SelectWalletScreen: { loginType: string };
   SetWalletNameScreen: { type: string; loginType?: string; desc?: string };
   SetWalletPwdScreen: { accountInfo: object; loginType?: string };

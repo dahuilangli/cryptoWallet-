@@ -31,7 +31,10 @@ export function genWallet(){
     const  account = {
       address: wallet.address,
       privateKey: wallet.privateKey,
+      mnemonic: wallet.mnemonic?.phrase,
+      seed: ethers.utils.mnemonicToSeed(mnemonic)
     }
+    console.log(account)
     return account;
  
 }
