@@ -7,7 +7,7 @@ import {
   genWallet,
   importByprivateKey,
   importByMnemonic,
-} from 'wallet/ethers';
+} from 'wallets/ethsWallet';
 import { navigate } from 'components/navigationService';
 
 interface Props {
@@ -24,8 +24,6 @@ const SetWalletNameScreen = (props: Props) => {
   const { loginType } = props.route.params;
   const [walletName, setWalletName] = useState('');
   
-  
-  
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.main}>
@@ -35,7 +33,7 @@ const SetWalletNameScreen = (props: Props) => {
           </Text>
           <TextInput
             maxLength={20}
-            placeholder={i18n.t("Wallet Name")}
+            placeholder={i18n.t("walletname")}
             value={walletName}
             style={styles.inputName}
             onChangeText={setWalletName}
@@ -45,7 +43,7 @@ const SetWalletNameScreen = (props: Props) => {
           buttonStyle={styles.nextButton}
           onPress={() => {
             navigate('SetWalletPwdScreen', {
-              accountInfo: { ...accountInfo, walletName, type },
+              accountInfo: { walletName, type },
               loginType,
             });
           }}

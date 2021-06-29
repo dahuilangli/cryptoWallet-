@@ -27,20 +27,22 @@ interface Props {
 }
 const list = [
   {
-    name: 'STO',
-    avatar_url:
-      'https://tcs.teambition.net/thumbnail/11262ac182aa38d4ffc7404b9960590d8472/w/200/h/200',
+    name: 'ETH',
+    avatar_url:require('assets/wallet-icon/ethereum.png'),
   },
   {
-    name: 'ETH',
-    avatar_url:
-      'https://ninga-dev.oss-cn-shanghai.aliyuncs.com/coin-icon/0xDCD289ECF644bEC54393ba6Ce8dB35e9B5Ff75e7/BSC/logo.png',
+    name: 'BNB',
+    avatar_url:require('assets/wallet-icon/binance-coin.png'),
+  },
+  {
+    name: 'HT',
+    avatar_url:require('assets/wallet-icon/ht.png'),
   },
 ];
 const SelectWalletScreen = (prop: Props) => {
   
   const { loginType } = prop.route.params;
-  console.log(loginType);
+  
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.main}>
@@ -77,7 +79,7 @@ const SelectWalletScreen = (prop: Props) => {
             <View style={styles.listItem}>
               <Avatar
                 rounded
-                source={{ uri: item.avatar_url }}
+                source={item.avatar_url}
                 containerStyle={styles.avatar}
               />
               <Text style={styles.text}>{item.name}</Text>

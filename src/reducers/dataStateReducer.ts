@@ -1,6 +1,6 @@
 import produce from 'immer';
 import { createSelector } from 'reselect';
-import { User, Account, WalletAction, ReduxState, DappRecentItem } from 'actions/types';
+import { User, Account, WalletAction, ReduxState, DappRecentItem,AddressBookItem } from 'actions/types';
 
 
 export interface DataState {
@@ -8,11 +8,15 @@ export interface DataState {
   accountList: Array<Account>;
   token: string;
   dappSearchList: Array<DappRecentItem>;
+  addressBookList: Array<AddressBookItem>;
+  language: string,
 }
 export const initialState: Readonly<DataState> = {
   token: '',
   accountList: [],
-  dappSearchList: []
+  dappSearchList: [],
+  addressBookList: [],
+  language: 'en',
 };
 
 export const selectDataState = (reduxState: ReduxState) => reduxState.dataState;
@@ -33,6 +37,11 @@ export const getSelectorToken = createSelector(
   (dataState) => dataState.token,
 );
 
+export const getLanguage = createSelector(
+  selectDataState,
+  (dataState) => dataState.language,
+);
+
 export const getDappSearchList = createSelector(
   selectDataState,
   (dataState) => dataState.dappSearchList,
@@ -45,6 +54,12 @@ const reducer = (originalState = initialState, walletAction: WalletAction) =>
         return;
       case 'setAccountList':
         state.accountList?.push(walletAction.payload);
+        return;
+      case 'setLanguage':
+        console.log('====================================');
+        console.log(walletAction);
+        console.log('====================================');
+        state.language = walletAction.payload;
         return;
       case 'setDappSearchList':
         let payload = walletAction.payload;
@@ -59,6 +74,12 @@ const reducer = (originalState = initialState, walletAction: WalletAction) =>
         } else {
           list.unshift(payload);
         }
+        return;
+      case 'setAddressBookList':
+        let payload1 = walletAction.payload;
+        console.log('11111111111111');
+        console.log(payload1);
+        
         return;
       case 'getHelp':
         console.log(walletAction.payload);

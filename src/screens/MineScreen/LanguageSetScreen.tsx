@@ -8,10 +8,11 @@ import { ListItem } from 'react-native-elements';
 import { get } from 'apis/helper'
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import i18n from "i18n";
+import walletAction from 'actions/wallet';
+import { useSelector, useDispatch } from 'react-redux';
+import { getLanguage } from 'reducers/dataStateReducer';
 import * as helper from 'apis/helper'
-import { url } from 'inspector';
-import { getDeviceId } from 'react-native-device-info';
-import { current } from 'immer';
+
 
 type SetUpScreenRouteProp = RouteProp<ScreensParamList, 'SetUpScreen'>;
 interface Props {
@@ -23,64 +24,72 @@ interface Props {
 }
 
 interface Language {
-    code:string,
-    language:string,
+    code: string,
+    language: string,
 }
 
 interface Currency {
-    currency:string,
-    symbol:string,
+    currency: string,
+    symbol: string,
 }
 
+const list1 = [
+    {
+        code:'en',
+        language:'English',
+    },
+    {
+        code:'zh_CH',
+        language:'中文(简体)',
+    }
+]
+
+const list2 = [
+    {
+        code:'$',
+        language:'USDT',
+    },
+    {
+        code:'$',
+        language:'RMB',
+    }
+]
 
 function LanguageSetScreen(props: Props) {
     const { title } = props.route.params;
-    const [languagelistData, setLanguageListData] = useState([]);
-    const [coinlistData, setCoinListData] = useState([]);
-    const [selectItem, setSelectItem] = useState({});
+    const dispatch = useDispatch()
+    const language = useSelector(getLanguage)
+    const [defaultLanguage, setDefaultLanguage] = useState(language);
     const isFocused = useIsFocused();
     useEffect(() => {
         if (isFocused) {
-            title === i18n.t("currencyUnit") ? getCoinUnit() : getLanguage();
+            title === i18n.t("currencyUnit") ? list2 : list1;
         }
     }, [isFocused]);
-    async function getLanguage() {
-        const { data } = await helper.get('/sys/language', {})        
-        if (data && data.length) {
-            setLanguageListData(data)
+    
+
+    async function editLanguage(params: string) {
+        if (params) {
+            await dispatch(walletAction.setLanguage(params));
+            await setDefaultLanguage(params)
+            console.log('====================================');
+            console.log(params);
+            console.log('====================================');
+            i18n.changeLanguage(params)
         }
     }
 
-    async function getCoinUnit() {
-        const { data } = await helper.get('/sys/coin_unit', {})
-        if (data && data.length) {
-            setCoinListData(data)
-        }
-    }
     const Item = ({ item, onPress, style }) => (
         <TouchableOpacity onPress={onPress} style={style}>
-            <Text style={styles.nameText}>{title === i18n.t("currencyUnit") ?item.currency:item.language}</Text>
-            <Image style={styles.imageText} source={selectItem===item ? require('assets/icon-20-选择-on.png') : require('assets/icon-20-选择-off.png')}></Image>
+            <Text style={styles.nameText}>{item.language}</Text>
+            <Image style={styles.imageText} source={defaultLanguage === item.code ? require('assets/icon-20-选择-on.png') : require('assets/icon-20-选择-off.png')}></Image>
         </TouchableOpacity>
     );
-    const renderItem = ({item}) => {
+    const renderItem = ({ item }) => {
         return (
             <Item
                 item={item}
-                onPress={() => {
-                    switch (title) {
-                        case i18n.t("currencyUnit"):
-                            setSelectItem(item)
-                            break;
-                        case i18n.t("languagesettings"):
-                            setSelectItem(item)
-                            i18n.changeLanguage(item.code)
-                            break;
-                        default:
-                            break;
-                    }
-                }
-                }
+                onPress={() => editLanguage(item.code)}
                 style={styles.marginItem}
             />
         );
@@ -88,10 +97,10 @@ function LanguageSetScreen(props: Props) {
     return (
         <SafeAreaView style={styles.container}>
             <FlatList
-                data={title === i18n.t("currencyUnit") ? coinlistData : languagelistData}
+                data={title === i18n.t("currencyUnit") ? list2 : list1}
                 style={styles.item}
                 renderItem={renderItem}
-                keyExtractor={(item) => title === i18n.t("currencyUnit") ?item.currency:item.code}
+                keyExtractor={(item) =>  item.code}
             >
             </FlatList>
 
