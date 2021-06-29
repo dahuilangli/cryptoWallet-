@@ -17,9 +17,11 @@ import { FlatList, TextInput } from 'react-native-gesture-handler';
 
 import { getDappSearchList } from 'reducers/dataStateReducer';
 import { useIsFocused } from '@react-navigation/native';
-import { useSelector } from 'react-redux';
-
+import { useSelector, useDispatch } from 'react-redux';
+import walletAction from 'actions/wallet';
 import * as helper from 'apis/helper'
+import { DappRecentItem } from 'actions/types';
+
 interface Props {
 
 }
@@ -31,72 +33,10 @@ interface response {
 }
 
 
-const list = [
-  {
-    name: 'Etherscan',
-    aver_url: require('assets/icon-40-etherscan.png'),
-    content: 'ETH区块链浏览器',
-  },
-  {
-    name: 'Etherscan',
-    aver_url: require('assets/icon-40-heco.png'),
-    content: 'ETH区块链浏览器',
-  },
-  {
-    name: 'Etherscan',
-    aver_url: require('assets/icon-40-gasnow.png'),
-    content: 'ETH区块链浏览器',
-  },
-  {
-    name: 'Etherscan',
-    aver_url: require('assets/icon-40-heco.png'),
-    content: 'ETH区块链浏览器',
-  }, {
-    name: 'Etherscan',
-    aver_url: require('assets/icon-40-etherscan.png'),
-    content: 'ETH区块链浏览器',
-  },
-  {
-    name: 'Etherscan',
-    aver_url: require('assets/icon-40-heco.png'),
-    content: 'ETH区块链浏览器',
-  },
-  {
-    name: 'Etherscan',
-    aver_url: require('assets/icon-40-gasnow.png'),
-    content: 'ETH区块链浏览器',
-  },
-  {
-    name: 'Etherscan',
-    aver_url: require('assets/icon-40-heco.png'),
-    content: 'ETH区块链浏览器',
-  }, {
-    name: 'Etherscan',
-    aver_url: require('assets/icon-40-etherscan.png'),
-    content: 'ETH区块链浏览器',
-  },
-  {
-    name: 'Etherscan',
-    aver_url: require('assets/icon-40-heco.png'),
-    content: 'ETH区块链浏览器',
-  },
-  {
-    name: 'Etherscan',
-    aver_url: require('assets/icon-40-gasnow.png'),
-    content: 'ETH区块链浏览器',
-  },
-  {
-    name: 'Etherscan',
-    aver_url: require('assets/icon-40-heco.png'),
-    content: 'ETH区块链浏览器',
-  }
-]
 
 function DappScreen({ }: Props) {
+  const dispatch = useDispatch();
   const dppSearchList = useSelector(getDappSearchList)
-  console.log('====================================');
-  console.log(dppSearchList);
-  console.log('====================================');
   const [bannerlistData, setBannerListData] = useState([]);
   const isFocused = useIsFocused();
   useEffect(() => {
@@ -114,23 +54,32 @@ function DappScreen({ }: Props) {
       setBannerListData(data)
     }
   }
+  async function goWebView(item: DappRecentItem) {
+    await dispatch(walletAction.setDappSearchList(item));
+    navigate('DappWebScreen', {
+      title: item.name,
+      uri: item.deep_link,
+      item
+    })
+  }
   const keyExtractor = (item: any, index: { toString: () => any; }) => index.toString()
 
-  const renderItem = ({ item }) => (
+  const renderItem = ({ item }) => {
+    return(
     <TouchableOpacity
       style={styles.itemStyle}
-      onPress={() => navigate('DappWebScreen', { title: item.name, item: item, uri: 'https://reactnative.cn/docs/next/webview#onloadstart' })}
+      onPress={() => goWebView(item)}
     >
       <View style={styles.itemView}>
-        <Avatar source={item.aver_url} containerStyle={styles.leftIcon} />
+        <Avatar rounded title={item.name[0]} source={{uri: item.logo}} containerStyle={styles.leftIcon} />
         <View style={styles.contentView}>
           <Text style={{ height: 20, fontSize: 14, fontWeight: '500', color: '#394867' }}>{item.name}</Text>
-          <Text style={{ height: 20, fontSize: 12, fontWeight: '400', color: '#9CA4B3' }}>{item.content}</Text>
+          <Text style={{ height: 20, fontSize: 12, fontWeight: '400', color: '#9CA4B3' }}>{item.deep_link}</Text>
         </View>
       </View>
       <View style={{ marginHorizontal: 20, height: 0.5, backgroundColor: '#E9EDF1' }} />
     </TouchableOpacity>
-  )
+  )}
 
   return (
     <View style={styles.container}>
@@ -198,7 +147,7 @@ function DappScreen({ }: Props) {
       <View style={styles.bigLine} />
       <FlatList
         keyExtractor={keyExtractor}
-        data={list}
+        data={dppSearchList}
         renderItem={renderItem}
       />
 

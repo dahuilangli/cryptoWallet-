@@ -16,15 +16,9 @@ import i18n from "i18n";
 import * as helper from 'apis/helper'
 import { useDispatch } from 'react-redux';
 import walletAction from 'actions/wallet';
+import { DappRecentItem } from 'actions/types'
 interface Props { }
 
-interface responseItem {
-  category: number,
-  deep_link: any,
-  logo: string,
-  name: string,
-  protocol: string,
-}
 function SearchScreen({ }: Props) {
   const dispatch = useDispatch();
   const [dappName, setDappName] = useState('');
@@ -46,23 +40,25 @@ function SearchScreen({ }: Props) {
     return
   }
 
-  async function goWebView(item: responseItem) {
-    dispatch(walletAction.setDappSearchList(item));
+  async function goWebView(item: DappRecentItem) {
+    await dispatch(walletAction.setDappSearchList(item));
     navigate('WebScreen', {
       title: item.name,
       uri: item.deep_link,
     })
   }
   async function onSubmit(name: string) {
+    name = name.trim()
     if (name && /^([hH][tT]{2}[pP]:\/\/|[hH][tT]{2}[pP][sS]:\/\/)(.)+$/.test(name)) {
       let re = /(\w+):\/\/([^\/:]+)(:\d*)?([^# ]*)/;
       let found: any = name.match(re);
-      let item: responseItem = {
+      let item: DappRecentItem = {
         category: found[2],
         deep_link: name,
         logo: '',
         name: found[2],
         protocol: '',
+        defi: ''
       }
       await goWebView(item)
     } else {
@@ -97,7 +93,7 @@ function SearchScreen({ }: Props) {
             </View>
           ) : null}
           <ScrollView>
-            {seachDataList.map((item: responseItem, i) => (
+            {seachDataList.map((item: DappRecentItem, i) => (
               <TouchableOpacity style={styles.assetsList} key={item.name + i} onPress={() => goWebView(item)}>
                 <View style={styles.assetsListItem}>
                   <Avatar
