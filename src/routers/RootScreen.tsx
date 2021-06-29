@@ -18,7 +18,7 @@ function RootScreen() {
   const accountlist = useSelector(getAccountList)
   return (
     <NavigationContainer ref={navigationRef}>
-      {accountlist.length > 0 ? <MainStackNavigator /> : <AuthStackNavigator />}
+      {1 > 0 ? <MainStackNavigator /> : <AuthStackNavigator />}
     </NavigationContainer>
   );
 }

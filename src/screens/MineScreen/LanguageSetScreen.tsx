@@ -11,6 +11,7 @@ import i18n from "i18n";
 import * as helper from 'apis/helper'
 import { url } from 'inspector';
 import { getDeviceId } from 'react-native-device-info';
+import { current } from 'immer';
 
 type SetUpScreenRouteProp = RouteProp<ScreensParamList, 'SetUpScreen'>;
 interface Props {
@@ -21,78 +22,52 @@ interface Props {
     };
 }
 
+interface Language {
+    code:string,
+    language:string,
+}
 
-const list = [
+interface Currency {
+    currency:string,
+    symbol:string,
+}
 
-    {
-        name: '简体中文',
-        select: true,
-    },
-    {
-        name: 'English',
-        select: false,
-    },
-
-]
-const list1 = [
-
-    {
-        name: 'CNY',
-        select: true,
-    },
-    {
-        name: 'HKD',
-        select: false,
-    },
-    {
-        name: 'USD',
-        select: false,
-    },
-    {
-        name: 'TWD',
-        select: false,
-    },
-    {
-        name: 'EUR',
-        select: false,
-    },
-
-
-]
-
-
-const Item = ({ item, onPress, style }) => (
-    <TouchableOpacity onPress={onPress} style={style}>
-        <Text style={styles.nameText}>{item.name}</Text>
-        <Image style={styles.imageText} source={item.select ? require('assets/icon-20-选择-on.png') : require('assets/icon-20-选择-off.png')}></Image>
-    </TouchableOpacity>
-);
 
 function LanguageSetScreen(props: Props) {
     const { title } = props.route.params;
     const [languagelistData, setLanguageListData] = useState([]);
+    const [coinlistData, setCoinListData] = useState([]);
     const isFocused = useIsFocused();
     useEffect(() => {
         if (isFocused) {
-            getLanguage();
+            title === i18n.t("currencyUnit") ? getCoinUnit() : getLanguage();
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isFocused]);
     async function getLanguage() {
         const { data } = await helper.get('/sys/language', {})
-        console.log('===========/sys/aboutr=============');
-        console.log(data);
-        console.log('====================================');
         if (data && data.length) {
             setLanguageListData(data)
         }
     }
-    const renderItem = ({ item }) => {
+
+    async function getCoinUnit() {
+        const { data } = await helper.get('/sys/coin_unit', {})
+        if (data && data.length) {
+            setCoinListData(data)
+        }
+    }
+    const Item = ({ item, onPress, style }) => (
+        <TouchableOpacity onPress={onPress} style={style}>
+            <Text style={styles.nameText}>{title === i18n.t("currencyUnit") ?item.currency:item.language}</Text>
+            <Image style={styles.imageText} source={item.select ? require('assets/icon-20-选择-on.png') : require('assets/icon-20-选择-off.png')}></Image>
+        </TouchableOpacity>
+    );
+    const renderItem = ({item}) => {
         return (
             <Item
                 item={item}
                 onPress={() => (
-                    item.select = true
+                    Alert.alert('11111')
                 )
                 }
                 style={styles.marginItem}
@@ -102,10 +77,10 @@ function LanguageSetScreen(props: Props) {
     return (
         <SafeAreaView style={styles.container}>
             <FlatList
-                data={title === i18n.t("currencyUnit") ? list1 : list}
+                data={title === i18n.t("currencyUnit") ? coinlistData : languagelistData}
                 style={styles.item}
                 renderItem={renderItem}
-                keyExtractor={(item) => item.name}
+                keyExtractor={(item) => title === i18n.t("currencyUnit") ?item.currency:item.code}
             >
             </FlatList>
 

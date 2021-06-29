@@ -11,25 +11,36 @@ type SuggestScreenRouteProp = RouteProp<ScreensParamList, 'SuggestScreen'>;
 interface Props {}
 
 function SuggestScreen({}: Props) {
+    const [emailText ,setEmailText] = useState('');
+    const [walletAddressText ,setWalletAddressText] = useState('');
+    const [detailsText ,setDetailsText] = useState('');
 
-  
+    async function postSuggest() {
+      const { data} = await helper.post('/sys/help', {"email":emailText,"content":detailsText,"address":walletAddressText})
+      console.log('===========/sys/help=============');
+      console.log(data);
+      console.log('====================================');
+      if (data && data.length) {
+          // setLanguageListData(data)
+      }
+  }
     return (
         <SafeAreaView style={styles.container}>
           <Text style = {styles.email}>{i18n.t("yourmailbox")}</Text>
           <View style = {styles.whiteView}>
-            <TextInput style = {styles.input}  placeholder={i18n.t("enteremailaddress")}>
+            <TextInput style = {styles.input}  placeholder={i18n.t("enteremailaddress")} onChangeText = {setEmailText}>
               
             </TextInput>
           </View>
           <Text style = {styles.email}>{i18n.t("yourwalletaddress")}</Text>
           <View style = {styles.whiteView}>
-            <TextInput style = {styles.input}  placeholder={i18n.t("enterWalAdd")}>
+            <TextInput style = {styles.input}  placeholder={i18n.t("enterWalAdd")} onChangeText = {setWalletAddressText}>
               
             </TextInput>
           </View>
           <Text style = {styles.email}>{i18n.t("problemDescription")}</Text>
           <View style = {styles.questView}>
-            <TextInput style = {styles.input}  placeholder={i18n.t("enterproblemDescription")} multiline >
+            <TextInput style = {styles.input}  placeholder={i18n.t("enterproblemDescription")} multiline  onChangeText = {setDetailsText}>
               
             </TextInput>
           </View>
@@ -38,7 +49,7 @@ function SuggestScreen({}: Props) {
             title={i18n.t("submit")}
             titleStyle = {styles.Tlabel}
             buttonStyle = {styles.Tbutton}
-            onPress = {() => Alert.alert('123') }
+            onPress = {() => postSuggest()}
             />
           </View>
 
