@@ -7,10 +7,12 @@ import { RouteProp, useRoute, useIsFocused } from '@react-navigation/native';
 import { ListItem } from 'react-native-elements';
 import { get } from 'apis/helper'
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import i18n from "i18n";
+import i18next from 'i18next';
+
+import walletAction from 'actions/wallet';
+import { useSelector, useDispatch } from 'react-redux';
+import { getLanguage } from 'reducers/dataStateReducer';
 import * as helper from 'apis/helper'
-import { url } from 'inspector';
-import { getDeviceId } from 'react-native-device-info';
 
 type SetUpScreenRouteProp = RouteProp<ScreensParamList, 'SetUpScreen'>;
 interface Props {
@@ -20,20 +22,6 @@ interface Props {
         };
     };
 }
-
-
-const list = [
-
-    {
-        name: '简体中文',
-        select: true,
-    },
-    {
-        name: 'English',
-        select: false,
-    },
-
-]
 const list1 = [
 
     {
@@ -61,24 +49,20 @@ const list1 = [
 ]
 
 
-const Item = ({ item, onPress, style }) => (
-    <TouchableOpacity onPress={onPress} style={style}>
-        <Text style={styles.nameText}>{item.name}</Text>
-        <Image style={styles.imageText} source={item.select ? require('assets/icon-20-选择-on.png') : require('assets/icon-20-选择-off.png')}></Image>
-    </TouchableOpacity>
-);
-
 function LanguageSetScreen(props: Props) {
     const { title } = props.route.params;
+    const dispatch = useDispatch()
+    const language = useSelector(getLanguage)
     const [languagelistData, setLanguageListData] = useState([]);
+    const [defaultLanguage, setDefaultLanguage] = useState(language);
     const isFocused = useIsFocused();
     useEffect(() => {
         if (isFocused) {
-            getLanguage();
+            getLanguageList();
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isFocused]);
-    async function getLanguage() {
+    async function getLanguageList() {
         const { data } = await helper.get('/sys/language', {})
         console.log('===========/sys/aboutr=============');
         console.log(data);
@@ -87,14 +71,29 @@ function LanguageSetScreen(props: Props) {
             setLanguageListData(data)
         }
     }
+    async function editLanguage(params: string) {
+        if (params) {
+            await dispatch(walletAction.setLanguage(params));
+            await setDefaultLanguage(params)
+            console.log('====================================');
+            console.log(params);
+            console.log('====================================');
+            i18next.changeLanguage(params)
+        }
+    }
+
+    const Item = ({ item, onPress, style }) => (
+        <TouchableOpacity onPress={onPress} style={style}>
+            <Text style={styles.nameText}>{item.language}</Text>
+            <Image style={styles.imageText} source={defaultLanguage === item.code ? require('assets/icon-20-选择-on.png') : require('assets/icon-20-选择-off.png')}></Image>
+        </TouchableOpacity>
+    );
+
     const renderItem = ({ item }) => {
         return (
             <Item
                 item={item}
-                onPress={() => (
-                    item.select = true
-                )
-                }
+                onPress={() => editLanguage(item.code)}
                 style={styles.marginItem}
             />
         );
@@ -102,7 +101,7 @@ function LanguageSetScreen(props: Props) {
     return (
         <SafeAreaView style={styles.container}>
             <FlatList
-                data={title === i18n.t("currencyUnit") ? list1 : list}
+                data={languagelistData}
                 style={styles.item}
                 renderItem={renderItem}
                 keyExtractor={(item) => item.name}

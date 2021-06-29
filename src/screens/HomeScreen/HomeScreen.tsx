@@ -17,6 +17,7 @@ import { Avatar, Button } from 'react-native-elements';
 import { navigate } from 'components/navigationService';
 import LinearGradient from 'react-native-linear-gradient';
 import { TouchableHighlight } from 'react-native-gesture-handler';
+
 interface Props {}
 
 const modelLeft = [

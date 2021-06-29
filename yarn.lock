@@ -1758,6 +1758,11 @@
     "@types/react" "*"
     hoist-non-react-statics "^3.3.0"
 
+"@types/i18n-js@*":
+  version "3.8.1"
+  resolved "https://registry.nlark.com/@types/i18n-js/download/@types/i18n-js-3.8.1.tgz?cache=0&sync_timestamp=1621241967705&other_urls=https%3A%2F%2Fregistry.nlark.com%2F%40types%2Fi18n-js%2Fdownload%2F%40types%2Fi18n-js-3.8.1.tgz#3e36f79e8f535645ace338e22e724cbee544f3b1"
+  integrity sha1-Pjb3no9TVkWs4zjiLnJMvuVE87E=
+
 "@types/i18next@^13.0.0":
   version "13.0.0"
   resolved "https://registry.npm.taobao.org/@types/i18next/download/@types/i18next-13.0.0.tgz#403ef338add0104e74d9759f1b39217e7c5d4084"
@@ -1843,6 +1848,13 @@
   integrity sha1-X6rL/n3A8kcpwd9pFGEL/oYaUN4=
   dependencies:
     react-i18next "*"
+
+"@types/react-native-i18n@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.nlark.com/@types/react-native-i18n/download/@types/react-native-i18n-2.0.0.tgz#2df92b3392d813b39530bd126aad429eedc9c3de"
+  integrity sha1-LfkrM5LYE7OVML0Saq1Cnu3Jw94=
+  dependencies:
+    "@types/i18n-js" "*"
 
 "@types/react-native-vector-icons@^6.4.6", "@types/react-native-vector-icons@^6.4.7":
   version "6.4.7"
@@ -4960,6 +4972,11 @@ human-signals@^2.1.0:
   resolved "https://registry.nlark.com/human-signals/download/human-signals-2.1.0.tgz#dc91fcba42e4d06e4abaed33b3e7a3c02f514ea0"
   integrity sha1-3JH8ukLk0G5Kuu0zs+ejwC9RTqA=
 
+i18n-js@3.0.11:
+  version "3.0.11"
+  resolved "https://registry.nlark.com/i18n-js/download/i18n-js-3.0.11.tgz#f9e96bdb641c5b9d6be12759d7c422089987ef02"
+  integrity sha1-+elr22QcW51r4SdZ18QiCJmH7wI=
+
 i18next@*:
   version "20.3.2"
   resolved "https://registry.nlark.com/i18next/download/i18next-20.3.2.tgz#5195e76b9e0848a1c198001bf6c7fc72995a55f1"
@@ -7810,6 +7827,13 @@ react-native-get-random-values@^1.7.0:
   integrity sha1-htnRlggotgY5LbpFQL92BgVEhTA=
   dependencies:
     fast-base64-decode "^1.0.0"
+
+react-native-i18n@^2.0.15:
+  version "2.0.15"
+  resolved "https://registry.npm.taobao.org/react-native-i18n/download/react-native-i18n-2.0.15.tgz#09b5a9836116fa7dbd0054c46e2d1014c1ef3c65"
+  integrity sha1-CbWpg2EW+n29AFTEbi0QFMHvPGU=
+  dependencies:
+    i18n-js "3.0.11"
 
 react-native-image-crop-picker@^0.35.0:
   version "0.35.3"

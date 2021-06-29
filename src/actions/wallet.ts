@@ -14,6 +14,7 @@ const Wallet = createActions({
     setUser: createAction<User>(),
     setAccountList: createAction<Account>(),
     setDappSearchList: createAction<DappRecentItem>(),
+    setLanguage: StringAction,
     setLocation: createAction<Location>(),
     getUser: NoArgAction,
     getHelp: NoArgAction,
