@@ -7,19 +7,20 @@ import SplashScreen from 'react-native-splash-screen';
 import { useDispatch, useSelector } from 'react-redux';
 import {GET_TOKEN} from "actions/wallet"
 import { getAccountList } from 'reducers/dataStateReducer';
+import { clearAll } from 'helper/test';
 
 function RootScreen() {
   const dispatch = useDispatch();
+  const accountlist = useSelector(getAccountList);
+
   React.useEffect(() => {
     SplashScreen.hide();
     dispatch(GET_TOKEN());
-  });
-
-  const accountlist = useSelector(getAccountList)
+  },[]);
+  console.log(accountlist)
   return (
     <NavigationContainer ref={navigationRef}>
-      <MainStackNavigator/>
-      {/* {accountlist.length > 0 ? <MainStackNavigator /> : <AuthStackNavigator />} */}
+      {accountlist.length > 0 ? <MainStackNavigator /> : <AuthStackNavigator />}
     </NavigationContainer>
   );
 }

@@ -1,15 +1,16 @@
 import i18n from "i18n";
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, View, Text, TextInput, SafeAreaView } from 'react-native';
 
 import { Button } from 'react-native-elements';
 import { navigate } from 'components/navigationService';
-// import { WToast } from 'react-native-smart-tip';
+import { genWallet } from "wallets/ethsWallet";
+import { Account } from "actions/types";
 
 interface Props {
   route: {
     params: {
-      accountInfo: object;
+      accountInfo: Account;
       loginType: string;
     };
   };
@@ -18,14 +19,14 @@ interface Props {
 const SetWalletPwdScreen = (props: Props) => {
   const { accountInfo } = props.route.params;
   const { loginType } = props.route.params;
-  console.log('====================================');
-  console.log(accountInfo);
-  console.log(loginType);
-  console.log('====================================');
+  
+  let [account,setAccount] = useState({});
   const [pwd, setPwd] = useState('');
-  const [securityCode, setSecurityCode] = useState('');
-  const checkPwd =
-    pwd.length >= 6 && securityCode.length >= 6 && securityCode === pwd;
+  const [repwd, setRepwd] = useState('');
+  
+  useEffect(() => {
+    setAccount(genWallet());
+  },[]);
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.main}>
@@ -42,9 +43,9 @@ const SetWalletPwdScreen = (props: Props) => {
           <TextInput
             placeholder={i18n.t("confirmsecuritypassword")}
             maxLength={12}
-            value={securityCode}
+            value={repwd}
             style={styles.inputsecurityCode}
-            onChangeText={setSecurityCode}
+            onChangeText={setRepwd}
             secureTextEntry
           />
         </View>
@@ -53,16 +54,16 @@ const SetWalletPwdScreen = (props: Props) => {
           onPress={() => {
             if (loginType) {
               navigate('SuccessScreen', {
-                title: i18n.t("Importsuccessful"),
-                accountInfo: accountInfo,
+                title: i18n.t("Createdsuccessfully"),
+                accountInfo: {...account,...accountInfo,securityCode:repwd},
               });
             } else {
               navigate('SafetyTipsScreen', {
-                accountInfo: { ...accountInfo, securityCode },
+                accountInfo: { ...account,...accountInfo,securityCode:repwd},
               });
             }
           }}
-          disabled={!checkPwd}
+          disabled={!(pwd.length >= 6 && repwd.length >= 6 && repwd === pwd)}
           title={i18n.t("NextStep")}
           titleStyle={styles.nextButtonTitle}
         />

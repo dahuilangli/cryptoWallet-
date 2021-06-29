@@ -9,6 +9,7 @@ import { MainStackParamList } from 'routers/MainStackNavigator';
 import { TabParamList } from 'routers/TabNavigator';
 import { AuthStackParamList } from 'routers/AuthStackNavigator';
 import walletAction from './wallet';
+import {ethers} from 'ethers';
 
 export type ScreensParamList = MainStackParamList &
   TabParamList &
@@ -16,10 +17,11 @@ export type ScreensParamList = MainStackParamList &
 
 export interface Account {
   address: string;
-  mnemonic?: string;
+  mnemonic?: ethers.utils.Mnemonic;
   privateKey: string;
   securityCode?: string;
   walletName?: string;
+  password?:string;
 }
 
 export interface DappRecentItem {

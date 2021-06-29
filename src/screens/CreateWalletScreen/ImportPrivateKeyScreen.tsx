@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { StyleSheet, View, Text, TextInput, SafeAreaView } from 'react-native';
 import { Button } from 'react-native-elements';
 import { WToast } from 'react-native-smart-tip';
-import { recoverAccountToPrivateKey } from 'wallet/ethers';
+import { importByprivateKey } from 'wallets/ethsWallet';
 import { navigate } from 'components/navigationService';
 interface Props {
   route: {
@@ -43,7 +43,7 @@ const ImportPrivateKeyScreen = (props: Props) => {
           buttonStyle={styles.nextButton}
           onPress={() => {
             try {
-              recoverAccountToPrivateKey(
+              importByprivateKey(
                 privateKey.replace(/(^\s*)|(\s*$)/g, ''),
               );
               navigate('SetWalletNameScreen', {
