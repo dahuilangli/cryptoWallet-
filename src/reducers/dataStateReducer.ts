@@ -21,10 +21,14 @@ export const initialState: Readonly<DataState> = {
 
 export const selectDataState = (reduxState: ReduxState) => reduxState.dataState;
 
-
 export const getUser = createSelector(
   selectDataState,
   (dataState) => dataState.user,
+);
+
+export const getToken = createSelector(
+  selectDataState,
+  (dataState) => dataState.token,
 );
 
 export const getAccountList = createSelector(
@@ -52,13 +56,13 @@ const reducer = (originalState = initialState, walletAction: WalletAction) =>
     switch (walletAction.type) {
       case 'setUser':
         return;
+      case 'setToken':
+        state.token = walletAction.payload;
+        return;
       case 'setAccountList':
         state.accountList?.push(walletAction.payload);
         return;
       case 'setLanguage':
-        console.log('====================================');
-        console.log(walletAction);
-        console.log('====================================');
         state.language = walletAction.payload;
         return;
       case 'setDappSearchList':
