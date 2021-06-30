@@ -28,7 +28,7 @@ function AddressBookEditorScreen(props: Props) {
     
     const [addname, setAddName] = useState(item.add_name);
     const [remarks, setRemarks] = useState(item.remarks);
-    const [typeLogo, setTypeLogo] = useState(item.logo?item.logo:require('assets/wallet-icon/ethereum.png'));
+    const [typeLogo, setTypeLogo] = useState(item.logo?item.logo:require('assets/coins/ethereum.png'));
     const [WalletAdress, setWalletAdress] = useState(item.walletaddress);
     const dispatch = useDispatch();
     async function addAddressBook() {
