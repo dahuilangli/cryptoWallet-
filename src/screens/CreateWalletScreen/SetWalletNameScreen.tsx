@@ -1,4 +1,4 @@
-import i18n from "i18n";
+import { useTranslation } from 'react-i18next';
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, View, Text, TextInput, SafeAreaView } from 'react-native';
 import { Button } from 'react-native-elements';
@@ -23,17 +23,18 @@ const SetWalletNameScreen = (props: Props) => {
   const { type } = props.route.params;
   const { loginType } = props.route.params;
   const [walletName, setWalletName] = useState('');
+  const {t} = useTranslation();
   
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.main}>
         <View style={styles.inputContainer}>
           <Text style={styles.presentText}>
-            {i18n.t("walletnamedes")}
+            {t("walletnamedes")}
           </Text>
           <TextInput
             maxLength={20}
-            placeholder={i18n.t("walletname")}
+            placeholder={t("walletname")}
             value={walletName}
             style={styles.inputName}
             onChangeText={setWalletName}
@@ -48,7 +49,7 @@ const SetWalletNameScreen = (props: Props) => {
             });
           }}
           disabled={!walletName}
-          title={i18n.t("NextStep")}
+          title={t("NextStep")}
           titleStyle={styles.nextButtonTitle}
         />
       </View>

@@ -12,7 +12,7 @@ import {
 import { useDispatch } from 'react-redux';
 import walletAction from 'actions/wallet';
 import { Account } from 'actions/types';
-import i18n from "i18n";
+import { useTranslation } from 'react-i18next';
 
 // import { setGenericPassword } from 'utils/keyChain';
 interface Props {
@@ -24,6 +24,7 @@ interface Props {
   };
 }
 const SuccessScreen = ({ route }: Props) => {
+  const {t} = useTranslation();
   let { title } = route.params;
   let { accountInfo } = route.params;
   const dispatch = useDispatch();
@@ -55,7 +56,7 @@ const SuccessScreen = ({ route }: Props) => {
       <StatusBar barStyle="dark-content" />
       <Image style={styles.logo} source={require('assets/success.png')} />
       <Text style={styles.title}>{title}</Text>
-      {/* <Text style={styles.desc}>{i18n.t("Connectingtowallet")}</Text> */}
+      {/* <Text style={styles.desc}>{t("Connectingtowallet")}</Text> */}
       {/* <Animated.Image
         style={[styles.circle, { transform: [{ rotate: spin }] }]}
         source={require('assets/loading.png')}

@@ -1,4 +1,4 @@
-import i18n from "i18n";
+import { useTranslation } from 'react-i18next';
 import React, { useState } from 'react';
 import { StyleSheet, View, Text, TextInput, SafeAreaView } from 'react-native';
 import { Button } from 'react-native-elements';
@@ -22,12 +22,13 @@ function UselessTextInput(props: any) {
 const ImportMnemonicScreen = (props: Props) => {
   const { type } = props.route.params;
   const [mnemonic, setMnemonic] = useState('');
+  const {t} = useTranslation();
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.main}>
         <View style={styles.inputContainer}>
           <Text style={styles.presentText}>
-            {i18n.t("mnemonicimportDes")}
+            {t("mnemonicimportDes")}
           </Text>
           <View style={styles.inputName}>
             <UselessTextInput
@@ -35,7 +36,7 @@ const ImportMnemonicScreen = (props: Props) => {
               numberOfLines={4}
               onChangeText={(text: string) => setMnemonic(text)}
               value={mnemonic}
-              placeholder={i18n.t("Please fill out")}
+              placeholder={t("Please fill out")}
             />
           </View>
         </View>
@@ -49,7 +50,7 @@ const ImportMnemonicScreen = (props: Props) => {
             })
           }
           disabled={!mnemonic}
-          title={i18n.t("NextStep")}
+          title={t("NextStep")}
           titleStyle={styles.nextButtonTitle}
         />
       </View>

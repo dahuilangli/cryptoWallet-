@@ -1,4 +1,4 @@
-import i18n from "i18n";
+import { useTranslation } from 'react-i18next';
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, View, Text, TextInput, SafeAreaView } from 'react-native';
 
@@ -23,7 +23,8 @@ const SetWalletPwdScreen = (props: Props) => {
   let [account,setAccount] = useState({});
   const [pwd, setPwd] = useState('');
   const [repwd, setRepwd] = useState('');
-  
+  const {t} = useTranslation();
+
   useEffect(() => {
     setAccount(genWallet());
   },[]);
@@ -31,9 +32,9 @@ const SetWalletPwdScreen = (props: Props) => {
     <SafeAreaView style={styles.container}>
       <View style={styles.main}>
         <View style={styles.inputContainer}>
-          <Text style={styles.presentText}>{i18n.t("securityPassWordDes")}</Text>
+          <Text style={styles.presentText}>{t("securityPassWordDes")}</Text>
           <TextInput
-            placeholder={i18n.t("setsecurepassword")}
+            placeholder={t("setsecurepassword")}
             maxLength={12}
             value={pwd}
             style={styles.inputPwd}
@@ -41,7 +42,7 @@ const SetWalletPwdScreen = (props: Props) => {
             secureTextEntry
           />
           <TextInput
-            placeholder={i18n.t("confirmsecuritypassword")}
+            placeholder={t("confirmsecuritypassword")}
             maxLength={12}
             value={repwd}
             style={styles.inputsecurityCode}
@@ -54,7 +55,7 @@ const SetWalletPwdScreen = (props: Props) => {
           onPress={() => {
             if (loginType) {
               navigate('SuccessScreen', {
-                title: i18n.t("Createdsuccessfully"),
+                title: t("Createdsuccessfully"),
                 accountInfo: {...account,...accountInfo,securityCode:repwd},
               });
             } else {
@@ -64,7 +65,7 @@ const SetWalletPwdScreen = (props: Props) => {
             }
           }}
           disabled={!(pwd.length >= 6 && repwd.length >= 6 && repwd === pwd)}
-          title={i18n.t("NextStep")}
+          title={t("NextStep")}
           titleStyle={styles.nextButtonTitle}
         />
       </View>

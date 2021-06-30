@@ -5,7 +5,7 @@ import { navigate } from 'components/navigationService';
 import { ScreensParamList, Feed } from 'actions/types';
 import {  SCREENWIDTH } from 'config/constants';
 import { RouteProp, useRoute, useIsFocused } from '@react-navigation/native';
-import i18n from "i18n";
+import { useTranslation } from 'react-i18next';
 import * as helper from 'apis/helper'
 
 
@@ -59,7 +59,7 @@ const list2 = [
 ]
 
 function HomeScreen() {
-  
+  const {t} = useTranslation();
   const Item1 = ({ item1, onPress1, style1 }) => (
     <TouchableOpacity onPress={onPress1} style={[styles.background, style1]}>
       <View style={styles.headView}>
@@ -165,8 +165,8 @@ function MessageScreen({ }: Props) {
         tabStyle: { height: 50 },
       }}
     >
-      <Tab.Screen name={i18n.t("platformnotice")} component={HomeScreen} />
-      <Tab.Screen name={i18n.t("tradeInformation")} component={SettingsScreen} />
+      <Tab.Screen name={t("platformnotice")} component={HomeScreen} />
+      <Tab.Screen name={t("tradeInformation")} component={SettingsScreen} />
     </Tab.Navigator>
   );
 }

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Text, SafeAreaView, TouchableOpacity, Image, Button, Alert,TextInput } from 'react-native';
 // import { TextInput } from 'react-native-gesture-handler';
 import { navigate } from 'components/navigationService';
-import i18n from "i18n";
+import { useTranslation } from 'react-i18next';
 import {SCREENHEIGHT,SCREENWIDTH} from "config/constants"
 interface Props {
     route: {
@@ -21,12 +21,13 @@ interface Props {
 }
 
 function AddressBookEditorScreen(props: Props) {
+    const {t} = useTranslation();
     const { item } = props.route.params;
     const { title } = props.route.params;
     return (
         <SafeAreaView style={styles.container}>
             <View>
-                <Text style={styles.typeText}>{i18n.t("addresstype")}</Text>
+                <Text style={styles.typeText}>{t("addresstype")}</Text>
                 <TouchableOpacity
                     onPress={() =>
                         navigate('AddressTypeScreen', {
@@ -40,39 +41,39 @@ function AddressBookEditorScreen(props: Props) {
                         <Image style={styles.rightImage} source={require('assets/icon-20-arrow-right.png')}></Image>
                     </View>
                 </TouchableOpacity>
-                <Text style={styles.typeText}>{i18n.t("addressname")}</Text>
+                <Text style={styles.typeText}>{t("addressname")}</Text>
                 <View style={styles.nameView}>
                     <TextInput
                         style={styles.nameInput}
-                        placeholder={i18n.t("enterAddName")}
+                        placeholder={t("enterAddName")}
                         defaultValue = {item.name}
                         onChangeText={(text: string) => ({})}
                     >
 
                     </TextInput>
                 </View>
-                <Text style={styles.typeText}>{i18n.t("marks")}</Text>
+                <Text style={styles.typeText}>{t("marks")}</Text>
                 <View style={styles.nameView}>
                     <TextInput
                         style={styles.nameInput}
-                        placeholder={i18n.t("enterWalMark")}
+                        placeholder={t("enterWalMark")}
                         defaultValue = {item.subtitle}
                         onChangeText={(text: string) => ('')}>
                     </TextInput>
                 </View>
-                <Text style={styles.typeText}>{i18n.t("walletaddress")}</Text>
+                <Text style={styles.typeText}>{t("walletaddress")}</Text>
                 <View style={styles.addressView}>
                     <TextInput
                         style={styles.addressInput}
                         multiline
-                        placeholder={i18n.t("pasteWalAddress")}
+                        placeholder={t("pasteWalAddress")}
                         defaultValue = {item.pkey}
                         onChangeText={(text: string) => ('')}>
                     </TextInput>
                 </View>
             </View>
             <TouchableOpacity onPress={({ }) => (Alert.alert('1111'))} style={styles.surebtn}>
-                <Text style={styles.sureText}>{i18n.t("sure")}</Text>
+                <Text style={styles.sureText}>{t("sure")}</Text>
             </TouchableOpacity>
         </SafeAreaView>
     );

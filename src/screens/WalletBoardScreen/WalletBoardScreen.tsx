@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import i18n from "i18n";
+import { useTranslation } from 'react-i18next';
 import {
   ScrollView,
   StyleSheet,
@@ -107,6 +107,7 @@ const DATA = [
   },
 ];
 function WalletBoardScreen({}: Props) {
+  const {t} = useTranslation();
   let sectionList: any;
   const [selectItem, setSelectItem] = useState(0);
   function clickOnItem(index: number) {
@@ -153,7 +154,7 @@ function WalletBoardScreen({}: Props) {
                   />
                 </View>
                 <View style={styles.itemAmountContainer}>
-                  <Text style={styles.itemAmount}>{i18n.t("AvailableBalance")}</Text>
+                  <Text style={styles.itemAmount}>{t("AvailableBalance")}</Text>
                   <Text style={styles.itemAmountText}>{item?.amount}</Text>
                 </View>
               </TouchableOpacity>
@@ -164,13 +165,13 @@ function WalletBoardScreen({}: Props) {
       <View style={styles.buttonContainer}>
         <Button
           buttonStyle={styles.button}
-          title={i18n.t("Createwallet")}
+          title={t("Createwallet")}
           onPress={() => navigate('SelectWalletScreen', { loginType: 'new' })}
           titleStyle={styles.buttonTitle}
         />
         <Button
           buttonStyle={styles.buttonOne}
-          title={i18n.t("Importwallet")}
+          title={t("Importwallet")}
           onPress={() => navigate('SelectWalletScreen')}
           titleStyle={styles.buttonTitle}
         />

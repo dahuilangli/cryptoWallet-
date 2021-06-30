@@ -1,5 +1,5 @@
 import { Platform, Alert, Linking } from 'react-native';
-import i18n from "i18n";
+import { useTranslation } from 'react-i18next';
 import {
   isFirstTime,
   isRolledBack,
@@ -14,6 +14,7 @@ import _updateConfig from '../../update.json';
 // @ts-ignore
 const { appKey } = _updateConfig[Platform.OS];
 export default async function checkPushyUpdate() {
+   const {t} = useTranslation();
   if (isFirstTime) {
     markSuccess();
   } else if (isRolledBack) {
@@ -25,7 +26,7 @@ export default async function checkPushyUpdate() {
     if (info.expired) {
       Alert.alert('提示', '您的应用版本已更新,请前往应用商店下载新的版本', [
         {
-          text: i18n.t("sure"),
+          text: t("sure"),
           onPress: () => {
             info.downloadUrl && Linking.openURL(info.downloadUrl);
           },

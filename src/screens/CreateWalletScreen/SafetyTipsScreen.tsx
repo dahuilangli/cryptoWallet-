@@ -1,4 +1,4 @@
-import i18n from "i18n";
+import { useTranslation } from 'react-i18next';
 import React from 'react';
 import {
   StyleSheet,
@@ -19,6 +19,7 @@ interface Props {
   };
 }
 const SafetyTipsScreen = (props: Props) => {
+  const {t} = useTranslation();
   const { accountInfo } = props.route.params;
   return (
     <SafeAreaView style={styles.container}>
@@ -28,11 +29,11 @@ const SafetyTipsScreen = (props: Props) => {
             style={styles.warning}
             source={require('assets/safetyWarning.png')}
           />
-          <Text style={styles.presentTitle}>{i18n.t("Safetytips")}</Text>
+          <Text style={styles.presentTitle}>{t("Safetytips")}</Text>
           <Text style={styles.warningDesc}>
-            {i18n.t("Anyonegetsmnemonicphrasecantransferyourassets")}
+            {t("Anyonegetsmnemonicphrasecantransferyourassets")}
             {'\n'}
-            {i18n.t("backupandkeepmnemonicwordsinsecureenvironment")}
+            {t("backupandkeepmnemonicwordsinsecureenvironment")}
           </Text>
         </View>
         <Button
@@ -40,15 +41,15 @@ const SafetyTipsScreen = (props: Props) => {
           onPress={() => {
             navigate('BackupMnemonicScreen', { accountInfo });
           }}
-          title={i18n.t("Gobackup")}
+          title={t("Gobackup")}
           titleStyle={styles.nextButtonTitle}
         />
         <Button
           buttonStyle={styles.noneButton}
           onPress={() => {
-            Alert.alert(i18n.t("becontinued"));
+            Alert.alert(t("becontinued"));
           }}
-          title={i18n.t("Backuplater")}
+          title={t("Backuplater")}
           titleStyle={styles.noneButtonTitle}
         />
       </View>

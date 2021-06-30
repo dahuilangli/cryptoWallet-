@@ -1,4 +1,4 @@
-import i18n from "i18n";
+import { useTranslation } from 'react-i18next';
 import React from 'react';
 import { StyleSheet, View, SafeAreaView, Text } from 'react-native';
 
@@ -15,12 +15,13 @@ interface Props {
 const BackupMnemonicScreen = (props: Props) => {
   const { accountInfo } = props.route.params;
   const mnemonicList: string[] = accountInfo.mnemonic.split(' ');
+  const {t} = useTranslation();
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.main}>
         <View>
           <Text style={styles.presentText}>
-            {i18n.t("Recordwordsincorrectorder")}{'\n'}{i18n.t("keepthemnsafeplaceManualtranscriptionisrecommended")}
+            {t("Recordwordsincorrectorder")}{'\n'}{t("keepthemnsafeplaceManualtranscriptionisrecommended")}
           </Text>
           <View style={styles.mnemonicList}>
             {mnemonicList &&
@@ -43,7 +44,7 @@ const BackupMnemonicScreen = (props: Props) => {
               accountInfo: { ...accountInfo, mnemonics: mnemonicList },
             });
           }}
-          title={i18n.t("NextStep")}
+          title={t("NextStep")}
           titleStyle={styles.nextButtonTitle}
         />
       </View>

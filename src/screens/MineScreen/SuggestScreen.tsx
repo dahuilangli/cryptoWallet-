@@ -5,12 +5,13 @@ import { ScreensParamList, Feed } from 'actions/types';
 import { RouteProp, useRoute, useIsFocused } from '@react-navigation/native';
 import { Button } from 'react-native-elements'
 import * as helper from 'apis/helper'
-import i18n from "i18n";
+import { useTranslation } from 'react-i18next';
 
 type SuggestScreenRouteProp = RouteProp<ScreensParamList, 'SuggestScreen'>;
 interface Props { }
 
 function SuggestScreen({ }: Props) {
+  const {t} = useTranslation();
   const [emailText, setEmailText] = useState('');
   const [walletAddressText, setWalletAddressText] = useState('');
   const [detailsText, setDetailsText] = useState('');
@@ -31,27 +32,27 @@ function SuggestScreen({ }: Props) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.email}>{i18n.t("yourmailbox")}</Text>
+      <Text style={styles.email}>{t("yourmailbox")}</Text>
       <View style={styles.whiteView}>
-        <TextInput style={styles.input} placeholder={i18n.t("enteremailaddress")} onChangeText={setEmailText}>
+        <TextInput style={styles.input} placeholder={t("enteremailaddress")} onChangeText={setEmailText}>
 
         </TextInput>
       </View>
-      <Text style={styles.email}>{i18n.t("yourwalletaddress")}</Text>
+      <Text style={styles.email}>{t("yourwalletaddress")}</Text>
       <View style={styles.whiteView}>
-        <TextInput style={styles.input} placeholder={i18n.t("enterWalAdd")} onChangeText={setWalletAddressText}>
+        <TextInput style={styles.input} placeholder={t("enterWalAdd")} onChangeText={setWalletAddressText}>
 
         </TextInput>
       </View>
-      <Text style={styles.email}>{i18n.t("problemDescription")}</Text>
+      <Text style={styles.email}>{t("problemDescription")}</Text>
       <View style={styles.questView}>
-        <TextInput style={styles.input} placeholder={i18n.t("enterproblemDescription")} multiline onChangeText={setDetailsText}>
+        <TextInput style={styles.input} placeholder={t("enterproblemDescription")} multiline onChangeText={setDetailsText}>
 
         </TextInput>
       </View>
       <View style={styles.main}>
         <Button
-          title={i18n.t("submit")}
+          title={t("submit")}
           titleStyle={styles.Tlabel}
           buttonStyle={styles.Tbutton}
           onPress={() => 

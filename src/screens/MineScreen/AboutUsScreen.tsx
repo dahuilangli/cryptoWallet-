@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   Image,
 } from 'react-native';
-import i18n from "i18n";
+import { useTranslation } from 'react-i18next';
 import { navigate } from 'components/navigationService';
 import { ScreensParamList, Feed } from 'actions/types';
 import * as helper from 'apis/helper'
@@ -29,6 +29,7 @@ interface response {
 
 
 function AboutUsScreen({ }: Props) {
+  const {t} = useTranslation();
   const [aboutlistData, setAboutListData] = useState([]);
   const isFocused = useIsFocused();
   useEffect(() => {
@@ -54,7 +55,7 @@ function AboutUsScreen({ }: Props) {
       <SafeAreaView style={styles.container}>
         <View style={styles.headView}>
           <Image source={require('assets/icon-125-aboutuslogo.png')} style={styles.iconImage} />
-          <Text style={styles.nameLabel}>{i18n.t("projectname")}</Text>
+          <Text style={styles.nameLabel}>{t("projectname")}</Text>
         </View>
         <View style={styles.bottomView}>
           {

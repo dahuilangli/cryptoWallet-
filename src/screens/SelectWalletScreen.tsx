@@ -1,5 +1,5 @@
 import React from 'react';
-import i18n from "i18n";
+import { useTranslation } from 'react-i18next';
 
 import {GETHELP} from "actions/wallet"
 
@@ -42,11 +42,11 @@ const list = [
 const SelectWalletScreen = (prop: Props) => {
   
   const { loginType } = prop.route.params;
-  
+  const {t} = useTranslation();
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.main}>
-        <Text style={styles.presentText}>{i18n.t("Selectwallettypetobecreated")}</Text>
+        <Text style={styles.presentText}>{t("Selectwallettypetobecreated")}</Text>
         {list.map((item, i) => (
           <TouchableOpacity
             style={styles.list}

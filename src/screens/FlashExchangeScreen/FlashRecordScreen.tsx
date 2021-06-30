@@ -4,7 +4,7 @@ import { navigate } from 'components/navigationService';
 import { ScreensParamList, Feed } from 'actions/types';
 import { RouteProp, useRoute, useIsFocused } from '@react-navigation/native';
 
-import i18n from "i18n";
+import { useTranslation } from 'react-i18next';
 type FlashRecordScreenRouteProp = RouteProp<ScreensParamList, 'FlashRecordScreen'>;
 interface Props { }
 
@@ -69,6 +69,7 @@ const Item = ({ item, onPress, style }) => (
 
 
 function FlashRecordScreen({ }: Props) {
+  const {t} = useTranslation();
   const [selectedId, setSelectedId] = useState(null);
 
   const renderItem = ({ item }) => {
@@ -77,7 +78,7 @@ function FlashRecordScreen({ }: Props) {
         item={item}
         onPress={() =>
           navigate('AddressBookEditorScreen', {
-            title: i18n.t("editpayee"),
+            title: t("editpayee"),
             item: item,
           })
         }

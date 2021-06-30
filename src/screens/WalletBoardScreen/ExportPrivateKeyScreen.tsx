@@ -5,6 +5,8 @@ import { StyleSheet, View, SafeAreaView, Text } from 'react-native';
 import i18n from 'i18n'
 import { Button } from 'react-native-elements';
 import { WToast } from 'react-native-smart-tip';
+import { useTranslation } from 'react-i18next';
+
 
 interface Props {}
 
@@ -25,11 +27,12 @@ const ExportPrivateKeyScreen = ({}: Props) => {
     Clipboard.setString(privateKey);
     show();
   };
+  const {t} = useTranslation();
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.main}>
         <Text style={styles.presentText}>
-          {i18n.t("backupprivatekeytosafeplace")}{'\n'}{i18n.t("Onceleakeditmaycauseassetloss")}
+          {t("backupprivatekeytosafeplace")}{'\n'}{t("Onceleakeditmaycauseassetloss")}
         </Text>
         <View style={styles.privateKeyContainer}>
           <Text style={styles.privateKeyText}>{privateKey}</Text>
@@ -38,7 +41,7 @@ const ExportPrivateKeyScreen = ({}: Props) => {
         <Button
           buttonStyle={styles.nextButton}
           onPress={copyToClipboard}
-          title={i18n.t("Copyprivatekey")}
+          title={t("Copyprivatekey")}
           titleStyle={styles.nextButtonTitle}
         />
       </View>

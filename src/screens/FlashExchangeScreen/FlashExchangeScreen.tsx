@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import {Header } from 'react-native-elements';
-import i18n from "i18n";
+import { useTranslation } from 'react-i18next';
 import {
   SafeAreaView,
   StyleSheet,
@@ -48,6 +48,7 @@ const list = [
 
 interface Props { }
 function FlashExchangeScreen({ }: Props) {
+  const {t} = useTranslation();
   const [outImage, setOutImage] = useState(require('assets/img-40-coointype-eth.png'));
   const [inPutImage, setInPutImage] = useState(require('assets/img-40-coointype-USDT.png'));
   const [outName, setOutName] = useState('ETH');
@@ -66,11 +67,11 @@ function FlashExchangeScreen({ }: Props) {
           <TouchableOpacity 
             onPress = {() => navigate('FlashRecordScreen')}
           >
-            <Text style = {styles.rightBtn}>{i18n.t("record")}</Text>
+            <Text style = {styles.rightBtn}>{t("record")}</Text>
           </TouchableOpacity>
         }
         rightContainerStyle = {{alignItems:'flex-end',justifyContent:'center',}}
-        centerComponent={{ text: i18n.t("flash"), style: { fontSize: 18, fontWeight: 'bold', color: 'white' ,} }}
+        centerComponent={{ text: t("flash"), style: { fontSize: 18, fontWeight: 'bold', color: 'white' ,} }}
         containerStyle={{
           backgroundColor: '#3D73DD',
           flexDirection:'row',
@@ -113,10 +114,10 @@ function FlashExchangeScreen({ }: Props) {
         </TouchableOpacity>
         <View style={styles.secondView}>
           <View style={styles.centerViewone}>
-            <Text style={styles.centerOut}>{i18n.t("transferout")}</Text>
+            <Text style={styles.centerOut}>{t("transferout")}</Text>
             <View style={styles.inputView}>
               <TextInput
-                placeholder={i18n.t("numberoftransfers")}
+                placeholder={t("numberoftransfers")}
                 style={styles.inputNumber}
                 onChangeText={(text: string) => setOutNumber(text)}
               >
@@ -124,10 +125,10 @@ function FlashExchangeScreen({ }: Props) {
             </View>
           </View>
           <View style={styles.centerViewtwo}>
-            <Text style={styles.centerinput}>{i18n.t("transferin")}</Text>
+            <Text style={styles.centerinput}>{t("transferin")}</Text>
             <View style={styles.outView}>
               <TextInput
-                placeholder={i18n.t("numberreceive")}
+                placeholder={t("numberreceive")}
                 style={styles.outNumber}
                 onChangeText={(text: string) => setInNumber(text)}
               >
@@ -137,18 +138,18 @@ function FlashExchangeScreen({ }: Props) {
         </View>
         <View style={styles.bottomView}>
           <View style={{ flexDirection: 'row' }}>
-            <Text style={styles.useText}>{i18n.t("Available")}</Text>
+            <Text style={styles.useText}>{t("Available")}</Text>
             <Text style={styles.useNumber}>0.023875129 ETH</Text>
           </View>
-          <Text style={styles.rateText}>{i18n.t("exchangerate")}  1 ETH ≈ 786.564 USDT</Text>
-          <Text style={styles.rateText}>{i18n.t("handlefee")}  0.03%</Text>
+          <Text style={styles.rateText}>{t("exchangerate")}  1 ETH ≈ 786.564 USDT</Text>
+          <Text style={styles.rateText}>{t("handlefee")}  0.03%</Text>
           <TouchableOpacity style={styles.exchangeBtn} onPress={() => {
             if (inPutName === outName) {
               return;
             }
             setModalVisible1(true);
           }}>
-            <Text style={styles.changeText}>{i18n.t("exchange")}</Text>
+            <Text style={styles.changeText}>{t("exchange")}</Text>
           </TouchableOpacity>
         </View>
 
@@ -171,7 +172,7 @@ function FlashExchangeScreen({ }: Props) {
             </TouchableWithoutFeedback>
             <View style={styles.modalView}>
               <View style={styles.headView}>
-                <Text style={styles.headText}>{i18n.t("importmethod")}</Text>
+                <Text style={styles.headText}>{t("importmethod")}</Text>
                 <TouchableWithoutFeedback
                   style={{ ...styles.openButton }}
                   onPress={() => {
@@ -251,7 +252,7 @@ function FlashExchangeScreen({ }: Props) {
               >
                 <View style={styles.modalView2}>
                   <View style={styles.headView}>
-                    <Text style={styles.headText}>{i18n.t("confirmflash")}</Text>
+                    <Text style={styles.headText}>{t("confirmflash")}</Text>
                     <TouchableOpacity
                       style={{ ...styles.openButton }}
                       onPress={() => {
@@ -280,18 +281,18 @@ function FlashExchangeScreen({ }: Props) {
                   <View style={styles.lineView1}></View>
                   <View style={styles.centerView1}>
                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                      <Text style={styles.poundage}>{i18n.t("handlefee")}</Text>
+                      <Text style={styles.poundage}>{t("handlefee")}</Text>
                       <Text style={styles.des}>0.023875129 ETH</Text>
                     </View>
                     <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 20 }}>
-                      <Text style={styles.poundage}>{i18n.t("exchangerate")}</Text>
+                      <Text style={styles.poundage}>{t("exchangerate")}</Text>
                       <Text style={styles.des}>1 ETH ≈ 786.564 USDT</Text>
                     </View>
                   </View>
                   <View style={styles.lineView1}></View>
                   <View style={styles.passView}>
                     <TextInput
-                      placeholder={i18n.t("entersecurepassword")}
+                      placeholder={t("entersecurepassword")}
                       style={styles.passwordNumber}
                       onChangeText={(text: string) => { }}
                     >
@@ -305,7 +306,7 @@ function FlashExchangeScreen({ }: Props) {
                       }
                       setModalVisible1(true);
                     }}>
-                      <Text style={styles.changeText}>{i18n.t("confirmredemption")}</Text>
+                      <Text style={styles.changeText}>{t("confirmredemption")}</Text>
                     </TouchableOpacity>
                   </View>
                 </View>

@@ -18,21 +18,23 @@ import pickImage from 'components/pickImage';
 import { showLoadingModal, closeLoadingModal } from 'components/Dialog';
 import { post, put } from 'apis/helper';
 import { User } from 'actions/types';
-import i18n from "i18n";
+import { useTranslation } from 'react-i18next';
 
 interface Props {}
 
+function ProfileScreen({ }: Props) {
+  const {t} = useTranslation();
 const list = {
   top: [
     {
-      name: i18n.t("Addressbook"),
+      name: t("Addressbook"),
       leftIcon: require('assets/icon-24-地址薄.png'),
       rightIcon: require('assets/icon-20-arrow-right.png'),
       navigate: () =>
         navigate('AddressBookScreen', { title: '地址本', showMyself: true }),
     },
     {
-      name:i18n.t("Message"),
+      name:t("Message"),
       leftIcon: require('assets/icon-24-消息通知.png'),
       rightIcon: require('assets/icon-20-arrow-right.png'),
       navigate: () => navigate('MessageScreen'),
@@ -40,28 +42,28 @@ const list = {
   ],
   content: [
     {
-      name: i18n.t("Usesettings"),
+      name: t("Usesettings"),
       leftIcon: require('assets/icon-24-使用设置.png'),
       rightIcon: require('assets/icon-20-arrow-right.png'),
       navigate: () => navigate('SetUpScreen')
     }, {
-      name: i18n.t("HelpFeedback"),
+      name: t("HelpFeedback"),
       leftIcon: require('assets/icon-24-反馈帮助.png'),
       rightIcon: require('assets/icon-20-arrow-right.png'),
       navigate: () => navigate('SuggestScreen')
     }, {
-      name: i18n.t("versionupdate"),
+      name: t("versionupdate"),
       leftIcon: require('assets/icon-24-版本更新.png'),
       rightIcon: require('assets/icon-20-arrow-right.png'),
       navigate: () => navigate('UpdateScreen')
 
     }, {
-      name: i18n.t("UserAgreement"),
+      name: t("UserAgreement"),
       leftIcon: require('assets/icon-24-协议.png'),
       rightIcon: require('assets/icon-20-arrow-right.png'),
-      navigate: () => navigate('WebScreen', { title: i18n.t("UserAgreement"), uri: 'https://mystone.io/flashRedemption.html' })
+      navigate: () => navigate('WebScreen', { title: t("UserAgreement"), uri: 'https://mystone.io/flashRedemption.html' })
     }, {
-      name: i18n.t("aboutus"),
+      name: t("aboutus"),
       leftIcon: require('assets/icon-24-关于我们.png'),
       rightIcon: require('assets/icon-20-arrow-right.png'),
       navigate: () => navigate('AboutUsScreen')
@@ -70,7 +72,6 @@ const list = {
 
 }
 
-function ProfileScreen({ }: Props) {
   const dispatch = useDispatch();
   // const user = useSelector(selectUser)!;
   // const setUser = React.useCallback(
@@ -87,7 +88,7 @@ function ProfileScreen({ }: Props) {
     <View style={styles.container}>
       <Header
         placement="center"
-        centerComponent={{ text: i18n.t("Personalcenter"), style: { fontSize: 18, fontWeight: 'bold', color: 'white' ,} }}
+        centerComponent={{ text: t("Personalcenter"), style: { fontSize: 18, fontWeight: 'bold', color: 'white' ,} }}
         containerStyle={{
           backgroundColor: '#3D73DD',
           flexDirection:'row',

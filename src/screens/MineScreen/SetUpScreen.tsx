@@ -6,24 +6,25 @@ import { RouteProp, useRoute, useIsFocused } from '@react-navigation/native';
 import { ListItem } from 'react-native-elements';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import {SCREENHEIGHT,SCREENWIDTH} from "config/constants"
-import i18n from "i18n";
+import { useTranslation } from 'react-i18next';
 
 type SetUpScreenRouteProp = RouteProp<ScreensParamList, 'SetUpScreen'>;
 interface Props { }
+
+function SetUpScreen({ }: Props) {
+  const {t} = useTranslation();
 const list = [
 
   {
-    name: i18n.t("languagesettings"),
+    name: t("languagesettings"),
     content: '简体中文',
   },
   {
-    name: i18n.t("currencyUnit"),
+    name: t("currencyUnit"),
     content: 'CNY',
   },
 
 ]
-function SetUpScreen({ }: Props) {
-  
   return (
     <SafeAreaView style={styles.container}>
       <View style={{ marginTop: 20 }}>
@@ -32,7 +33,7 @@ function SetUpScreen({ }: Props) {
             <TouchableOpacity
               style={{ flexDirection: 'column' }}
               onPress={() => (
-                navigate('LanguageSetScreen',{title:i===0?i18n.t("languagesettings"):i18n.t("currencyUnit")})
+                navigate('LanguageSetScreen',{title:i===0?t("languagesettings"):t("currencyUnit")})
             )}>
               <View style={{ height: 60.5, flexDirection: 'row', alignItems: 'center', backgroundColor: 'white' }}>
                 <Text style={styles.title}>{item.name}</Text>
