@@ -10,6 +10,7 @@ import SuggestScreen from 'screens/MineScreen/SuggestScreen';
 import AddressTypeScreen from 'screens/MineScreen/AddressTypeScreen';
 import UpdateScreen from 'screens/MineScreen/UpdateScreen';
 import LanguageSetScreen from 'screens/MineScreen/LanguageSetScreen';
+import CurrencySetScreen from 'screens/MineScreen/CurrencySetScreen';
 import MessageScreen from 'screens/MineScreen/MessageScreen';
 import AddressBookScreen from 'screens/MineScreen/AddressBookScreeen';
 import AddressBookEditorScreen from 'screens/MineScreen/AddressBookEditorScreen';
@@ -31,9 +32,11 @@ import EditPwdScreen from 'screens/WalletBoardScreen/EditPwdScreen';
 import TransferScreen from 'screens/TransferScreen/TransferScreen';
 import ReceivePaymentScreen from 'screens/ReceivePaymentScreen/ReceivePaymentScreen';
 // import FeedListScreen from 'screens/FeedListScreen/FeedListScreen';
-import { navigate } from 'components/navigationService';
+import { goBack, navigate } from 'components/navigationService';
 import { useTranslation } from 'react-i18next';
-
+import { useDispatch } from 'react-redux';
+import walletAction from 'actions/wallet';
+import { AddressBookItem } from 'actions/types';
 export type MainStackParamList = {
   TabNavigator: undefined;
   PostFeedScreen: undefined;
@@ -44,10 +47,11 @@ export type MainStackParamList = {
   SetUpScreen: undefined;
   FlashRecordScreen: undefined;
   ScanQRCode: undefined;
-  LanguageSetScreen: { title?: string; };
+  LanguageSetScreen: undefined;
+  CurrencySetScreen: undefined;
   AddressBookScreen: { title: string; showMyself?: boolean };
-  AddressBookEditorScreen: { title?: string; item: {} };
-  AddressTypeScreen: { type?: string };
+  AddressBookEditorScreen: { title?: string; item: {}};
+  AddressTypeScreen: { addType: string ; setAddType: Function;typeLogo: string ; setTypeLogo: Function};
   FeedListScreen: { title: string; showMyself?: boolean };
   WebScreen: { title?: any; uri: string };
   SearchScreen: { coin: Array<string> };
@@ -68,6 +72,10 @@ const { Navigator, Screen } = createStackNavigator<MainStackParamList>();
 
 export default function MainStackNavigator() {
   const {t} = useTranslation();
+  const dispatch = useDispatch();
+  async function addAddressBook(item:AddressBookItem) {
+    await dispatch(walletAction.deleteAddressBookList(item));
+}
   return (
     <Navigator
       screenOptions={{
@@ -187,11 +195,13 @@ export default function MainStackNavigator() {
       <Screen
         name="AddressBookEditorScreen"
         component={AddressBookEditorScreen}
-
         options={({ route }) => ({
           title: route.params.title,
           headerRight: () => route.params.title === t("editpayee") && <TouchableOpacity
-            onPress={() => navigate('AddressBookScreen')}
+            onPress={() => {
+              addAddressBook(route.params.item)
+              goBack()
+            }}
           >
             <Text style={{ color: 'white', fontSize: 14, fontWeight: '500' }}>{t("delete")}</Text>
           </TouchableOpacity>,
@@ -219,7 +229,14 @@ export default function MainStackNavigator() {
         name="LanguageSetScreen"
         component={LanguageSetScreen}
         options={({ route }) => ({
-          title: route.params.title,
+          title: t("languagesettings"),
+        })}
+      />
+      <Screen
+        name="CurrencySetScreen"
+        component={CurrencySetScreen}
+        options={({ route }) => ({
+          title: t("currencyUnit"),
         })}
       />
       <Screen

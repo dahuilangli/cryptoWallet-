@@ -11,51 +11,47 @@ import { useTranslation } from 'react-i18next';
 import i18n from "i18n";
 import walletAction from 'actions/wallet';
 import { useSelector, useDispatch } from 'react-redux';
-import { getLanguage } from 'reducers/dataStateReducer';
+import { getCurrency } from 'reducers/dataStateReducer';
 
 
 type SetUpScreenRouteProp = RouteProp<ScreensParamList, 'SetUpScreen'>;
-interface Props {
-}
-
-function LanguageSetScreen(props: Props) {
-
-const list1 = [
+interface Props {}
+function CurrencySetScreen(props: Props) {
+const list2 = [
     {
-        code:'en',
-        language:'English',
+        code:'$',
+        language:'USDT',
     },
     {
-        code:'zh-CN',
-        language:'中文(简体)',
+        code:'R',
+        language:'CNY',
     }
 ]
-
     const {t} = useTranslation();
     const dispatch = useDispatch()
-    const language = useSelector(getLanguage)
-    const [defaultLanguage, setDefaultLanguage] = useState(language);
-    
+    const currency = useSelector(getCurrency)
 
+    console.log(currency);
+    
+    const [defaultCurrency, setDefaultCurrency] = useState(currency);
     async function editLanguage(params: string) {
         if (params) {
-            await dispatch(walletAction.setLanguage(params));
-             setDefaultLanguage(params)
-            i18n.changeLanguage(params);
+            await dispatch(walletAction.setCurrency(params));
+            setDefaultCurrency(params)
         }
     }
 
     const Item = ({ item, onPress, style }) => (
         <TouchableOpacity onPress={onPress} style={style}>
             <Text style={styles.nameText}>{item.language}</Text>
-            <Image style={styles.imageText} source={defaultLanguage === item.code ? require('assets/icon-20-选择-on.png') : require('assets/icon-20-选择-off.png')}></Image>
+            <Image style={styles.imageText} source={defaultCurrency === item.language ? require('assets/icon-20-选择-on.png') : require('assets/icon-20-选择-off.png')}></Image>
         </TouchableOpacity>
     );
     const renderItem = ({item} ) => {
         return (
             <Item
                 item={item}
-                onPress={() => editLanguage(item.code)}
+                onPress={() => editLanguage(item.language)}
                 style={styles.marginItem}
             />
         );
@@ -63,7 +59,7 @@ const list1 = [
     return (
         <SafeAreaView style={styles.container}>
             <FlatList
-                data={list1}
+                data={ list2 }
                 style={styles.item}
                 renderItem={renderItem}
                 keyExtractor={(item) =>  item.code}
@@ -107,4 +103,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default LanguageSetScreen;
+export default CurrencySetScreen;

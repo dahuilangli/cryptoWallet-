@@ -40,7 +40,7 @@ export interface AddressBookItem {
   add_type: string,
   add_name: string,
   remarks?: string,
-  logo: string,
+  logo: any,
   walletaddress: string,
 }
 

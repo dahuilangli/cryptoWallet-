@@ -5,26 +5,33 @@ import { ScreensParamList, Feed } from 'actions/types';
 import { RouteProp, useRoute, useIsFocused } from '@react-navigation/native';
 import { ListItem } from 'react-native-elements';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import {SCREENHEIGHT,SCREENWIDTH} from "config/constants"
+import { SCREENHEIGHT, SCREENWIDTH } from "config/constants"
 import { useTranslation } from 'react-i18next';
-
+import { useSelector, useDispatch } from 'react-redux';
+import { getLanguage ,getCurrency} from 'reducers/dataStateReducer';
 type SetUpScreenRouteProp = RouteProp<ScreensParamList, 'SetUpScreen'>;
 interface Props { }
 
 function SetUpScreen({ }: Props) {
-  const {t} = useTranslation();
-const list = [
+  const { t } = useTranslation();
+  const language = useSelector(getLanguage)
+  const currency = useSelector(getCurrency)
+  console.log('222222222');
+  
+  console.log(currency);
+  
+  const list = [
 
-  {
-    name: t("languagesettings"),
-    content: '简体中文',
-  },
-  {
-    name: t("currencyUnit"),
-    content: 'CNY',
-  },
+    {
+      name: t("languagesettings"),
+      content: language === 'en'?'English':'中文(简体)',
+    },
+    {
+      name: t("currencyUnit"),
+      content: currency === 'CNY'?'CNY':'USDT',
+    },
 
-]
+  ]
   return (
     <SafeAreaView style={styles.container}>
       <View style={{ marginTop: 20 }}>
@@ -32,9 +39,20 @@ const list = [
           list.map((item, i) => (
             <TouchableOpacity
               style={{ flexDirection: 'column' }}
-              onPress={() => (
-                navigate('LanguageSetScreen',{title:i===0?t("languagesettings"):t("currencyUnit")})
-            )}>
+              onPress={() => {
+                switch (i) {
+                  case 0:
+                    navigate('LanguageSetScreen');
+                    break;
+                  case 1:
+                    navigate('CurrencySetScreen');
+                    break;
+                  default:
+                    break;
+                }
+              }
+              }
+            >
               <View style={{ height: 60.5, flexDirection: 'row', alignItems: 'center', backgroundColor: 'white' }}>
                 <Text style={styles.title}>{item.name}</Text>
                 <Text style={styles.content}>{item.content}</Text>

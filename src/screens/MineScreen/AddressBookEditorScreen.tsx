@@ -1,29 +1,46 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, Text, SafeAreaView, TouchableOpacity, Image, Button, Alert,TextInput } from 'react-native';
-// import { TextInput } from 'react-native-gesture-handler';
+import { StyleSheet, View, Text, SafeAreaView, TouchableOpacity, Image, Alert, TextInput } from 'react-native';
 import { navigate } from 'components/navigationService';
 import { useTranslation } from 'react-i18next';
-import {SCREENHEIGHT,SCREENWIDTH} from "config/constants"
+import { Button } from 'react-native-elements'
+import { SCREENHEIGHT, SCREENWIDTH } from "config/constants"
+import { useDispatch } from 'react-redux';
+import walletAction from 'actions/wallet';
 interface Props {
     route: {
         params: {
             title: string,
             item: {
-                id:string,
-                type:string,
-                name: string,
-                avatar_url: any,
-                subtitle:string,
-                pkey:string,
+                add_type: string,
+                add_name: string,
+                remarks?: string,
+                logo: any,
+                walletaddress: string,
             };
         };
     };
 }
 
 function AddressBookEditorScreen(props: Props) {
-    const {t} = useTranslation();
+    const { t } = useTranslation();
     const { item } = props.route.params;
-    const { title } = props.route.params;
+    const [addType, setAddType] = useState(item.add_type?item.add_type:'ETH');
+    
+    const [addname, setAddName] = useState(item.add_name);
+    const [remarks, setRemarks] = useState(item.remarks);
+    const [typeLogo, setTypeLogo] = useState(item.logo?item.logo:require('assets/wallet-icon/ethereum.png'));
+    const [WalletAdress, setWalletAdress] = useState(item.walletaddress);
+    const dispatch = useDispatch();
+    async function addAddressBook() {
+        await dispatch(walletAction.setAddressBookList(
+            {
+                add_type: addType,
+                add_name: addname,
+                remarks: remarks,
+                logo: typeLogo,
+                walletaddress: WalletAdress,
+            }));
+    }
     return (
         <SafeAreaView style={styles.container}>
             <View>
@@ -31,13 +48,16 @@ function AddressBookEditorScreen(props: Props) {
                 <TouchableOpacity
                     onPress={() =>
                         navigate('AddressTypeScreen', {
-                            type: item.type,
+                            addType,
+                            setAddType,
+                            typeLogo,
+                            setTypeLogo,
                         })
                     }
                 >
                     <View style={styles.typeView}>
-                        <Image style={styles.typeImage} source={item.avatar_url}></Image>
-                        <Text style={styles.typeName}>{item.type}</Text>
+                        <Image style={styles.typeImage} source={typeLogo}></Image>
+                        <Text style={styles.typeName}>{addType}</Text>
                         <Image style={styles.rightImage} source={require('assets/icon-20-arrow-right.png')}></Image>
                     </View>
                 </TouchableOpacity>
@@ -46,8 +66,8 @@ function AddressBookEditorScreen(props: Props) {
                     <TextInput
                         style={styles.nameInput}
                         placeholder={t("enterAddName")}
-                        defaultValue = {item.name}
-                        onChangeText={(text: string) => ({})}
+                        defaultValue={item.add_name}
+                        onChangeText={(text: string) => (setAddName(text))}
                     >
 
                     </TextInput>
@@ -57,8 +77,8 @@ function AddressBookEditorScreen(props: Props) {
                     <TextInput
                         style={styles.nameInput}
                         placeholder={t("enterWalMark")}
-                        defaultValue = {item.subtitle}
-                        onChangeText={(text: string) => ('')}>
+                        defaultValue={item.remarks}
+                        onChangeText={(text: string) => (setRemarks(text))}>
                     </TextInput>
                 </View>
                 <Text style={styles.typeText}>{t("walletaddress")}</Text>
@@ -67,14 +87,18 @@ function AddressBookEditorScreen(props: Props) {
                         style={styles.addressInput}
                         multiline
                         placeholder={t("pasteWalAddress")}
-                        defaultValue = {item.pkey}
-                        onChangeText={(text: string) => ('')}>
+                        defaultValue={item.walletaddress}
+                        onChangeText={(text: string) => (setWalletAdress(text))}>
                     </TextInput>
                 </View>
             </View>
-            <TouchableOpacity onPress={({ }) => (Alert.alert('1111'))} style={styles.surebtn}>
-                <Text style={styles.sureText}>{t("sure")}</Text>
-            </TouchableOpacity>
+            <Button
+                title={t("sure")}
+                titleStyle={styles.Tlabel}
+                buttonStyle={styles.Tbutton}
+                onPress={() => addAddressBook()}
+                disabled={WalletAdress && addname && typeLogo && addType ? false : true}
+            />
         </SafeAreaView>
     );
 };
@@ -144,22 +168,19 @@ const styles = StyleSheet.create({
         fontSize: 14,
         fontWeight: '400',
     },
-    surebtn: {
-        marginTop: 140,
-        marginHorizontal: 20,
-        backgroundColor: '#3B6ED5',
+    Tbutton: {
+        marginLeft: 20,
+        marginRight: 20,
+        marginBottom: 54,
         height: 55,
-        borderRadius: 8,
-        flexDirection: 'row',
+        backgroundColor: '#3B6ED5',
         alignItems: 'center',
+        borderRadius: 8,
     },
-    sureText: {
-        flex: 1,
-        color: 'white',
+    Tlabel: {
         fontSize: 16,
         fontWeight: '600',
-        textAlign: 'center',
-    }
+    },
 });
 
 export default AddressBookEditorScreen;
