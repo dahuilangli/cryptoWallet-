@@ -47,6 +47,11 @@ export const getDappSearchList = createSelector(
   (dataState) => dataState.dappSearchList,
 );
 
+export const getAddressBookList = createSelector(
+  selectDataState,
+  (dataState) => dataState.addressBookList,
+);
+
 const reducer = (originalState = initialState, walletAction: WalletAction) =>
   produce(originalState, (state) => {
     switch (walletAction.type) {
@@ -77,9 +82,11 @@ const reducer = (originalState = initialState, walletAction: WalletAction) =>
         return;
       case 'setAddressBookList':
         let payload1 = walletAction.payload;
+        let list1 = state.addressBookList;
         console.log('11111111111111');
         console.log(payload1);
-        
+        console.log(list1);
+        list1.unshift(payload1);
         return;
       case 'getHelp':
         console.log(walletAction.payload);

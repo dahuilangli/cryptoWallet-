@@ -5,42 +5,41 @@ import { ScreensParamList, Feed } from 'actions/types';
 import { RouteProp, useRoute, useIsFocused } from '@react-navigation/native';
 import i18n from "i18n";
 import {SCREENHEIGHT,SCREENWIDTH} from "config/constants";
-
+import { getAddressBookList } from 'reducers/dataStateReducer';
+import { useSelector, useDispatch } from 'react-redux';
+import walletAction from 'actions/wallet';
 type AddressBookScreenRouteProp = RouteProp<ScreensParamList, 'AddressBookScreen'>;
 interface Props {}
 
 const list = [
   {
-    id:'1',
-    type:'ETH',
-    name: 'Jason的小号',
-    avatar_url: require('assets/img-40-coointype-eth.png'),
-    subtitle: '我的第二个ETH钱包',
-    pkey:'0x4250c3c0094A65dd12f6C41D8c4C6ec10ff458f7',
+    add_type:'ETH',
+    add_name: 'Jason的小号',
+    logo: require('assets/img-40-coointype-eth.png'),
+    remarks: '我的第二个ETH钱包',
+    walletaddress:'0x4250c3c0094A65dd12f6C41D8c4C6ec10ff458f7',
+  },
+ 
+  {
+    add_type:'ETH',
+    add_name: 'Chris Jackson',
+    logo: require('assets/img-40-coointype-pk.png'),
+    remarks: 'Vice Chairman',
+    walletaddress:'0x4250c3c0094A65dd12f6C41D8c4C6ec10ff458f7C41D8c4C6ec10ff458f7',
   },
   {
-    id:'2',
-    type:'ETH',
-    name: 'Chris Jackson',
-    avatar_url: require('assets/img-40-coointype-pk.png'),
-    subtitle: 'Vice Chairman',
-    pkey:'0x4250c3c0094A65dd12f6C41D8c4C6ec10ff458f7C41D8c4C6ec10ff458f7',
+    add_type:'STO',
+    add_name: 'Jason的小号',
+    logo: require('assets/img-40-coointype-eth.png'),
+    remarks: '我的第二个ETH钱包',
+    walletaddress:'0x4250c3c0094A65dd12f6C41D8c4C6ec10ff458f7',
   },
   {
-    id:'1',
-    type:'STO',
-    name: 'Jason的小号',
-    avatar_url: require('assets/img-40-coointype-eth.png'),
-    subtitle: '我的第二个ETH钱包',
-    pkey:'0x4250c3c0094A65dd12f6C41D8c4C6ec10ff458f7',
-  },
-  {
-    id:'2',
-    type:'ETH',
-    name: 'Chris Jackson',
-    avatar_url: require('assets/img-40-coointype-pk.png'),
-    subtitle: 'Vice Chairman',
-    pkey:'0x4250c3c0094A65dd12f6C41D8c4C6ec10ff458f7C41D8c4C6ec10ff458f7',
+    add_type:'ETH',
+    add_name: 'Chris Jackson',
+    logo: require('assets/img-40-coointype-pk.png'),
+    remarks: 'Vice Chairman',
+    walletaddress:'0x4250c3c0094A65dd12f6C41D8c4C6ec10ff458f7C41D8c4C6ec10ff458f7',
   },
   
 ]
@@ -49,21 +48,24 @@ const Item = ({ item, onPress, style}) => (
   <TouchableOpacity onPress={onPress} style={[styles.item, style]}>
     <View style = {styles.headView}>
       <View style ={styles.desView}>
-        <Text style={styles.nameLabel}>{item.name}</Text>
-        <Text style={styles.subLabel}>{item.subtitle}</Text>
+        <Text style={styles.nameLabel}>{item.add_name}</Text>
+        <Text style={styles.subLabel}>{item.remarks}</Text>
       </View>
-      <Image source = {item.avatar_url} style = {styles.avatar}></Image>
+      <Image source = {item.logo} style = {styles.avatar}></Image>
     </View>
     
     <View style ={styles.lineView}></View>
-    <Text style = {styles.pkey}>{item.pkey}</Text>
+    <Text style = {styles.pkey}>{item.walletaddress}</Text>
   </TouchableOpacity>
 );
 
 
 function AddressBookScreen({}: Props) {
-  const [selectedId, setSelectedId] = useState(null);
-
+  const dispatch = useDispatch();
+  const dppSearchList = useSelector(getAddressBookList)
+  console.log('111111');
+  
+  console.log(dppSearchList);
   const renderItem = ({ item }) => {
     return (
       <Item
@@ -86,8 +88,7 @@ function AddressBookScreen({}: Props) {
         data={list} 
         style={styles.item}
         renderItem={renderItem}
-        keyExtractor={(item) => item.id}
-        extraData={selectedId}
+        keyExtractor={(item) => item.walletaddress}
         >
         
         </FlatList>

@@ -1,20 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Text, SafeAreaView, TouchableOpacity, Image, Button, Alert,TextInput } from 'react-native';
-// import { TextInput } from 'react-native-gesture-handler';
 import { navigate } from 'components/navigationService';
 import i18n from "i18n";
 import {SCREENHEIGHT,SCREENWIDTH} from "config/constants"
+import { useDispatch } from 'react-redux';
+import walletAction from 'actions/wallet';
 interface Props {
     route: {
         params: {
             title: string,
             item: {
-                id:string,
-                type:string,
-                name: string,
-                avatar_url: any,
-                subtitle:string,
-                pkey:string,
+                add_type: string,
+                add_name: string,
+                remarks?: string,
+                logo: any,
+                walletaddress: string,
             };
         };
     };
@@ -23,6 +23,20 @@ interface Props {
 function AddressBookEditorScreen(props: Props) {
     const { item } = props.route.params;
     const { title } = props.route.params;
+    const [addtype,setAddType] = useState(item.add_type);
+    const [addname,setAddName] = useState(item.add_name);
+    const [remarks,setRemarks] = useState(item.remarks);
+    const [typeLogo,setTypeLogo] = useState(item.logo);
+    const [WalletAdress,setWalletAdress] = useState(item.walletaddress);
+    const dispatch = useDispatch();
+    async function addAddressBook() {
+        await dispatch(walletAction.setAddressBookList(
+            {add_type: addtype,
+            add_name: addname,
+            remarks: remarks,
+            logo: typeLogo,
+            walletaddress: WalletAdress,}));
+    }
     return (
         <SafeAreaView style={styles.container}>
             <View>
@@ -30,13 +44,13 @@ function AddressBookEditorScreen(props: Props) {
                 <TouchableOpacity
                     onPress={() =>
                         navigate('AddressTypeScreen', {
-                            type: item.type,
+                            type: item.add_type,
                         })
                     }
                 >
                     <View style={styles.typeView}>
-                        <Image style={styles.typeImage} source={item.avatar_url}></Image>
-                        <Text style={styles.typeName}>{item.type}</Text>
+                        <Image style={styles.typeImage} source={item.logo}></Image>
+                        <Text style={styles.typeName}>{item.add_type}</Text>
                         <Image style={styles.rightImage} source={require('assets/icon-20-arrow-right.png')}></Image>
                     </View>
                 </TouchableOpacity>
@@ -45,7 +59,7 @@ function AddressBookEditorScreen(props: Props) {
                     <TextInput
                         style={styles.nameInput}
                         placeholder={i18n.t("enterAddName")}
-                        defaultValue = {item.name}
+                        defaultValue = {item.add_name}
                         onChangeText={(text: string) => ({})}
                     >
 
@@ -56,7 +70,7 @@ function AddressBookEditorScreen(props: Props) {
                     <TextInput
                         style={styles.nameInput}
                         placeholder={i18n.t("enterWalMark")}
-                        defaultValue = {item.subtitle}
+                        defaultValue = {item.remarks}
                         onChangeText={(text: string) => ('')}>
                     </TextInput>
                 </View>
@@ -66,12 +80,12 @@ function AddressBookEditorScreen(props: Props) {
                         style={styles.addressInput}
                         multiline
                         placeholder={i18n.t("pasteWalAddress")}
-                        defaultValue = {item.pkey}
+                        defaultValue = {item.walletaddress}
                         onChangeText={(text: string) => ('')}>
                     </TextInput>
                 </View>
             </View>
-            <TouchableOpacity onPress={({ }) => (Alert.alert('1111'))} style={styles.surebtn}>
+            <TouchableOpacity onPress={({ }) => addAddressBook()} style={styles.surebtn}>
                 <Text style={styles.sureText}>{i18n.t("sure")}</Text>
             </TouchableOpacity>
         </SafeAreaView>
