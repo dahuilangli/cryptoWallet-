@@ -12,7 +12,7 @@ import {
 import { Avatar } from 'react-native-elements';
 import { goBack, navigate } from 'components/navigationService';
 import LinearGradient from 'react-native-linear-gradient';
-import i18n from "i18n";
+import { useTranslation } from 'react-i18next';
 import * as helper from 'apis/helper'
 import { useDispatch } from 'react-redux';
 import walletAction from 'actions/wallet';
@@ -20,6 +20,7 @@ import { DappRecentItem } from 'actions/types'
 interface Props { }
 
 function SearchScreen({ }: Props) {
+  const {t} = useTranslation();
   const dispatch = useDispatch();
   const [dappName, setDappName] = useState('');
   const [seachDataList, setSeachDataList] = useState([]);
@@ -75,7 +76,7 @@ function SearchScreen({ }: Props) {
               source={require('assets/icon-20-搜索.png')}
             />
             <TextInput
-              placeholder={i18n.t("EnterDappname")}
+              placeholder={t("EnterDappname")}
               value={dappName}
               style={styles.coinNameText}
               onChangeText={(text) => setDappName(text)}
@@ -83,13 +84,13 @@ function SearchScreen({ }: Props) {
             />
           </View>
           <TouchableOpacity onPress={goBack} style={styles.goBlack}>
-            <Text style={styles.goBlackText}>{i18n.t("cancel")}</Text>
+            <Text style={styles.goBlackText}>{t("cancel")}</Text>
           </TouchableOpacity>
         </View>
         <View style={styles.assetsContainer}>
           {seachDataList?.length > 0 ? (
             <View style={styles.assetsHeard}>
-              <Text style={styles.assetsHeardTitle}>{i18n.t("searchresult")}</Text>
+              <Text style={styles.assetsHeardTitle}>{t("searchresult")}</Text>
             </View>
           ) : null}
           <ScrollView>

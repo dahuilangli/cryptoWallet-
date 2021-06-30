@@ -6,7 +6,7 @@ import HomeScreen from 'screens/HomeScreen/HomeScreen';
 import FlashExchangeScreen from 'screens/FlashExchangeScreen/FlashExchangeScreen';
 import DappScreen from 'screens/DappScreen/DappScreen';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import i18n from "i18n";
+import { useTranslation } from 'react-i18next';
 export type TabParamList = {
   HomeScreen: undefined;
   ProfileScreen: undefined;
@@ -17,6 +17,7 @@ export type TabParamList = {
 const { Navigator, Screen } = createBottomTabNavigator<TabParamList>();
 
 function TabNavigator() {
+  const {t} = useTranslation();
   return (
     <Navigator
       screenOptions={({ route }) => ({
@@ -50,14 +51,14 @@ function TabNavigator() {
         name="HomeScreen"
         component={HomeScreen}
         options={{ 
-          tabBarLabel: i18n.t("wallet"),
+          tabBarLabel: t("wallet"),
         }}
       />
       <Screen
         name="FlashExchangeScreen"
         component={FlashExchangeScreen}
         options={{ 
-          tabBarLabel: i18n.t("flash"),
+          tabBarLabel: t("flash"),
         }}
       />
       <Screen
@@ -71,7 +72,7 @@ function TabNavigator() {
         name="ProfileScreen"
         component={ProfileScreen}
         options={{ 
-          tabBarLabel: i18n.t("mine")
+          tabBarLabel: t("mine")
         }}
       />
     </Navigator>

@@ -10,7 +10,7 @@ import ImportPrivateKeyScreen from 'screens/CreateWalletScreen/ImportPrivateKeyS
 import ImportMnemonicScreen from 'screens/CreateWalletScreen/ImportMnemonicScreen';
 import SuccessScreen from 'screens/SuccessScreen';
 import CameraScreen from 'components/Camera';
-import i18n from "i18n";
+import { useTranslation } from 'react-i18next';
 import { Image, TouchableOpacity } from 'react-native';
 import React from 'react';
 import { navigate } from 'components/navigationService';
@@ -32,6 +32,7 @@ export type AuthStackParamList = {
 const { Navigator, Screen } = createStackNavigator<AuthStackParamList>();
 
 export default function AuthStackNavigator() {
+  const {t} = useTranslation();
   return (
     <Navigator
       screenOptions={{
@@ -52,38 +53,38 @@ export default function AuthStackNavigator() {
       <Screen
         name="SelectWalletScreen"
         component={SelectWalletScreen}
-        options={{ title: i18n.t('choosewallet') }}
+        options={{ title: t('choosewallet') }}
       />
       <Screen
         name="SetWalletNameScreen"
         component={SetWalletNameScreen}
-        options={{ title: i18n.t("setwalletname") }}
+        options={{ title: t("setwalletname") }}
       />
       <Screen
         name="SetWalletPwdScreen"
         component={SetWalletPwdScreen}
-        options={{ title: i18n.t("setsecurepassword") }}
+        options={{ title: t("setsecurepassword") }}
       />
       <Screen
         name="SafetyTipsScreen"
         component={SafetyTipsScreen}
-        options={{ title: i18n.t("Safetytips") }}
+        options={{ title: t("Safetytips") }}
       />
       <Screen
         name="BackupMnemonicScreen"
         component={BackupMnemonicScreen}
-        options={{ title: i18n.t("Backupmnemonic") }}
+        options={{ title: t("Backupmnemonic") }}
       />
       <Screen
         name="VerifyMnemonicScreen"
         component={VerifyMnemonicScreen}
-        options={{ title: i18n.t("Verificationmnemonic") }}
+        options={{ title: t("Verificationmnemonic") }}
       />
       <Screen
         name="ImportPrivateKeyScreen"
         component={ImportPrivateKeyScreen}
         options={{
-          title: i18n.t("privatekeyimport"),
+          title: t("privatekeyimport"),
           headerRight: () => (
             <TouchableOpacity onPress={() => navigate('CameraScreen')}>
               <Image source={require('assets/icon-24-扫一扫-light.png')} />
@@ -95,7 +96,7 @@ export default function AuthStackNavigator() {
       <Screen
         name="ImportMnemonicScreen"
         component={ImportMnemonicScreen}
-        options={{ title: i18n.t("mnemonicimport") }}
+        options={{ title: t("mnemonicimport") }}
       />
       <Screen
         name="SuccessScreen"

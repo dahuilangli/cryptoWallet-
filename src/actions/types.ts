@@ -33,6 +33,14 @@ export interface DappRecentItem {
   protocol?: string,
 }
 
+export interface AddressBookItem {
+  add_type: string,
+  add_name: string,
+  remarks?: string,
+  logo: string,
+  walletaddress: string,
+}
+
 export interface Token {
   id: string;
   address: string;

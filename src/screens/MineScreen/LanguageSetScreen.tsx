@@ -7,12 +7,12 @@ import { RouteProp, useRoute, useIsFocused } from '@react-navigation/native';
 import { ListItem } from 'react-native-elements';
 import { get } from 'apis/helper'
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import i18next from 'i18next';
-
+import { useTranslation } from 'react-i18next';
+import i18n from "i18n";
 import walletAction from 'actions/wallet';
 import { useSelector, useDispatch } from 'react-redux';
 import { getLanguage } from 'reducers/dataStateReducer';
-import * as helper from 'apis/helper'
+
 
 type SetUpScreenRouteProp = RouteProp<ScreensParamList, 'SetUpScreen'>;
 interface Props {
@@ -22,63 +22,59 @@ interface Props {
         };
     };
 }
-const list1 = [
 
-    {
-        name: 'CNY',
-        select: true,
-    },
-    {
-        name: 'HKD',
-        select: false,
-    },
-    {
-        name: 'USD',
-        select: false,
-    },
-    {
-        name: 'TWD',
-        select: false,
-    },
-    {
-        name: 'EUR',
-        select: false,
-    },
+interface Language {
+    code: string,
+    language: string,
+}
 
-
-]
+interface Currency {
+    currency: string,
+    symbol: string,
+}
 
 
 function LanguageSetScreen(props: Props) {
+
+const list1 = [
+    {
+        code:'en',
+        language:'English',
+    },
+    {
+        code:'zh-CN',
+        language:'中文(简体)',
+    }
+]
+
+const list2 = [
+    {
+        code:'$',
+        language:'USDT',
+    },
+    {
+        code:'$',
+        language:'RMB',
+    }
+]
+    const {t} = useTranslation();
     const { title } = props.route.params;
     const dispatch = useDispatch()
     const language = useSelector(getLanguage)
-    const [languagelistData, setLanguageListData] = useState([]);
     const [defaultLanguage, setDefaultLanguage] = useState(language);
     const isFocused = useIsFocused();
     useEffect(() => {
         if (isFocused) {
-            getLanguageList();
+            title === t("currencyUnit") ? list2 : list1;
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isFocused]);
-    async function getLanguageList() {
-        const { data } = await helper.get('/sys/language', {})
-        console.log('===========/sys/aboutr=============');
-        console.log(data);
-        console.log('====================================');
-        if (data && data.length) {
-            setLanguageListData(data)
-        }
-    }
+    
+
     async function editLanguage(params: string) {
         if (params) {
             await dispatch(walletAction.setLanguage(params));
-            await setDefaultLanguage(params)
-            console.log('====================================');
-            console.log(params);
-            console.log('====================================');
-            i18next.changeLanguage(params)
+             setDefaultLanguage(params)
+            i18n.changeLanguage(params);
         }
     }
 
@@ -88,8 +84,7 @@ function LanguageSetScreen(props: Props) {
             <Image style={styles.imageText} source={defaultLanguage === item.code ? require('assets/icon-20-选择-on.png') : require('assets/icon-20-选择-off.png')}></Image>
         </TouchableOpacity>
     );
-
-    const renderItem = ({ item }) => {
+    const renderItem = ({item} ) => {
         return (
             <Item
                 item={item}
@@ -101,10 +96,10 @@ function LanguageSetScreen(props: Props) {
     return (
         <SafeAreaView style={styles.container}>
             <FlatList
-                data={languagelistData}
+                data={title === t("currencyUnit") ? list2 : list1}
                 style={styles.item}
                 renderItem={renderItem}
-                keyExtractor={(item) => item.name}
+                keyExtractor={(item) =>  item.code}
             >
             </FlatList>
 

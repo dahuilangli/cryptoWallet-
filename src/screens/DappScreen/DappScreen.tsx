@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import i18n from "i18n";
+import { useTranslation } from 'react-i18next';
 import {
   SafeAreaView,
   StyleSheet,
@@ -35,6 +35,7 @@ interface response {
 
 
 function DappScreen({ }: Props) {
+  const {t} = useTranslation();
   const dispatch = useDispatch();
   const dppSearchList = useSelector(getDappSearchList)
   const [bannerlistData, setBannerListData] = useState([]);
@@ -134,7 +135,7 @@ function DappScreen({ }: Props) {
           }}
         >
           <Image style={styles.searchImage} source={require('assets/icon-20-搜索.png')} />
-          <Text style={styles.searchInput}>{i18n.t("enterDappURL")}</Text>
+          <Text style={styles.searchInput}>{t("enterDappURL")}</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.scanImage} onPress={() => {
           navigate('ScanQRCode');
@@ -142,7 +143,7 @@ function DappScreen({ }: Props) {
           <Image style={{ width: 20, height: 20 }} source={require('assets/icon-20-扫一扫.png')} />
         </TouchableOpacity>
       </View>
-      <Text style={styles.recentText}>{i18n.t("recent")}</Text>
+      <Text style={styles.recentText}>{t("recent")}</Text>
       <View style={styles.smallLine} />
       <View style={styles.bigLine} />
       <FlatList

@@ -16,23 +16,27 @@ import {SCREENHEIGHT,SCREENWIDTH} from "config/constants"
 import LinearGradient from 'react-native-linear-gradient';
 import { Avatar, Button } from 'react-native-elements';
 import { navigate } from 'components/navigationService';
-import i18n from "i18n";
+import { useTranslation } from 'react-i18next';
 // import Icon from 'react-native-vector-icons/FontAwesome';
+
+
 interface Props {}
-const list = [
-  {
-    name: i18n.t("mnemonicimport"),
-    avatar_url: require('assets/icon-20-导入-词.png'),
-    type: 'mnemonic',
-  },
-  {
-    name: i18n.t("privatekeyimport"),
-    avatar_url: require('assets/icon-20-导入-私钥.png'),
-    type: 'privateKey',
-  },
-];
 
 const LoginScreen = ({}: Props) => {
+  const {t} = useTranslation();
+  const list = [
+    {
+      name: t("mnemonicimport"),
+      avatar_url: require('assets/icon-20-导入-词.png'),
+      type: 'mnemonic',
+    },
+    {
+      name: t("privatekeyimport"),
+      avatar_url: require('assets/icon-20-导入-私钥.png'),
+      type: 'privateKey',
+    },
+  ];
+  
   const [modalVisible, setModalVisible] = useState(false);
   return (
     <LinearGradient colors={['#1D4692', '#263C75']} style={styles.container}>
@@ -48,14 +52,14 @@ const LoginScreen = ({}: Props) => {
             onPress={() => {
               navigate('SelectWalletScreen', { loginType: 'new' });
             }}
-            title={i18n.t('createnewwallet')}
+            title={t('createnewwallet')}
             titleStyle={styles.newCreateTitle}
           />
           <Button
             type="outline"
             buttonStyle={styles.already}
             onPress={() => setModalVisible(true)}
-            title={i18n.t("haveawallet")}
+            title={t("haveawallet")}
             titleStyle={styles.alreadyTitle}
           />
         </View>
@@ -80,7 +84,7 @@ const LoginScreen = ({}: Props) => {
           </TouchableWithoutFeedback>
           <View style={styles.modalView}>
             <View style={styles.headView}>
-              <Text style={styles.headText}>{i18n.t("importmethod")}</Text>
+              <Text style={styles.headText}>{t("importmethod")}</Text>
               <TouchableWithoutFeedback
                 style={{ ...styles.openButton }}
                 onPress={() => {

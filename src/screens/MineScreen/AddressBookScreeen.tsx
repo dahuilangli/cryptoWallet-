@@ -3,7 +3,7 @@ import { StyleSheet, View, Text, SafeAreaView ,FlatList,TouchableOpacity, Alert 
 import { navigate } from 'components/navigationService';
 import { ScreensParamList, Feed } from 'actions/types';
 import { RouteProp, useRoute, useIsFocused } from '@react-navigation/native';
-import i18n from "i18n";
+import { useTranslation } from 'react-i18next';
 import {SCREENHEIGHT,SCREENWIDTH} from "config/constants";
 
 type AddressBookScreenRouteProp = RouteProp<ScreensParamList, 'AddressBookScreen'>;
@@ -63,6 +63,7 @@ const Item = ({ item, onPress, style}) => (
 
 function AddressBookScreen({}: Props) {
   const [selectedId, setSelectedId] = useState(null);
+  const {t} = useTranslation();
 
   const renderItem = ({ item }) => {
     return (
@@ -70,7 +71,7 @@ function AddressBookScreen({}: Props) {
         item={item}
         onPress={() =>
           navigate('AddressBookEditorScreen', {
-            title:i18n.t("editpayee"),
+            title:t("editpayee"),
             item:item,
           })
         }

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import i18n from "i18n";
+import { useTranslation } from 'react-i18next';
 import {
   StyleSheet,
   View,
@@ -93,6 +93,7 @@ function CoinDetailScreen({ route }: Props) {
   const [navStatus, setNavStatus] = useState(false);
   const [scrollY, setScrollY] = useState(new Animated.Value(0));
   const [headHeight, setHeadHeight] = useState(-1);
+  const {t} = useTranslation();
 
   return (
     <View style={{ flex: 1 }}>
@@ -157,7 +158,7 @@ function CoinDetailScreen({ route }: Props) {
           </StickyHeader>
 
           <View style={styles.transactions}>
-            <Text style={styles.transactionsTitle}>{i18n.t("Transaction Record")}</Text>
+            <Text style={styles.transactionsTitle}>{t("Transaction Record")}</Text>
             <View style={styles.transactionsList}>
               {list.map((item, i) => (
                 <View style={styles.list} key={i}>
@@ -167,10 +168,10 @@ function CoinDetailScreen({ route }: Props) {
                       <View style={styles.listNavStatus}>
                         <Text style={styles.statusText}>
                           {item?.status > 0
-                            ? i18n.t("completed")
+                            ? t("completed")
                             : item?.status < 0
-                            ? i18n.t("failure")
-                            : i18n.t("processing")}
+                            ? t("failure")
+                            : t("processing")}
                         </Text>
                       </View>
                       <View style={styles.listNavAmount}>
@@ -178,9 +179,9 @@ function CoinDetailScreen({ route }: Props) {
                       </View>
                     </View>
                     <View style={styles.listNavDesc}>
-                      <Text style={styles.descText}>{i18n.t("transactiontime")}:{item?.time}</Text>
+                      <Text style={styles.descText}>{t("transactiontime")}:{item?.time}</Text>
                       <Text style={styles.descText}>
-                        {i18n.t("handlefee")}:{item?.gas} ETH
+                        {t("handlefee")}:{item?.gas} ETH
                       </Text>
                     </View>
                     <TouchableOpacity
@@ -215,7 +216,7 @@ function CoinDetailScreen({ route }: Props) {
             />
           }
           buttonStyle={styles.button}
-          title={i18n.t("Transfer")}
+          title={t("Transfer")}
           titleStyle={styles.buttonTitle}
         />
         <Button
@@ -226,7 +227,7 @@ function CoinDetailScreen({ route }: Props) {
             />
           }
           buttonStyle={styles.buttonOne}
-          title={i18n.t("Receive")}
+          title={t("Receive")}
           titleStyle={styles.buttonTitle}
         />
       </View>

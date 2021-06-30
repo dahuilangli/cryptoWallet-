@@ -5,6 +5,7 @@ import {
 } from 'react-native';
 import i18n from "i18n";
 import { SCREENWIDTH } from 'config/constants';
+import { useTranslation } from 'react-i18next';
 import { WebView } from 'react-native-webview';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -38,6 +39,7 @@ if (headEl && bodyEl) {
 `;
 
 export default function DappWebScreen({ navigation, route }: Props) {
+    const {t} = useTranslation();
     const uri = route.params.uri.replace('http:', 'https:');
     const screenitem = route.params.item;
     const [modalVisible, setModalVisible] = useState(false);
@@ -99,7 +101,7 @@ export default function DappWebScreen({ navigation, route }: Props) {
                                     navigate('DappScreen');
                                 }}
                             >
-                                <Text style={styles.tipText}>{i18n.t("noremindagain")}</Text>
+                                <Text style = {styles.tipText}>{t("noremindagain")}</Text>
                             </TouchableOpacity>
                             <TouchableOpacity
                                 style={{ ...styles.tipBtn1 }}
@@ -107,7 +109,7 @@ export default function DappWebScreen({ navigation, route }: Props) {
                                     setModalVisible(!modalVisible);
                                 }}
                             >
-                                <Text style={styles.knowText}>{i18n.t("Iknow")}</Text>
+                                <Text style = {styles.knowText}>{t("Iknow")}</Text>
                             </TouchableOpacity>
                         </View>
                     </View>

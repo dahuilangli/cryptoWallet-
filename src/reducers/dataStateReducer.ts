@@ -1,6 +1,6 @@
 import produce from 'immer';
 import { createSelector } from 'reselect';
-import { User, Account, WalletAction, ReduxState, DappRecentItem } from 'actions/types';
+import { User, Account, WalletAction, ReduxState, DappRecentItem,AddressBookItem } from 'actions/types';
 
 
 export interface DataState {
@@ -8,12 +8,14 @@ export interface DataState {
   accountList: Array<Account>;
   token: string;
   dappSearchList: Array<DappRecentItem>;
+  addressBookList: Array<AddressBookItem>;
   language: string,
 }
 export const initialState: Readonly<DataState> = {
   token: '',
   accountList: [],
   dappSearchList: [],
+  addressBookList: [],
   language: 'en',
 };
 
@@ -72,6 +74,12 @@ const reducer = (originalState = initialState, walletAction: WalletAction) =>
         } else {
           list.unshift(payload);
         }
+        return;
+      case 'setAddressBookList':
+        let payload1 = walletAction.payload;
+        console.log('11111111111111');
+        console.log(payload1);
+        
         return;
       case 'getHelp':
         console.log(walletAction.payload);

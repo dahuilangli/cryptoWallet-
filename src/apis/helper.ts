@@ -92,8 +92,10 @@ export async function get(url: string, params: object, options: RequestOptions =
 export async function post(url: string, body: object, options: RequestOptions = {}) {
  
   const rest = await getAuth().then(data => data);
-  const { data } = await client.post(API_ENDPOINT + url, body, rest)
+  const  data  = await client.post(API_ENDPOINT + url, body, {headers:rest})
     .then(function (response) {
+      console.log(response.data);
+      
       return response.data;
     })
     .catch(function (error) {

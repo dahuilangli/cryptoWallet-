@@ -12,6 +12,7 @@ import {
 import { Button } from 'react-native-elements';
 import { importByMnemonic } from 'wallets/ethsWallet';
 import { navigate } from 'components/navigationService';
+import { useTranslation } from 'react-i18next';
 
 import { WToast } from 'react-native-smart-tip';
 import i18n from 'i18n';
@@ -53,6 +54,7 @@ function UselessTextInput(props: any) {
 const ImportMnemonicScreen = (props: Props) => {
   const { type } = props.route.params;
   const [mnemonic, setMnemonic] = useState('');
+  const {t} = useTranslation();
 
   return (
     <SafeAreaView style={styles.container}>
@@ -60,7 +62,7 @@ const ImportMnemonicScreen = (props: Props) => {
         <View style={styles.main}>
           <View style={styles.inputContainer}>
             <Text style={styles.presentText}>
-              {i18n.t("mnemonicimportDes")}
+              {t("mnemonicimportDes")}
             </Text>
             <View style={styles.inputName}>
               <UselessTextInput
@@ -72,7 +74,7 @@ const ImportMnemonicScreen = (props: Props) => {
                 onChangeText={(text: string) => setMnemonic(text)}
                 autoComplete={false}
                 value={mnemonic}
-                placeholder={i18n.t("Please fill out")}
+                placeholder={t("Please fill out")}
               />
             </View>
           </View>
@@ -90,7 +92,7 @@ const ImportMnemonicScreen = (props: Props) => {
                 });
               } catch (error) {
                 WToast.show({
-                  data: i18n.t("Pleaseentercorrectmnemonic"),
+                  data: t("Pleaseentercorrectmnemonic"),
                   duration: WToast.duration.LONG,
                   position: WToast.position.CENTER,
                 });
