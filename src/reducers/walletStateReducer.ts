@@ -1,12 +1,42 @@
 import produce from 'immer';
+import { User,  WalletAction, Account, ReduxState } from 'actions/types';
+import { createSelector } from 'reselect';
+// import {WalletAction} from 'actions/types';
 
-import {WalletAction} from 'actions/types';
+export interface walletState {
+  accountList: Map<string,Array<Account>>
+}
+export const initialState: Readonly<walletState> = {
+  accountList : new Map<string,Array<Account>>()
+}
 
-export interface SettingsState {}
-export const initialState: Readonly<SettingsState> = {};
+export const selectDataState = (reduxState: ReduxState) => reduxState.walletState;
 
-export default (originalState = initialState, action: WalletAction) =>
-  produce(originalState, state => {
-    switch (action.type) {
+export const getAccountList = createSelector(
+  selectDataState,
+  (dataState) =>  dataState.accountList
+);
+export default (origin=initialState, walletAction: WalletAction) =>{
+ const copy: Readonly<walletState> = {
+  accountList : new Map<string,Array<Account>>()
+}
+  return produce(copy, state => {
+    switch (walletAction.type) {
+      case 'createAccount':
+        state.accountList.set(walletAction.payload.type,[walletAction.payload])
+        console.log(state);
+        if(state.accountList.has(walletAction.payload.type)){
+          const accounts = state.accountList.get(walletAction.payload.type);
+          const finded = accounts?.findIndex((value,index,arr)=>{
+            return value.address == walletAction.payload.address
+          })
+          if(finded == -1 || finded == undefined){
+            accounts?.push(walletAction.payload);
+          }
+        }else{
+          state.accountList.set(walletAction.payload.type,[walletAction.payload])
+        }
+        return;
     }
-  });
+  })
+};

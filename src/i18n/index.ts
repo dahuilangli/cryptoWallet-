@@ -9,7 +9,7 @@ const i18n =i18next.createInstance();
 
 i18n.use(AsyncStoragePlugin()).use(initReactI18next).init({
   lng:'en',
-  debug: true,
+  debug: false,
   resources: {
     en: { translation: en },
     "zh-CN": { translation: zh },

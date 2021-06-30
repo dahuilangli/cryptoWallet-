@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   ScrollView,
@@ -17,113 +17,27 @@ import { Avatar, Button } from 'react-native-elements';
 import { navigate } from 'components/navigationService';
 import LinearGradient from 'react-native-linear-gradient';
 import { TouchableHighlight } from 'react-native-gesture-handler';
+import {CHAINS} from "config/constants"
+import { useSelector } from 'react-redux';
+import { getAccountList } from 'reducers/walletStateReducer';
 
 interface Props {}
 
 const modelLeft = [
   {
-    title: 'ETH',
-    img: require('assets/img-40-coointype-eth.png'),
+    title: CHAINS.eth,
+    img: require('assets/coins/img-40-coointype-eth.png'),
+    img_off: require('assets/coins/img-40-coointype-eth-off.png'),
   },
   {
-    title: 'ETH',
-    img: require('assets/img-40-coointype-币安-off.png'),
+    title: CHAINS.bnb,
+    img: require('assets/coins/img-40-coointype-币安.png'),
+    img_off: require('assets/coins/img-40-coointype-币安-off.png'),
   },
   {
-    title: 'ETH',
-    img: require('assets/img-40-coointype-pk-off.png'),
-  },
-];
-const DATA = [
-  {
-    title: 'ETH',
-    data: [
-      {
-        walletName: '钱包1',
-        address: '0x32be34….8c102d81',
-        amount: 0,
-      },
-      {
-        walletName: '钱包2',
-        address: '0x32be34….8c102d82',
-        amount: 0,
-      },
-      {
-        walletName: '钱包3',
-        address: '0x32be34….8c102d83',
-        amount: 0,
-      },
-      {
-        walletName: '钱包4',
-        address: '0x32be34….8c102d84',
-        amount: 0,
-      },
-      {
-        walletName: '钱包5',
-        address: '0x32be35….8c102d84',
-        amount: 0,
-      },
-      {
-        walletName: '钱包6',
-        address: '0x32be36….8c102d84',
-        amount: 0,
-      },
-      {
-        walletName: '钱包7',
-        address: '0x32be37….8c102d84',
-        amount: 0,
-      },
-    ],
-  },
-  {
-    title: 'OKEX',
-    data: [
-      {
-        walletName: '钱包1',
-        address: '0x32be34….8c102d85',
-        amount: 0,
-      },
-      {
-        walletName: '钱包2',
-        address: '0x32be34….8c102d86',
-        amount: 0,
-      },
-      {
-        walletName: '钱包3',
-        address: '0x32be34….8c102d87',
-        amount: 0,
-      },
-      {
-        walletName: '钱包4',
-        address: '0x32be34….8c102d88',
-        amount: 0,
-      },
-    ],
-  },
-  {
-    title: 'HUOBI',
-    data: [
-      {
-        walletName: '钱包1',
-        address: '0x32be34….8c102d89',
-        amount: 0,
-      },
-      {
-        walletName: '钱包2',
-        address: '0x32be34….8c102d10',
-        amount: 0,
-      },
-      {
-        walletName: '钱包3',
-        address: '0x32be34….8c102d11',
-        amount: 0,
-      },
-      {
-        walletName: '钱包4',
-        address: '0x32be34….8c102d12',
-        amount: 0,
-      },
-    ],
+    title: CHAINS.ht,
+    img: require('assets/coins/img-40-coointype-pk.png'),
+    img_off: require('assets/coins/img-40-coointype-pk-off.png'),
   },
 ];
 function HomeScreen({}: Props) {
@@ -131,10 +45,11 @@ function HomeScreen({}: Props) {
   const [selectItem, setSelectItem] = useState(0);
   const [selectAddress, setSelectAddress] = useState('');
   const {t} = useTranslation();
-  // for (let index = 0; index < 10; index++) {
-  //   setGenericPassword(index.toString(), '密码' + index);
-  // }
-  // getGenericPassword();
+  const walletlist = useSelector(getAccountList);
+ 
+  useEffect(()=>{
+    
+  })
   function clickOnItem(index: number) {
     setSelectItem(index);
   }
@@ -144,7 +59,7 @@ function HomeScreen({}: Props) {
       avatar_url: require('assets/img-40-coointype-eth.png'),
     },
   ];
-
+  
   return (
     <LinearGradient colors={['#3060C2', '#3B6ED5']} style={styles.container}>
       <View style={styles.main}>
@@ -313,16 +228,16 @@ function HomeScreen({}: Props) {
                     }
                     onPress={() => clickOnItem(index)}
                   >
-                    <Image source={item.img} />
+                    <Image source={index === selectItem ? item.img: item.img_off} />
                   </TouchableHighlight>
                 ))}
               </View>
               <View style={styles.submenu}>
                 <Text style={styles.submenuHeader}>
-                  {DATA[selectItem]?.title}
+                  {modelLeft[selectItem].title}
                 </Text>
                 <ScrollView scrollIndicatorInsets={{ right: -6 }}>
-                  {DATA[selectItem]?.data.map((item, index) => (
+                  {walletlist.get(modelLeft[selectItem].title)?.map((item, index) => (
                     <TouchableOpacity
                       style={
                         selectAddress === item.address

@@ -17,6 +17,7 @@ import { Avatar } from 'react-native-elements';
 // import LinearGradient from 'react-native-linear-gradient'; // Only if no expo
 
 import { navigate } from 'components/navigationService';
+import { CHAINS } from 'config/constants';
 
 interface Props {
   route: {
@@ -27,16 +28,16 @@ interface Props {
 }
 const list = [
   {
-    name: 'ETH',
-    avatar_url:require('assets/wallet-icon/ethereum.png'),
+    name: CHAINS.eth,
+    avatar_url:require('assets/coins/ethereum.png'),
   },
   {
-    name: 'BNB',
-    avatar_url:require('assets/wallet-icon/binance-coin.png'),
+    name: CHAINS.bnb,
+    avatar_url:require('assets/coins/binance.png'),
   },
   {
-    name: 'HT',
-    avatar_url:require('assets/wallet-icon/ht.png'),
+    name: CHAINS.ht,
+    avatar_url:require('assets/coins/ht.png'),
   },
 ];
 const SelectWalletScreen = (prop: Props) => {
