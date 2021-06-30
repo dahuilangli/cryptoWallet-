@@ -19,9 +19,12 @@ import { WToast } from 'react-native-smart-tip';
 import { navigate } from 'components/navigationService';
 import i18n from 'i18n'
 import {SCREENHEIGHT,SCREENWIDTH} from "config/constants"
+import { useTranslation } from 'react-i18next';
+
 
 interface Props {}
 function WalletDetailScreen({}: Props) {
+  const {t} = useTranslation();
   let pwds = '111111';
   const [pwd, setPwd] = useState('');
   let name = 'Jason的钱包';
@@ -85,7 +88,7 @@ function WalletDetailScreen({}: Props) {
                 ...styles.paddingHorizontal_20,
               }}
             >
-              <Text style={styles.title}>{i18n.t("walletaddress")}</Text>
+              <Text style={styles.title}>{t("walletaddress")}</Text>
               <Image
                 style={styles.icon_20}
                 source={require('assets/icon-20-copy.png')}
@@ -113,7 +116,7 @@ function WalletDetailScreen({}: Props) {
               ...styles.borderBootom,
             }}
           >
-            <Text style={styles.title}>{i18n.t("exportmnemonic")}</Text>
+            <Text style={styles.title}>{t("exportmnemonic")}</Text>
             <Image
               style={styles.right}
               source={require('assets/icon-20-arrow-right.png')}
@@ -127,7 +130,7 @@ function WalletDetailScreen({}: Props) {
               ...styles.borderBootom,
             }}
           >
-            <Text style={styles.title}>{i18n.t("exportprivatekey")}</Text>
+            <Text style={styles.title}>{t("exportprivatekey")}</Text>
             <Image
               style={styles.right}
               source={require('assets/icon-20-arrow-right.png')}
@@ -141,7 +144,7 @@ function WalletDetailScreen({}: Props) {
               ...styles.borderBootom,
             }}
           >
-            <Text style={styles.title}>{i18n.t("changePassword")}</Text>
+            <Text style={styles.title}>{t("changePassword")}</Text>
             <Image
               style={styles.right}
               source={require('assets/icon-20-arrow-right.png')}
@@ -151,7 +154,7 @@ function WalletDetailScreen({}: Props) {
       </View>
       <Button
         buttonStyle={styles.button}
-        title={i18n.t("deletewallet")}
+        title={t("deletewallet")}
         onPress={() => setTransferConfirm(!transferConfirm)}
         titleStyle={styles.buttonTitle}
       />
@@ -181,7 +184,7 @@ function WalletDetailScreen({}: Props) {
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
               <View style={styles.modalView}>
                 <View style={styles.headView}>
-                  <Text style={styles.headText}>{i18n.t("entersecurepassword")}</Text>
+                  <Text style={styles.headText}>{t("entersecurepassword")}</Text>
                   <TouchableOpacity
                     style={{ ...styles.openButton }}
                     onPress={() => {
@@ -199,14 +202,14 @@ function WalletDetailScreen({}: Props) {
                     <TextInput
                       style={styles.codeInput}
                       secureTextEntry
-                      placeholder={i18n.t("enterpassword")}
+                      placeholder={t("enterpassword")}
                       value={pwd}
                       onChangeText={setPwd}
                     />
                     <View style={styles.codeButtonView}>
                       <Button
                         buttonStyle={styles.buttonStyle}
-                        title={i18n.t("sure")}
+                        title={t("sure")}
                         titleStyle={styles.buttonModelTitle}
                         onPress={() => {
                           if (pwd === pwds) {
@@ -229,7 +232,7 @@ function WalletDetailScreen({}: Props) {
                       />
                       <Button
                         buttonStyle={styles.cancelButtonStyle}
-                        title={i18n.t("cancel")}
+                        title={t("cancel")}
                         titleStyle={styles.cancelButtonTitle}
                         onPress={() => setTransferConfirm(!transferConfirm)}
                       />
@@ -268,7 +271,7 @@ function WalletDetailScreen({}: Props) {
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
               <View style={styles.modalView}>
                 <View style={styles.headView}>
-                  <Text style={styles.headText}>{i18n.t("modifywalletname")}</Text>
+                  <Text style={styles.headText}>{t("modifywalletname")}</Text>
                   <TouchableOpacity
                     style={{ ...styles.openButton }}
                     onPress={() => {
@@ -285,20 +288,20 @@ function WalletDetailScreen({}: Props) {
                   <View style={styles.codeInputView}>
                     <TextInput
                       style={styles.codeInput}
-                      placeholder={i18n.t("enterwalletname")}
+                      placeholder={t("enterwalletname")}
                       value={wallName}
                       onChangeText={setWallName}
                     />
                     <View style={styles.codeButtonView}>
                       <Button
                         buttonStyle={styles.buttonStyle}
-                        title={i18n.t("sure")}
+                        title={t("sure")}
                         titleStyle={styles.buttonModelTitle}
                         onPress={() => (name = wallName)}
                       />
                       <Button
                         buttonStyle={styles.cancelButtonStyle}
-                        title={i18n.t("cancel")}
+                        title={t("cancel")}
                         titleStyle={styles.cancelButtonTitle}
                         onPress={() => setWallNameModel(!wallNameModel)}
                       />

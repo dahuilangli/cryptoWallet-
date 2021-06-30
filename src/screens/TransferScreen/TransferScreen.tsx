@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import i18n from "i18n";
+import { useTranslation } from 'react-i18next';
 import {
   StyleSheet,
   SafeAreaView,
@@ -28,6 +28,7 @@ function TransferScreen({}: Props) {
   const [transferAmount, setTransferAmount] = useState('');
   const [gasIndex, setGasIndex] = useState(-1);
   const [selectCoinIndex, setSelectCoinIndex] = useState(-1);
+  const {t} = useTranslation();
   // for (let index = 0; index < 10; index++) {
   //   setGenericPassword(index.toString(), '密码' + index);
   // }
@@ -76,7 +77,7 @@ function TransferScreen({}: Props) {
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View style={styles.main}>
           <View style={styles.bodyContainer}>
-            <Text style={styles.coinType}>{i18n.t("Transfercurrency")}</Text>
+            <Text style={styles.coinType}>{t("Transfercurrency")}</Text>
             <TouchableOpacity
               style={styles.selectCoin}
               onPress={() => setModalVisible(!modalVisible)}
@@ -87,7 +88,7 @@ function TransferScreen({}: Props) {
               />
               <View style={styles.coinNameList}>
                 <Text style={styles.coinName}>ETH</Text>
-                <Text style={styles.coinNameInfo}>{i18n.t("Balance")}: 0.0043 ETH</Text>
+                <Text style={styles.coinNameInfo}>{t("Balance")}: 0.0043 ETH</Text>
               </View>
               <Image
                 style={styles.coinGo}
@@ -95,10 +96,10 @@ function TransferScreen({}: Props) {
               />
             </TouchableOpacity>
 
-            <Text style={styles.coinTypeS}>{i18n.t("receiveaddress")}</Text>
+            <Text style={styles.coinTypeS}>{t("receiveaddress")}</Text>
             <View style={styles.inputContainer}>
               <TextInput
-                placeholder={i18n.t("enterWalAdd")}
+                placeholder={t("enterWalAdd")}
                 style={styles.addressInput}
                 value={receivingAddress}
                 onChangeText={setReceivingAddress}
@@ -109,10 +110,10 @@ function TransferScreen({}: Props) {
               />
             </View>
 
-            <Text style={styles.coinTypeS}>{i18n.t("transferamount")}</Text>
+            <Text style={styles.coinTypeS}>{t("transferamount")}</Text>
             <View style={styles.inputContainer}>
               <TextInput
-                placeholder={i18n.t("entertransferamount")}
+                placeholder={t("entertransferamount")}
                 keyboardType="numeric"
                 style={styles.addressInput}
                 value={transferAmount}
@@ -120,7 +121,7 @@ function TransferScreen({}: Props) {
               />
             </View>
 
-            <Text style={styles.coinTypeS}>{i18n.t("Minerfee")}</Text>
+            <Text style={styles.coinTypeS}>{t("Minerfee")}</Text>
             <View style={styles.gasContainer}>
               {gasList.map((item, index) => (
                 <TouchableOpacity
@@ -182,7 +183,7 @@ function TransferScreen({}: Props) {
           <View style={styles.buttonContainer}>
             <Button
               buttonStyle={styles.buttonStyle}
-              title={i18n.t("sure")}
+              title={t("sure")}
               titleStyle={styles.buttonTitle}
               onPress={() => setTransferConfirm(!transferConfirm)}
             />
@@ -210,7 +211,7 @@ function TransferScreen({}: Props) {
           </TouchableWithoutFeedback>
           <View style={styles.modalView}>
             <View style={styles.headView}>
-              <Text style={styles.headText}>{i18n.t("Choosecurrency")}</Text>
+              <Text style={styles.headText}>{t("Choosecurrency")}</Text>
               <TouchableWithoutFeedback
                 style={{ ...styles.openButton }}
                 onPress={() => {
@@ -284,7 +285,7 @@ function TransferScreen({}: Props) {
             >
               <View style={styles.modalView}>
                 <View style={styles.headView}>
-                  <Text style={styles.headText}>{i18n.t("entersecurepassword")}</Text>
+                  <Text style={styles.headText}>{t("entersecurepassword")}</Text>
                   <TouchableOpacity
                     style={{ ...styles.openButton }}
                     onPress={() => {
@@ -299,17 +300,17 @@ function TransferScreen({}: Props) {
                 </View>
                 <View style={styles.groupView}>
                   <View style={styles.codeInputView}>
-                    <TextInput placeholder={i18n.t("enterpassword")} style={styles.codeInput} />
+                    <TextInput placeholder={t("enterpassword")} style={styles.codeInput} />
                     <View style={styles.codeButtonView}>
                       <Button
                         buttonStyle={styles.buttonStyle}
-                        title={i18n.t("sure")}
+                        title={t("sure")}
                         titleStyle={styles.buttonTitle}
                         onPress={() => setTransferConfirm(!transferConfirm)}
                       />
                       <Button
                         buttonStyle={styles.cancelButtonStyle}
-                        title={i18n.t("cancel")}
+                        title={t("cancel")}
                         titleStyle={styles.cancelButtonTitle}
                         onPress={() => setTransferConfirm(!transferConfirm)}
                       />

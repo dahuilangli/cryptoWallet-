@@ -1,4 +1,4 @@
-import i18n from "i18n";
+import { useTranslation } from 'react-i18next';
 import React, { useState } from 'react';
 import { StyleSheet, View, Text, TextInput, SafeAreaView } from 'react-native';
 import { Button } from 'react-native-elements';
@@ -13,6 +13,7 @@ interface Props {
   };
 }
 function UselessTextInput(props: any) {
+  const {t} = useTranslation();
   return (
     <TextInput
       {...props} // 将父组件传递来的所有props传递给TextInput;比如下面的multiline和numberOfLines
@@ -28,14 +29,14 @@ const ImportPrivateKeyScreen = (props: Props) => {
     <SafeAreaView style={styles.container}>
       <View style={styles.main}>
         <View style={styles.inputContainer}>
-          <Text style={styles.presentText}>{i18n.t("enterprivatekeyorscanQRcode")}</Text>
+          <Text style={styles.presentText}>{t("enterprivatekeyorscanQRcode")}</Text>
           <View style={styles.inputName}>
             <UselessTextInput
               multiline
               numberOfLines={4}
               onChangeText={(text: string) => setPrivateKey(text)}
               value={privateKey}
-              placeholder={i18n.t("Please fill out")}
+              placeholder={t("Please fill out")}
             />
           </View>
         </View>
@@ -53,14 +54,14 @@ const ImportPrivateKeyScreen = (props: Props) => {
               });
             } catch (error) {
               WToast.show({
-                data: i18n.t("Pleaseentercorrectprivatekey"),
+                data: t("Pleaseentercorrectprivatekey"),
                 duration: WToast.duration.LONG,
                 position: WToast.position.CENTER,
               });
             }
           }}
           disabled={!privateKey}
-          title={i18n.t("NextStep")}
+          title={t("NextStep")}
           titleStyle={styles.nextButtonTitle}
         />
       </View>

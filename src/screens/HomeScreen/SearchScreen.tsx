@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import i18n from "i18n";
+import { useTranslation } from 'react-i18next';
 import {
   ScrollView,
   StyleSheet,
@@ -16,13 +16,14 @@ import LinearGradient from 'react-native-linear-gradient';
 interface Props {}
 
 function SearchScreen({}: Props) {
+  const {t} = useTranslation();
   const [coinName, setCoinName] = useState('');
   // for (let index = 0; index < 10; index++) {
   //   setGenericPassword(index.toString(), '密码' + index);
   // }
   // getGenericPassword();
   let obj = {
-    title: i18n.t("Myassets"),
+    title: t("Myassets"),
     data: [
       {
         name: 'ETH',
@@ -52,7 +53,7 @@ function SearchScreen({}: Props) {
             source={require('assets/icon-20-搜索.png')}
           />
           <TextInput
-            placeholder={i18n.t("EnterTokenorcontractaddress")}
+            placeholder={t("EnterTokenorcontractaddress")}
             value={coinName}
             style={styles.coinNameText}
             onChangeText={setCoinName}
@@ -60,7 +61,7 @@ function SearchScreen({}: Props) {
           />
         </View>
         <TouchableOpacity onPress={goBack} style={styles.goBlack}>
-          <Text style={styles.goBlackText}>{i18n.t("cancel")}</Text>
+          <Text style={styles.goBlackText}>{t("cancel")}</Text>
         </TouchableOpacity>
       </View>
     );

@@ -9,7 +9,8 @@ export interface DataState {
   token: string;
   dappSearchList: Array<DappRecentItem>;
   addressBookList: Array<AddressBookItem>;
-  language: string,
+  language: string;
+  currency: string;
 }
 export const initialState: Readonly<DataState> = {
   token: '',
@@ -17,6 +18,7 @@ export const initialState: Readonly<DataState> = {
   dappSearchList: [],
   addressBookList: [],
   language: 'en',
+  currency: 'CNY',
 };
 
 export const selectDataState = (reduxState: ReduxState) => reduxState.dataState;
@@ -40,6 +42,11 @@ export const getSelectorToken = createSelector(
 export const getLanguage = createSelector(
   selectDataState,
   (dataState) => dataState.language,
+);
+
+export const getCurrency = createSelector(
+  selectDataState,
+  (dataState) => dataState.currency,
 );
 
 export const getDappSearchList = createSelector(
@@ -66,6 +73,12 @@ const reducer = (originalState = initialState, walletAction: WalletAction) =>
         console.log('====================================');
         state.language = walletAction.payload;
         return;
+      case 'setCurrency':
+        console.log('====================================');
+        console.log(walletAction);
+        console.log('====================================');
+        state.currency = walletAction.payload;
+        return;
       case 'setDappSearchList':
         let payload = walletAction.payload;
         let list = state.dappSearchList;
@@ -83,10 +96,25 @@ const reducer = (originalState = initialState, walletAction: WalletAction) =>
       case 'setAddressBookList':
         let payload1 = walletAction.payload;
         let list1 = state.addressBookList;
-        console.log('11111111111111');
-        console.log(payload1);
-        console.log(list1);
-        list1.unshift(payload1);
+        if(list1.length>0){
+          list1.map((x,i) =>{
+            if(x.walletaddress === payload1.walletaddress){
+              list1.splice(i,1);
+            }
+          })
+          list1.unshift(payload1);
+        }else{
+          list1.unshift(payload1);
+        }
+        return;
+      case 'deleteAddressBookList':
+        let payload2 = walletAction.payload;
+        let list2 = state.addressBookList;
+        list2.map((x,i)=>{
+          if(x.walletaddress === payload2.walletaddress){
+            list2.splice(i,1)
+          }
+        })
         return;
       case 'getHelp':
         console.log(walletAction.payload);

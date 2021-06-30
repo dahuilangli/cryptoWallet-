@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import i18n from "i18n";
+import { useTranslation } from 'react-i18next';
 import {
   ScrollView,
   StyleSheet,
@@ -130,6 +130,7 @@ function HomeScreen({}: Props) {
   const [modalVisible, setModalVisible] = useState(false);
   const [selectItem, setSelectItem] = useState(0);
   const [selectAddress, setSelectAddress] = useState('');
+  const {t} = useTranslation();
   // for (let index = 0; index < 10; index++) {
   //   setGenericPassword(index.toString(), '密码' + index);
   // }
@@ -152,7 +153,7 @@ function HomeScreen({}: Props) {
             <TouchableOpacity onPress={() => setModalVisible(true)}>
               <Image source={require('assets/icon-24-切换钱包-light.png')} />
             </TouchableOpacity>
-            <Text style={styles.headerTitle}>{i18n.t("wallet")}</Text>
+            <Text style={styles.headerTitle}>{t("wallet")}</Text>
             <TouchableOpacity onPress={() => navigate('PostFeedScreen')}>
               <Image
                 style={styles.image}
@@ -192,7 +193,7 @@ function HomeScreen({}: Props) {
                   />
                 }
                 buttonStyle={styles.button}
-                title={i18n.t("Transfer")}
+                title={t("Transfer")}
                 titleStyle={styles.buttonTitle}
                 onPress={() => navigate('TransferScreen')}
               />
@@ -211,7 +212,7 @@ function HomeScreen({}: Props) {
                   end: { x: 0, y: 1 },
                 }}
                 buttonStyle={styles.buttonOne}
-                title={i18n.t("Receive")}
+                title={t("Receive")}
                 titleStyle={styles.buttonTitle}
                 onPress={() => navigate('ReceivePaymentScreen')}
               />
@@ -220,7 +221,7 @@ function HomeScreen({}: Props) {
         </View>
         <View style={styles.assetsContainer}>
           <View style={styles.assetsHeard}>
-            <Text style={styles.assetsHeardTitle}>{i18n.t("assets")}</Text>
+            <Text style={styles.assetsHeardTitle}>{t("assets")}</Text>
             <TouchableOpacity
               onPress={() => navigate('SearchScreen', { coin: ['ETH'] })}
             >
@@ -288,7 +289,7 @@ function HomeScreen({}: Props) {
                   source={require('assets/icon-24-钱包管理.png')}
                 />
               </TouchableOpacity>
-              <Text style={styles.headText}>{i18n.t("choosewallet")}</Text>
+              <Text style={styles.headText}>{t("choosewallet")}</Text>
               <TouchableOpacity
                 style={{ ...styles.openButton }}
                 onPress={() => {
@@ -365,7 +366,7 @@ function HomeScreen({}: Props) {
                               : styles.itemAmount
                           }
                         >
-                          {i18n.t("AvailableBalance")}
+                          {t("AvailableBalance")}
                         </Text>
                         <Text
                           style={

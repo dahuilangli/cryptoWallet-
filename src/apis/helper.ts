@@ -4,7 +4,8 @@ import DeviceInfo from 'react-native-device-info';
 
 
 import AsyncStorage from '@react-native-community/async-storage';
-
+import { useSelector, useDispatch } from 'react-redux';
+import { getLanguage ,getCurrency} from 'reducers/dataStateReducer';
 interface RequestOptions extends RequestInit {
   timeout?: number;
 }
@@ -71,15 +72,12 @@ async function getAuth() {
       'Device': DeviceInfo.getUniqueId(),
       "Authorization": `Bearer ${JSON.parse(Authorization)}`,
     }
-    console.log('====================================');
-    console.log(DeviceInfo.getUniqueId());
-    console.log('====================================');
   }
   return headers;
 }
 export async function get(url: string, params: object, options: RequestOptions = {}) {
   const rest = await getAuth().then(data => data);
-
+  
   return client.get(API_ENDPOINT + url, { params, headers: rest })
     .then(function (response) {
       return response.data;
@@ -92,10 +90,8 @@ export async function get(url: string, params: object, options: RequestOptions =
 export async function post(url: string, body: object, options: RequestOptions = {}) {
  
   const rest = await getAuth().then(data => data);
-  const  data  = await client.post(API_ENDPOINT + url, body, {headers:rest})
+  const  data  = await client.post(API_ENDPOINT + url, body, rest)
     .then(function (response) {
-      console.log(response.data);
-      
       return response.data;
     })
     .catch(function (error) {

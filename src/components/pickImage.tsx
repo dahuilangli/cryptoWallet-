@@ -1,5 +1,5 @@
 import ActionSheet from 'react-native-action-sheet';
-import i18n from "i18n";
+import { useTranslation } from 'react-i18next';
 import ImagePicker, {
   Image as ImageFile,
 } from 'react-native-image-crop-picker';
@@ -22,10 +22,11 @@ export async function openCamera() {
 }
 
 export default function pickImage(): Promise<ImageFile | null> {
+  const {t} = useTranslation();
   return new Promise(resolve => {
     ActionSheet.showActionSheetWithOptions(
       {
-        options: ['拍摄', '从相册选择', i18n.t("cancel")],
+        options: ['拍摄', '从相册选择', t("cancel")],
         cancelButtonIndex: 2,
       },
       buttonIndex => {

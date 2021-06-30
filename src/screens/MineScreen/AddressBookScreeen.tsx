@@ -3,47 +3,13 @@ import { StyleSheet, View, Text, SafeAreaView ,FlatList,TouchableOpacity, Alert 
 import { navigate } from 'components/navigationService';
 import { ScreensParamList, Feed } from 'actions/types';
 import { RouteProp, useRoute, useIsFocused } from '@react-navigation/native';
-import i18n from "i18n";
+import { useTranslation } from 'react-i18next';
 import {SCREENHEIGHT,SCREENWIDTH} from "config/constants";
 import { getAddressBookList } from 'reducers/dataStateReducer';
 import { useSelector, useDispatch } from 'react-redux';
 import walletAction from 'actions/wallet';
 type AddressBookScreenRouteProp = RouteProp<ScreensParamList, 'AddressBookScreen'>;
 interface Props {}
-
-const list = [
-  {
-    add_type:'ETH',
-    add_name: 'Jason的小号',
-    logo: require('assets/img-40-coointype-eth.png'),
-    remarks: '我的第二个ETH钱包',
-    walletaddress:'0x4250c3c0094A65dd12f6C41D8c4C6ec10ff458f7',
-  },
- 
-  {
-    add_type:'ETH',
-    add_name: 'Chris Jackson',
-    logo: require('assets/img-40-coointype-pk.png'),
-    remarks: 'Vice Chairman',
-    walletaddress:'0x4250c3c0094A65dd12f6C41D8c4C6ec10ff458f7C41D8c4C6ec10ff458f7',
-  },
-  {
-    add_type:'STO',
-    add_name: 'Jason的小号',
-    logo: require('assets/img-40-coointype-eth.png'),
-    remarks: '我的第二个ETH钱包',
-    walletaddress:'0x4250c3c0094A65dd12f6C41D8c4C6ec10ff458f7',
-  },
-  {
-    add_type:'ETH',
-    add_name: 'Chris Jackson',
-    logo: require('assets/img-40-coointype-pk.png'),
-    remarks: 'Vice Chairman',
-    walletaddress:'0x4250c3c0094A65dd12f6C41D8c4C6ec10ff458f7C41D8c4C6ec10ff458f7',
-  },
-  
-]
-
 const Item = ({ item, onPress, style}) => (
   <TouchableOpacity onPress={onPress} style={[styles.item, style]}>
     <View style = {styles.headView}>
@@ -66,13 +32,16 @@ function AddressBookScreen({}: Props) {
   console.log('111111');
   
   console.log(dppSearchList);
+  const [selectedId, setSelectedId] = useState(null);
+  const {t} = useTranslation();
+
   const renderItem = ({ item }) => {
     return (
       <Item
         item={item}
         onPress={() =>
           navigate('AddressBookEditorScreen', {
-            title:i18n.t("editpayee"),
+            title:t("editpayee"),
             item:item,
           })
         }
@@ -85,7 +54,7 @@ function AddressBookScreen({}: Props) {
   return (
       <SafeAreaView style={styles.container}>
         <FlatList 
-        data={list} 
+        data={dppSearchList} 
         style={styles.item}
         renderItem={renderItem}
         keyExtractor={(item) => item.walletaddress}

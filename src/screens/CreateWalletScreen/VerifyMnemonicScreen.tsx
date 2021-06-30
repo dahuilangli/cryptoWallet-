@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   Text,
 } from 'react-native';
-import i18n from "i18n";
+import { useTranslation } from 'react-i18next';
 import { Button } from 'react-native-elements';
 import { navigate } from 'components/navigationService';
 
@@ -26,6 +26,7 @@ const reorganize = function (array: Array<string>): Array<string> {
   });
 };
 const VerifyMnemonicScreen = (props: Props) => {
+  const {t} = useTranslation();
   const { accountInfo } = props.route.params;
   const mnemonic = JSON.stringify(accountInfo.mnemonics);
   const [mnemonicList, setMnemonicList] = useState<string[]>(
@@ -50,10 +51,11 @@ const VerifyMnemonicScreen = (props: Props) => {
   console.log(mnemonic);
 
   async function storageAccount() {
+   
     let account: Account;
     try {
       account = accountInfo;
-      navigate('SuccessScreen', { title: i18n.t("Createdsuccessfully"), accountInfo: account });
+      navigate('SuccessScreen', { title: t("Createdsuccessfully"), accountInfo: account });
     } catch (err) {
       console.log('====================================');
       console.log(err);
@@ -65,7 +67,7 @@ const VerifyMnemonicScreen = (props: Props) => {
       <View style={styles.main}>
         <View>
           <Text style={styles.presentText}>
-            {i18n.t("mnemonicwordscopied")}
+            {t("mnemonicwordscopied")}
           </Text>
           <View style={styles.newMnemonicList}>
             <View style={styles.newMnemonic}>
@@ -104,7 +106,7 @@ const VerifyMnemonicScreen = (props: Props) => {
         <Button
           buttonStyle={styles.nextButton}
           onPress={storageAccount}
-          title={i18n.t("sure")}
+          title={t("sure")}
           disabled={!verifyMnemonic}
           titleStyle={styles.nextButtonTitle}
         />

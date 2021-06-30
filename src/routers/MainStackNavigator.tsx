@@ -2,7 +2,6 @@ import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Image,Text } from 'react-native';
-import i18n from "i18n";
 import TabNavigator from './TabNavigator';
 import WebScreen from 'screens/WebScreen';
 import AboutUsScreen from 'screens/MineScreen/AboutUsScreen';
@@ -11,6 +10,7 @@ import SuggestScreen from 'screens/MineScreen/SuggestScreen';
 import AddressTypeScreen from 'screens/MineScreen/AddressTypeScreen';
 import UpdateScreen from 'screens/MineScreen/UpdateScreen';
 import LanguageSetScreen from 'screens/MineScreen/LanguageSetScreen';
+import CurrencySetScreen from 'screens/MineScreen/CurrencySetScreen';
 import MessageScreen from 'screens/MineScreen/MessageScreen';
 import AddressBookScreen from 'screens/MineScreen/AddressBookScreeen';
 import AddressBookEditorScreen from 'screens/MineScreen/AddressBookEditorScreen';
@@ -32,8 +32,11 @@ import EditPwdScreen from 'screens/WalletBoardScreen/EditPwdScreen';
 import TransferScreen from 'screens/TransferScreen/TransferScreen';
 import ReceivePaymentScreen from 'screens/ReceivePaymentScreen/ReceivePaymentScreen';
 // import FeedListScreen from 'screens/FeedListScreen/FeedListScreen';
-import { navigate } from 'components/navigationService';
-
+import { goBack, navigate } from 'components/navigationService';
+import { useTranslation } from 'react-i18next';
+import { useDispatch } from 'react-redux';
+import walletAction from 'actions/wallet';
+import { AddressBookItem } from 'actions/types';
 export type MainStackParamList = {
   TabNavigator: undefined;
   PostFeedScreen: undefined;
@@ -44,10 +47,11 @@ export type MainStackParamList = {
   SetUpScreen: undefined;
   FlashRecordScreen: undefined;
   ScanQRCode: undefined;
-  LanguageSetScreen: { title?: string; };
+  LanguageSetScreen: undefined;
+  CurrencySetScreen: undefined;
   AddressBookScreen: { title: string; showMyself?: boolean };
-  AddressBookEditorScreen: { title?: string; item: {} };
-  AddressTypeScreen: { type?: string };
+  AddressBookEditorScreen: { title?: string; item: {}};
+  AddressTypeScreen: { addType: string ; setAddType: Function;typeLogo: string ; setTypeLogo: Function};
   FeedListScreen: { title: string; showMyself?: boolean };
   WebScreen: { title?: any; uri: string };
   SearchScreen: { coin: Array<string> };
@@ -67,6 +71,11 @@ export type MainStackParamList = {
 const { Navigator, Screen } = createStackNavigator<MainStackParamList>();
 
 export default function MainStackNavigator() {
+  const {t} = useTranslation();
+  const dispatch = useDispatch();
+  async function addAddressBook(item:AddressBookItem) {
+    await dispatch(walletAction.deleteAddressBookList(item));
+}
   return (
     <Navigator
       screenOptions={{
@@ -95,49 +104,49 @@ export default function MainStackNavigator() {
         name="WalletBoardScreen"
         component={WalletBoardScreen}
         options={{
-          title: i18n.t("Walletmanagement"),
+          title: t("Walletmanagement"),
         }}
       />
       <Screen
         name="WalletDetailScreen"
         component={WalletDetailScreen}
         options={{
-          title: i18n.t("walletdetails"),
-        }}
+          title: t("walletdetails"),
+        }}  
       />
       <Screen
         name="ExportMnemonicScreen"
         component={ExportMnemonicScreen}
         options={{
-          title: i18n.t("Backupmnemonic"),
+          title: t("Backupmnemonic"),
         }}
       />
       <Screen
         name="ExportPrivateKeyScreen"
         component={ExportPrivateKeyScreen}
         options={{
-          title: i18n.t("Backupprivatekey"),
+          title: t("Backupprivatekey"),
         }}
       />
       <Screen
         name="EditPwdScreen"
         component={EditPwdScreen}
         options={{
-          title: i18n.t("changePassword"),
+          title: t("changePassword"),
         }}
       />
       <Screen
         name="TransferScreen"
         component={TransferScreen}
         options={{
-          title: i18n.t("Transfer"),
+          title: t("Transfer"),
         }}
       />
       <Screen
         name="ReceivePaymentScreen"
         component={ReceivePaymentScreen}
         options={{
-          title: i18n.t("Receive"),
+          title: t("Receive"),
         }}
       />
       <Screen
@@ -148,7 +157,7 @@ export default function MainStackNavigator() {
       <Screen
         name="ScanQRCode"
         component={ScanQRCode}
-        options={{ title : i18n.t("Scan") }}
+        options={{ title : t("Scan") }}
       />
       <Screen
         name="CoinDetailScreen"
@@ -164,7 +173,7 @@ export default function MainStackNavigator() {
         name="FlashRecordScreen"
         component={FlashRecordScreen}
         options={{
-          title: i18n.t("flashrecord"),
+          title: t("flashrecord"),
         }}
       />
       
@@ -173,10 +182,10 @@ export default function MainStackNavigator() {
         name="AddressBookScreen"
         component={AddressBookScreen}
         options={{
-          title: i18n.t("Addressbook"),
+          title: t("Addressbook"),
           headerBackTitle: 'flase',
           headerRight: () => <TouchableOpacity
-            onPress={() => navigate('AddressBookEditorScreen', { item: {}, title: i18n.t("newpayee") })}
+            onPress={() => navigate('AddressBookEditorScreen', { item: {}, title: t("newpayee") })}
           >
             <Image source={require('assets/icon-24-添加-light.png')} />
           </TouchableOpacity>,
@@ -186,13 +195,15 @@ export default function MainStackNavigator() {
       <Screen
         name="AddressBookEditorScreen"
         component={AddressBookEditorScreen}
-
         options={({ route }) => ({
           title: route.params.title,
-          headerRight: () => route.params.title === i18n.t("editpayee") && <TouchableOpacity
-            onPress={() => navigate('AddressBookScreen')}
+          headerRight: () => route.params.title === t("editpayee") && <TouchableOpacity
+            onPress={() => {
+              addAddressBook(route.params.item)
+              goBack()
+            }}
           >
-            <Text style={{ color: 'white', fontSize: 14, fontWeight: '500' }}>{i18n.t("delete")}</Text>
+            <Text style={{ color: 'white', fontSize: 14, fontWeight: '500' }}>{t("delete")}</Text>
           </TouchableOpacity>,
           headerRightContainerStyle: { marginRight: 20 },
         })}
@@ -204,56 +215,63 @@ export default function MainStackNavigator() {
         name="AddressTypeScreen"
         component={AddressTypeScreen}
         options={{
-          title: i18n.t("chooseaddresstype"),
+          title: t("chooseaddresstype"),
         }}
       />
       <Screen
         name="SetUpScreen"
         component={SetUpScreen}
         options={{
-          title: i18n.t("Usesettings"),
+          title: t("Usesettings"),
         }}
       />
       <Screen
         name="LanguageSetScreen"
         component={LanguageSetScreen}
         options={({ route }) => ({
-          title: route.params.title,
+          title: t("languagesettings"),
+        })}
+      />
+      <Screen
+        name="CurrencySetScreen"
+        component={CurrencySetScreen}
+        options={({ route }) => ({
+          title: t("currencyUnit"),
         })}
       />
       <Screen
         name="AboutUsScreen"
         component={AboutUsScreen}
         options={{
-          title: i18n.t("aboutus"),
+          title: t("aboutus"),
         }}
       />
       <Screen
         name="SuggestScreen"
         component={SuggestScreen}
         options={{
-          title: i18n.t("HelpFeedback"),
+          title: t("HelpFeedback"),
         }}
       />
       <Screen
         name="UpdateScreen"
         component={UpdateScreen}
         options={{
-          title: i18n.t("versionupdate"),
+          title: t("versionupdate"),
         }}
       />
       <Screen
         name="PostFeedScreen"
         component={PostFeedScreen}
         options={{
-          title: i18n.t("Message"),
+          title: t("Message"),
         }}
       />
       <Screen
         name="MessageScreen"
         component={MessageScreen}
         options={{
-          title: i18n.t("Message"),
+          title: t("Message"),
         }}
       />
       <Screen

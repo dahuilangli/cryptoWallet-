@@ -4,22 +4,22 @@ import { navigate } from 'components/navigationService';
 import { ScreensParamList, Feed } from 'actions/types';
 import { RouteProp, useRoute, useIsFocused } from '@react-navigation/native';
 import DeviceInfo from 'react-native-device-info';
-import i18n from "i18n";
+import { useTranslation } from 'react-i18next';
 
 type UpdateScreenRouteProp = RouteProp<ScreensParamList, 'UpdateScreen'>;
 interface Props { }
 
 let systemVersion = DeviceInfo.getVersion();
 function UpdateScreen({ }: Props) {
-
+  const {t} = useTranslation();
   return (
 
     <SafeAreaView style={styles.container}>
 
       <View style={styles.headView}>
         <Image source={require('assets/icon-125-aboutuslogo.png')} style={styles.iconImage} />
-        <Text style={styles.nameLabel}>{i18n.t("projectname")}</Text>
-        <Text style={styles.currentVersion}>{i18n.t("currentversion")}</Text>
+        <Text style={styles.nameLabel}>{t("projectname")}</Text>
+        <Text style={styles.currentVersion}>{t("currentversion")}</Text>
         <Text style={styles.localVersion}>
           v{systemVersion}
         </Text>
@@ -27,11 +27,11 @@ function UpdateScreen({ }: Props) {
       <View style={styles.bottomView}>
         <View style = {styles.VersionNumber}>
           <Image style = {styles.Icon} source = {require('assets/icon-125-aboutuslogo.png')}/>
-          <Text style = {styles.findText}>{i18n.t("newversionfound")}</Text>
+          <Text style = {styles.findText}>{t("newversionfound")}</Text>
           <Text>v{'1.0.1'}</Text>
         </View>
         <TouchableOpacity style = {styles.upDataBtn}>
-          <Text style = {styles.upDataView}>{i18n.t("downloadupdate")}</Text>
+          <Text style = {styles.upDataView}>{t("downloadupdate")}</Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>
