@@ -6,21 +6,26 @@ import AuthStackNavigator from './AuthStackNavigator';
 import SplashScreen from 'react-native-splash-screen';
 import { useDispatch, useSelector } from 'react-redux';
 import {GET_TOKEN} from "actions/wallet"
-import { getAccountList } from 'reducers/dataStateReducer';
-import { clearAll } from 'helper/test';
+import { getAccountList } from 'reducers/walletStateReducer';
+import {enableMapSet,produce} from "immer";
+import { CHAINS } from 'config/constants';
+import { Account } from 'actions/types';
+enableMapSet()
 
 function RootScreen() {
   const dispatch = useDispatch();
   const accountlist = useSelector(getAccountList);
 
+  
   React.useEffect(() => {
     SplashScreen.hide();
+    
     dispatch(GET_TOKEN());
   },[]);
-  console.log(accountlist)
+  console.log(accountlist);
   return (
     <NavigationContainer ref={navigationRef}>
-      {accountlist.length >= 0 ? <MainStackNavigator /> : <AuthStackNavigator />}
+      {accountlist?.size > 0 ? <MainStackNavigator /> : <AuthStackNavigator />}
     </NavigationContainer>
   );
 }

@@ -1,11 +1,12 @@
-import produce from 'immer';
+import {produce} from 'immer';
 import { createSelector } from 'reselect';
-import { User, Account, WalletAction, ReduxState, DappRecentItem,AddressBookItem } from 'actions/types';
+import { User,  WalletAction, ReduxState, DappRecentItem,AddressBookItem, Account } from 'actions/types';
+import { CHAINS } from 'config/constants';
+
 
 
 export interface DataState {
   user?: User;
-  accountList: Array<Account>;
   token: string;
   dappSearchList: Array<DappRecentItem>;
   addressBookList: Array<AddressBookItem>;
@@ -13,23 +14,17 @@ export interface DataState {
 }
 export const initialState: Readonly<DataState> = {
   token: '',
-  accountList: [],
   dappSearchList: [],
   addressBookList: [],
   language: 'en',
 };
 
-export const selectDataState = (reduxState: ReduxState) => reduxState.dataState;
+  export const selectDataState = (reduxState: ReduxState) => reduxState.dataState;
 
 
 export const getUser = createSelector(
   selectDataState,
   (dataState) => dataState.user,
-);
-
-export const getAccountList = createSelector(
-  selectDataState,
-  (dataState) => dataState.accountList,
 );
 
 export const getSelectorToken = createSelector(
@@ -48,21 +43,16 @@ export const getDappSearchList = createSelector(
 );
 
 const reducer = (originalState = initialState, walletAction: WalletAction) =>
-  produce(originalState, (state) => {
+  produce(originalState, state => {
     switch (walletAction.type) {
       case 'setUser':
         return;
-      case 'setAccountList':
-        state.accountList?.push(walletAction.payload);
-        return;
+      
       case 'setLanguage':
-        console.log('====================================');
-        console.log(walletAction);
-        console.log('====================================');
         state.language = walletAction.payload;
         return;
       case 'setDappSearchList':
-        let payload = walletAction.payload;
+        let payload = walletAction.payload; 
         let list = state.dappSearchList;
         if (list.length > 0) {
           list.map((x, i) => {

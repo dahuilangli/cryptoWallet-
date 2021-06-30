@@ -12,14 +12,13 @@ import { Account, Location, User, DappRecentItem ,AddressBookItem} from 'actions
 import  apis from 'apis';
 const Wallet = createActions({
     setUser: createAction<User>(),
-    setAccountList: createAction<Account>(),
+    createAccount: createAction<Account>(),
     setDappSearchList: createAction<DappRecentItem>(),
     setAddressBookList: createAction<AddressBookItem>(),
     setLanguage: StringAction,
     setLocation: createAction<Location>(),
     getUser: NoArgAction,
     getHelp: NoArgAction,
-    getAccountList: NoArgAction,
     GET_TOKEN_SUCCESS: StringAction,
     GET_TOKEN_ERROR: NoArgAction,
   });

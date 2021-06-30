@@ -10,6 +10,8 @@ import { TabParamList } from 'routers/TabNavigator';
 import { AuthStackParamList } from 'routers/AuthStackNavigator';
 import walletAction from './wallet';
 import {ethers} from 'ethers';
+import { getType } from 'react-native-device-info';
+import { walletState } from 'reducers/walletStateReducer';
 
 export type ScreensParamList = MainStackParamList &
   TabParamList &
@@ -22,6 +24,7 @@ export interface Account {
   securityCode?: string;
   walletName?: string;
   password?:string;
+  type:string;
 }
 
 export interface DappRecentItem {
@@ -50,9 +53,6 @@ export interface Token {
   walletName?: string;
 }
 
-export interface AccountList {
-  ETH: Array<Account>;
-}
 
 interface WithTimeStamp {
   createdAt: Date;
@@ -64,6 +64,7 @@ export interface ReduxState {
   uiState: UIState;
   dataState: DataState;
   settingsState: SettingsState;
+  walletState: walletState;
 }
 
 export interface User extends WithTimeStamp {

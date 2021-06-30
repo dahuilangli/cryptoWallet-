@@ -30,7 +30,7 @@ const SuccessScreen = ({ route }: Props) => {
   const dispatch = useDispatch();
   useEffect(() => {
     setTimeout(() => {
-    dispatch(walletAction.setAccountList(accountInfo))
+    dispatch(walletAction.createAccount(accountInfo))
     },150);
   },[]);
   // async function storageAccount() {

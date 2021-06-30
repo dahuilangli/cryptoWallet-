@@ -32,7 +32,7 @@
     "ethers": "^5.3.0",
     "global": "^4.4.0",
     "i18next-react-native-async-storage": "^1.0.4",
-    "immer": "^7.0.9",
+    "immer": "^9.0.3",
     "patch-package": "^6.2.2",
     "postinstall-postinstall": "^2.1.0",
     "qrcode-generator": "^1.4.4",

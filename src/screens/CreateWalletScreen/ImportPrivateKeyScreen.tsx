@@ -13,7 +13,7 @@ interface Props {
   };
 }
 function UselessTextInput(props: any) {
-  const {t} = useTranslation();
+  
   return (
     <TextInput
       {...props} // 将父组件传递来的所有props传递给TextInput;比如下面的multiline和numberOfLines
@@ -23,6 +23,7 @@ function UselessTextInput(props: any) {
   );
 }
 const ImportPrivateKeyScreen = (props: Props) => {
+  const {t} = useTranslation();
   const { type } = props.route.params;
   const [privateKey, setPrivateKey] = useState('');
   return (

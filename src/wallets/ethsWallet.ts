@@ -34,7 +34,6 @@ export function genWallet(){
       mnemonic: wallet.mnemonic?.phrase,
       seed: ethers.utils.mnemonicToSeed(mnemonic)
     }
-    console.log(account)
     return account;
  
 }
