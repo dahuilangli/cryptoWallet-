@@ -66,6 +66,8 @@ export async function getTokenForApp(){
 }
 async function getAuth() {
   const Authorization = await getTokenForApp();
+  console.log(Authorization);
+  
   if (Authorization) {
     headers = {
       'Content-Type': 'application/json',

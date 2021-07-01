@@ -11,7 +11,7 @@ type SuggestScreenRouteProp = RouteProp<ScreensParamList, 'SuggestScreen'>;
 interface Props { }
 
 function SuggestScreen({ }: Props) {
-  const {t} = useTranslation();
+  const { t } = useTranslation();
   const [emailText, setEmailText] = useState('');
   const [walletAddressText, setWalletAddressText] = useState('');
   const [detailsText, setDetailsText] = useState('');
@@ -24,17 +24,30 @@ function SuggestScreen({ }: Props) {
     };
     const data = await helper.post('/sys/help', body)
     console.log(data);
-    
+
     return data
 
   }
-
+  function checkEmail(emailText:string){
+    console.log(emailText);
+    var emailPattern = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/;
+    if (emailPattern.test(emailText)==false){
+      console.log('111111');
+    }else{
+      console.log('222222');
+    }
+  }
 
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.email}>{t("yourmailbox")}</Text>
       <View style={styles.whiteView}>
-        <TextInput style={styles.input} placeholder={t("enteremailaddress")} onChangeText={setEmailText}>
+        <TextInput
+          style={styles.input}
+          placeholder={t("enteremailaddress")}
+          onChangeText={setEmailText}
+          onEndEditing ={()=>checkEmail(emailText)}
+        >
 
         </TextInput>
       </View>
@@ -55,7 +68,7 @@ function SuggestScreen({ }: Props) {
           title={t("submit")}
           titleStyle={styles.Tlabel}
           buttonStyle={styles.Tbutton}
-          onPress={() => 
+          onPress={() =>
             postSuggest()
           }
           disabled={walletAddressText && emailText && detailsText ? false : true}
