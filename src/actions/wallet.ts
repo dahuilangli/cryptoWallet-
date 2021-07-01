@@ -11,8 +11,9 @@ import { Account, Location, User, DappRecentItem ,AddressBookItem} from 'actions
 
 import  apis from 'apis';
 const Wallet = createActions({
+    setToken: StringAction,
     setUser: createAction<User>(),
-    setAccountList: createAction<Account>(),
+    createAccount: createAction<Account>(),
     setDappSearchList: createAction<DappRecentItem>(),
     setAddressBookList: createAction<AddressBookItem>(),
     deleteAddressBookList: createAction<AddressBookItem>(),
@@ -20,23 +21,26 @@ const Wallet = createActions({
     setCurrency: StringAction,
     setLocation: createAction<Location>(),
     getUser: NoArgAction,
+    getToken: NoArgAction,
     getHelp: NoArgAction,
-    getAccountList: NoArgAction,
     GET_TOKEN_SUCCESS: StringAction,
     GET_TOKEN_ERROR: NoArgAction,
   });
   
-export const GET_TOKEN = ()=>async (dispath: any)=>{
-  // try{
-  apis.common.getToken().then(data=>{
-    if(data != null){
-      dispath(Wallet.GET_TOKEN_SUCCESS(data.token))}
-    }).catch(function(error) {
-      console.log(error);
-      dispath(Wallet.GET_TOKEN_ERROR());
-    });
+// export const GET_TOKEN = ()=>async (dispath: any)=>{
+//   // try{
+//   apis.common.getToken().then(data =>{
+//     console.log('==========GET_TOKEN===================');
+//     console.log(data);
+//     console.log('====================================');
+//     if(data != null){
+//       dispath(Wallet.GET_TOKEN_SUCCESS(data.token))}
+//     }).catch(function(error) {
+//       console.log(error);
+//       dispath(Wallet.GET_TOKEN_ERROR());
+//     });
 
-}
+// }
 export const GETHELP = ()=>async (dispath: any)=>{
   try{
   apis.common.help().then(data=>{

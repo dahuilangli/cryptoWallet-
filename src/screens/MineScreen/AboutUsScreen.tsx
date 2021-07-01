@@ -60,7 +60,7 @@ function AboutUsScreen({ }: Props) {
         <View style={styles.bottomView}>
           {
             aboutlistData.map((item:response, i) => (
-              <TouchableOpacity style={styles.itemStyle} onPress = {() => navigate('WebScreen', { title: item.title, uri: item.content })}>
+              <TouchableOpacity key={item.id} style={styles.itemStyle} onPress = {() => navigate('WebScreen', { title: item.title, uri: item.content })}>
                 <View style={styles.firstView}>
                   <Image
                     style = {styles.LeftImage}

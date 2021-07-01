@@ -59,7 +59,6 @@ const list2 = [
 ]
 
 function HomeScreen() {
-  const {t} = useTranslation();
   const Item1 = ({ item1, onPress1, style1 }) => (
     <TouchableOpacity onPress={onPress1} style={[styles.background, style1]}>
       <View style={styles.headView}>

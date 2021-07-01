@@ -30,27 +30,27 @@ const SuccessScreen = ({ route }: Props) => {
   const dispatch = useDispatch();
   useEffect(() => {
     setTimeout(() => {
-    dispatch(walletAction.setAccountList(accountInfo))
+    dispatch(walletAction.createAccount(accountInfo))
     },150);
   },[]);
-  // async function storageAccount() {
-  //   try {
-  //     await dispatch(walletAction.setAccountList(accountInfo));
-  //   } catch (err) {
-  //     Alert.alert(`${title}失败，请重新选择钱包后重试`);
-  //   }
-  // }
-  // let spinValue = new Animated.Value(0);
-  // const spin = spinValue.interpolate({
-  //   inputRange: [0, 1], //输入值
-  //   outputRange: ['360deg', '0deg'], //输出值
-  // });
-  // Animated.timing(spinValue, {
-  //   toValue: 1,
-  //   duration: 400,
-  //   easing: Easing.linear,
-  //   useNativeDriver: true,
-  // }).start(storageAccount);
+  async function storageAccount() {
+    try {
+      await dispatch(walletAction.createAccount(accountInfo));
+    } catch (err) {
+      Alert.alert(`${title}失败，请重新选择钱包后重试`);
+    }
+  }
+  let spinValue = new Animated.Value(0);
+  const spin = spinValue.interpolate({
+    inputRange: [0, 1], //输入值
+    outputRange: ['360deg', '0deg'], //输出值
+  });
+  Animated.timing(spinValue, {
+    toValue: 1,
+    duration: 400,
+    easing: Easing.linear,
+    useNativeDriver: true,
+  }).start(storageAccount);
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="dark-content" />

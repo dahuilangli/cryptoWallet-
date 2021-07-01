@@ -14,15 +14,15 @@ interface Props {
 const list = [
   {
     name: 'ETH',
-    avatar_url:require('assets/wallet-icon/ethereum.png'),
+    avatar_url:require('assets/coins/ethereum.png'),
   },
   {
     name: 'BNB',
-    avatar_url:require('assets/wallet-icon/binance-coin.png'),
+    avatar_url:require('assets/coins/binance.png'),
   },
   {
     name: 'HT',
-    avatar_url:require('assets/wallet-icon/ht.png'),
+    avatar_url:require('assets/coins/ht.png'),
   },
 ];
 

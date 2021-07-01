@@ -30,13 +30,11 @@ function SearchScreen({ }: Props) {
       let params = {
         keyword: name
       }
-      const { data } = await helper.get('/dapp/search', params)
-      console.log('=============/dapp/search===============');
-      console.log(data);
-      console.log('====================================');
-      if (data && data.length) {
-        setSeachDataList(data)
-      }
+      helper.get('/dapp/search', params).then((res: any) => {
+        if (res?.data && res?.data.length) {
+          setSeachDataList(res.data)
+        }
+      })
     }
     return
   }
