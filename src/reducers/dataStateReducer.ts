@@ -1,6 +1,6 @@
-import {produce} from 'immer';
+import { produce } from 'immer';
 import { createSelector } from 'reselect';
-import { User,  WalletAction, ReduxState, DappRecentItem,AddressBookItem, Account } from 'actions/types';
+import { User, WalletAction, ReduxState, DappRecentItem, AddressBookItem, Account } from 'actions/types';
 import { CHAINS } from 'config/constants';
 
 
@@ -21,18 +21,22 @@ export const initialState: Readonly<DataState> = {
   currency: 'CNY',
 };
 
-  export const selectDataState = (reduxState: ReduxState) => reduxState.dataState;
-
+export const selectDataState = (reduxState: ReduxState) => reduxState.dataState;
 
 export const getUser = createSelector(
   selectDataState,
   (dataState) => dataState.user,
 );
 
-export const getSelectorToken = createSelector(
+export const getToken = createSelector(
   selectDataState,
   (dataState) => dataState.token,
 );
+
+// export const getAccountList = createSelector(
+//   selectDataState,
+//   (dataState) => dataState.accountList,
+// );
 
 export const getLanguage = createSelector(
   selectDataState,
@@ -59,7 +63,15 @@ const reducer = (originalState = initialState, walletAction: WalletAction) =>
     switch (walletAction.type) {
       case 'setUser':
         return;
-      
+      case 'setToken':
+        state.token = walletAction.payload;
+        return;
+      // case 'setAccountList':
+      //   state.accountList?.push(walletAction.payload);
+      //   return;
+      case 'setLanguage':
+        state.language = walletAction.payload;
+        return;
       case 'setLanguage':
         state.language = walletAction.payload;
         return;
@@ -70,7 +82,7 @@ const reducer = (originalState = initialState, walletAction: WalletAction) =>
         state.currency = walletAction.payload;
         return;
       case 'setDappSearchList':
-        let payload = walletAction.payload; 
+        let payload = walletAction.payload;
         let list = state.dappSearchList;
         if (list.length > 0) {
           list.map((x, i) => {
@@ -86,23 +98,23 @@ const reducer = (originalState = initialState, walletAction: WalletAction) =>
       case 'setAddressBookList':
         let payload1 = walletAction.payload;
         let list1 = state.addressBookList;
-        if(list1.length>0){
-          list1.map((x,i) =>{
-            if(x.walletaddress === payload1.walletaddress){
-              list1.splice(i,1);
+        if (list1.length > 0) {
+          list1.map((x, i) => {
+            if (x.walletaddress === payload1.walletaddress) {
+              list1.splice(i, 1);
             }
           })
           list1.unshift(payload1);
-        }else{
+        } else {
           list1.unshift(payload1);
         }
         return;
       case 'deleteAddressBookList':
         let payload2 = walletAction.payload;
         let list2 = state.addressBookList;
-        list2.map((x,i)=>{
-          if(x.walletaddress === payload2.walletaddress){
-            list2.splice(i,1)
+        list2.map((x, i) => {
+          if (x.walletaddress === payload2.walletaddress) {
+            list2.splice(i, 1)
           }
         })
         return;

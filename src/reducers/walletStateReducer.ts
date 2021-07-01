@@ -15,7 +15,7 @@ export const selectDataState = (reduxState: ReduxState) => reduxState.walletStat
 export const getAccountList = createSelector(
   selectDataState,
   (dataState) =>  {
-    return dataState  }
+    return dataState.accountList  }
 );
 export default (origin = {
   accountList : new Map<string,Array<Account>>()

@@ -10,7 +10,7 @@ import {
   // Image,
 } from 'react-native';
 import { Button } from 'react-native-elements';
-import { recoverAccountToMnemonic } from 'wallets/ethsWallet';
+import { importByMnemonic } from 'wallets/ethsWallet';
 import { navigate } from 'components/navigationService';
 import { useTranslation } from 'react-i18next';
 
@@ -82,7 +82,7 @@ const ImportMnemonicScreen = (props: Props) => {
             buttonStyle={styles.nextButton}
             onPress={() => {
               try {
-                recoverAccountToMnemonic(
+                importByMnemonic(
                   mnemonic.replace(/(^\s*)|(\s*$)/g, ''),
                 );
                 navigate('SetWalletNameScreen', {

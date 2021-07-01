@@ -3,16 +3,18 @@ import {
     StyleSheet, Modal,
     TouchableWithoutFeedback, View, TouchableOpacity
 } from 'react-native';
+import i18n from "i18n";
+import { SCREENWIDTH } from 'config/constants';
 import { useTranslation } from 'react-i18next';
-import {  SCREENWIDTH } from 'config/constants';
 import { WebView } from 'react-native-webview';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { ScreensParamList } from 'actions/types';
+import { DappRecentItem, ScreensParamList } from 'actions/types';
 import { Image } from 'react-native-elements/dist/image/Image';
 import { event } from 'react-native-reanimated';
 import { navigate } from 'components/navigationService';
 import { Text } from 'react-native-elements';
+import WalletConnect from "@walletconnect/client";
 import i18next from 'i18n';
 
 type WebScreenNavigationProp = StackNavigationProp<
@@ -39,7 +41,7 @@ if (headEl && bodyEl) {
 export default function DappWebScreen({ navigation, route }: Props) {
     const {t} = useTranslation();
     const uri = route.params.uri.replace('http:', 'https:');
-    const [currentItem, setCurrentItem] = useState(route.params.item);
+    const screenitem = route.params.item;
     const [modalVisible, setModalVisible] = useState(false);
     return (
         <WebView
@@ -90,7 +92,7 @@ export default function DappWebScreen({ navigation, route }: Props) {
                         <Image source={require('assets/风险提示.png')} style={{ width: 120, height: 120 }} />
                         <Text style={styles.tipTitle}>{route.params.item.content}</Text>
                         <Text numberOfLines={0} style={styles.tipContent}>您在第三方 DAPP 上使用的行为将适用该第三方DAPP的《用户使用协议》和《隐私政策》
-由mystone.io 直接并单独由你承担责任</Text>
+                            由mystone.io 直接并单独由你承担责任</Text>
                         <View style={styles.bottomView}>
                             <TouchableOpacity
                                 style={{ ...styles.tipBtn }}
@@ -191,33 +193,33 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'flex-end',
     },
-    tipBtn:{
-        height:55,
-        width:SCREENWIDTH/2-27.5,
-        marginLeft:15,
-        justifyContent:'center',
-        alignItems:'center',
-        borderRadius:8,
-        borderColor:'#E9EDF1',
-        borderWidth:1,
+    tipBtn: {
+        height: 55,
+        width: SCREENWIDTH / 2 - 27.5,
+        marginLeft: 15,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 8,
+        borderColor: '#E9EDF1',
+        borderWidth: 1,
     },
-    tipBtn1:{
-        height:55,
-        width:SCREENWIDTH/2-27.5,
-        marginLeft:15,
-        justifyContent:'center',
-        alignItems:'center',
-        backgroundColor:'#3B6ED5',
-        borderRadius:8,
+    tipBtn1: {
+        height: 55,
+        width: SCREENWIDTH / 2 - 27.5,
+        marginLeft: 15,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#3B6ED5',
+        borderRadius: 8,
     },
-    knowText:{
-        color:'white',
-        fontSize:16,
-        fontWeight:'600',
+    knowText: {
+        color: 'white',
+        fontSize: 16,
+        fontWeight: '600',
     },
-    tipText:{
-        color:'#616D86',
-        fontSize:16,
-        fontWeight:'600',
+    tipText: {
+        color: '#616D86',
+        fontSize: 16,
+        fontWeight: '600',
     },
 });
