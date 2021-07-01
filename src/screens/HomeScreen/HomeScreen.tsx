@@ -19,7 +19,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import { TouchableHighlight } from 'react-native-gesture-handler';
 import {CHAINS} from "config/constants"
 import { useSelector } from 'react-redux';
-// import { getAccountList } from 'reducers/walletStateReducer';
+import { getAccountList } from 'reducers/walletStateReducer';
 
 interface Props {}
 
@@ -45,7 +45,8 @@ function HomeScreen({}: Props) {
   const [selectItem, setSelectItem] = useState(0);
   const [selectAddress, setSelectAddress] = useState('');
   const {t} = useTranslation();
-  // const walletlist = useSelector(getAccountList);
+  const walletlist = useSelector(getAccountList);
+  
  
   useEffect(()=>{
     
@@ -236,7 +237,7 @@ function HomeScreen({}: Props) {
                 <Text style={styles.submenuHeader}>
                   {modelLeft[selectItem].title}
                 </Text>
-                {/* <ScrollView scrollIndicatorInsets={{ right: -6 }}>
+                { <ScrollView scrollIndicatorInsets={{ right: -6 }}>
                   {walletlist.get(modelLeft[selectItem].title)?.map((item, index) => (
                     <TouchableOpacity
                       style={
@@ -295,7 +296,7 @@ function HomeScreen({}: Props) {
                       </View>
                     </TouchableOpacity>
                   ))}
-                </ScrollView> */}
+                </ScrollView> }
               </View>
             </View>
           </View>

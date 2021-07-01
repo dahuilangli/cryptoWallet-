@@ -88,20 +88,20 @@ const SelectWalletScreen = (prop: Props) => {
               switch (loginType) {
                 case 'new':
                   navigate('SetWalletNameScreen', {
-                    type: item.name_en,
+                    type: item.wallet,
                     loginType: 'mnemonic',
                     coinType: { token_limit: item.token_limit, wallet: item.wallet }
                   });
                   break;
                 case 'mnemonic':
                   navigate('ImportMnemonicScreen', {
-                    type: item.name_en,
+                    type: item.wallet,
                     loginType: 'mnemonic',
                   });
                   break;
                 case 'privateKey':
                   navigate('ImportPrivateKeyScreen', {
-                    type: item.name_en,
+                    type: item.wallet,
                     loginType: 'mnemonic',
                   });
                   break;
@@ -113,11 +113,11 @@ const SelectWalletScreen = (prop: Props) => {
             <View style={styles.listItem}>
               <Avatar
                 rounded
-                title={item.name_en[0]}
+                title={item.wallet[0]}
                 source={{ uri: item.icon }}
                 containerStyle={styles.avatar}
               />
-              <Text style={styles.text}>{item.name_en}</Text>
+              <Text style={styles.text}>{item.wallet}</Text>
               <Image
                 style={styles.icon}
                 source={require('assets/icon-20-arrow-right.png')}
