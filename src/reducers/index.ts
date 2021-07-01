@@ -8,7 +8,8 @@ import { combineReducers } from 'redux';
 import { enableMapSet, enableES5, enableAllPlugins } from 'immer'
 import { persistReducer } from 'redux-persist';
 
-enableAllPlugins()
+enableMapSet()
+
 const keychainStorage = createKeychainStorage();
 
 export const rootReducer = combineReducers({
