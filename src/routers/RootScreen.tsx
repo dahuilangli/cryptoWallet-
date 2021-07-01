@@ -11,15 +11,12 @@ import walletAction from 'actions/wallet'
 import * as helper from "apis/helper"
 import DeviceInfo from 'react-native-device-info';
 import {enableMapSet,produce} from "immer";
-import { CHAINS } from 'config/constants';
-import { Account } from 'actions/types';
 enableMapSet()
 
 function RootScreen() {
   const dispatch = useDispatch();
   // const accountlist = useSelector(getAccountList);
   const token = useSelector(getToken);
-  
   React.useEffect(() => {
     findToken();
     SplashScreen.hide();
@@ -42,7 +39,7 @@ function RootScreen() {
   }
   return (
     <NavigationContainer ref={navigationRef}>
-      {accountlist?.size > 0 ? <MainStackNavigator /> : <AuthStackNavigator />}
+      {0 > 0 ? <MainStackNavigator /> : <AuthStackNavigator />}
     </NavigationContainer>
   );
 }

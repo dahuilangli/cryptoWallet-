@@ -1,3 +1,6 @@
+/** 
+ * 闪兑
+ */
 import React, { useState } from 'react';
 import {Header } from 'react-native-elements';
 import { useTranslation } from 'react-i18next';
@@ -20,6 +23,7 @@ import {SCREENHEIGHT,SCREENWIDTH} from "config/constants";
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { navigate } from 'components/navigationService';
 import { Avatar, Button } from 'react-native-elements';
+import * as helper from 'apis/helper'
 
 const list = [
 
@@ -58,6 +62,12 @@ function FlashExchangeScreen({ }: Props) {
   const [currentChange, setCurrentChange] = useState(1);
   const [outNumber, setOutNumber] = useState('');
   const [inNumber, setInNumber] = useState('');
+
+
+  async function getSwftCoinList() {
+    helper.get('/swft/coin', {wallet: ''})
+    
+  }
 
   return (
     <View style={styles.container}>

@@ -5,31 +5,31 @@ import { createKeychainStorage } from 'redux-persist-keychain-storage';
 import settingsStateReducer from './settingsStateReducer';
 import uiStateReducer from './uiStateReducer';
 import { combineReducers } from 'redux';
-import { enableMapSet,enableES5,enableAllPlugins } from 'immer'
+import { enableMapSet, enableES5, enableAllPlugins } from 'immer'
 import { persistReducer } from 'redux-persist';
 
 enableAllPlugins()
 const keychainStorage = createKeychainStorage();
 
 export const rootReducer = combineReducers({
-        uiState: uiStateReducer,
-        dataState: persistReducer(
-          {
-            key: 'data',
-            storage: AsyncStorage,
-            blacklist: ['location', 'mapLocation'],
-          },
-          dataStateReducer,
-        ),
-        walletState: persistReducer(
-          {
-            key: 'com.wallet.persist.',
-            storage: keychainStorage,
-            whitelist: ["tds"],
-          },
-          walletReducer,
-        ),
-        settingsState: settingsStateReducer,
-      });
+  uiState: uiStateReducer,
+  dataState: persistReducer(
+    {
+      key: 'data',
+      storage: AsyncStorage,
+      blacklist: ['location', 'mapLocation'],
+    },
+    dataStateReducer,
+  ),
+  walletState: persistReducer(
+    {
+      key: 'com.wallet.persist.',
+      storage: keychainStorage,
+      whitelist: ["tds"],
+    },
+    walletReducer,
+  ),
+  settingsState: settingsStateReducer,
+});
 
-  
+

@@ -51,9 +51,9 @@ export function get(url: string, params: object) {
   return new Promise((resolve, reject) => {
     client.get(API_ENDPOINT + url, { params })
       .then(res => {
-        // console.log('====================================');
-        // console.log(res);
-        // console.log('====================================');
+        console.log('====================================');
+        console.log(res);
+        console.log('====================================');
         resolve(res.data)
       })
       .catch(err => {

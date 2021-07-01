@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import {GETHELP} from "actions/wallet"
+import { GETHELP } from "actions/wallet"
 
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -15,9 +15,10 @@ import {
 import { Avatar } from 'react-native-elements';
 // import TouchableScale from 'react-native-touchable-scale'; // https://github.com/kohver/react-native-touchable-scale
 // import LinearGradient from 'react-native-linear-gradient'; // Only if no expo
-
+import * as helper from 'apis/helper'
 import { navigate } from 'components/navigationService';
 import { CHAINS } from 'config/constants';
+import { useIsFocused } from '@react-navigation/native';
 
 interface Props {
   route: {
@@ -26,29 +27,60 @@ interface Props {
     };
   };
 }
+interface responesItem {
+  "describe": string,
+  "gas_decimal": number,
+  "gas_limit": number,
+  "icon": string,
+  "name_en": string,
+  "name_zh": string,
+  "token": string,
+  "token_limit": number,
+  "token_name": string,
+  "tx_browser": string,
+  "wallet": string,
+}
 const list = [
   {
     name: CHAINS.eth,
-    avatar_url:require('assets/coins/ethereum.png'),
+    avatar_url: require('assets/coins/ethereum.png'),
   },
   {
     name: CHAINS.bnb,
-    avatar_url:require('assets/coins/binance.png'),
+    avatar_url: require('assets/coins/binance.png'),
   },
   {
     name: CHAINS.ht,
-    avatar_url:require('assets/coins/ht.png'),
+    avatar_url: require('assets/coins/ht.png'),
   },
 ];
+
 const SelectWalletScreen = (prop: Props) => {
-  
   const { loginType } = prop.route.params;
-  const {t} = useTranslation();
+  const { t } = useTranslation();
+  const [typeList, setTypeList] = useState([]);
+  const isFocused = useIsFocused();
+  useEffect(() => {
+    if (isFocused) {
+      getTypeList();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isFocused]);
+  async function getTypeList() {
+    await helper.get('/wallet/type', {}).then((res: any) => {
+      console.log('===========/wallet/type=============');
+      console.log(res.data);
+      console.log('====================================');
+      if (res?.data) {
+        setTypeList(res.data)
+      }
+    })
+  }
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.main}>
         <Text style={styles.presentText}>{t("Selectwallettypetobecreated")}</Text>
-        {list.map((item, i) => (
+        {typeList.map((item: responesItem, i) => (
           <TouchableOpacity
             style={styles.list}
             key={i}
@@ -56,19 +88,20 @@ const SelectWalletScreen = (prop: Props) => {
               switch (loginType) {
                 case 'new':
                   navigate('SetWalletNameScreen', {
-                    type: item.name,
+                    type: item.name_en,
                     loginType: 'mnemonic',
+                    coinType: { token_limit: item.token_limit, wallet: item.wallet }
                   });
                   break;
                 case 'mnemonic':
                   navigate('ImportMnemonicScreen', {
-                    type: item.name,
+                    type: item.name_en,
                     loginType: 'mnemonic',
                   });
                   break;
                 case 'privateKey':
                   navigate('ImportPrivateKeyScreen', {
-                    type: item.name,
+                    type: item.name_en,
                     loginType: 'mnemonic',
                   });
                   break;
@@ -80,10 +113,11 @@ const SelectWalletScreen = (prop: Props) => {
             <View style={styles.listItem}>
               <Avatar
                 rounded
-                source={item.avatar_url}
+                title={item.name_en[0]}
+                source={{ uri: item.icon }}
                 containerStyle={styles.avatar}
               />
-              <Text style={styles.text}>{item.name}</Text>
+              <Text style={styles.text}>{item.name_en}</Text>
               <Image
                 style={styles.icon}
                 source={require('assets/icon-20-arrow-right.png')}

@@ -20,7 +20,7 @@ import { DappRecentItem } from 'actions/types'
 interface Props { }
 
 function SearchScreen({ }: Props) {
-  const {t} = useTranslation();
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const [dappName, setDappName] = useState('');
   const [seachDataList, setSeachDataList] = useState([]);
@@ -41,9 +41,10 @@ function SearchScreen({ }: Props) {
 
   async function goWebView(item: DappRecentItem) {
     await dispatch(walletAction.setDappSearchList(item));
-    navigate('WebScreen', {
+    navigate('DappWebScreen', {
       title: item.name,
       uri: item.deep_link,
+      item: item
     })
   }
   async function onSubmit(name: string) {
@@ -85,30 +86,35 @@ function SearchScreen({ }: Props) {
             <Text style={styles.goBlackText}>{t("cancel")}</Text>
           </TouchableOpacity>
         </View>
+
         <View style={styles.assetsContainer}>
+
           {seachDataList?.length > 0 ? (
-            <View style={styles.assetsHeard}>
-              <Text style={styles.assetsHeardTitle}>{t("searchresult")}</Text>
+            <View>
+              <View style={styles.assetsHeard}>
+                <Text style={styles.assetsHeardTitle}>{t("searchresult")}</Text>
+              </View>
+              <ScrollView>
+                {seachDataList.map((item: DappRecentItem, i) => (
+                  <TouchableOpacity style={styles.assetsList} key={item.name + i} onPress={() => goWebView(item)}>
+                    <View style={styles.assetsListItem}>
+                      <Avatar
+                        rounded
+                        title={item.name[0]}
+                        source={{ uri: item.logo }}
+                        containerStyle={styles.itemAvatar}
+                      />
+                      <View style={styles.itemDesc}>
+                        <Text style={styles.descTitle}>{item.name}</Text>
+                        <Text style={styles.descInfo}>{item.deep_link}</Text>
+                      </View>
+                    </View>
+                  </TouchableOpacity>
+                ))}
+              </ScrollView>
             </View>
-          ) : null}
-          <ScrollView>
-            {seachDataList.map((item: DappRecentItem, i) => (
-              <TouchableOpacity style={styles.assetsList} key={item.name + i} onPress={() => goWebView(item)}>
-                <View style={styles.assetsListItem}>
-                  <Avatar
-                    rounded
-                    title="EM"
-                    source={{ uri: item.logo }}
-                    containerStyle={styles.itemAvatar}
-                  />
-                  <View style={styles.itemDesc}>
-                    <Text style={styles.descTitle}>{item.name}</Text>
-                    <Text style={styles.descInfo}>{item.deep_link}</Text>
-                  </View>
-                </View>
-              </TouchableOpacity>
-            ))}
-          </ScrollView>
+
+          ) : (<View style={styles.nodataContainer}><Image source={require('assets/seach-nodata.png')} /><Text style={styles.nodata}>{t('nodata')}</Text></View>)}
         </View>
       </View>
     </LinearGradient>
@@ -208,5 +214,17 @@ const styles = StyleSheet.create({
     color: '#C4C8D2',
     fontWeight: '500',
   },
+
+  nodataContainer: { 
+    flex: 1, 
+    alignItems: 'center', 
+    justifyContent: 'center',
+    paddingBottom: 150,
+  },
+  nodata: {
+    fontSize: 16,
+    color: '#9CA4B3',
+    fontWeight: '500',
+  }
 });
 export default SearchScreen;

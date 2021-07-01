@@ -28,11 +28,9 @@ const SuccessScreen = ({ route }: Props) => {
   let { title } = route.params;
   let { accountInfo } = route.params;
   const dispatch = useDispatch();
-  useEffect(() => {
-    setTimeout(() => {
-    dispatch(walletAction.createAccount(accountInfo))
-    },150);
-  },[]);
+  console.log('=========accountInfo==================');
+  console.log(accountInfo);
+  console.log('====================================');
   async function storageAccount() {
     try {
       await dispatch(walletAction.setAccountList(accountInfo));

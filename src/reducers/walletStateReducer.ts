@@ -7,7 +7,7 @@ export interface walletState {
   accountList: Map<string,Array<Account>>
 }
 export const initialState: Readonly<walletState> = {
-  accountList : new Map<string,Array<Account>>()
+  accountList: new Map<string,Array<Account>>()
 }
 
 export const selectDataState = (reduxState: ReduxState) => reduxState.walletState;
@@ -22,7 +22,7 @@ export default (origin=initialState, walletAction: WalletAction) =>{
 }
   return produce(copy, state => {
     switch (walletAction.type) {
-      case 'createAccount':
+      case 'setAccountList':
         state.accountList.set(walletAction.payload.type,[walletAction.payload])
         console.log(state);
         if(state.accountList.has(walletAction.payload.type)){

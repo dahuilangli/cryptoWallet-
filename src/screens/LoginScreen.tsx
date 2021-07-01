@@ -17,6 +17,8 @@ import LinearGradient from 'react-native-linear-gradient';
 import { Avatar, Button } from 'react-native-elements';
 import { navigate } from 'components/navigationService';
 import { useTranslation } from 'react-i18next';
+import { getAccountList } from 'reducers/walletStateReducer'
+import { useSelector } from 'react-redux';
 // import Icon from 'react-native-vector-icons/FontAwesome';
 
 
@@ -36,7 +38,10 @@ const LoginScreen = ({}: Props) => {
       type: 'privateKey',
     },
   ];
-  
+  const account = useSelector(getAccountList)
+  console.log('=========account===============');
+  console.log(account);
+  console.log('====================================');
   const [modalVisible, setModalVisible] = useState(false);
   return (
     <LinearGradient colors={['#1D4692', '#263C75']} style={styles.container}>
