@@ -14,36 +14,29 @@ export const selectDataState = (reduxState: ReduxState) => reduxState.walletStat
 
 export const getAccountList = createSelector(
   selectDataState,
-  (dataState) =>  {
-    return dataState.accountList  }
+  (dataState) =>  dataState.accountList
 );
-export default (origin = {
+export default (origin=initialState, walletAction: WalletAction) =>{
+ const copy: Readonly<walletState> = {
   accountList : new Map<string,Array<Account>>()
-}, walletAction: WalletAction) =>
-  // console.log(typeof(origin));
-  // console.log(origin.accountList instanceof Map);
-  // if(origin.accountList instanceof Map == false){
-  //   origin.accountList =  new Map<string,Array<Account>>()
-  // }
- produce(origin, state => {
+}
+  return produce(copy, state => {
     switch (walletAction.type) {
       case 'setAccountList':
         state.accountList.set(walletAction.payload.type,[walletAction.payload])
         console.log(state);
-        // if(state.accountList.has(walletAction.payload.type)){
-        //   const accounts = state.accountList.get(walletAction.payload.type);
-        //   const finded = accounts?.findIndex((value,index,arr)=>{
-        //     return value.address == walletAction.payload.address
-        //   })
-        //   if(finded == -1 || finded == undefined){
-        //     accounts?.push(walletAction.payload);
-        //   }
-        // }else{
-        //   state.accountList.set(walletAction.payload.type,[walletAction.payload])
-        // }
-        return state;
-      default:
-         return;
+        if(state.accountList.has(walletAction.payload.type)){
+          const accounts = state.accountList.get(walletAction.payload.type);
+          const finded = accounts?.findIndex((value,index,arr)=>{
+            return value.address == walletAction.payload.address
+          })
+          if(finded == -1 || finded == undefined){
+            accounts?.push(walletAction.payload);
+          }
+        }else{
+          state.accountList.set(walletAction.payload.type,[walletAction.payload])
+        }
+        return;
     }
   })
-;
+};

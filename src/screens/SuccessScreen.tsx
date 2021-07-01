@@ -33,7 +33,7 @@ const SuccessScreen = ({ route }: Props) => {
   console.log('====================================');
   async function storageAccount() {
     try {
-      await dispatch(walletAction.createAccount(accountInfo));
+      await dispatch(walletAction.setAccountList(accountInfo));
     } catch (err) {
       Alert.alert(`${title}失败，请重新选择钱包后重试`);
     }
