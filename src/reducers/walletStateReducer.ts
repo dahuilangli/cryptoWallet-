@@ -1,30 +1,26 @@
 import produce from 'immer';
 import { User,  WalletAction, Account, ReduxState } from 'actions/types';
 import { createSelector } from 'reselect';
-// import {WalletAction} from 'actions/types';
+import { Map } from 'immutable';
 
 export interface walletState {
   accountList: Map<string,Array<Account>>
 }
-export const initialState: Readonly<walletState> = {
-  accountList: new Map<string,Array<Account>>()
+const initialState: Readonly<walletState> = {
+  accountList : Map({})
 }
 
 export const selectDataState = (reduxState: ReduxState) => reduxState.walletState;
 
 export const getAccountList = createSelector(
   selectDataState,
-  (dataState) =>  dataState.accountList
+  (dataState) =>  {
+    return dataState.accountList }
 );
-export default (origin=initialState, walletAction: WalletAction) =>{
- const copy: Readonly<walletState> = {
-  accountList : new Map<string,Array<Account>>()
-}
-  return produce(copy, state => {
+export default (origin = initialState, walletAction: WalletAction) =>{
+ return produce(origin, state => {
     switch (walletAction.type) {
-      case 'setAccountList':
-        state.accountList.set(walletAction.payload.type,[walletAction.payload])
-        console.log(state);
+      case 'createAccount':
         if(state.accountList.has(walletAction.payload.type)){
           const accounts = state.accountList.get(walletAction.payload.type);
           const finded = accounts?.findIndex((value,index,arr)=>{

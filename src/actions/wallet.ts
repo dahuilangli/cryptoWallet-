@@ -13,7 +13,7 @@ import  apis from 'apis';
 const Wallet = createActions({
     setToken: StringAction,
     setUser: createAction<User>(),
-    setAccountList: createAction<Account>(),
+    createAccount: createAction<Account>(),
     setDappSearchList: createAction<DappRecentItem>(),
     setAddressBookList: createAction<AddressBookItem>(),
     deleteAddressBookList: createAction<AddressBookItem>(),

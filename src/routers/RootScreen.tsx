@@ -12,8 +12,6 @@ import { getAccountList } from 'reducers/walletStateReducer';
 import walletAction from 'actions/wallet'
 import * as helper from "apis/helper"
 import DeviceInfo from 'react-native-device-info';
-import {enableMapSet,produce} from "immer";
-enableMapSet()
 
 function RootScreen() {
   const dispatch = useDispatch();
@@ -44,7 +42,7 @@ function RootScreen() {
   }
   return (
     <NavigationContainer ref={navigationRef}>
-      {0 > 0 ? <MainStackNavigator /> : <AuthStackNavigator />}
+      {accountlist.size > 0 ? <MainStackNavigator /> : <AuthStackNavigator />}
     </NavigationContainer>
   );
 }
