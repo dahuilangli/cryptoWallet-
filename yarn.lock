@@ -5013,10 +5013,10 @@ image-size@^0.6.0:
   resolved "https://registry.nlark.com/image-size/download/image-size-0.6.3.tgz#e7e5c65bb534bd7cdcedd6cb5166272a85f75fb2"
   integrity sha1-5+XGW7U0vXzc7dbLUWYnKoX3X7I=
 
-immer@^7.0.9:
-  version "7.0.15"
-  resolved "https://registry.nlark.com/immer/download/immer-7.0.15.tgz?cache=0&sync_timestamp=1623232660556&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fimmer%2Fdownload%2Fimmer-7.0.15.tgz#dc3bc6db87401659d2e737c67a21b227c484a4ad"
-  integrity sha1-3DvG24dAFlnS5zfGeiGyJ8SEpK0=
+immer@^9.0.3:
+  version "9.0.3"
+  resolved "https://registry.nlark.com/immer/download/immer-9.0.3.tgz?cache=0&sync_timestamp=1623232660556&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fimmer%2Fdownload%2Fimmer-9.0.3.tgz#146e2ba8b84d4b1b15378143c2345559915097f4"
+  integrity sha1-FG4rqLhNSxsVN4FDwjRVWZFQl/Q=
 
 import-fresh@^2.0.0:
   version "2.0.0"
@@ -6018,6 +6018,11 @@ js-yaml@^3.13.1:
   dependencies:
     argparse "^1.0.7"
     esprima "^4.0.0"
+
+jsan@^3.1.13:
+  version "3.1.13"
+  resolved "https://registry.npm.taobao.org/jsan/download/jsan-3.1.13.tgz#4de8c7bf8d1cfcd020c313d438f930cec4b91d86"
+  integrity sha1-TejHv40c/NAgwxPUOPkwzsS5HYY=
 
 jsbn@~0.1.0:
   version "0.1.1"
@@ -8097,6 +8102,13 @@ redux-persist-keychain-storage@^0.1.1:
   resolved "https://registry.nlark.com/redux-persist-keychain-storage/download/redux-persist-keychain-storage-0.1.1.tgz#48c22e3f24dfe474d051a09935b53287aeba30f4"
   integrity sha1-SMIuPyTf5HTQUaCZNbUyh666MPQ=
 
+redux-persist-transform-immutable@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.nlark.com/redux-persist-transform-immutable/download/redux-persist-transform-immutable-5.0.0.tgz#0ae277b4d8d662016f62af394df2572525ad6671"
+  integrity sha1-CuJ3tNjWYgFvYq85TfJXJSWtZnE=
+  dependencies:
+    remotedev-serialize "^0.1.0"
+
 redux-persist@^6.0.0:
   version "6.0.0"
   resolved "https://registry.npm.taobao.org/redux-persist/download/redux-persist-6.0.0.tgz#b4d2972f9859597c130d40d4b146fecdab51b3a8"
@@ -8194,6 +8206,13 @@ regjsparser@^0.6.4:
   integrity sha1-tInu98mizkNydicBFCnPgzpxg+Y=
   dependencies:
     jsesc "~0.5.0"
+
+remotedev-serialize@^0.1.0:
+  version "0.1.9"
+  resolved "https://registry.npm.taobao.org/remotedev-serialize/download/remotedev-serialize-0.1.9.tgz#5e67e05cbca75d408d769d057dc59d0f56cd2c43"
+  integrity sha1-XmfgXLynXUCNdp0FfcWdD1bNLEM=
+  dependencies:
+    jsan "^3.1.13"
 
 remove-trailing-separator@^1.0.1:
   version "1.1.0"
