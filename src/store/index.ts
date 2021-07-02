@@ -33,7 +33,7 @@ const persistedReducer = persistReducer(
   rootReducer,
 );
 
-export  const ReduxStore = createStore(persistedReducer, composeWithDevTools(applyMiddleware(thunkMiddleware,sagaMiddleware,logger)));
+export  const ReduxStore = createStore(persistedReducer, composeWithDevTools(applyMiddleware(thunkMiddleware,sagaMiddleware)));
 
 sagaMiddleware.run(sagas);
 export const persistor = persistStore(ReduxStore)

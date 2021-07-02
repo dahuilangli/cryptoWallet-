@@ -1,9 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-
-import { GETHELP } from "actions/wallet"
-
-import { useDispatch, useSelector } from 'react-redux';
 import {
   StyleSheet,
   SafeAreaView,
@@ -13,8 +9,6 @@ import {
   Image,
 } from 'react-native';
 import { Avatar } from 'react-native-elements';
-// import TouchableScale from 'react-native-touchable-scale'; // https://github.com/kohver/react-native-touchable-scale
-// import LinearGradient from 'react-native-linear-gradient'; // Only if no expo
 import * as helper from 'apis/helper'
 import { navigate } from 'components/navigationService';
 import { CHAINS } from 'config/constants';
@@ -84,31 +78,22 @@ const SelectWalletScreen = (prop: Props) => {
             onPress={() => {
               switch (loginType) {
                 case 'new':
-                  console.log('=======item====================');
-                  console.log(item);
-                  console.log('====================================');
                   navigate('SetWalletNameScreen', {
-                    type: item.wallet,
+                    type: item.name_en,
                     loginType: 'mnemonic',
                     coinInfo: item
                   });
                   break;
                 case 'mnemonic':
-                  console.log('=======item====================');
-                  console.log(item);
-                  console.log('====================================');
                   navigate('ImportMnemonicScreen', {
-                    type: item.wallet,
+                    type: item.name_en,
                     loginType: 'mnemonic',
                     coinInfo: item
                   });
                   break;
                 case 'privateKey':
-                  console.log('=======item====================');
-                  console.log(item);
-                  console.log('====================================');
                   navigate('ImportPrivateKeyScreen', {
-                    type: item.wallet,
+                    type: item.name_en,
                     loginType: 'mnemonic',
                     coinInfo: item
                   });
