@@ -62,7 +62,7 @@ function HomeScreen({ }: Props) {
   const [selectAddress, setSelectAddress] = useState('');
   const { t } = useTranslation();
   const walletlist = useSelector(getAccountList);
-  const user: Account = useSelector(getUser);
+  const user = useSelector(getUser);
   console.log('====================================');
   console.log(user);
   console.log('====================================');

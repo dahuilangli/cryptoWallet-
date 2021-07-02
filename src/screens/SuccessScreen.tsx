@@ -35,10 +35,7 @@ const SuccessScreen = ({ route }: Props) => {
       if (walletlist.size === 0) {
         await dispatch(walletAction.setUser(accountInfo));
       }
-      console.log('==========walletAction.setAccountList================');
-      console.log(accountInfo);
-      console.log('====================================');
-      await dispatch(walletAction.setAccountList(accountInfo));
+      await dispatch(walletAction.createAccount(accountInfo));
     } catch (err) {
       Alert.alert(`${title}失败，请重新选择钱包后重试`);
     }
