@@ -13,15 +13,30 @@ import {
 import { Avatar } from 'react-native-elements';
 import { goBack } from 'components/navigationService';
 import LinearGradient from 'react-native-linear-gradient';
-interface Props {}
+import * as helper from 'apis/helper'
+interface Props {
+  route: {
+    params: {
+      wallet: string
+    }
+  }
+}
 
-function SearchScreen({}: Props) {
-  const {t} = useTranslation();
+interface responseItem {
+  "token": string,
+  "wallet": string,
+  "icon": string,
+  "symbol": string,
+  "decimals": number,
+  "info": string,
+  "name": string
+}
+
+function SearchScreen({ route }: Props) {
+  const { wallet } = route.params
+  const { t } = useTranslation();
   const [coinName, setCoinName] = useState('');
-  // for (let index = 0; index < 10; index++) {
-  //   setGenericPassword(index.toString(), '密码' + index);
-  // }
-  // getGenericPassword();
+  const [coinList, setCoinList] = useState({ title: '', data: [] })
   let obj = {
     title: t("Myassets"),
     data: [
@@ -40,56 +55,90 @@ function SearchScreen({}: Props) {
 
   async function seachName(name: string) {
     if (name) {
-      obj.title = '搜索结果';
+      name = name.trim()
+      const { data } = await helper.get('/wallet/coin', { keyword: name, wallet })
+      setCoinList({ title: '搜索结果', data })
     }
   }
 
   return (
     <LinearGradient colors={['#3060C2', '#3B6ED5']} style={styles.container}>
       <View style={styles.main}>
-      <View style={styles.header}>
-        <View style={styles.coinNameContainer}>
-          <Image
-            style={styles.coinNameIcon}
-            source={require('assets/icon-20-搜索.png')}
-          />
-          <TextInput
-            placeholder={t("EnterTokenorcontractaddress")}
-            value={coinName}
-            style={styles.coinNameText}
-            onChangeText={setCoinName}
-            onSubmitEditing={() => seachName(coinName)}
-          />
-        </View>
-        <TouchableOpacity onPress={goBack} style={styles.goBlack}>
-          <Text style={styles.goBlackText}>{t("cancel")}</Text>
-        </TouchableOpacity>
-      </View>
-        <View style={styles.assetsContainer}>
-          <View style={styles.assetsHeard}>
-            <Text style={styles.assetsHeardTitle}>{obj.title}</Text>
+        <View style={styles.header}>
+          <View style={styles.coinNameContainer}>
+            <Image
+              style={styles.coinNameIcon}
+              source={require('assets/icon-20-搜索.png')}
+            />
+            <TextInput
+              placeholder={t("EnterTokenorcontractaddress")}
+              value={coinName}
+              style={styles.coinNameText}
+              onChangeText={setCoinName}
+              onSubmitEditing={() => seachName(coinName)}
+            />
           </View>
-          <ScrollView>
-            {obj.data.map((item, i) => (
-              <TouchableOpacity style={styles.assetsList} key={i}>
-                <View style={styles.assetsListItem}>
-                  <Avatar
-                    rounded
-                    source={item.avatar_url}
-                    containerStyle={styles.itemAvatar}
-                  />
-                  <View style={styles.itemDesc}>
-                    <Text style={styles.descTitle}>{item.name}</Text>
-                    <Text style={styles.descInfo}>{item.contract_address}</Text>
-                  </View>
-                  <Image
-                    source={require('assets/icon-20-添加资产-已添加.png')}
-                  />
-                </View>
-              </TouchableOpacity>
-            ))}
-          </ScrollView>
+          <TouchableOpacity onPress={goBack} style={styles.goBlack}>
+            <Text style={styles.goBlackText}>{t("cancel")}</Text>
+          </TouchableOpacity>
         </View>
+        {coinList?.data?.length > 0 ? (
+          <View style={styles.assetsContainer}>
+            <View style={styles.assetsHeard}>
+              <Text style={styles.assetsHeardTitle}>{coinList?.title}</Text>
+            </View>
+            <ScrollView>
+              {coinList?.data.map((item: responseItem, i) => (
+                <TouchableOpacity style={styles.assetsList} key={i}>
+                  <View style={styles.assetsListItem}>
+                    <Avatar
+                      rounded
+                      title={item?.name[0]}
+                      source={{ uri: item?.icon }}
+                      containerStyle={styles.itemAvatar}
+                    />
+                    <View style={styles.itemDesc}>
+                      <Text style={styles.descTitle}>{item?.name}</Text>
+                    </View>
+                    <Image
+                      source={require('assets/icon-20-添加资产-已添加.png')}
+                    />
+                    <Image
+                      source={require('assets/icon-20-添加资产.png')}
+                    />
+                  </View>
+                </TouchableOpacity>
+              ))}
+            </ScrollView>
+          </View>
+        ) : (
+          <View style={styles.assetsContainer}>
+            <View style={styles.assetsHeard}>
+              <Text style={styles.assetsHeardTitle}>{obj.title}</Text>
+            </View>
+            <ScrollView>
+              {obj.data.map((item, i) => (
+                <TouchableOpacity style={styles.assetsList} key={i}>
+                  <View style={styles.assetsListItem}>
+                    <Avatar
+                      rounded
+                      source={item.avatar_url}
+                      containerStyle={styles.itemAvatar}
+                    />
+                    <View style={styles.itemDesc}>
+                      <Text style={styles.descTitle}>{item.name}</Text>
+                      <Text style={styles.descInfo}>{item.contract_address}</Text>
+                    </View>
+                    <Image
+                      source={require('assets/icon-20-添加资产-已添加.png')}
+                    />
+                  </View>
+                </TouchableOpacity>
+              ))}
+            </ScrollView>
+          </View>
+        )}
+
       </View>
     </LinearGradient>
   );

@@ -25,6 +25,9 @@ client.interceptors.request.use(config => {
   config.headers['RateUnit'] = getCurrency(ReduxStore.getState())
   config.headers['Language'] = getLanguage(ReduxStore.getState())
 
+  // console.log('====================================');
+  // console.log(config.headers);
+  // console.log('====================================');
   // get请求映射params参数
   if (config.method === 'get' && config.params) {
     let url = config.url + '?';

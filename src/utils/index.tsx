@@ -30,7 +30,10 @@ export const showWithImage = (text: string, imageSource: any) => {
 };
 
 export function subSplit(text: string, start: number, end: number) {
-  return text.substr(0, start) + '...' + text.substr(text.length - end, text.length);
+  if (text && text !== " ") {
+    return text.substr(0, start) + '...' + text.substr(text.length - end, text.length);
+  }
+  return null
 }
 
 export function checkEmail(emailText: string) {
@@ -58,8 +61,6 @@ export function replaceMoney(moneyString: string) {
   moneyArr.map((x, i) => {
     replaceresult = replaceresult + '*'
   })
-  console.log(replaceresult);
-
   return replaceresult;
 }
 // 复制
