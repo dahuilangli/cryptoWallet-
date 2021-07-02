@@ -4,10 +4,17 @@ import { createSelector } from 'reselect';
 import { Map } from 'immutable';
 
 export interface walletState {
+  user: Account;
   accountList: Map<string,Array<Account>>
 }
 const initialState: Readonly<walletState> = {
-  accountList : Map({})
+  accountList : Map({}),
+  user: {
+    address: '',
+    privateKey: '',
+    type: '',
+    coinInfo: {}
+  }
 }
 
 export const selectDataState = (reduxState: ReduxState) => reduxState.walletState;
@@ -15,8 +22,16 @@ export const selectDataState = (reduxState: ReduxState) => reduxState.walletStat
 export const getAccountList = createSelector(
   selectDataState,
   (dataState) =>  {
-    return dataState.accountList }
+    return dataState.accountList
+  }
 );
+
+export const getUser = createSelector(
+  selectDataState,
+  (dataState) => dataState.user,
+);
+
+
 export default (origin = initialState, walletAction: WalletAction) =>{
  return produce(origin, state => {
     switch (walletAction.type) {
@@ -33,6 +48,11 @@ export default (origin = initialState, walletAction: WalletAction) =>{
           state.accountList.set(walletAction.payload.type,[walletAction.payload])
         }
         return;
+      case 'createUser':
+        state.user = walletAction.payload;
+        return;
+      default:
+        return
     }
   })
 };

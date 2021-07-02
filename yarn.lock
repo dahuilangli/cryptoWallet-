@@ -5018,6 +5018,11 @@ immer@^9.0.3:
   resolved "https://registry.nlark.com/immer/download/immer-9.0.3.tgz?cache=0&sync_timestamp=1623232660556&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fimmer%2Fdownload%2Fimmer-9.0.3.tgz#146e2ba8b84d4b1b15378143c2345559915097f4"
   integrity sha1-FG4rqLhNSxsVN4FDwjRVWZFQl/Q=
 
+immutable@^4.0.0-rc.12:
+  version "4.0.0-rc.12"
+  resolved "https://registry.npm.taobao.org/immutable/download/immutable-4.0.0-rc.12.tgz#ca59a7e4c19ae8d9bf74a97bdf0f6e2f2a5d0217"
+  integrity sha1-ylmn5MGa6Nm/dKl73w9uLypdAhc=
+
 import-fresh@^2.0.0:
   version "2.0.0"
   resolved "https://registry.nlark.com/import-fresh/download/import-fresh-2.0.0.tgz"

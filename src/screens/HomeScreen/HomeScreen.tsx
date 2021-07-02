@@ -20,7 +20,7 @@ import { TouchableHighlight } from 'react-native-gesture-handler';
 import { CHAINS } from "config/constants"
 import { useSelector } from 'react-redux';
 import { getAccountList } from 'reducers/walletStateReducer';
-import { getUser } from 'reducers/dataStateReducer';
+import { getUser } from 'reducers/walletStateReducer';
 import { Account } from 'actions/types';
 import { subSplit } from 'utils'
 

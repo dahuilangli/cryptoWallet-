@@ -3,7 +3,6 @@ import { createSelector } from 'reselect';
 import { User, WalletAction, ReduxState, DappRecentItem, AddressBookItem, Account } from 'actions/types';
 
 export interface DataState {
-  user?: object;
   token: string;
   dappSearchList: Array<DappRecentItem>;
   addressBookList: Array<AddressBookItem>;
@@ -11,7 +10,6 @@ export interface DataState {
   currency: string;
 }
 export const initialState: Readonly<DataState> = {
-  user: {},
   token: '',
   dappSearchList: [],
   addressBookList: [],
@@ -20,11 +18,6 @@ export const initialState: Readonly<DataState> = {
 };
 
 export const selectDataState = (reduxState: ReduxState) => reduxState.dataState;
-
-export const getUser = createSelector(
-  selectDataState,
-  (dataState) => dataState.user,
-);
 
 export const getToken = createSelector(
   selectDataState,
@@ -54,9 +47,6 @@ export const getAddressBookList = createSelector(
 const reducer = (originalState = initialState, walletAction: WalletAction) =>
   produce(originalState, state => {
     switch (walletAction.type) {
-      case 'setUser':
-        state.user = walletAction.payload;
-        return;
       case 'setToken':
         state.token = walletAction.payload;
         return;

@@ -33,7 +33,7 @@ const SuccessScreen = ({ route }: Props) => {
   async function storageAccount() {
     try {
       if (walletlist.size === 0) {
-        await dispatch(walletAction.setUser(accountInfo));
+        await dispatch(walletAction.createAccount(accountInfo));
       }
       await dispatch(walletAction.createAccount(accountInfo));
     } catch (err) {
