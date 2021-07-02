@@ -6,8 +6,8 @@ import { RouteProp, useRoute, useIsFocused } from '@react-navigation/native';
 import { Button } from 'react-native-elements'
 import * as helper from 'apis/helper'
 import { useTranslation } from 'react-i18next';
-import { showWithImage } from 'components/Dialog';
-import {checkEmail} from 'components/checkCorrect'
+import { showWithImage } from 'utils';
+import { checkEmail } from 'utils'
 import { Image } from 'react-native-elements/dist/image/Image';
 type SuggestScreenRouteProp = RouteProp<ScreensParamList, 'SuggestScreen'>;
 interface Props { }
@@ -25,9 +25,9 @@ function SuggestScreen({ }: Props) {
       content: detailsText,
       address: walletAddressText,
     };
-    const data = await helper.post('/sys/help', body)
-    if(data.code === '200'){
-      showWithImage('提交成功',require('assets/icon-20-有误.png'))
+    const data: any = await helper.post('/sys/help', body)
+    if (data.code === '200') {
+      showWithImage('提交成功', require('assets/icon-20-有误.png'))
       goBack()
     }
 
@@ -43,7 +43,7 @@ function SuggestScreen({ }: Props) {
           style={styles.input}
           placeholder={t("enteremailaddress")}
           onChangeText={setEmailText}
-          onEndEditing ={()=>checkEmail(emailText)}
+          onEndEditing={() => checkEmail(emailText)}
         >
 
         </TextInput>

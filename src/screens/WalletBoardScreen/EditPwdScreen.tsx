@@ -2,20 +2,7 @@ import React from 'react';
 import { StyleSheet, View, SafeAreaView, Text, TextInput, TouchableWithoutFeedback, Keyboard } from 'react-native';
 
 import { Button } from 'react-native-elements';
-import { WToast } from 'react-native-smart-tip';
 interface Props { }
-
-const show = () => {
-    const toastOpts = {
-        data: '钱包地址复制成功',
-        textColor: '#ffffff',
-        backgroundColor: '#444444',
-        duration: WToast.duration.SHORT, //1.SHORT 2.LONG
-        position: WToast.position.CENTER, // 1.TOP 2.CENTER 3.BOTTOM
-    };
-
-    WToast.show(toastOpts);
-};
 const EditPwdScreen = ({ }: Props) => {
     return (
         <SafeAreaView style={styles.container}>

@@ -25,7 +25,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import walletAction from 'actions/wallet';
 import { getAccountList } from 'reducers/walletStateReducer';
 import { getShowMoney} from 'reducers/dataStateReducer';
-import { replaceMoney } from 'components/checkCorrect'
+import { replaceMoney } from 'utils'
 
 interface Props { }
 

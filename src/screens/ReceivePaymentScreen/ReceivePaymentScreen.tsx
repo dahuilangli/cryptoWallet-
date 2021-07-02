@@ -1,17 +1,22 @@
 import React from 'react';
 import { SafeAreaView, View, StyleSheet, Text } from 'react-native';
-import Clipboard from '@react-native-clipboard/clipboard';
 import CustomQrCode from 'components/CustomQrCode';
 import { Button } from 'react-native-elements';
-import { show } from 'components/Dialog';
-interface Props {}
-function ReceivePaymentScreen({}: Props) {
-  const address = '0x4250c3c0094A65dd12f6C41D8c4C6ec10ff458f7';
+import { copyToClipboard } from 'utils';
+import { useTranslation } from 'react-i18next';
+interface Props {
+  route: {
+    params: {
+      address: string
+    }
+  }
+}
+function ReceivePaymentScreen(props: Props) {
+  const { address } = props.route.params;
+
+  const {t} = useTranslation();
   // Other
-  const copyToClipboard = () => {
-    Clipboard.setString(address);
-    show('钱包地址复制成功');
-  };
+  
 
   return (
     <SafeAreaView style={styles.container}>
@@ -28,7 +33,7 @@ function ReceivePaymentScreen({}: Props) {
       <Button
         type="clear"
         buttonStyle={styles.button}
-        onPress={copyToClipboard}
+        onPress={() => copyToClipboard(address, t('copySuccess'))}
         title="复制地址"
         titleStyle={styles.buttonTitle}
       />
