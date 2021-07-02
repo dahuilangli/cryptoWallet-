@@ -49,7 +49,6 @@ export default function DappWebScreen({ navigation, route }: Props) {
             style={styles.container}
             source={{ uri }}
             onShouldStartLoadWithRequest={(event) => {
-                setModalVisible(!modalVisible);
                 return true;
             }}
             startInLoadingState={true}

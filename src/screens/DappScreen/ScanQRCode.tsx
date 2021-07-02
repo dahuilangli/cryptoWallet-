@@ -96,9 +96,9 @@ const ScanQRCode = () => {
     const onBarCodeRead = (result) => {
         const {data}  = result; //只要拿到data就可以了
         //扫码后的操作
-        navigate('WebScreen',{title:'Dapp',uri:data})
-        console.log('=============================');
-        console.log(data);
+        // navigate('WebScreen',{title:'Dapp',uri:data})
+        navigate('TransferScreen',{address : data});
+
     };
     return (
         <View style={styles.container}>
