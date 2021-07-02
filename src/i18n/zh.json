@@ -139,5 +139,6 @@
   "enterwalletname":"输入钱包名称",
   "walletdetails":"钱包详情",
   "Backupprivatekey":"备份私钥",
-  "scan":"扫一扫"
+  "scan":"扫一扫",
+  "nodata": "暂无结果"
 }

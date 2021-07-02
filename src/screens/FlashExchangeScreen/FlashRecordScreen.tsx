@@ -1,3 +1,6 @@
+/** 
+ * 闪兑记录
+*/
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Text, SafeAreaView, FlatList, TouchableOpacity, Alert, Image } from 'react-native';
 import { navigate } from 'components/navigationService';
@@ -5,6 +8,8 @@ import { ScreensParamList, Feed } from 'actions/types';
 import { RouteProp, useRoute, useIsFocused } from '@react-navigation/native';
 
 import { useTranslation } from 'react-i18next';
+
+import * as helper from 'apis/helper'
 type FlashRecordScreenRouteProp = RouteProp<ScreensParamList, 'FlashRecordScreen'>;
 interface Props { }
 
@@ -45,6 +50,7 @@ const list = [
 ]
 
 const Item = ({ item, onPress, style }) => (
+
   <TouchableOpacity onPress={onPress} style={style}>
     <Text style={styles.timeText}>{item.time}</Text>
     <View style={styles.lineView}></View>
@@ -72,6 +78,21 @@ function FlashRecordScreen({ }: Props) {
   const {t} = useTranslation();
   const [selectedId, setSelectedId] = useState(null);
 
+  const isFocused = useIsFocused();
+  useEffect(() => {
+    if (isFocused) {
+      getFlashRedemptionList();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isFocused]);
+  async function getFlashRedemptionList() {
+    await helper.get('/swft/all_trade', {}).then(res => {
+      console.log('====================================');
+      console.log(res);
+      console.log('====================================');
+    })
+    
+  }
   const renderItem = ({ item }) => {
     return (
       <Item

@@ -12,7 +12,7 @@ import {
 import { SCREENHEIGHT, SCREENWIDTH } from "config/constants";
 import { navigate } from 'components/navigationService';
 import Swiper from 'react-native-swiper'
-import { ListItem, Avatar } from 'react-native-elements';
+import { Avatar } from 'react-native-elements';
 import { FlatList, TextInput } from 'react-native-gesture-handler';
 
 import { getDappSearchList } from 'reducers/dataStateReducer';

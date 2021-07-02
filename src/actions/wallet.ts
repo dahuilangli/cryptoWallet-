@@ -21,6 +21,7 @@ const Wallet = createActions({
     setShowMoney: createAction<boolean>(),
     setCurrency: StringAction,
     setLocation: createAction<Location>(),
+    getAccountList: NoArgAction,
     getUser: NoArgAction,
     getToken: NoArgAction,
     getHelp: NoArgAction,

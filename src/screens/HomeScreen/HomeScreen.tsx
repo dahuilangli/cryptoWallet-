@@ -244,7 +244,7 @@ function HomeScreen({}: Props) {
                 <Text style={styles.submenuHeader}>
                   {modelLeft[selectItem].title}
                 </Text>
-                <ScrollView scrollIndicatorInsets={{ right: -6 }}>
+                { <ScrollView scrollIndicatorInsets={{ right: -6 }}>
                   {walletlist.get(modelLeft[selectItem].title)?.map((item, index) => (
                     <TouchableOpacity
                       style={
@@ -303,7 +303,7 @@ function HomeScreen({}: Props) {
                       </View>
                     </TouchableOpacity>
                   ))}
-                </ScrollView>
+                </ScrollView> }
               </View>
             </View>
           </View>

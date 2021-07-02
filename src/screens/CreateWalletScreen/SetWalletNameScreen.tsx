@@ -16,12 +16,12 @@ interface Props {
       type: string;
       loginType: string;
       desc: string;
+      coinType: object
     };
   };
 }
 const SetWalletNameScreen = (props: Props) => {
-  const { type } = props.route.params;
-  const { loginType } = props.route.params;
+  const { type, loginType, coinType } = props.route.params;
   const [walletName, setWalletName] = useState('');
   const {t} = useTranslation();
   
@@ -44,9 +44,12 @@ const SetWalletNameScreen = (props: Props) => {
           buttonStyle={styles.nextButton}
           onPress={() => {
             navigate('SetWalletPwdScreen', {
-              accountInfo: { walletName, type },
+              accountInfo: { walletName, type, ...coinType},
               loginType,
             });
+            console.log('====================================');
+            console.log({ walletName, type, ...coinType});
+            console.log('====================================');
           }}
           disabled={!walletName}
           title={t("NextStep")}

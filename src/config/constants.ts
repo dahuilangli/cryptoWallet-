@@ -18,4 +18,4 @@ export const DEFAULTAVATAR =
   'https://tb2.bdstatic.com/tb/static-pb/img/head_80.jpg';
 
 
-export const CHAINS = {eth: 'ETH', bnb: 'BNB', ht: 'HT'}
+export const CHAINS = {eth: 'ETH', bnb: 'BSC', ht: 'HECO'}

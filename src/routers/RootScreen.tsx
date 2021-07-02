@@ -6,21 +6,20 @@ import AuthStackNavigator from './AuthStackNavigator';
 import SplashScreen from 'react-native-splash-screen';
 import { useDispatch, useSelector } from 'react-redux';
 import { getToken } from 'reducers/dataStateReducer';
+import { getAccountList } from 'reducers/walletStateReducer';
+
 // getAccountList
 import walletAction from 'actions/wallet'
 import * as helper from "apis/helper"
 import DeviceInfo from 'react-native-device-info';
-import {enableMapSet,produce} from "immer";
-import { CHAINS } from 'config/constants';
-import { Account } from 'actions/types';
-import { getAccountList } from 'reducers/walletStateReducer';
-enableMapSet()
 
 function RootScreen() {
   const dispatch = useDispatch();
   const accountlist = useSelector(getAccountList);
+  console.log('====================================');
+  console.log(accountlist);
+  console.log('====================================');
   const token = useSelector(getToken);
-  
   React.useEffect(() => {
     findToken();
     SplashScreen.hide();
