@@ -6,6 +6,7 @@ import { ScreensParamList, Feed } from 'actions/types';
 import {  SCREENWIDTH } from 'config/constants';
 import { RouteProp, useRoute, useIsFocused } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
+import { formatDate } from 'components/checkCorrect'
 import * as helper from 'apis/helper'
 
 
@@ -59,13 +60,29 @@ const list2 = [
 ]
 
 function HomeScreen() {
+  const [messagelistData, setMessageListData] = useState([]);
+  const isFocused = useIsFocused();  useEffect(() => {
+    if (isFocused) {
+      getMessage();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isFocused]);
+  async function getMessage() {
+    const { data } = await helper.get('/sys/notice/list',{})
+    console.log('===========/sys/notice/list=============');
+    console.log(data);
+    console.log('====================================');
+    if (data && data.length) {
+      setMessageListData(data)
+    }
+  }
   const Item1 = ({ item1, onPress1, style1 }) => (
     <TouchableOpacity onPress={onPress1} style={[styles.background, style1]}>
       <View style={styles.headView}>
-        <Text style={styles.titleStyle}>{item1.title}</Text>
-        <Text style={styles.timeStyle}>{item1.time}</Text>
+        <Text style={styles.titleStyle}>{item1.type}</Text>
+        <Text style={styles.timeStyle}>{formatDate(item1.time)}</Text>
       </View>
-      <Text style={styles.desStyle}>{item1.describe}</Text>
+      <Text style={styles.desStyle}>{item1.title}</Text>
       <Text numberOfLines={2} style={styles.conStyle}>{item1.content}</Text>
     </TouchableOpacity>
   )
@@ -85,7 +102,7 @@ function HomeScreen() {
   return (
     <SafeAreaView style={styles.container}>
       <FlatList
-        data={list1}
+        data={messagelistData}
         style={styles.background}
         renderItem={renderItem1}
         keyExtractor={(item) => item.id}
@@ -181,7 +198,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#F2F5F8',
   },
   itemStyle: {
-    height: 125,
+    
     marginHorizontal: 20,
     backgroundColor: 'white',
     marginTop: 20,
@@ -228,6 +245,7 @@ const styles = StyleSheet.create({
   },
   conStyle: {
     marginTop: 5,
+    marginBottom:15,
     marginHorizontal: 15,
     fontSize: 12,
     lineHeight: 20,

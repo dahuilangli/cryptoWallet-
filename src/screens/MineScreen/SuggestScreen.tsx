@@ -1,20 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Text, SafeAreaView, FlatList, Alert, TextInput } from 'react-native';
-import { navigate } from 'components/navigationService';
+import { goBack, navigate } from 'components/navigationService';
 import { ScreensParamList, Feed } from 'actions/types';
 import { RouteProp, useRoute, useIsFocused } from '@react-navigation/native';
 import { Button } from 'react-native-elements'
 import * as helper from 'apis/helper'
 import { useTranslation } from 'react-i18next';
-
+import { showWithImage } from 'components/Dialog';
+import {checkEmail} from 'components/checkCorrect'
+import { Image } from 'react-native-elements/dist/image/Image';
 type SuggestScreenRouteProp = RouteProp<ScreensParamList, 'SuggestScreen'>;
 interface Props { }
 
 function SuggestScreen({ }: Props) {
-  const {t} = useTranslation();
+  const { t } = useTranslation();
   const [emailText, setEmailText] = useState('');
   const [walletAddressText, setWalletAddressText] = useState('');
   const [detailsText, setDetailsText] = useState('');
+
 
   async function postSuggest() {
     const body = {
@@ -23,18 +26,25 @@ function SuggestScreen({ }: Props) {
       address: walletAddressText,
     };
     const data = await helper.post('/sys/help', body)
-    console.log(data);
-    
+    if(data.code === '200'){
+      showWithImage('提交成功',require('assets/icon-20-有误.png'))
+      goBack()
+    }
+
     return data
 
   }
-
 
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.email}>{t("yourmailbox")}</Text>
       <View style={styles.whiteView}>
-        <TextInput style={styles.input} placeholder={t("enteremailaddress")} onChangeText={setEmailText}>
+        <TextInput
+          style={styles.input}
+          placeholder={t("enteremailaddress")}
+          onChangeText={setEmailText}
+          onEndEditing ={()=>checkEmail(emailText)}
+        >
 
         </TextInput>
       </View>
@@ -55,7 +65,7 @@ function SuggestScreen({ }: Props) {
           title={t("submit")}
           titleStyle={styles.Tlabel}
           buttonStyle={styles.Tbutton}
-          onPress={() => 
+          onPress={() =>
             postSuggest()
           }
           disabled={walletAddressText && emailText && detailsText ? false : true}

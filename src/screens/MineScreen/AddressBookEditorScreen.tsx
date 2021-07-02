@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Text, SafeAreaView, TouchableOpacity, Image, Alert, TextInput } from 'react-native';
-import { navigate } from 'components/navigationService';
+import { goBack, navigate } from 'components/navigationService';
 import { useTranslation } from 'react-i18next';
 import { Button } from 'react-native-elements'
 import { SCREENHEIGHT, SCREENWIDTH } from "config/constants"
@@ -40,6 +40,7 @@ function AddressBookEditorScreen(props: Props) {
                 logo: typeLogo,
                 walletaddress: WalletAdress,
             }));
+            goBack()
     }
     return (
         <SafeAreaView style={styles.container}>

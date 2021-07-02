@@ -15,7 +15,7 @@ import {
   Keyboard,
 } from 'react-native';
 import { Button } from 'react-native-elements';
-import { WToast } from 'react-native-smart-tip';
+import { show } from 'components/Dialog';
 import { navigate } from 'components/navigationService';
 import i18n from 'i18n'
 import {SCREENHEIGHT,SCREENWIDTH} from "config/constants"
@@ -35,20 +35,10 @@ function WalletDetailScreen({}: Props) {
 
   const [navigateName, setNavigateName] = useState('');
   // Other
-  const show = () => {
-    const toastOpts = {
-      data: '钱包地址复制成功',
-      textColor: '#ffffff',
-      backgroundColor: '#444444',
-      duration: WToast.duration.SHORT, //1.SHORT 2.LONG
-      position: WToast.position.CENTER, // 1.TOP 2.CENTER 3.BOTTOM
-    };
-
-    WToast.show(toastOpts);
-  };
+  
   const copyToClipboard = () => {
     Clipboard.setString(address);
-    show();
+    show('钱包地址复制成功');
   };
 
   function goNavigate(screenName: string) {

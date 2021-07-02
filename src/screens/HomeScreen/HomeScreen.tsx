@@ -17,12 +17,15 @@ import { Avatar, Button } from 'react-native-elements';
 import { navigate } from 'components/navigationService';
 import LinearGradient from 'react-native-linear-gradient';
 import { TouchableHighlight } from 'react-native-gesture-handler';
-import { CHAINS } from "config/constants"
-import { useSelector } from 'react-redux';
-import { getAccountList } from 'reducers/walletStateReducer';
 import { getUser } from 'reducers/walletStateReducer';
 import { Account } from 'actions/types';
 import { subSplit } from 'utils'
+import {CHAINS} from "config/constants"
+import { useSelector, useDispatch } from 'react-redux';
+import walletAction from 'actions/wallet';
+import { getAccountList } from 'reducers/walletStateReducer';
+import { getShowMoney} from 'reducers/dataStateReducer';
+import { replaceMoney } from 'components/checkCorrect'
 
 interface Props { }
 
@@ -57,18 +60,24 @@ defatltCoin.set('HT', {
   contractAddress: '0x0298c2b32eae4da002a15f36fdf7615bea3da047'
 })
 function HomeScreen({ }: Props) {
+  const dispatch = useDispatch()
   const [modalVisible, setModalVisible] = useState(false);
   const [selectItem, setSelectItem] = useState(0);
   const [selectAddress, setSelectAddress] = useState('');
   const { t } = useTranslation();
   const walletlist = useSelector(getAccountList);
   const user = useSelector(getUser);
+  const showMoney = useSelector(getShowMoney);
   console.log('====================================');
   console.log(user);
   console.log('====================================');
   useEffect(() => {
 
+    
   })
+  async function hideOrShowMoney() {
+    await dispatch(walletAction.setShowMoney(!showMoney));
+  }
   function clickOnItem(index: number) {
     setSelectItem(index);
   }
@@ -105,8 +114,8 @@ function HomeScreen({ }: Props) {
             <Text style={styles.wallName}>{user?.walletName}</Text>
             <Text style={styles.address}>{subSplit(user?.address, 4, 8)}</Text>
             <View style={styles.amountContainer}>
-              <Text style={styles.amountText}>¥12758.62</Text>
-              <TouchableOpacity onPress={() => Alert.alert('点击eye')}>
+              <Text style={styles.amountText}>¥{showMoney ?'12758.62':replaceMoney('12758.62')}</Text>
+              <TouchableOpacity onPress={() => {hideOrShowMoney()}}>
                 <Image
                   style={styles.eye}
                   source={require('assets/icon-20-see-off.png')}
@@ -184,8 +193,8 @@ function HomeScreen({ }: Props) {
                   />
                   <Text style={styles.itemText}>{item.name}</Text>
                   <View style={styles.itemDesc}>
-                    <Text style={styles.descTitle}>213.74</Text>
-                    <Text style={styles.descInfo}>￥546.76</Text>
+                    <Text style={styles.descTitle}>{showMoney ? '213.74' : replaceMoney('213.74')}</Text>
+                    <Text style={styles.descInfo}>￥{showMoney ? '546.76' : replaceMoney('546.76')}</Text>
                   </View>
                 </View>
               </TouchableOpacity>
