@@ -4,13 +4,13 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Image, Text } from 'react-native';
 import TabNavigator from './TabNavigator';
 import WebScreen from 'screens/WebScreen';
+import WebHtmlScreen from 'screens/WebHtmlScreen';
 import AboutUsScreen from 'screens/MineScreen/AboutUsScreen';
 import PostFeedScreen from 'screens/HomeScreen/PostFeedScreen';
 import SuggestScreen from 'screens/MineScreen/SuggestScreen';
 import AddressTypeScreen from 'screens/MineScreen/AddressTypeScreen';
 import UpdateScreen from 'screens/MineScreen/UpdateScreen';
 import LanguageSetScreen from 'screens/MineScreen/LanguageSetScreen';
-import AgreementScreen from 'screens/MineScreen/AgreementScreen';
 import CurrencySetScreen from 'screens/MineScreen/CurrencySetScreen';
 import MessageScreen from 'screens/MineScreen/MessageScreen';
 import AddressBookScreen from 'screens/MineScreen/AddressBookScreeen';
@@ -43,19 +43,19 @@ export type MainStackParamList = {
   PostFeedScreen: undefined;
   AboutUsScreen: undefined;
   SuggestScreen: undefined;
-  UpdateScreen: {item:Object;checkVersion:Boolean};
+  UpdateScreen: { item: Object; checkVersion: Boolean };
   MessageScreen: undefined;
   SetUpScreen: undefined;
   FlashRecordScreen: undefined;
   ScanQRCode: undefined;
   LanguageSetScreen: undefined;
   CurrencySetScreen: undefined;
-  AgreementScreen:undefined;
   AddressBookScreen: { title: string; showMyself?: boolean };
   AddressBookEditorScreen: { title?: string; item: {} };
   AddressTypeScreen: { addType: string; setAddType: Function; typeLogo: string; setTypeLogo: Function };
   FeedListScreen: { title: string; showMyself?: boolean };
   WebScreen: { title?: any; uri: string };
+  WebHtmlScreen: { title?: any; uri: string };
   SearchScreen: { coin: Array<string> };
   DappSearchScreen: { coin: Array<string> };
   CoinDetailScreen: { title: string };
@@ -149,13 +149,6 @@ export default function MainStackNavigator() {
         component={ReceivePaymentScreen}
         options={{
           title: t("Receive"),
-        }}
-      />
-      <Screen
-        name="AgreementScreen"
-        component={AgreementScreen}
-        options={{
-          title:t("UserAgreement"),
         }}
       />
       <Screen
@@ -286,6 +279,16 @@ export default function MainStackNavigator() {
       <Screen
         name="WebScreen"
         component={WebScreen}
+        options={({ route }) => ({
+          title: route.params.title || '',
+          headerTitleContainerStyle: {
+            marginHorizontal: 80,
+          },
+        })}
+      />
+      <Screen
+        name="WebHtmlScreen"
+        component={WebHtmlScreen}
         options={({ route }) => ({
           title: route.params.title || '',
           headerTitleContainerStyle: {
