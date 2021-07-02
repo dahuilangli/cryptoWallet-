@@ -1,6 +1,6 @@
 import axios from "axios";
 import { API_ENDPOINT } from 'config/constants';
-import { getToken } from 'reducers/dataStateReducer';
+import { getToken, getLanguage ,getCurrency } from 'reducers/dataStateReducer';
 import { ReduxStore } from 'store';
 import DeviceInfo from 'react-native-device-info';
 
@@ -15,10 +15,16 @@ const client = axios.create({ //all axios can be used, shown in axios documentat
 client.interceptors.request.use(config => {
   // 是否需要设置 token
   const isToken = (config.headers || {}).isToken === false
+  
+
   if (getToken(ReduxStore.getState()) && !isToken) {
     config.headers['Authorization'] = 'Bearer ' + getToken(ReduxStore.getState()) // 让每个请求携带自定义token 请根据实际情况自行修改
     config.headers['Device'] = DeviceInfo.getUniqueId()
+    
   }
+  config.headers['RateUnit'] = getCurrency(ReduxStore.getState())
+  config.headers['Language'] = getLanguage(ReduxStore.getState())
+
   // get请求映射params参数
   if (config.method === 'get' && config.params) {
     let url = config.url + '?';

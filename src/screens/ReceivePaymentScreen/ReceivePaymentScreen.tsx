@@ -3,25 +3,14 @@ import { SafeAreaView, View, StyleSheet, Text } from 'react-native';
 import Clipboard from '@react-native-clipboard/clipboard';
 import CustomQrCode from 'components/CustomQrCode';
 import { Button } from 'react-native-elements';
-import { WToast } from 'react-native-smart-tip';
+import { show } from 'components/Dialog';
 interface Props {}
 function ReceivePaymentScreen({}: Props) {
   const address = '0x4250c3c0094A65dd12f6C41D8c4C6ec10ff458f7';
   // Other
-  const show = () => {
-    const toastOpts = {
-      data: '钱包地址复制成功',
-      textColor: '#ffffff',
-      backgroundColor: '#444444',
-      duration: WToast.duration.SHORT, //1.SHORT 2.LONG
-      position: WToast.position.CENTER, // 1.TOP 2.CENTER 3.BOTTOM
-    };
-
-    WToast.show(toastOpts);
-  };
   const copyToClipboard = () => {
     Clipboard.setString(address);
-    show();
+    show('钱包地址复制成功');
   };
 
   return (

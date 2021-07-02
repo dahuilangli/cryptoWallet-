@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Text, SafeAreaView, FlatList, Alert, TextInput } from 'react-native';
-import { navigate } from 'components/navigationService';
+import { goBack, navigate } from 'components/navigationService';
 import { ScreensParamList, Feed } from 'actions/types';
 import { RouteProp, useRoute, useIsFocused } from '@react-navigation/native';
 import { Button } from 'react-native-elements'
 import * as helper from 'apis/helper'
 import { useTranslation } from 'react-i18next';
-
+import { showWithImage } from 'components/Dialog';
+import {checkEmail} from 'components/checkCorrect'
+import { Image } from 'react-native-elements/dist/image/Image';
 type SuggestScreenRouteProp = RouteProp<ScreensParamList, 'SuggestScreen'>;
 interface Props { }
 
@@ -16,6 +18,7 @@ function SuggestScreen({ }: Props) {
   const [walletAddressText, setWalletAddressText] = useState('');
   const [detailsText, setDetailsText] = useState('');
 
+
   async function postSuggest() {
     const body = {
       email: emailText,
@@ -23,19 +26,13 @@ function SuggestScreen({ }: Props) {
       address: walletAddressText,
     };
     const data = await helper.post('/sys/help', body)
-    console.log(data);
+    if(data.code === '200'){
+      showWithImage('提交成功',require('assets/icon-20-有误.png'))
+      goBack()
+    }
 
     return data
 
-  }
-  function checkEmail(emailText:string){
-    console.log(emailText);
-    var emailPattern = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/;
-    if (emailPattern.test(emailText)==false){
-      console.log('111111');
-    }else{
-      console.log('222222');
-    }
   }
 
   return (

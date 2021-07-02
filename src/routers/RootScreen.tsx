@@ -43,7 +43,7 @@ function RootScreen() {
   }
   return (
     <NavigationContainer ref={navigationRef}>
-      {accountlist.size > 0 ? <MainStackNavigator /> : <AuthStackNavigator />}
+      {accountlist.size >= 0 ? <MainStackNavigator /> : <AuthStackNavigator />}
     </NavigationContainer>
   );
 }

@@ -18,8 +18,11 @@ import { navigate } from 'components/navigationService';
 import LinearGradient from 'react-native-linear-gradient';
 import { TouchableHighlight } from 'react-native-gesture-handler';
 import {CHAINS} from "config/constants"
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import walletAction from 'actions/wallet';
 import { getAccountList } from 'reducers/walletStateReducer';
+import { getShowMoney} from 'reducers/dataStateReducer';
+import { replaceMoney } from 'components/checkCorrect'
 
 interface Props {}
 
@@ -45,11 +48,16 @@ function HomeScreen({}: Props) {
   const [selectItem, setSelectItem] = useState(0);
   const [selectAddress, setSelectAddress] = useState('');
   const {t} = useTranslation();
+  const dispatch = useDispatch()
   const walletlist = useSelector(getAccountList);
- 
+  const showMoney = useSelector(getShowMoney);
+  
   useEffect(()=>{
     
   })
+  async function hideOrShowMoney() {
+    await dispatch(walletAction.setShowMoney(!showMoney));
+}
   function clickOnItem(index: number) {
     setSelectItem(index);
   }
@@ -84,8 +92,8 @@ function HomeScreen({}: Props) {
             <Text style={styles.wallName}>STO-001</Text>
             <Text style={styles.address}>0x4k...33245da4</Text>
             <View style={styles.amountContainer}>
-              <Text style={styles.amountText}>¥12758.62</Text>
-              <TouchableOpacity onPress={() => Alert.alert('点击eye')}>
+              <Text style={styles.amountText}>¥{showMoney ?'12758.62':replaceMoney('12758.62')}</Text>
+              <TouchableOpacity onPress={() => {hideOrShowMoney()}}>
                 <Image
                   style={styles.eye}
                   source={require('assets/icon-20-see-off.png')}
@@ -163,8 +171,8 @@ function HomeScreen({}: Props) {
                   />
                   <Text style={styles.itemText}>{item.name}</Text>
                   <View style={styles.itemDesc}>
-                    <Text style={styles.descTitle}>213.74</Text>
-                    <Text style={styles.descInfo}>￥546.76</Text>
+                    <Text style={styles.descTitle}>{showMoney ? '213.74' : replaceMoney('213.74')}</Text>
+                    <Text style={styles.descInfo}>￥{showMoney ? '546.76' : replaceMoney('546.76')}</Text>
                   </View>
                 </View>
               </TouchableOpacity>

@@ -12,6 +12,7 @@ export interface DataState {
   addressBookList: Array<AddressBookItem>;
   language: string;
   currency: string;
+  showMoney: boolean;
 }
 export const initialState: Readonly<DataState> = {
   token: '',
@@ -19,6 +20,7 @@ export const initialState: Readonly<DataState> = {
   addressBookList: [],
   language: 'en',
   currency: 'CNY',
+  showMoney:true,
 };
 
 export const selectDataState = (reduxState: ReduxState) => reduxState.dataState;
@@ -48,6 +50,11 @@ export const getCurrency = createSelector(
   (dataState) => dataState.currency,
 );
 
+export const getShowMoney = createSelector(
+  selectDataState,
+  (dataState) => dataState.showMoney,
+);
+
 export const getDappSearchList = createSelector(
   selectDataState,
   (dataState) => dataState.dappSearchList,
@@ -62,6 +69,9 @@ const reducer = (originalState = initialState, walletAction: WalletAction) =>
   produce(originalState, state => {
     switch (walletAction.type) {
       case 'setUser':
+        return;
+      case 'setShowMoney':
+        state.showMoney = walletAction.payload;
         return;
       case 'setToken':
         state.token = walletAction.payload;

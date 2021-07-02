@@ -12,7 +12,7 @@ import i18n from "i18n";
 import walletAction from 'actions/wallet';
 import { useSelector, useDispatch } from 'react-redux';
 import { getLanguage } from 'reducers/dataStateReducer';
-
+import {showWithImage} from 'components/Dialog'
 
 type SetUpScreenRouteProp = RouteProp<ScreensParamList, 'SetUpScreen'>;
 interface Props {
@@ -42,6 +42,7 @@ const list1 = [
             await dispatch(walletAction.setLanguage(params));
              setDefaultLanguage(params)
             i18n.changeLanguage(params);
+            showWithImage("切换"+params === 'en'?'English':'中文(简体)'+'成功',require('assets/icon-20-有误.png'));
         }
     }
 

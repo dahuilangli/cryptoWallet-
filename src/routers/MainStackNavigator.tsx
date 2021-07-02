@@ -10,6 +10,7 @@ import SuggestScreen from 'screens/MineScreen/SuggestScreen';
 import AddressTypeScreen from 'screens/MineScreen/AddressTypeScreen';
 import UpdateScreen from 'screens/MineScreen/UpdateScreen';
 import LanguageSetScreen from 'screens/MineScreen/LanguageSetScreen';
+import AgreementScreen from 'screens/MineScreen/AgreementScreen';
 import CurrencySetScreen from 'screens/MineScreen/CurrencySetScreen';
 import MessageScreen from 'screens/MineScreen/MessageScreen';
 import AddressBookScreen from 'screens/MineScreen/AddressBookScreeen';
@@ -42,13 +43,14 @@ export type MainStackParamList = {
   PostFeedScreen: undefined;
   AboutUsScreen: undefined;
   SuggestScreen: undefined;
-  UpdateScreen: undefined;
+  UpdateScreen: {item:Object;checkVersion:Boolean};
   MessageScreen: undefined;
   SetUpScreen: undefined;
   FlashRecordScreen: undefined;
   ScanQRCode: undefined;
   LanguageSetScreen: undefined;
   CurrencySetScreen: undefined;
+  AgreementScreen:undefined;
   AddressBookScreen: { title: string; showMyself?: boolean };
   AddressBookEditorScreen: { title?: string; item: {}};
   AddressTypeScreen: { addType: string ; setAddType: Function;typeLogo: string ; setTypeLogo: Function};
@@ -147,6 +149,13 @@ export default function MainStackNavigator() {
         component={ReceivePaymentScreen}
         options={{
           title: t("Receive"),
+        }}
+      />
+      <Screen
+        name="AgreementScreen"
+        component={AgreementScreen}
+        options={{
+          title:t("UserAgreement"),
         }}
       />
       <Screen

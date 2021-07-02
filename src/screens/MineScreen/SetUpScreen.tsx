@@ -16,10 +16,6 @@ function SetUpScreen({ }: Props) {
   const { t } = useTranslation();
   const language = useSelector(getLanguage)
   const currency = useSelector(getCurrency)
-  console.log('222222222');
-  
-  console.log(currency);
-  
   const list = [
 
     {

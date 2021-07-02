@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState ,useEffect} from 'react';
 import {
   Alert,
   StyleSheet,
@@ -16,14 +16,43 @@ import {  SCREENWIDTH } from 'config/constants';
 import ActionSheet from 'react-native-action-sheet';
 import pickImage from 'components/pickImage';
 import { showLoadingModal, closeLoadingModal } from 'components/Dialog';
-import { post, put } from 'apis/helper';
+import * as helper from 'apis/helper'
 import { User } from 'actions/types';
 import { useTranslation } from 'react-i18next';
-
+import DeviceInfo from 'react-native-device-info';
+import { RouteProp, useRoute, useIsFocused } from '@react-navigation/native';
 interface Props {}
-
+let systemVersion = DeviceInfo.getVersion();
+let buildVersion = DeviceInfo.getBuildNumber();
 function ProfileScreen({ }: Props) {
   const {t} = useTranslation();
+  const [messagelistData, setMessageListData] = useState({});
+  const [checkVersion, setCheckVersion] = useState(false);
+  const isFocused = useIsFocused();  useEffect(() => {
+    if (isFocused) {
+      getVersion();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isFocused]);
+  async function getVersion() {
+    const {data}  = await helper.get('/sys/version',{})
+    console.log('===========/sys/version=============');
+    console.log(data);
+    console.log(systemVersion);
+    if (data) {
+      if(data.app_ver > systemVersion){
+        setCheckVersion(true)
+      }else{
+        if(data.build_ver>buildVersion){
+          setCheckVersion(true)
+        }else{
+          setCheckVersion(false)
+        }
+      }
+      setMessageListData(data)
+    }
+  }  
+ 
 const list = {
   top: [
     {
@@ -55,13 +84,13 @@ const list = {
       name: t("versionupdate"),
       leftIcon: require('assets/icon-24-版本更新.png'),
       rightIcon: require('assets/icon-20-arrow-right.png'),
-      navigate: () => navigate('UpdateScreen')
+      navigate: () => navigate('UpdateScreen',{item:messagelistData,checkVersion:checkVersion})
 
     }, {
       name: t("UserAgreement"),
       leftIcon: require('assets/icon-24-协议.png'),
       rightIcon: require('assets/icon-20-arrow-right.png'),
-      navigate: () => navigate('WebScreen', { title: t("UserAgreement"), uri: 'https://mystone.io/flashRedemption.html' })
+      navigate: () => navigate('AgreementScreen')
     }, {
       name: t("aboutus"),
       leftIcon: require('assets/icon-24-关于我们.png'),
@@ -73,16 +102,6 @@ const list = {
 }
 
   const dispatch = useDispatch();
-  // const user = useSelector(selectUser)!;
-  // const setUser = React.useCallback(
-  //   (user: User) => dispatch(actions.setUser(user)),
-  //   [dispatch],
-  // );
-  // const logout = React.useCallback(() => dispatch(actions.logout()), [
-  //   dispatch,
-  // ]);
-
-  const checkAppVersion = true;
   const checkMessage = true;
   return (
     <View style={styles.container}>
@@ -132,7 +151,7 @@ const list = {
                 </ListItem.Title>
               </ListItem.Content>
               {
-                i === 2 && checkAppVersion ?<Image style = {styles.versionShow} source = {require('assets/new-vision.png')}></Image>:<Text></Text>
+                i === 2 && checkVersion ?<Image style = {styles.versionShow} source = {require('assets/new-vision.png')}></Image>:<Text></Text>
               }
               <Image source={item.rightIcon} style={styles.rightIcon} />
             </ListItem>

@@ -4,14 +4,20 @@ import { navigate } from 'components/navigationService';
 import { ScreensParamList, Feed } from 'actions/types';
 import { RouteProp, useRoute, useIsFocused } from '@react-navigation/native';
 import DeviceInfo from 'react-native-device-info';
+import { Button } from 'react-native-elements';
 import { useTranslation } from 'react-i18next';
 
 type UpdateScreenRouteProp = RouteProp<ScreensParamList, 'UpdateScreen'>;
 interface Props { }
 
 let systemVersion = DeviceInfo.getVersion();
-function UpdateScreen({ }: Props) {
+let buildVersion = DeviceInfo.getBuildNumber();
+function UpdateScreen(props: any) {
   const {t} = useTranslation();
+  console.log(props.route.params.item);
+  const updateVersion = props.route.params.item.app_ver;
+  const updateBuild = props.route.params.item.build_ver;
+  const  checkVersion = props.route.params.checkVersion;
   return (
 
     <SafeAreaView style={styles.container}>
@@ -21,18 +27,24 @@ function UpdateScreen({ }: Props) {
         <Text style={styles.nameLabel}>{t("projectname")}</Text>
         <Text style={styles.currentVersion}>{t("currentversion")}</Text>
         <Text style={styles.localVersion}>
-          v{systemVersion}
+          v{systemVersion}({buildVersion})
         </Text>
       </View>
       <View style={styles.bottomView}>
-        <View style = {styles.VersionNumber}>
+        {checkVersion?<View style = {styles.VersionNumber}>
           <Image style = {styles.Icon} source = {require('assets/icon-125-aboutuslogo.png')}/>
           <Text style = {styles.findText}>{t("newversionfound")}</Text>
-          <Text>v{'1.0.1'}</Text>
-        </View>
-        <TouchableOpacity style = {styles.upDataBtn}>
-          <Text style = {styles.upDataView}>{t("downloadupdate")}</Text>
-        </TouchableOpacity>
+          <Text>v{updateVersion}({updateBuild})</Text>
+        </View>:null}
+        <Button
+          title={t("downloadupdate")}
+          titleStyle={styles.Tlabel}
+          buttonStyle={styles.Tbutton}
+          onPress={() =>
+            {}
+          }
+          disabled={!checkVersion}
+        />
       </View>
     </SafeAreaView>
   );
@@ -77,7 +89,7 @@ const styles = StyleSheet.create({
     fontWeight: '400',
   },
   bottomView: {
-    height:189,
+    // height:189,
     flexDirection: 'column',
     marginHorizontal:20,
   },
@@ -105,18 +117,17 @@ const styles = StyleSheet.create({
     color:'#3B6ED5',
     fontFamily:'CircularPro-Book',
   },
-  upDataBtn:{
-    marginTop:20,
-    height:55,
-    borderRadius:8,
-    backgroundColor:'#3B6ED5',
-    alignItems:'center',
-    justifyContent:'center',
+  Tbutton: {
+    
+    marginBottom: 54,
+    height: 55,
+    backgroundColor: '#3B6ED5',
+    alignItems: 'center',
+    borderRadius: 8,
   },
-  upDataView:{
-    fontSize:16,
-    fontWeight:'600',
-    color:'#FFFFFF',
+  Tlabel: {
+    fontSize: 16,
+    fontWeight: '600',
   },
 });
 

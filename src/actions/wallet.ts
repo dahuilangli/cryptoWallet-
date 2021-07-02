@@ -18,6 +18,7 @@ const Wallet = createActions({
     setAddressBookList: createAction<AddressBookItem>(),
     deleteAddressBookList: createAction<AddressBookItem>(),
     setLanguage: StringAction,
+    setShowMoney: createAction<boolean>(),
     setCurrency: StringAction,
     setLocation: createAction<Location>(),
     getUser: NoArgAction,
