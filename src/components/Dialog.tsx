@@ -123,30 +123,6 @@ function ImageViewer({ imageUrls, onClose }: ImageViewerProps & DialogProps) {
 }
 export const showImageViewer = showDialogFactory<ImageViewerProps>(ImageViewer);
 
-export const show = (text:string) => {
-  const toastOpts = {
-    data: text,
-    textColor: '#ffffff',
-    backgroundColor: '#444444',
-    duration: WToast.duration.SHORT, //1.SHORT 2.LONG
-    position: WToast.position.CENTER, // 1.TOP 2.CENTER 3.BOTTOM
-  };
-
-  WToast.show(toastOpts);
-};
-
-export const showWithImage = (text:string,imageSource:any) => {
-  const toastOpts = {
-    data: text,
-    textColor: '#ffffff',
-    backgroundColor: '#444444',
-    duration: WToast.duration.SHORT, //1.SHORT 2.LONG
-    position: WToast.position.CENTER, // 1.TOP 2.CENTER 3.BOTTOM
-    icon:<Image source={imageSource} style={{width: 16,height: 16,resizeMode: 'contain'}}/>,
-  };
-
-  WToast.show(toastOpts);
-};
 
 
 const styles = StyleSheet.create({

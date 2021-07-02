@@ -15,7 +15,7 @@ import {
   Keyboard,
 } from 'react-native';
 import { Button } from 'react-native-elements';
-import { show } from 'components/Dialog';
+import { copyToClipboard } from 'utils';
 import { navigate } from 'components/navigationService';
 import i18n from 'i18n'
 import {SCREENHEIGHT,SCREENWIDTH} from "config/constants"
@@ -34,12 +34,6 @@ function WalletDetailScreen({}: Props) {
   const address = '0x4250c3c0094A65dd12f6C41D8c4C6ec10ff458f7';
 
   const [navigateName, setNavigateName] = useState('');
-  // Other
-  
-  const copyToClipboard = () => {
-    Clipboard.setString(address);
-    show('钱包地址复制成功');
-  };
 
   function goNavigate(screenName: string) {
     if (screenName) {
@@ -69,7 +63,7 @@ function WalletDetailScreen({}: Props) {
             />
           </View>
         </TouchableWithoutFeedback>
-        <TouchableWithoutFeedback onPress={copyToClipboard}>
+        <TouchableWithoutFeedback onPress={() => copyToClipboard(address, t('copySuccess'))}>
           <View style={styles.itemContainer}>
             <View
               style={{

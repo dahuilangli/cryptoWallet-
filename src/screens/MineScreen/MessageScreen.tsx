@@ -6,7 +6,7 @@ import { ScreensParamList, Feed } from 'actions/types';
 import {  SCREENWIDTH } from 'config/constants';
 import { RouteProp, useRoute, useIsFocused } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
-import { formatDate } from 'components/checkCorrect'
+import { formatDate } from 'utils'
 import * as helper from 'apis/helper'
 
 

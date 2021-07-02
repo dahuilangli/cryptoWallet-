@@ -4,7 +4,7 @@ import React from 'react';
 import { StyleSheet, View, SafeAreaView, Text } from 'react-native';
 import i18n from 'i18n'
 import { Button } from 'react-native-elements';
-import { show } from 'components/Dialog';
+import { copyToClipboard } from 'utils';
 import { useTranslation } from 'react-i18next';
 
 
@@ -13,10 +13,6 @@ interface Props {}
 
 const ExportPrivateKeyScreen = ({}: Props) => {
   let privateKey = '0x4250c3c0094A65d3c0094A65dd12f6Cd123';
-  const copyToClipboard = () => {
-    Clipboard.setString(privateKey);
-    show('钱包地址复制成功');
-  };
   const {t} = useTranslation();
   return (
     <SafeAreaView style={styles.container}>
@@ -30,7 +26,7 @@ const ExportPrivateKeyScreen = ({}: Props) => {
 
         <Button
           buttonStyle={styles.nextButton}
-          onPress={copyToClipboard}
+          onPress={() => copyToClipboard(privateKey, t('copySuccess'))}
           title={t("Copyprivatekey")}
           titleStyle={styles.nextButtonTitle}
         />

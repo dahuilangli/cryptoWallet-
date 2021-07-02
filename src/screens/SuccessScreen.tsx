@@ -9,10 +9,11 @@ import {
   Easing,
   Alert,
 } from 'react-native';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import walletAction from 'actions/wallet';
 import { Account } from 'actions/types';
 import { useTranslation } from 'react-i18next';
+import { getAccountList } from 'reducers/walletStateReducer';
 
 // import { setGenericPassword } from 'utils/keyChain';
 interface Props {
@@ -24,15 +25,16 @@ interface Props {
   };
 }
 const SuccessScreen = ({ route }: Props) => {
-  const {t} = useTranslation();
+  const dispatch = useDispatch();
+  const { t } = useTranslation();
   let { title } = route.params;
   let { accountInfo } = route.params;
-  const dispatch = useDispatch();
-  console.log('=========accountInfo==================');
-  console.log(accountInfo);
-  console.log('====================================');
+  const walletlist = useSelector(getAccountList);
   async function storageAccount() {
     try {
+      if (walletlist.size === 0) {
+        await dispatch(walletAction.createAccount(accountInfo));
+      }
       await dispatch(walletAction.createAccount(accountInfo));
     } catch (err) {
       Alert.alert(`${title}失败，请重新选择钱包后重试`);
@@ -54,11 +56,11 @@ const SuccessScreen = ({ route }: Props) => {
       <StatusBar barStyle="dark-content" />
       <Image style={styles.logo} source={require('assets/success.png')} />
       <Text style={styles.title}>{title}</Text>
-      {/* <Text style={styles.desc}>{t("Connectingtowallet")}</Text> */}
-      {/* <Animated.Image
+      <Text style={styles.desc}>{t("Connectingtowallet")}</Text>
+      <Animated.Image
         style={[styles.circle, { transform: [{ rotate: spin }] }]}
         source={require('assets/loading.png')}
-      /> */}
+      />
     </SafeAreaView>
   );
 };

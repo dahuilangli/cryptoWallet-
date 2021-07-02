@@ -12,7 +12,7 @@ import { Account, Location, User, DappRecentItem ,AddressBookItem} from 'actions
 import  apis from 'apis';
 const Wallet = createActions({
     setToken: StringAction,
-    setUser: createAction<User>(),
+    createUser: createAction<Account>(),
     createAccount: createAction<Account>(),
     setDappSearchList: createAction<DappRecentItem>(),
     setAddressBookList: createAction<AddressBookItem>(),

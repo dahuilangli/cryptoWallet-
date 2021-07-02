@@ -15,11 +15,11 @@ import DeviceInfo from 'react-native-device-info';
 
 function RootScreen() {
   const dispatch = useDispatch();
-  const accountlist = useSelector(getAccountList);
-  console.log('====================================');
-  console.log(accountlist);
-  console.log('====================================');
+  const accountList = useSelector(getAccountList);
   const token = useSelector(getToken);
+  console.log('====================================');
+  console.log(accountList.size);
+  console.log('====================================');
   React.useEffect(() => {
     findToken();
     SplashScreen.hide();
@@ -42,7 +42,7 @@ function RootScreen() {
   }
   return (
     <NavigationContainer ref={navigationRef}>
-      {accountlist.size >= 0 ? <MainStackNavigator /> : <AuthStackNavigator />}
+      {accountList.size > 0 ? <MainStackNavigator /> : <AuthStackNavigator />}
     </NavigationContainer>
   );
 }

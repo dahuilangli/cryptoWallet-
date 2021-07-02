@@ -44,8 +44,9 @@ function SearchScreen({}: Props) {
     }
   }
 
-  function HeardsOption() {
-    return (
+  return (
+    <LinearGradient colors={['#3060C2', '#3B6ED5']} style={styles.container}>
+      <View style={styles.main}>
       <View style={styles.header}>
         <View style={styles.coinNameContainer}>
           <Image
@@ -64,12 +65,6 @@ function SearchScreen({}: Props) {
           <Text style={styles.goBlackText}>{t("cancel")}</Text>
         </TouchableOpacity>
       </View>
-    );
-  }
-  return (
-    <LinearGradient colors={['#3060C2', '#3B6ED5']} style={styles.container}>
-      <View style={styles.main}>
-        <HeardsOption />
         <View style={styles.assetsContainer}>
           <View style={styles.assetsHeard}>
             <Text style={styles.assetsHeardTitle}>{obj.title}</Text>
