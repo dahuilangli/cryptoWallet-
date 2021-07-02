@@ -27,7 +27,7 @@ const persistedReducer = persistReducer(
   {
     key: 'root',
     storage: AsyncStorage,
-    transforms: [SetTransform],
+    // transforms: [SetTransform],
   },
   rootReducer,
 );

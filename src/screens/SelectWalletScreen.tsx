@@ -68,9 +68,6 @@ const SelectWalletScreen = (prop: Props) => {
   }, [isFocused]);
   async function getTypeList() {
     await helper.get('/wallet/type', {}).then((res: any) => {
-      console.log('===========/wallet/type=============');
-      console.log(res.data);
-      console.log('====================================');
       if (res?.data) {
         setTypeList(res.data)
       }
@@ -87,22 +84,33 @@ const SelectWalletScreen = (prop: Props) => {
             onPress={() => {
               switch (loginType) {
                 case 'new':
+                  console.log('=======item====================');
+                  console.log(item);
+                  console.log('====================================');
                   navigate('SetWalletNameScreen', {
                     type: item.name_en,
                     loginType: 'mnemonic',
-                    coinType: { token_limit: item.token_limit, wallet: item.wallet }
+                    coinInfo: item
                   });
                   break;
                 case 'mnemonic':
+                  console.log('=======item====================');
+                  console.log(item);
+                  console.log('====================================');
                   navigate('ImportMnemonicScreen', {
                     type: item.name_en,
                     loginType: 'mnemonic',
+                    coinInfo: item
                   });
                   break;
                 case 'privateKey':
+                  console.log('=======item====================');
+                  console.log(item);
+                  console.log('====================================');
                   navigate('ImportPrivateKeyScreen', {
                     type: item.name_en,
                     loginType: 'mnemonic',
+                    coinInfo: item
                   });
                   break;
                 default:

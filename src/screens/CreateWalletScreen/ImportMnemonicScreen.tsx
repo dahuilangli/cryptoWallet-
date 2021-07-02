@@ -21,6 +21,7 @@ interface Props {
   route: {
     params: {
       type: string;
+      coinInfo: object;
     };
   };
 }
@@ -52,7 +53,7 @@ function UselessTextInput(props: any) {
   );
 }
 const ImportMnemonicScreen = (props: Props) => {
-  const { type } = props.route.params;
+  const { type, coinInfo } = props.route.params;
   const [mnemonic, setMnemonic] = useState('');
   const {t} = useTranslation();
 
@@ -89,6 +90,7 @@ const ImportMnemonicScreen = (props: Props) => {
                   type,
                   loginType: 'mnemonic',
                   desc: mnemonic.replace(/(^\s*)|(\s*$)/g, ''),
+                  coinInfo
                 });
               } catch (error) {
                 WToast.show({

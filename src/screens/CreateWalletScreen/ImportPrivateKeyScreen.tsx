@@ -9,6 +9,7 @@ interface Props {
   route: {
     params: {
       type: string;
+      coinInfo: object;
     };
   };
 }
@@ -24,7 +25,7 @@ function UselessTextInput(props: any) {
 }
 const ImportPrivateKeyScreen = (props: Props) => {
   const {t} = useTranslation();
-  const { type } = props.route.params;
+  const { type, coinInfo } = props.route.params;
   const [privateKey, setPrivateKey] = useState('');
   return (
     <SafeAreaView style={styles.container}>
@@ -52,6 +53,7 @@ const ImportPrivateKeyScreen = (props: Props) => {
                 type,
                 loginType: 'privateKey',
                 desc: privateKey.replace(/(^\s*)|(\s*$)/g, ''),
+                coinInfo
               });
             } catch (error) {
               WToast.show({

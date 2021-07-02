@@ -24,7 +24,6 @@ export default (origin=initialState, walletAction: WalletAction) =>{
     switch (walletAction.type) {
       case 'setAccountList':
         state.accountList.set(walletAction.payload.type,[walletAction.payload])
-        console.log(state);
         if(state.accountList.has(walletAction.payload.type)){
           const accounts = state.accountList.get(walletAction.payload.type);
           const finded = accounts?.findIndex((value,index,arr)=>{

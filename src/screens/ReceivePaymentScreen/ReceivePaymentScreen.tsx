@@ -4,9 +4,15 @@ import Clipboard from '@react-native-clipboard/clipboard';
 import CustomQrCode from 'components/CustomQrCode';
 import { Button } from 'react-native-elements';
 import { WToast } from 'react-native-smart-tip';
-interface Props {}
-function ReceivePaymentScreen({}: Props) {
-  const address = '0x4250c3c0094A65dd12f6C41D8c4C6ec10ff458f7';
+interface Props {
+  route: {
+    params: {
+      address: string
+    }
+  }
+}
+function ReceivePaymentScreen(props: Props) {
+  const { address } = props.route.params;
   // Other
   const show = () => {
     const toastOpts = {

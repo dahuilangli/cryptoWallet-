@@ -12,16 +12,19 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
-import {SCREENHEIGHT,SCREENWIDTH} from "config/constants";
+import { SCREENHEIGHT, SCREENWIDTH } from "config/constants";
 import { Avatar, Button } from 'react-native-elements';
 import { navigate } from 'components/navigationService';
 import LinearGradient from 'react-native-linear-gradient';
 import { TouchableHighlight } from 'react-native-gesture-handler';
-import {CHAINS} from "config/constants"
+import { CHAINS } from "config/constants"
 import { useSelector } from 'react-redux';
-// import { getAccountList } from 'reducers/walletStateReducer';
+import { getAccountList } from 'reducers/walletStateReducer';
+import { getUser } from 'reducers/dataStateReducer';
+import { Account } from 'actions/types';
+import { subSplit } from 'utils'
 
-interface Props {}
+interface Props { }
 
 const modelLeft = [
   {
@@ -40,15 +43,31 @@ const modelLeft = [
     img_off: require('assets/coins/img-40-coointype-pk-off.png'),
   },
 ];
-function HomeScreen({}: Props) {
+let defatltCoin: Map<string, object> = new Map();
+defatltCoin.set('ETH', {
+  name: 'USDT',
+  contractAddress: '0xdac17f958d2ee523a2206206994597c13d831ec7'
+})
+defatltCoin.set('BNB', {
+  name: 'BUSD',
+  contractAddress: '0xe9e7cea3dedca5984780bafc599bd69add087d56'
+})
+defatltCoin.set('HT', {
+  name: 'HUSD',
+  contractAddress: '0x0298c2b32eae4da002a15f36fdf7615bea3da047'
+})
+function HomeScreen({ }: Props) {
   const [modalVisible, setModalVisible] = useState(false);
   const [selectItem, setSelectItem] = useState(0);
   const [selectAddress, setSelectAddress] = useState('');
-  const {t} = useTranslation();
-  // const walletlist = useSelector(getAccountList);
- 
-  useEffect(()=>{
-    
+  const { t } = useTranslation();
+  const walletlist = useSelector(getAccountList);
+  const user: Account = useSelector(getUser);
+  console.log('====================================');
+  console.log(user);
+  console.log('====================================');
+  useEffect(() => {
+
   })
   function clickOnItem(index: number) {
     setSelectItem(index);
@@ -59,13 +78,15 @@ function HomeScreen({}: Props) {
       avatar_url: require('assets/img-40-coointype-eth.png'),
     },
   ];
-  
+
+
   return (
     <LinearGradient colors={['#3060C2', '#3B6ED5']} style={styles.container}>
       <View style={styles.main}>
         <View style={styles.nav}>
           <View style={styles.header}>
-            <TouchableOpacity onPress={() => setModalVisible(true)}>
+            <TouchableOpacity onPress={() =>
+              setModalVisible(true)}>
               <Image source={require('assets/icon-24-切换钱包-light.png')} />
             </TouchableOpacity>
             <Text style={styles.headerTitle}>{t("wallet")}</Text>
@@ -81,8 +102,8 @@ function HomeScreen({}: Props) {
               style={styles.logo}
               source={require('assets/img-40-coointype-eth.png')}
             />
-            <Text style={styles.wallName}>STO-001</Text>
-            <Text style={styles.address}>0x4k...33245da4</Text>
+            <Text style={styles.wallName}>{user?.walletName}</Text>
+            <Text style={styles.address}>{subSplit(user?.address, 4, 8)}</Text>
             <View style={styles.amountContainer}>
               <Text style={styles.amountText}>¥12758.62</Text>
               <TouchableOpacity onPress={() => Alert.alert('点击eye')}>
@@ -129,7 +150,7 @@ function HomeScreen({}: Props) {
                 buttonStyle={styles.buttonOne}
                 title={t("Receive")}
                 titleStyle={styles.buttonTitle}
-                onPress={() => navigate('ReceivePaymentScreen')}
+                onPress={() => navigate('ReceivePaymentScreen', { address: user?.address })}
               />
             </View>
           </View>
@@ -228,7 +249,7 @@ function HomeScreen({}: Props) {
                     }
                     onPress={() => clickOnItem(index)}
                   >
-                    <Image source={index === selectItem ? item.img: item.img_off} />
+                    <Image source={index === selectItem ? item.img : item.img_off} />
                   </TouchableHighlight>
                 ))}
               </View>
@@ -236,7 +257,7 @@ function HomeScreen({}: Props) {
                 <Text style={styles.submenuHeader}>
                   {modelLeft[selectItem].title}
                 </Text>
-                {/* <ScrollView scrollIndicatorInsets={{ right: -6 }}>
+                <ScrollView scrollIndicatorInsets={{ right: -6 }}>
                   {walletlist.get(modelLeft[selectItem].title)?.map((item, index) => (
                     <TouchableOpacity
                       style={
@@ -295,7 +316,7 @@ function HomeScreen({}: Props) {
                       </View>
                     </TouchableOpacity>
                   ))}
-                </ScrollView> */}
+                </ScrollView>
               </View>
             </View>
           </View>

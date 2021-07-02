@@ -20,13 +20,13 @@ export type AuthStackParamList = {
   LoginScreen: undefined;
   SuccessScreen: { title: string | undefined; accountInfo: object };
   SelectWalletScreen: { loginType: string };
-  SetWalletNameScreen: { type: string; loginType?: string; coinType: object, desc?: string };
+  SetWalletNameScreen: { type: string; loginType?: string; coinInfo: object, desc?: string };
   SetWalletPwdScreen: { accountInfo: object; loginType?: string };
   SafetyTipsScreen: { accountInfo: object };
   BackupMnemonicScreen: { accountInfo: object };
   VerifyMnemonicScreen: { accountInfo: object };
-  ImportPrivateKeyScreen: { type: string; loginType: string };
-  ImportMnemonicScreen: { type: string; loginType: string };
+  ImportPrivateKeyScreen: { type: string; loginType: string, coinInfo: object };
+  ImportMnemonicScreen: { type: string; loginType: string, coinInfo: object };
 };
 
 const { Navigator, Screen } = createStackNavigator<AuthStackParamList>();

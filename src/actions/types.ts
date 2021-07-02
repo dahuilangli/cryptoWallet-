@@ -25,6 +25,7 @@ export interface Account {
   walletName?: string;
   password?:string;
   type:string;
+  coinInfo: object
 }
 
 export interface DappRecentItem {

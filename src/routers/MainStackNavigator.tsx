@@ -1,7 +1,7 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { Image,Text } from 'react-native';
+import { Image, Text } from 'react-native';
 import TabNavigator from './TabNavigator';
 import WebScreen from 'screens/WebScreen';
 import AboutUsScreen from 'screens/MineScreen/AboutUsScreen';
@@ -50,17 +50,17 @@ export type MainStackParamList = {
   LanguageSetScreen: undefined;
   CurrencySetScreen: undefined;
   AddressBookScreen: { title: string; showMyself?: boolean };
-  AddressBookEditorScreen: { title?: string; item: {}};
-  AddressTypeScreen: { addType: string ; setAddType: Function;typeLogo: string ; setTypeLogo: Function};
+  AddressBookEditorScreen: { title?: string; item: {} };
+  AddressTypeScreen: { addType: string; setAddType: Function; typeLogo: string; setTypeLogo: Function };
   FeedListScreen: { title: string; showMyself?: boolean };
   WebScreen: { title?: any; uri: string };
   SearchScreen: { coin: Array<string> };
-  DappSearchScreen: {coin: Array<string> };
+  DappSearchScreen: { coin: Array<string> };
   CoinDetailScreen: { title: string };
   WalletBoardScreen: undefined;
   WalletDetailScreen: undefined;
   TransferScreen: undefined;
-  ReceivePaymentScreen: undefined;
+  ReceivePaymentScreen: { address: string };
   ExportMnemonicScreen: undefined;
   ExportPrivateKeyScreen: undefined;
   EditPwdScreen: undefined;
@@ -71,11 +71,11 @@ export type MainStackParamList = {
 const { Navigator, Screen } = createStackNavigator<MainStackParamList>();
 
 export default function MainStackNavigator() {
-  const {t} = useTranslation();
+  const { t } = useTranslation();
   const dispatch = useDispatch();
-  async function addAddressBook(item:AddressBookItem) {
+  async function addAddressBook(item: AddressBookItem) {
     await dispatch(walletAction.deleteAddressBookList(item));
-}
+  }
   return (
     <Navigator
       screenOptions={{
@@ -112,7 +112,7 @@ export default function MainStackNavigator() {
         component={WalletDetailScreen}
         options={{
           title: t("walletdetails"),
-        }}  
+        }}
       />
       <Screen
         name="ExportMnemonicScreen"
@@ -157,7 +157,7 @@ export default function MainStackNavigator() {
       <Screen
         name="ScanQRCode"
         component={ScanQRCode}
-        options={{ title : t("Scan") }}
+        options={{ title: t("Scan") }}
       />
       <Screen
         name="CoinDetailScreen"
@@ -176,8 +176,8 @@ export default function MainStackNavigator() {
           title: t("flashrecord"),
         }}
       />
-      
-      
+
+
       <Screen
         name="AddressBookScreen"
         component={AddressBookScreen}

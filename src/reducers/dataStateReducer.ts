@@ -1,12 +1,9 @@
 import { produce } from 'immer';
 import { createSelector } from 'reselect';
 import { User, WalletAction, ReduxState, DappRecentItem, AddressBookItem, Account } from 'actions/types';
-import { CHAINS } from 'config/constants';
-
-
 
 export interface DataState {
-  user?: User;
+  user?: object;
   token: string;
   dappSearchList: Array<DappRecentItem>;
   addressBookList: Array<AddressBookItem>;
@@ -14,6 +11,7 @@ export interface DataState {
   currency: string;
 }
 export const initialState: Readonly<DataState> = {
+  user: {},
   token: '',
   dappSearchList: [],
   addressBookList: [],
@@ -32,11 +30,6 @@ export const getToken = createSelector(
   selectDataState,
   (dataState) => dataState.token,
 );
-
-// export const getAccountList = createSelector(
-//   selectDataState,
-//   (dataState) => dataState.accountList,
-// );
 
 export const getLanguage = createSelector(
   selectDataState,
@@ -62,13 +55,11 @@ const reducer = (originalState = initialState, walletAction: WalletAction) =>
   produce(originalState, state => {
     switch (walletAction.type) {
       case 'setUser':
+        state.user = walletAction.payload;
         return;
       case 'setToken':
         state.token = walletAction.payload;
         return;
-      // case 'setAccountList':
-      //   state.accountList?.push(walletAction.payload);
-      //   return;
       case 'setLanguage':
         state.language = walletAction.payload;
         return;
@@ -76,9 +67,6 @@ const reducer = (originalState = initialState, walletAction: WalletAction) =>
         state.language = walletAction.payload;
         return;
       case 'setCurrency':
-        console.log('====================================');
-        console.log(walletAction);
-        console.log('====================================');
         state.currency = walletAction.payload;
         return;
       case 'setDappSearchList':
