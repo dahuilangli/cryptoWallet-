@@ -34,7 +34,6 @@ export function subSplit(text: string, start: number, end: number) {
 }
 
 export function checkEmail(emailText: string) {
-  console.log(emailText);
   var emailPattern = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/;
   if (emailPattern.test(emailText) == false) {
     show('请填写正确的邮箱');
@@ -68,4 +67,14 @@ export const copyToClipboard = (content: string, title: string) => {
   Clipboard.setString(content);
   show(title);
 };
+// 验证网址
+export const verifyURL = (text: string) => {
+  let a = /^([hH][tT]{2}[pP]:\/\/|[hH][tT]{2}[pP][sS]:\/\/)(.)+$/
+  return a.test(text)
+}
 
+// 解析网址
+export const parseURL = (text: string) => {
+  let a = /(\w+):\/\/([^\/:]+)(:\d*)?([^# ]*)/
+  return text.match(a)
+}

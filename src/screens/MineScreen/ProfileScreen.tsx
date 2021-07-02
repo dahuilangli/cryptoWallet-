@@ -1,4 +1,4 @@
-import React, { useState ,useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Alert,
   StyleSheet,
@@ -11,8 +11,8 @@ import {
 } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { navigate } from 'components/navigationService';
-import { ListItem , Header} from 'react-native-elements';
-import {  SCREENWIDTH } from 'config/constants';
+import { ListItem, Header } from 'react-native-elements';
+import { SCREENWIDTH } from 'config/constants';
 import ActionSheet from 'react-native-action-sheet';
 import pickImage from 'components/pickImage';
 import { showLoadingModal, closeLoadingModal } from 'components/Dialog';
@@ -21,85 +21,93 @@ import { User } from 'actions/types';
 import { useTranslation } from 'react-i18next';
 import DeviceInfo from 'react-native-device-info';
 import { RouteProp, useRoute, useIsFocused } from '@react-navigation/native';
-interface Props {}
+interface Props { }
 let systemVersion = DeviceInfo.getVersion();
 let buildVersion = DeviceInfo.getBuildNumber();
 function ProfileScreen({ }: Props) {
-  const {t} = useTranslation();
+  const { t } = useTranslation();
   const [messagelistData, setMessageListData] = useState({});
   const [checkVersion, setCheckVersion] = useState(false);
-  const isFocused = useIsFocused();  useEffect(() => {
+  const isFocused = useIsFocused(); useEffect(() => {
     if (isFocused) {
       getVersion();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFocused]);
   async function getVersion() {
-    const {data}  = await helper.get('/sys/version',{})
+    const { data } = await helper.get('/sys/version', {})
     console.log('===========/sys/version=============');
     console.log(data);
     console.log(systemVersion);
     if (data) {
-      if(data.app_ver > systemVersion){
+      if (data.app_ver > systemVersion) {
         setCheckVersion(true)
-      }else{
-        if(data.build_ver>buildVersion){
+      } else {
+        if (data.build_ver > buildVersion) {
           setCheckVersion(true)
-        }else{
+        } else {
           setCheckVersion(false)
         }
       }
       setMessageListData(data)
     }
-  }  
- 
-const list = {
-  top: [
-    {
-      name: t("Addressbook"),
-      leftIcon: require('assets/icon-24-地址薄.png'),
-      rightIcon: require('assets/icon-20-arrow-right.png'),
-      navigate: () =>
-        navigate('AddressBookScreen', { title: '地址本', showMyself: true }),
-    },
-    {
-      name:t("Message"),
-      leftIcon: require('assets/icon-24-消息通知.png'),
-      rightIcon: require('assets/icon-20-arrow-right.png'),
-      navigate: () => navigate('MessageScreen'),
-    },
-  ],
-  content: [
-    {
-      name: t("Usesettings"),
-      leftIcon: require('assets/icon-24-使用设置.png'),
-      rightIcon: require('assets/icon-20-arrow-right.png'),
-      navigate: () => navigate('SetUpScreen')
-    }, {
-      name: t("HelpFeedback"),
-      leftIcon: require('assets/icon-24-反馈帮助.png'),
-      rightIcon: require('assets/icon-20-arrow-right.png'),
-      navigate: () => navigate('SuggestScreen')
-    }, {
-      name: t("versionupdate"),
-      leftIcon: require('assets/icon-24-版本更新.png'),
-      rightIcon: require('assets/icon-20-arrow-right.png'),
-      navigate: () => navigate('UpdateScreen',{item:messagelistData,checkVersion:checkVersion})
+  }
+  let html = ''
+  helper.get('/sys/user/agreement',{}).then((res: any) => {
+    
+    // console.log('====================================');
+    // console.log(res.data);
+    // console.log('====================================');
+    html = res.data.content
+  })
 
-    }, {
-      name: t("UserAgreement"),
-      leftIcon: require('assets/icon-24-协议.png'),
-      rightIcon: require('assets/icon-20-arrow-right.png'),
-      navigate: () => navigate('AgreementScreen')
-    }, {
-      name: t("aboutus"),
-      leftIcon: require('assets/icon-24-关于我们.png'),
-      rightIcon: require('assets/icon-20-arrow-right.png'),
-      navigate: () => navigate('AboutUsScreen')
-    }
-  ]
+  const list = {
+    top: [
+      {
+        name: t("Addressbook"),
+        leftIcon: require('assets/icon-24-地址薄.png'),
+        rightIcon: require('assets/icon-20-arrow-right.png'),
+        navigate: () =>
+          navigate('AddressBookScreen', { title: '地址本', showMyself: true }),
+      },
+      {
+        name: t("Message"),
+        leftIcon: require('assets/icon-24-消息通知.png'),
+        rightIcon: require('assets/icon-20-arrow-right.png'),
+        navigate: () => navigate('MessageScreen'),
+      },
+    ],
+    content: [
+      {
+        name: t("Usesettings"),
+        leftIcon: require('assets/icon-24-使用设置.png'),
+        rightIcon: require('assets/icon-20-arrow-right.png'),
+        navigate: () => navigate('SetUpScreen')
+      }, {
+        name: t("HelpFeedback"),
+        leftIcon: require('assets/icon-24-反馈帮助.png'),
+        rightIcon: require('assets/icon-20-arrow-right.png'),
+        navigate: () => navigate('SuggestScreen')
+      }, {
+        name: t("versionupdate"),
+        leftIcon: require('assets/icon-24-版本更新.png'),
+        rightIcon: require('assets/icon-20-arrow-right.png'),
+        navigate: () => navigate('UpdateScreen', { item: messagelistData, checkVersion: checkVersion })
 
-}
+      }, {
+        name: t("UserAgreement"),
+        leftIcon: require('assets/icon-24-协议.png'),
+        rightIcon: require('assets/icon-20-arrow-right.png'),
+        navigate: async () => await navigate('WebHtmlScreen', { title: '测试', uri: html })
+      }, {
+        name: t("aboutus"),
+        leftIcon: require('assets/icon-24-关于我们.png'),
+        rightIcon: require('assets/icon-20-arrow-right.png'),
+        navigate: () => navigate('AboutUsScreen')
+      }
+    ]
+
+  }
 
   const dispatch = useDispatch();
   const checkMessage = true;
@@ -107,10 +115,10 @@ const list = {
     <View style={styles.container}>
       <Header
         placement="center"
-        centerComponent={{ text: t("Personalcenter"), style: { fontSize: 18, fontWeight: 'bold', color: 'white' ,} }}
+        centerComponent={{ text: t("Personalcenter"), style: { fontSize: 18, fontWeight: 'bold', color: 'white', } }}
         containerStyle={{
           backgroundColor: '#3D73DD',
-          flexDirection:'row',
+          flexDirection: 'row',
           alignItems: 'center',
         }}
       />
@@ -131,7 +139,7 @@ const list = {
               </ListItem.Title>
             </ListItem.Content>
             {
-              checkMessage&&i===1 ?<View style = {styles.messageshow}></View>:<View></View>
+              checkMessage && i === 1 ? <View style={styles.messageshow}></View> : <View></View>
             }
             <Image source={item.rightIcon} style={styles.rightIcon} />
           </ListItem>
@@ -151,7 +159,7 @@ const list = {
                 </ListItem.Title>
               </ListItem.Content>
               {
-                i === 2 && checkVersion ?<Image style = {styles.versionShow} source = {require('assets/new-vision.png')}></Image>:<Text></Text>
+                i === 2 && checkVersion ? <Image style={styles.versionShow} source={require('assets/new-vision.png')}></Image> : <Text></Text>
               }
               <Image source={item.rightIcon} style={styles.rightIcon} />
             </ListItem>
@@ -188,15 +196,15 @@ const styles = StyleSheet.create({
     width: 8,
     height: 20,
   },
-  messageshow:{
-    backgroundColor:'#FF2943',
-    width:6,
-    height:6,
-    borderRadius:3,
+  messageshow: {
+    backgroundColor: '#FF2943',
+    width: 6,
+    height: 6,
+    borderRadius: 3,
   },
-  versionShow:{
-    width:32,
-    height:16,
+  versionShow: {
+    width: 32,
+    height: 16,
   }
 });
 export default ProfileScreen;

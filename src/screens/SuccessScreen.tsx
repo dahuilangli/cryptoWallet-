@@ -32,8 +32,11 @@ const SuccessScreen = ({ route }: Props) => {
   const walletlist = useSelector(getAccountList);
   async function storageAccount() {
     try {
+      console.log('=========walletlist==================');
+      console.log(walletlist);
+      console.log('====================================');
       if (walletlist.size === 0) {
-        await dispatch(walletAction.createAccount(accountInfo));
+        await dispatch(walletAction.createUser(accountInfo));
       }
       await dispatch(walletAction.createAccount(accountInfo));
     } catch (err) {

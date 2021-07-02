@@ -138,5 +138,7 @@
   "enterwalletname":"Enter wallet name",
   "walletdetails":"Wallet Details",
   "Backupprivatekey":"Backup Privatekey",
-  "scan":"Scan"
+  "scan":"Scan",
+  "nodata": "No results yet",
+  "copySuccess": "Copy successful"
 }

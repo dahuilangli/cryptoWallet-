@@ -17,7 +17,8 @@ function RootScreen() {
   const dispatch = useDispatch();
   const accountList = useSelector(getAccountList);
   const token = useSelector(getToken);
-  console.log('====================================');
+  console.log('========accountList=================');
+  console.log(accountList);
   console.log(accountList.size);
   console.log('====================================');
   React.useEffect(() => {

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import {
   ScrollView,
+  SafeAreaView,
   StyleSheet,
   View,
   TouchableOpacity,
@@ -17,6 +18,7 @@ import * as helper from 'apis/helper'
 import { useDispatch } from 'react-redux';
 import walletAction from 'actions/wallet';
 import { DappRecentItem } from 'actions/types'
+import { parseURL, verifyURL } from 'utils';
 interface Props { }
 
 function SearchScreen({ }: Props) {
@@ -33,6 +35,8 @@ function SearchScreen({ }: Props) {
       helper.get('/dapp/search', params).then((res: any) => {
         if (res?.data && res?.data.length) {
           setSeachDataList(res.data)
+        } else {
+          setSeachDataList([])
         }
       })
     }
@@ -49,9 +53,8 @@ function SearchScreen({ }: Props) {
   }
   async function onSubmit(name: string) {
     name = name.trim()
-    if (name && /^([hH][tT]{2}[pP]:\/\/|[hH][tT]{2}[pP][sS]:\/\/)(.)+$/.test(name)) {
-      let re = /(\w+):\/\/([^\/:]+)(:\d*)?([^# ]*)/;
-      let found: any = name.match(re);
+    if (name && verifyURL(name)) {
+      let found: any = parseURL(name);
       let item: DappRecentItem = {
         category: found[2],
         deep_link: name,
@@ -86,11 +89,10 @@ function SearchScreen({ }: Props) {
             <Text style={styles.goBlackText}>{t("cancel")}</Text>
           </TouchableOpacity>
         </View>
-
-        <View style={styles.assetsContainer}>
-
+        
+        <SafeAreaView style={styles.assetsContainer}>
           {seachDataList?.length > 0 ? (
-            <View>
+            <View style={{flex: 1}}>
               <View style={styles.assetsHeard}>
                 <Text style={styles.assetsHeardTitle}>{t("searchresult")}</Text>
               </View>
@@ -115,7 +117,7 @@ function SearchScreen({ }: Props) {
             </View>
 
           ) : (<View style={styles.nodataContainer}><Image source={require('assets/seach-nodata.png')} /><Text style={styles.nodata}>{t('nodata')}</Text></View>)}
-        </View>
+        </SafeAreaView>
       </View>
     </LinearGradient>
   );

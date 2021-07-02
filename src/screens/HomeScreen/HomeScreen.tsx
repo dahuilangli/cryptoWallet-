@@ -68,9 +68,6 @@ function HomeScreen({ }: Props) {
   const walletlist = useSelector(getAccountList);
   const user = useSelector(getUser);
   const showMoney = useSelector(getShowMoney);
-  console.log('====================================');
-  console.log(user);
-  console.log('====================================');
   useEffect(() => {
 
     
