@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import React, { useState } from 'react';
-import { StyleSheet, View, Text, TextInput, SafeAreaView } from 'react-native';
+import { StyleSheet, View, Text, TextInput, SafeAreaView, TouchableWithoutFeedback, Keyboard, } from 'react-native';
 import { Button } from 'react-native-elements';
 import { WToast } from 'react-native-smart-tip';
 import { importByprivateKey } from 'wallets/ethsWallet';
@@ -14,7 +14,7 @@ interface Props {
   };
 }
 function UselessTextInput(props: any) {
-  
+
   return (
     <TextInput
       {...props} // 将父组件传递来的所有props传递给TextInput;比如下面的multiline和numberOfLines
@@ -24,24 +24,26 @@ function UselessTextInput(props: any) {
   );
 }
 const ImportPrivateKeyScreen = (props: Props) => {
-  const {t} = useTranslation();
+  const { t } = useTranslation();
   const { type, coinInfo } = props.route.params;
   const [privateKey, setPrivateKey] = useState('');
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.main}>
-        <View style={styles.inputContainer}>
-          <Text style={styles.presentText}>{t("enterprivatekeyorscanQRcode")}</Text>
-          <View style={styles.inputName}>
-            <UselessTextInput
-              multiline
-              numberOfLines={4}
-              onChangeText={(text: string) => setPrivateKey(text)}
-              value={privateKey}
-              placeholder={t("Please fill out")}
-            />
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <View style={styles.main}>
+          <View style={styles.inputContainer}>
+            <Text style={styles.presentText}>{t("enterprivatekeyorscanQRcode")}</Text>
+            <View style={styles.inputName}>
+              <UselessTextInput
+                multiline
+                numberOfLines={4}
+                onChangeText={(text: string) => setPrivateKey(text)}
+                value={privateKey}
+                placeholder={t("Please fill out")}
+              />
+            </View>
           </View>
-        </View>
+        
         <Button
           buttonStyle={styles.nextButton}
           onPress={() => {
@@ -68,6 +70,7 @@ const ImportPrivateKeyScreen = (props: Props) => {
           titleStyle={styles.nextButtonTitle}
         />
       </View>
+      </TouchableWithoutFeedback>
     </SafeAreaView>
   );
 };

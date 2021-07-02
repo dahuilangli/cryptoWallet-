@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, View, Text, TextInput, SafeAreaView } from 'react-native';
+import { StyleSheet, View, Text, TextInput, SafeAreaView, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { Button } from 'react-native-elements';
 import { Account } from 'actions/types';
 import {
@@ -23,36 +23,38 @@ interface Props {
 const SetWalletNameScreen = (props: Props) => {
   const { type, loginType, coinInfo } = props.route.params;
   const [walletName, setWalletName] = useState('');
-  const {t} = useTranslation();
-  
+  const { t } = useTranslation();
+
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.main}>
-        <View style={styles.inputContainer}>
-          <Text style={styles.presentText}>
-            {t("walletnamedes")}
-          </Text>
-          <TextInput
-            maxLength={20}
-            placeholder={t("walletname")}
-            value={walletName}
-            style={styles.inputName}
-            onChangeText={setWalletName}
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <View style={styles.main}>
+          <View style={styles.inputContainer}>
+            <Text style={styles.presentText}>
+              {t("walletnamedes")}
+            </Text>
+            <TextInput
+              maxLength={20}
+              placeholder={t("walletname")}
+              value={walletName}
+              style={styles.inputName}
+              onChangeText={setWalletName}
+            />
+          </View>
+          <Button
+            buttonStyle={styles.nextButton}
+            onPress={() => {
+              navigate('SetWalletPwdScreen', {
+                accountInfo: { walletName, type, coinInfo },
+                loginType,
+              });
+            }}
+            disabled={!walletName}
+            title={t("NextStep")}
+            titleStyle={styles.nextButtonTitle}
           />
         </View>
-        <Button
-          buttonStyle={styles.nextButton}
-          onPress={() => {
-            navigate('SetWalletPwdScreen', {
-              accountInfo: { walletName, type, coinInfo},
-              loginType,
-            });
-          }}
-          disabled={!walletName}
-          title={t("NextStep")}
-          titleStyle={styles.nextButtonTitle}
-        />
-      </View>
+      </TouchableWithoutFeedback>
     </SafeAreaView>
   );
 };

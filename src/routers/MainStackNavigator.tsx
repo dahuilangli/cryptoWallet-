@@ -43,7 +43,7 @@ export type MainStackParamList = {
   PostFeedScreen: undefined;
   AboutUsScreen: undefined;
   SuggestScreen: undefined;
-  UpdateScreen: { item: Object; checkVersion: Boolean };
+  UpdateScreen: {item:Object;checkVersion:Boolean};
   MessageScreen: undefined;
   SetUpScreen: undefined;
   FlashRecordScreen: undefined;
@@ -55,13 +55,13 @@ export type MainStackParamList = {
   AddressTypeScreen: { addType: string; setAddType: Function; typeLogo: string; setTypeLogo: Function };
   FeedListScreen: { title: string; showMyself?: boolean };
   WebScreen: { title?: any; uri: string };
-  WebHtmlScreen: { title?: any; uri: string };
+  WebHtmlScreen:{ title?: any; uri: string };
   SearchScreen: { coin: Array<string> };
   DappSearchScreen: { coin: Array<string> };
   CoinDetailScreen: { title: string };
   WalletBoardScreen: undefined;
   WalletDetailScreen: undefined;
-  TransferScreen: {address:string};
+  TransferScreen: { address: string };
   ReceivePaymentScreen: { address: string };
   ExportMnemonicScreen: undefined;
   ExportPrivateKeyScreen: undefined;
