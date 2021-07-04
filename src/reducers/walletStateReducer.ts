@@ -13,7 +13,17 @@ const initialState: Readonly<walletState> = {
     address: '',
     privateKey: '',
     type: '',
-    coinInfo: {}
+    coinInfo: {
+      gas_decimal: -1,
+      gas_limit: -1,
+      name_en: '',
+      name_zh: '',
+      token: '',
+      token_limit: -1,
+      token_name: '',
+      wallet: '',
+    },
+    contracts: []
   }
 }
 
