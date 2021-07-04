@@ -12,8 +12,10 @@ import { getAccountList } from 'reducers/walletStateReducer';
 import walletAction from 'actions/wallet'
 import * as helper from "apis/helper"
 import DeviceInfo from 'react-native-device-info';
+import { connector } from 'helper/connect';
 
 function RootScreen() {
+  
   const dispatch = useDispatch();
   const accountList = useSelector(getAccountList);
   const token = useSelector(getToken);
@@ -23,6 +25,7 @@ function RootScreen() {
   console.log('====================================');
   React.useEffect(() => {
     findToken();
+    connector
     SplashScreen.hide();
   }, []);
   async function findToken() {
