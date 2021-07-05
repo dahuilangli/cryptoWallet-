@@ -1,10 +1,9 @@
 import { useTranslation } from 'react-i18next';
-import React, { useEffect, useState } from 'react';
+import React, {useState } from 'react';
 import { StyleSheet, View, Text, TextInput, SafeAreaView } from 'react-native';
 
 import { Button } from 'react-native-elements';
 import { navigate } from 'components/navigationService';
-import { genWallet } from "wallets/ethsWallet";
 import { Account } from "actions/types";
 
 interface Props {
@@ -19,15 +18,9 @@ interface Props {
 const SetWalletPwdScreen = (props: Props) => {
   const { accountInfo } = props.route.params;
   const { loginType } = props.route.params;
-  
-  let [account,setAccount] = useState({});
   const [pwd, setPwd] = useState('');
   const [repwd, setRepwd] = useState('');
   const {t} = useTranslation();
-
-  useEffect(() => {
-    setAccount(genWallet());
-  },[]);
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.main}>
@@ -53,14 +46,17 @@ const SetWalletPwdScreen = (props: Props) => {
         <Button
           buttonStyle={styles.nextButton}
           onPress={() => {
+            console.log('====================================');
+            console.log(loginType);
+            console.log('====================================');
             if (loginType) {
               navigate('SuccessScreen', {
-                title: t("Createdsuccessfully"),
-                accountInfo: {...account,...accountInfo,securityCode:repwd},
+                title: t("Importsuccessful"),
+                accountInfo: {...accountInfo,securityCode:repwd},
               });
             } else {
               navigate('SafetyTipsScreen', {
-                accountInfo: { ...account,...accountInfo,securityCode:repwd},
+                accountInfo: {...accountInfo,securityCode:repwd},
               });
             }
           }}

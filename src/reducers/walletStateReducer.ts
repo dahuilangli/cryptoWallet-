@@ -1,29 +1,17 @@
 import produce from 'immer';
-import { User,  WalletAction, Account, ReduxState } from 'actions/types';
+import { thisUser,  WalletAction, Account, ReduxState } from 'actions/types';
 import { createSelector } from 'reselect';
 import { Map } from 'immutable';
 
 export interface walletState {
-  user: Account;
+  user: thisUser,
   accountList: Map<string,Array<Account>>
 }
 const initialState: Readonly<walletState> = {
   accountList : Map({}),
   user: {
     address: '',
-    privateKey: '',
-    type: '',
-    coinInfo: {
-      gas_decimal: -1,
-      gas_limit: -1,
-      name_en: '',
-      name_zh: '',
-      token: '',
-      token_limit: -1,
-      token_name: '',
-      wallet: '',
-    },
-    contracts: []
+    type: ''
   }
 }
 
@@ -41,26 +29,37 @@ export const getUser = createSelector(
   (dataState) => dataState.user,
 );
 
-
 export default (origin = initialState, walletAction: WalletAction) =>{
  return produce(origin, state => {
     switch (walletAction.type) {
       case 'createAccount':
-        if(state.accountList.has(walletAction.payload.type)){
-          const accounts = state.accountList.get(walletAction.payload.type);
-          const finded = accounts?.findIndex((value,index,arr)=>{
-            return value.address == walletAction.payload.address
-          })
-          if(finded == -1 || finded == undefined){
-            accounts?.push(walletAction.payload);
+        try {
+          if(state.accountList.has(walletAction.payload.type)){
+            const accounts = state.accountList.get(walletAction.payload.type);
+            const finded = accounts?.findIndex((value,index,arr)=>{
+              return value.address == walletAction.payload.address
+            })
+            if(finded == -1 || finded == undefined){
+              accounts?.push(walletAction.payload);
+            }
+          }else{
+            state.accountList.set(walletAction.payload.type,[walletAction.payload])
           }
-        }else{
-          state.accountList.set(walletAction.payload.type,[walletAction.payload])
+        } catch (error) {
+          console.log('========error===================');
+          console.log(error);
+          console.log('====================================');
         }
+        
         return;
       case 'createUser':
         state.user = walletAction.payload;
         return;
+      case 'setContracts':
+        let payload = walletAction.payload;
+        state.accountList.get(payload.type)?.find(x => x.address === payload.address)?.contracts.push(payload.tokne)
+        return;
+        
       default:
         return
     }

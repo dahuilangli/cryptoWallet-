@@ -44,7 +44,6 @@ function DappScreen({ }: Props) {
     if (isFocused) {
       getBanner();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFocused]);
   async function getBanner() {
     const { data } = await helper.get('/dapp/banner', {})

@@ -1,34 +1,36 @@
 import {
-    ActionValue,
-    createAction,
-    createActions,
-    NoArgAction,
-    StringAction
-  } from 'redux-type-actions';
+  ActionValue,
+  createAction,
+  createActions,
+  NoArgAction,
+  StringAction
+} from 'redux-type-actions';
 
-import { Account, Location, User, DappRecentItem ,AddressBookItem} from 'actions/types';
-  
+import { Account, thisUser, Location, User, DappRecentItem, AddressBookItem } from 'actions/types';
 
-import  apis from 'apis';
+
+import apis from 'apis';
 const Wallet = createActions({
-    setToken: StringAction,
-    createUser: createAction<Account>(),
-    createAccount: createAction<Account>(),
-    setDappSearchList: createAction<DappRecentItem>(),
-    setAddressBookList: createAction<AddressBookItem>(),
-    deleteAddressBookList: createAction<AddressBookItem>(),
-    setLanguage: StringAction,
-    setShowMoney: createAction<boolean>(),
-    setCurrency: StringAction,
-    setLocation: createAction<Location>(),
-    getAccountList: NoArgAction,
-    getUser: NoArgAction,
-    getToken: NoArgAction,
-    getHelp: NoArgAction,
-    GET_TOKEN_SUCCESS: StringAction,
-    GET_TOKEN_ERROR: NoArgAction,
-  });
-  
+  setToken: StringAction,
+  createUser: createAction<thisUser>(),
+  createAccount: createAction<Account>(),
+  setDappSearchList: createAction<DappRecentItem>(),
+  setAddressBookList: createAction<AddressBookItem>(),
+  deleteAddressBookList: createAction<AddressBookItem>(),
+  setLanguage: StringAction,
+  setShowMoney: createAction<boolean>(),
+  setCurrency: StringAction,
+  setLocation: createAction<Location>(),
+  // 添加账户币种
+  setContracts: createAction<{address: string | undefined, tokne: string, type: string | ''}>(),
+  getAccountList: NoArgAction,
+  getUser: NoArgAction,
+  getToken: NoArgAction,
+  getHelp: NoArgAction,
+  GET_TOKEN_SUCCESS: StringAction,
+  GET_TOKEN_ERROR: NoArgAction,
+});
+
 // export const GET_TOKEN = ()=>async (dispath: any)=>{
 //   // try{
 //   apis.common.getToken().then(data =>{
@@ -43,15 +45,15 @@ const Wallet = createActions({
 //     });
 
 // }
-export const GETHELP = ()=>async (dispath: any)=>{
-  try{
-  apis.common.help().then(data=>{
-  //  console.log(data)
-  })
-  }catch(error){
+export const GETHELP = () => async (dispath: any) => {
+  try {
+    apis.common.help().then(data => {
+      //  console.log(data)
+    })
+  } catch (error) {
     dispath(Wallet.GET_TOKEN_ERROR())
-}
+  }
 }
 export default Wallet;
-  
+
 

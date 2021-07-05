@@ -29,7 +29,7 @@ export const showWithImage = (text: string, imageSource: any) => {
   WToast.show(toastOpts);
 };
 
-export function subSplit(text: string, start: number, end: number) {
+export function subSplit(text: string|undefined, start: number, end: number) {
   if (text && text !== " ") {
     return text.substr(0, start) + '...' + text.substr(text.length - end, text.length);
   }
@@ -55,7 +55,7 @@ export function formatDate(date: any) {
   return y + "-" + m + "-" + d + " " + h + ":" + m1;
 }
 //替换字符串‘*’
-export function replaceMoney(moneyString: string) {
+export function replaceMoney(moneyString: any) {
   var moneyArr = moneyString.split('')
   var replaceresult = '';
   moneyArr.map((x, i) => {

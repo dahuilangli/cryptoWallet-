@@ -19,7 +19,6 @@ function RootScreen() {
   const token = useSelector(getToken);
   console.log('========accountList=================');
   console.log(accountList);
-  console.log(accountList.size);
   console.log('====================================');
   React.useEffect(() => {
     findToken();
