@@ -20,15 +20,28 @@ import { TouchableHighlight } from 'react-native-gesture-handler';
 import { getUser } from 'reducers/walletStateReducer';
 import { Account } from 'actions/types';
 import { subSplit } from 'utils'
-import {CHAINS} from "config/constants"
+import { CHAINS } from "config/constants"
 import { useSelector, useDispatch } from 'react-redux';
 import walletAction from 'actions/wallet';
 import { getAccountList } from 'reducers/walletStateReducer';
-import { getShowMoney} from 'reducers/dataStateReducer';
+import { getShowMoney } from 'reducers/dataStateReducer';
 import { replaceMoney } from 'utils'
+import * as helper from 'apis/helper'
+import { useIsFocused } from '@react-navigation/native';
 
 interface Props { }
-
+interface responseItem {
+  balance: string,
+  decimals: number,
+  gas_limit: number,
+  icon: string,
+  name: string,
+  precision: string,
+  rate_price: string,
+  symbol: string,
+  token: string,
+  wallet: string,
+}
 const modelLeft = [
   {
     title: CHAINS.eth,
@@ -61,17 +74,39 @@ defatltCoin.set('HT', {
 })
 function HomeScreen({ }: Props) {
   const dispatch = useDispatch()
-  const [modalVisible, setModalVisible] = useState(false);
-  const [selectItem, setSelectItem] = useState(0);
-  const [selectAddress, setSelectAddress] = useState('');
-  const { t } = useTranslation();
+  const isFocused = useIsFocused();
   const walletlist = useSelector(getAccountList);
   const user = useSelector(getUser);
   const showMoney = useSelector(getShowMoney);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [selectItem, setSelectItem] = useState(0);
+  const [selectAddress, setSelectAddress] = useState(user.address);
+  const [assetsList, setAssetsList] = useState([])
+  const [assetsSum, setAssetsSum] = useState('-')
+  const { t } = useTranslation();
   useEffect(() => {
+    if (isFocused) {
+      getAssetsList()
+    }
+  }, [isFocused])
+  async function getAssetsList() {
+    let params = {
+      "address": user?.address,
+      "contracts": user?.contracts,
+      "wallet": user?.coinInfo?.wallet
+    }
+    const { data } = await helper.post('/wallet/assets', params)
 
-    
-  })
+    setAssetsList(data)
+    console.log('====================================');
+    console.log(data);
+    console.log('====================================');
+    let a = 0;
+    data.map((s: responseItem) => {
+      a += parseFloat(s.rate_price)
+    })
+    setAssetsSum(String(a))
+  }
   async function hideOrShowMoney() {
     await dispatch(walletAction.setShowMoney(!showMoney));
   }
@@ -111,8 +146,8 @@ function HomeScreen({ }: Props) {
             <Text style={styles.wallName}>{user?.walletName}</Text>
             <Text style={styles.address}>{subSplit(user?.address, 4, 8)}</Text>
             <View style={styles.amountContainer}>
-              <Text style={styles.amountText}>¥{showMoney ?'12758.62':replaceMoney('12758.62')}</Text>
-              <TouchableOpacity onPress={() => {hideOrShowMoney()}}>
+              <Text style={styles.amountText}>¥{showMoney ? assetsSum : replaceMoney(assetsSum)}</Text>
+              <TouchableOpacity onPress={() => { hideOrShowMoney() }}>
                 <Image
                   style={styles.eye}
                   source={require('assets/icon-20-see-off.png')}
@@ -165,7 +200,7 @@ function HomeScreen({ }: Props) {
           <View style={styles.assetsHeard}>
             <Text style={styles.assetsHeardTitle}>{t("assets")}</Text>
             <TouchableOpacity
-              onPress={() => navigate('SearchScreen', { coin: ['ETH'] })}
+              onPress={() => navigate('SearchScreen', { wallet: user?.coinInfo?.wallet })}
             >
               <Image
                 style={styles.assetsHeardImage}
@@ -174,24 +209,25 @@ function HomeScreen({ }: Props) {
             </TouchableOpacity>
           </View>
           <ScrollView>
-            {list.map((item, i) => (
+            {assetsList.map((item: responseItem, i) => (
               <TouchableOpacity
                 style={styles.assetsList}
-                key={item.name}
+                key={item?.symbol}
                 onPress={() =>
-                  navigate('CoinDetailScreen', { title: item.name })
+                  navigate('CoinDetailScreen', { title: item.symbol })
                 }
               >
                 <View style={styles.assetsListItem}>
                   <Avatar
                     rounded
-                    source={item.avatar_url}
+                    title={item.symbol[0]}
+                    source={{ uri: item?.icon }}
                     containerStyle={styles.itemAvatar}
                   />
-                  <Text style={styles.itemText}>{item.name}</Text>
+                  <Text style={styles.itemText}>{item?.symbol}</Text>
                   <View style={styles.itemDesc}>
-                    <Text style={styles.descTitle}>{showMoney ? '213.74' : replaceMoney('213.74')}</Text>
-                    <Text style={styles.descInfo}>￥{showMoney ? '546.76' : replaceMoney('546.76')}</Text>
+                    <Text style={styles.descTitle}>{showMoney ? item?.balance : replaceMoney(item?.balance)}</Text>
+                    <Text style={styles.descInfo}>￥{showMoney ? item?.rate_price : replaceMoney(item?.rate_price)}</Text>
                   </View>
                 </View>
               </TouchableOpacity>
@@ -298,7 +334,7 @@ function HomeScreen({ }: Props) {
                             : styles.itemAddress
                         }
                       >
-                        {item?.address}
+                        {subSplit(item?.address, 8, 8)}
                       </Text>
                       <View style={styles.itemAmountContainer}>
                         <Text

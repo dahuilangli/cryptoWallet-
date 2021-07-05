@@ -25,7 +25,20 @@ export interface Account {
   walletName?: string;
   password?:string;
   type:string;
-  coinInfo: object
+  coinInfo: {
+    describe?: string,
+    gas_decimal: number,
+    gas_limit: number,
+    icon?: string,
+    name_en: string,
+    name_zh: string,
+    token: string,
+    token_limit: number,
+    token_name: string,
+    tx_browser?: string,
+    wallet: string,
+  },
+  contracts: Array<string>
 }
 
 export interface DappRecentItem {

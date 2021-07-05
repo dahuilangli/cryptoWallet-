@@ -55,8 +55,8 @@ export type MainStackParamList = {
   AddressTypeScreen: { addType: string; setAddType: Function; typeLogo: string; setTypeLogo: Function };
   FeedListScreen: { title: string; showMyself?: boolean };
   WebScreen: { title?: any; uri: string };
-  WebHtmlScreen:{ title?: any; uri: string };
-  SearchScreen: { coin: Array<string> };
+  WebHtmlScreen: { title?: any; uri: string };
+  SearchScreen: { wallet: string };
   DappSearchScreen: { coin: Array<string> };
   CoinDetailScreen: { title: string };
   WalletBoardScreen: undefined;

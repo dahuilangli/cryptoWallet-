@@ -184,7 +184,7 @@ function FlashExchangeScreen({ }: Props) {
               <View style={styles.headView}>
                 <Text style={styles.headText}>{t("importmethod")}</Text>
                 <TouchableWithoutFeedback
-                  style={{ ...styles.openButton }}
+                  style={{ ...styles.openButton}}
                   onPress={() => {
                     setModalVisible(!modalVisible);
                   }}
@@ -530,7 +530,7 @@ const styles = StyleSheet.create({
     width: 20,
     height: 20,
     marginTop: 20,
-    marginRight: SCREENWIDTH / 2 - 135,
+    marginLeft: SCREENWIDTH / 2 - 135,
   },
   textStyle: {
     width: 20,
