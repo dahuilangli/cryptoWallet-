@@ -62,7 +62,7 @@ export type MainStackParamList = {
   CoinDetailScreen: { title: string };
   WalletBoardScreen: undefined;
   WalletDetailScreen: undefined;
-  TransferScreen: { address: string };
+  TransferScreen: { address: string, assetsList: Array<AssetsList> };
   ReceivePaymentScreen: { address: string };
   ExportMnemonicScreen: undefined;
   ExportPrivateKeyScreen: undefined;

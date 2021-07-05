@@ -29,6 +29,7 @@ export interface Account {
   walletName?: string;
   password?: string;
   type: string;
+  contracts: string[];
   coinInfo: {
     describe?: string,
     gas_decimal: number,
@@ -42,7 +43,6 @@ export interface Account {
     tx_browser?: string,
     wallet: string,
   },
-  contracts: Array<string> | string[],
 }
 
 export interface AssetsList {

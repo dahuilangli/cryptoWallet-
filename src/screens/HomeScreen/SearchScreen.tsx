@@ -19,6 +19,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import walletAction from 'actions/wallet';
 import { getAccountList } from 'reducers/walletStateReducer';
 import { Alert } from 'react-native';
+import { show } from 'utils';
 interface Props {
   route: {
     params: {
@@ -56,21 +57,24 @@ function SearchScreen({ route }: Props) {
       name = name.trim()
       const { data } = await helper.get('/wallet/coin', { keyword: name, wallet: thisUser?.coinInfo?.wallet })
       if (data.length > 0) {
-        setCoinList({ title: '搜索结果', data })
-        // let sortArr1: string[] = thisUser?.contracts;
-        // data.sort(function (a: responseItem, b: responseItem) {
-        //   if (getIndex(sortArr1, a.token) == getIndex(data, b.token)) {
-        //     return 0
-        //   } else {
-        //     return getIndex(sortArr1, a.token) > getIndex(sortArr1, b.token) ? 1 : -1
-        //   }
-        // });
+        let sortArr1: string[] = thisUser?.contracts;
+        setCoinList({ title: '搜索结果', data: data.sort(function (a: responseItem, b: responseItem) {
+          if (getIndex(sortArr1, a.token) == getIndex(data, b.token)) {
+            return 0
+          } else {
+            return getIndex(sortArr1, a.token) > getIndex(sortArr1, b.token) ? 1 : -1
+          }
+        })})
       }
     }
   }
 
   const addCoin = async (token: string) => {
-    dispatch(walletAction.setContracts({ address: thisUser?.address, tokne: token, type: thisUser?.type }));
+    if (thisUser?.contracts?.length <= 200) {
+      dispatch(walletAction.setContracts({ address: thisUser?.address, tokne: token, type: thisUser?.type }));
+    } else {
+      show('币种数量暂不支持200+')
+    }
   }
 
 

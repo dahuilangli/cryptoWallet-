@@ -17,12 +17,11 @@ import { Avatar, Button } from 'react-native-elements';
 import { navigate } from 'components/navigationService';
 import LinearGradient from 'react-native-linear-gradient';
 import { TouchableHighlight } from 'react-native-gesture-handler';
-import { getUser } from 'reducers/walletStateReducer';
 import { subSplit } from 'utils'
 import { CHAINS } from "config/constants"
 import { useSelector, useDispatch } from 'react-redux';
 import walletAction from 'actions/wallet';
-import { getAccountList } from 'reducers/walletStateReducer';
+import { getUser, getAccountList } from 'reducers/walletStateReducer';
 import { getShowMoney } from 'reducers/dataStateReducer';
 import { replaceMoney } from 'utils'
 import * as helper from 'apis/helper'
@@ -86,15 +85,17 @@ function HomeScreen({ }: Props) {
       "wallet": thisUser?.coinInfo?.wallet
     }
     const { data } = await helper.post('/wallet/assets', params)
-    console.log('====================================');
-    console.log(data);
-    console.log('====================================');
-    setAssetsList(data)
-    let a = 0;
-    data.map((s: AssetsList) => {
-      a += parseFloat(s.rate_price)
-    })
-    setAssetsSum(String(a))
+    if (data && data.length > 0) {
+      setAssetsList(data)
+      let a = 0;
+      data.map((s: AssetsList) => {
+        a += parseFloat(s.rate_price)
+      })
+      setAssetsSum(String(a))
+    } else {
+      setAssetsList([])
+      setAssetsSum('-')
+    }
   }
   async function hideOrShowMoney() {
     await dispatch(walletAction.setShowMoney(!showMoney));
@@ -153,7 +154,7 @@ function HomeScreen({ }: Props) {
                 buttonStyle={styles.button}
                 title={t("Transfer")}
                 titleStyle={styles.buttonTitle}
-                onPress={() => navigate('TransferScreen',{address:''})}
+                onPress={() => navigate('TransferScreen', { address: '', assetsList })}
               />
               <Button
                 type="clear"
@@ -193,7 +194,7 @@ function HomeScreen({ }: Props) {
             {assetsList.map((item: AssetsList, i) => (
               <TouchableOpacity
                 style={styles.assetsList}
-                key={item?.symbol}
+                key={item?.token}
                 onPress={() =>
                   navigate('CoinDetailScreen', { title: item.symbol })
                 }
@@ -280,7 +281,7 @@ function HomeScreen({ }: Props) {
                 <Text style={styles.submenuHeader}>
                   {modelLeft[selectItem].title}
                 </Text>
-                <ScrollView scrollIndicatorInsets={{ right: -6 }}>
+                <ScrollView>
                   {walletlist.get(modelLeft[selectItem].title)?.map((item, index) => (
                     <TouchableOpacity
                       style={
@@ -531,7 +532,7 @@ const styles = StyleSheet.create({
   textStyle: {
     width: 20,
     height: 20,
-    
+
   },
   groupView: {
     flexDirection: 'row',
