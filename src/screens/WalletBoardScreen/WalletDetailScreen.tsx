@@ -173,6 +173,8 @@ function WalletDetailScreen({}: Props) {
                     style={{ ...styles.openButton }}
                     onPress={() => {
                       setTransferConfirm(!transferConfirm);
+                      console.log('111111111111r');
+                      
                     }}
                   >
                     <Image
@@ -416,12 +418,13 @@ const styles = StyleSheet.create({
   openButton: {
     width: 20,
     height: 20,
+    marginTop: 20,
+    marginLeft: SCREENWIDTH / 2 - 135,
+    backgroundColor:'red',
   },
   textStyle: {
     width: 20,
     height: 20,
-    marginTop: 20,
-    marginLeft: SCREENWIDTH / 2 - 135,
   },
   headView: {
     flexDirection: 'row',

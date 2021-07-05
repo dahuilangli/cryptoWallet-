@@ -44,7 +44,7 @@ export type MainStackParamList = {
   PostFeedScreen: undefined;
   AboutUsScreen: undefined;
   SuggestScreen: undefined;
-  UpdateScreen: { item: Object; checkVersion: Boolean };
+  UpdateScreen: {item:Object;checkVersion:Boolean};
   MessageScreen: undefined;
   SetUpScreen: undefined;
   FlashRecordScreen: undefined;
@@ -62,8 +62,8 @@ export type MainStackParamList = {
   CoinDetailScreen: { title: string };
   WalletBoardScreen: undefined;
   WalletDetailScreen: undefined;
-  TransferScreen: undefined;
-  ReceivePaymentScreen: { address: string|undefined };
+  TransferScreen: { address: string };
+  ReceivePaymentScreen: { address: string };
   ExportMnemonicScreen: undefined;
   ExportPrivateKeyScreen: undefined;
   EditPwdScreen: undefined;

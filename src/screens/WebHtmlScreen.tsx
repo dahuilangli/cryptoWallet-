@@ -37,7 +37,6 @@ export default function WebHtmlScreen({ navigation, route }: Props) {
       allowFileAccess={true}
       onMessage={event => {
         navigation.setParams({ title: event.nativeEvent.data });
-        // console.warn(event.nativeEvent.data);
       }}
     />
   );
@@ -48,6 +47,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    width: '99%'
   },
+  
 });

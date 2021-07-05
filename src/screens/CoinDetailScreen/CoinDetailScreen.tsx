@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState ,useEffect} from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   StyleSheet,
@@ -10,10 +10,11 @@ import {
   Animated,
 } from 'react-native';
 import { Button } from 'react-native-elements';
-
+import { useIsFocused } from '@react-navigation/native';
 import {  SCREENWIDTH } from 'config/constants';
 import { navigate } from 'components/navigationService';
 import StickyHeader from 'components/StickyHeader';
+import * as helper from 'apis/helper'
 interface Props {
   route: {
     params: {
@@ -94,7 +95,22 @@ function CoinDetailScreen({ route }: Props) {
   const [scrollY, setScrollY] = useState(new Animated.Value(0));
   const [headHeight, setHeadHeight] = useState(-1);
   const {t} = useTranslation();
-
+  const [transferlistData, setTransferListData] = useState([]);
+  const isFocused = useIsFocused(); useEffect(() => {
+    if (isFocused) {
+      getTransferRecordList();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isFocused]);
+  async function getTransferRecordList() {
+    const data = await helper.get('/wallet/transfer_record', {address:'0xEFD0576c3BfBFaD91f113d722676B6Dc5a0B6879',symbol:'SBC',wallet:'STO'})
+    console.log('--------------------');
+    console.log(data);
+    console.log('--------------------');
+    if (data) {
+      
+    }
+  }
   return (
     <View style={{ flex: 1 }}>
       <Animated.ScrollView

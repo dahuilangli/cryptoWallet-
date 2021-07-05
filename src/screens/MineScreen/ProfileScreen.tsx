@@ -60,7 +60,7 @@ function ProfileScreen({ }: Props) {
     // console.log('====================================');
     html = res.data.content
   })
-
+    
   const list = {
     top: [
       {
