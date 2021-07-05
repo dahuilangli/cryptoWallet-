@@ -61,9 +61,12 @@ const list2 = [
 
 function HomeScreen() {
   const [messagelistData, setMessageListData] = useState([]);
+  const [transferlistData, setTransferListData] = useState([]);
+ 
   const isFocused = useIsFocused();  useEffect(() => {
     if (isFocused) {
       getMessage();
+      getTransferRecordList();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFocused]);
@@ -74,6 +77,16 @@ function HomeScreen() {
     console.log('====================================');
     if (data && data.length) {
       setMessageListData(data)
+    }
+  }
+
+  async function getTransferRecordList() {
+    const data = await helper.get('/wallet/transfer_record', {address_list:['0xEFD0576c3BfBFaD91f113d722676B6Dc5a0B6879'],id:100})
+    console.log('--------------------');
+    console.log(data);
+    console.log('--------------------');
+    if (data) {
+      
     }
   }
   const Item1 = ({ item1, onPress1, style1 }) => (
@@ -170,7 +183,6 @@ function MessageScreen({ }: Props) {
   const {t} = useTranslation();
   return (
     <Tab.Navigator
-
       tabBarOptions={{
         showLabel: true,
         // 未选中字体的颜色

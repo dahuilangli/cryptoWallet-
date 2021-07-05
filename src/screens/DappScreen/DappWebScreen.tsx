@@ -161,13 +161,13 @@ const styles = StyleSheet.create({
     },
     textStyle: {
         width: 20,
-        height: 20,
-        marginTop: 20,
-        marginRight: 20,
+        height: 20,        
     },
     openButton: {
+        marginTop: 20,
         width: 20,
         height: 20,
+        marginRight: 20,
     },
     tipTitle: {
         marginVertical: 15,

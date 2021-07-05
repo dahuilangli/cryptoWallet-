@@ -529,12 +529,12 @@ const styles = StyleSheet.create({
   openButton: {
     width: 20,
     height: 20,
+    marginTop: 20,
+    marginRight: SCREENWIDTH / 2 - 135,
   },
   textStyle: {
     width: 20,
     height: 20,
-    marginTop: 20,
-    marginLeft: SCREENWIDTH / 2 - 135,
   },
   list: {},
   listItem: {
