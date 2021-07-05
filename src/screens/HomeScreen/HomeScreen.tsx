@@ -131,7 +131,7 @@ function HomeScreen({ }: Props) {
               <Image source={require('assets/icon-24-切换钱包-light.png')} />
             </TouchableOpacity>
             <Text style={styles.headerTitle}>{t("wallet")}</Text>
-            <TouchableOpacity onPress={() => navigate('PostFeedScreen')}>
+            <TouchableOpacity onPress={() => navigate('ScanQRCode')}>
               <Image
                 style={styles.image}
                 source={require('assets/icon-24-扫一扫-light.png')}
@@ -172,7 +172,7 @@ function HomeScreen({ }: Props) {
                 buttonStyle={styles.button}
                 title={t("Transfer")}
                 titleStyle={styles.buttonTitle}
-                onPress={() => navigate('TransferScreen')}
+                onPress={() => navigate('TransferScreen',{address:''})}
               />
               <Button
                 type="clear"
@@ -543,11 +543,12 @@ const styles = StyleSheet.create({
   openButton: {
     width: 20,
     height: 20,
+    marginTop: 20,
   },
   textStyle: {
     width: 20,
     height: 20,
-    marginTop: 20,
+    
   },
   groupView: {
     flexDirection: 'row',

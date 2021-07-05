@@ -17,14 +17,21 @@ import {
 } from 'react-native';
 import { Avatar, Button } from 'react-native-elements';
 import {SCREENHEIGHT,SCREENWIDTH} from "config/constants"
-interface Props {}
+interface Props {
+  route: {
+    params: {
+      address: string
+    }
+  }
+}
 
-function TransferScreen({}: Props) {
+function TransferScreen(props: Props) {
+  const { address } = props.route.params;
   const [modalVisible, setModalVisible] = useState(false);
   const [transferConfirm, setTransferConfirm] = useState(false);
   const [riskWarning, setRiskWarning] = useState(false);
 
-  const [receivingAddress, setReceivingAddress] = useState('');
+  const [receivingAddress, setReceivingAddress] = useState(address);
   const [transferAmount, setTransferAmount] = useState('');
   const [gasIndex, setGasIndex] = useState(-1);
   const [selectCoinIndex, setSelectCoinIndex] = useState(-1);
@@ -558,6 +565,7 @@ const styles = StyleSheet.create({
   openButton: {
     width: 20,
     height: 20,
+    backgroundColor :'red',
   },
   textStyle: {
     width: 20,

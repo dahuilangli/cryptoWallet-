@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, Text, SafeAreaView, FlatList, Alert, TextInput } from 'react-native';
+import { StyleSheet, View, Text, SafeAreaView, TouchableWithoutFeedback, Keyboard, TextInput } from 'react-native';
 import { goBack, navigate } from 'components/navigationService';
 import { ScreensParamList, Feed } from 'actions/types';
 import { RouteProp, useRoute, useIsFocused } from '@react-navigation/native';
@@ -37,42 +37,45 @@ function SuggestScreen({ }: Props) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.email}>{t("yourmailbox")}</Text>
-      <View style={styles.whiteView}>
-        <TextInput
-          style={styles.input}
-          placeholder={t("enteremailaddress")}
-          onChangeText={setEmailText}
-          onEndEditing={() => checkEmail(emailText)}
-        >
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <View style = {styles.mainView}>
+        <Text style={styles.email}>{t("yourmailbox")}</Text>
+        <View style={styles.whiteView}>
+          <TextInput
+            style={styles.input}
+            placeholder={t("enteremailaddress")}
+            onChangeText={setEmailText}
+            onEndEditing={() => checkEmail(emailText)}
+          >
 
-        </TextInput>
+          </TextInput>
+        </View>
+        <Text style={styles.email}>{t("yourwalletaddress")}</Text>
+        <View style={styles.whiteView}>
+          <TextInput style={styles.input} placeholder={t("enterWalAdd")} onChangeText={setWalletAddressText}>
+
+          </TextInput>
+        </View>
+        <Text style={styles.email}>{t("problemDescription")}</Text>
+        <View style={styles.questView}>
+          <TextInput style={styles.input} placeholder={t("enterproblemDescription")} multiline onChangeText={setDetailsText}>
+
+          </TextInput>
+        </View>
+        <View style={styles.main}>
+          <Button
+            title={t("submit")}
+            titleStyle={styles.Tlabel}
+            buttonStyle={styles.Tbutton}
+            onPress={() =>
+              postSuggest()
+            }
+            disabled={walletAddressText && emailText && detailsText ? false : true}
+          />
+        </View>
+
       </View>
-      <Text style={styles.email}>{t("yourwalletaddress")}</Text>
-      <View style={styles.whiteView}>
-        <TextInput style={styles.input} placeholder={t("enterWalAdd")} onChangeText={setWalletAddressText}>
-
-        </TextInput>
-      </View>
-      <Text style={styles.email}>{t("problemDescription")}</Text>
-      <View style={styles.questView}>
-        <TextInput style={styles.input} placeholder={t("enterproblemDescription")} multiline onChangeText={setDetailsText}>
-
-        </TextInput>
-      </View>
-      <View style={styles.main}>
-        <Button
-          title={t("submit")}
-          titleStyle={styles.Tlabel}
-          buttonStyle={styles.Tbutton}
-          onPress={() =>
-            postSuggest()
-          }
-          disabled={walletAddressText && emailText && detailsText ? false : true}
-        />
-      </View>
-
-
+      </TouchableWithoutFeedback>
     </SafeAreaView>
   );
 }
@@ -81,6 +84,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#F2F5F8',
+    justifyContent: 'flex-end',
+  },
+  mainView:{
+    flex: 1,
     justifyContent: 'flex-end',
   },
   email: {

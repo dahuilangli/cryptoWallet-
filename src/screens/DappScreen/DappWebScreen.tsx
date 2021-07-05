@@ -14,8 +14,6 @@ import { Image } from 'react-native-elements/dist/image/Image';
 import { event } from 'react-native-reanimated';
 import { navigate } from 'components/navigationService';
 import { Text } from 'react-native-elements';
-import WalletConnect from "@walletconnect/client";
-import i18next from 'i18n';
 
 type WebScreenNavigationProp = StackNavigationProp<
     ScreensParamList,
@@ -40,18 +38,16 @@ if (headEl && bodyEl) {
 
 export default function DappWebScreen({ navigation, route }: Props) {
     const {t} = useTranslation();
-    const uri = route.params.uri.replace('http:', 'https:');
+    
     const screenitem = route.params.item;
-    const [modalVisible, setModalVisible] = useState(false);
+    const [modalVisible, setModalVisible] = useState(true);
+    const [showHtml,setShowHtml] = useState(true)
+    const uri =showHtml ? '': route.params.uri.replace('http:', 'https:');
     return (
         <WebView
-
+        stopLoading
             style={styles.container}
             source={{ uri }}
-            onShouldStartLoadWithRequest={(event) => {
-                setModalVisible(!modalVisible);
-                return true;
-            }}
             startInLoadingState={true}
             injectedJavaScript={scriptToRemoveHeader}
             onMessage={event => {
@@ -59,6 +55,7 @@ export default function DappWebScreen({ navigation, route }: Props) {
                 // console.warn(event.nativeEvent.data);
             }}
         >
+            
             <Modal
                 animationType='fade'
                 transparent={true}
@@ -107,6 +104,7 @@ export default function DappWebScreen({ navigation, route }: Props) {
                                 style={{ ...styles.tipBtn1 }}
                                 onPress={() => {
                                     setModalVisible(!modalVisible);
+                                    setShowHtml(!showHtml);
                                 }}
                             >
                                 <Text style = {styles.knowText}>{t("Iknow")}</Text>
@@ -163,13 +161,13 @@ const styles = StyleSheet.create({
     },
     textStyle: {
         width: 20,
-        height: 20,
-        marginTop: 20,
-        marginRight: 20,
+        height: 20,        
     },
     openButton: {
+        marginTop: 20,
         width: 20,
         height: 20,
+        marginRight: 20,
     },
     tipTitle: {
         marginVertical: 15,

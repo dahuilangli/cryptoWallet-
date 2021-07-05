@@ -10,6 +10,8 @@ import {
     Text,
     Alert,
 } from 'react-native';
+import { navigate } from 'components/navigationService';
+import { title } from 'process';
 let camera;
 const ScanQRCode = () => {
     const moveAnim = useRef(new Animated.Value(-2)).current;
@@ -92,23 +94,23 @@ const ScanQRCode = () => {
 
     };
     const onBarCodeRead = (result) => {
-        const { data } = result; //只要拿到data就可以了
+        const {data}  = result; //只要拿到data就可以了
         //扫码后的操作
-        console.log('=============================');
-        console.log(data);
-        Alert.alert(data);
+        // navigate('WebScreen',{title:'Dapp',uri:data})
+        navigate('TransferScreen',{address : data});
+
     };
     return (
         <View style={styles.container}>
             <RNCamera
                 ref={ref => {
-                    this.camera = ref;
+                    camera = ref;
                 }}
                 autoFocus={RNCamera.Constants.AutoFocus.on}/*自动对焦*/
                 style={[styles.preview,]}
                 type={RNCamera.Constants.Type.back}/*切换前后摄像头 front前back后*/
                 flashMode={RNCamera.Constants.FlashMode.off}/*相机闪光模式*/
-                onBarCodeRead={this.onBarCodeRead}
+                onBarCodeRead={onBarCodeRead}
             >
                 <View style={{
                     width: 500,
@@ -120,8 +122,8 @@ const ScanQRCode = () => {
                     <View style={{ backgroundColor: 'rgba(0,0,0,0.5)', height: 200, width: 200 }} />
                     <ImageBackground source={require('assets/扫一扫.png')} style={{ width: 200, height: 200 }}>
                         <Animated.View style={[
-                            styles.border,{transform: [{translateY: moveAnim}]}
-                            ]} />
+                            styles.border, { transform: [{ translateY: moveAnim }] }
+                        ]} />
                     </ImageBackground>
                     <View style={{ backgroundColor: 'rgba(0,0,0,0.5)', height: 200, width: 200 }} />
 

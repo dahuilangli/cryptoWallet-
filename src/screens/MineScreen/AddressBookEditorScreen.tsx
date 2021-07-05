@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, Text, SafeAreaView, TouchableOpacity, Image, Alert, TextInput } from 'react-native';
+import { StyleSheet, View, Text, SafeAreaView, TouchableOpacity, Image, TouchableWithoutFeedback, Keyboard, TextInput } from 'react-native';
 import { goBack, navigate } from 'components/navigationService';
 import { useTranslation } from 'react-i18next';
 import { Button } from 'react-native-elements'
@@ -24,11 +24,11 @@ interface Props {
 function AddressBookEditorScreen(props: Props) {
     const { t } = useTranslation();
     const { item } = props.route.params;
-    const [addType, setAddType] = useState(item.add_type?item.add_type:'ETH');
-    
+    const [addType, setAddType] = useState(item.add_type ? item.add_type : 'ETH');
+
     const [addname, setAddName] = useState(item.add_name);
     const [remarks, setRemarks] = useState(item.remarks);
-    const [typeLogo, setTypeLogo] = useState(item.logo?item.logo:require('assets/coins/ethereum.png'));
+    const [typeLogo, setTypeLogo] = useState(item.logo ? item.logo : require('assets/coins/ethereum.png'));
     const [WalletAdress, setWalletAdress] = useState(item.walletaddress);
     const dispatch = useDispatch();
     async function addAddressBook() {
@@ -40,59 +40,61 @@ function AddressBookEditorScreen(props: Props) {
                 logo: typeLogo,
                 walletaddress: WalletAdress,
             }));
-            goBack()
+        goBack()
     }
     return (
         <SafeAreaView style={styles.container}>
-            <View>
-                <Text style={styles.typeText}>{t("addresstype")}</Text>
-                <TouchableOpacity
-                    onPress={() =>
-                        navigate('AddressTypeScreen', {
-                            addType,
-                            setAddType,
-                            typeLogo,
-                            setTypeLogo,
-                        })
-                    }
-                >
-                    <View style={styles.typeView}>
-                        <Image style={styles.typeImage} source={typeLogo}></Image>
-                        <Text style={styles.typeName}>{addType}</Text>
-                        <Image style={styles.rightImage} source={require('assets/icon-20-arrow-right.png')}></Image>
-                    </View>
-                </TouchableOpacity>
-                <Text style={styles.typeText}>{t("addressname")}</Text>
-                <View style={styles.nameView}>
-                    <TextInput
-                        style={styles.nameInput}
-                        placeholder={t("enterAddName")}
-                        defaultValue={item.add_name}
-                        onChangeText={(text: string) => (setAddName(text))}
+            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                <View>
+                    <Text style={styles.typeText}>{t("addresstype")}</Text>
+                    <TouchableOpacity
+                        onPress={() =>
+                            navigate('AddressTypeScreen', {
+                                addType,
+                                setAddType,
+                                typeLogo,
+                                setTypeLogo,
+                            })
+                        }
                     >
+                        <View style={styles.typeView}>
+                            <Image style={styles.typeImage} source={typeLogo}></Image>
+                            <Text style={styles.typeName}>{addType}</Text>
+                            <Image style={styles.rightImage} source={require('assets/icon-20-arrow-right.png')}></Image>
+                        </View>
+                    </TouchableOpacity>
+                    <Text style={styles.typeText}>{t("addressname")}</Text>
+                    <View style={styles.nameView}>
+                        <TextInput
+                            style={styles.nameInput}
+                            placeholder={t("enterAddName")}
+                            defaultValue={item.add_name}
+                            onChangeText={(text: string) => (setAddName(text))}
+                        >
 
-                    </TextInput>
+                        </TextInput>
+                    </View>
+                    <Text style={styles.typeText}>{t("marks")}</Text>
+                    <View style={styles.nameView}>
+                        <TextInput
+                            style={styles.nameInput}
+                            placeholder={t("enterWalMark")}
+                            defaultValue={item.remarks}
+                            onChangeText={(text: string) => (setRemarks(text))}>
+                        </TextInput>
+                    </View>
+                    <Text style={styles.typeText}>{t("walletaddress")}</Text>
+                    <View style={styles.addressView}>
+                        <TextInput
+                            style={styles.addressInput}
+                            multiline
+                            placeholder={t("pasteWalAddress")}
+                            defaultValue={item.walletaddress}
+                            onChangeText={(text: string) => (setWalletAdress(text))}>
+                        </TextInput>
+                    </View>
                 </View>
-                <Text style={styles.typeText}>{t("marks")}</Text>
-                <View style={styles.nameView}>
-                    <TextInput
-                        style={styles.nameInput}
-                        placeholder={t("enterWalMark")}
-                        defaultValue={item.remarks}
-                        onChangeText={(text: string) => (setRemarks(text))}>
-                    </TextInput>
-                </View>
-                <Text style={styles.typeText}>{t("walletaddress")}</Text>
-                <View style={styles.addressView}>
-                    <TextInput
-                        style={styles.addressInput}
-                        multiline
-                        placeholder={t("pasteWalAddress")}
-                        defaultValue={item.walletaddress}
-                        onChangeText={(text: string) => (setWalletAdress(text))}>
-                    </TextInput>
-                </View>
-            </View>
+            </TouchableWithoutFeedback>
             <Button
                 title={t("sure")}
                 titleStyle={styles.Tlabel}
