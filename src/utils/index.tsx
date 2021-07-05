@@ -79,3 +79,15 @@ export const parseURL = (text: string) => {
   let a = /(\w+):\/\/([^\/:]+)(:\d*)?([^# ]*)/
   return text.match(a)
 }
+
+// 判断是否是钱包地址
+export function checkwalletAdress(walletAdress: string) {
+  var emailPattern = /^(0x)?[0-9a-fA-F]{40}$/;
+  return emailPattern.test(walletAdress)
+}
+
+//判断钱包私钥 
+export function checkwalletPrivateKey(PrivateKey: string) {
+  var emailPattern = /^(0x)?[0-9a-fA-F]{64}$/;
+  return emailPattern.test(PrivateKey)
+}

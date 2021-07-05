@@ -84,7 +84,7 @@ const LoginScreen = ({}: Props) => {
           <View style={styles.modalView}>
             <View style={styles.headView}>
               <Text style={styles.headText}>{t("importmethod")}</Text>
-              <TouchableWithoutFeedback
+              <TouchableOpacity
                 style={{ ...styles.openButton }}
                 onPress={() => {
                   setModalVisible(!modalVisible);
@@ -94,7 +94,7 @@ const LoginScreen = ({}: Props) => {
                   style={styles.textStyle}
                   source={require('assets/icon-20-close.png')}
                 />
-              </TouchableWithoutFeedback>
+              </TouchableOpacity>
             </View>
             <View style={styles.groupView}>
               {list.map((item, i) => (

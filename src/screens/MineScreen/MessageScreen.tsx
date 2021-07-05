@@ -81,7 +81,7 @@ function HomeScreen() {
   }
 
   async function getTransferRecordList() {
-    const data = await helper.get('/wallet/transfer_record', {address_list:['0xEFD0576c3BfBFaD91f113d722676B6Dc5a0B6879'],id:100})
+    const data = await helper.get('/wallet/transfer_record', {address_list:['0x1795C7bf318F9Ec0429fe5261E5095b3f5da4331'],id:100})
     console.log('--------------------');
     console.log(data);
     console.log('--------------------');

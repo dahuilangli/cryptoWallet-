@@ -21,6 +21,7 @@ import { User } from 'actions/types';
 import { useTranslation } from 'react-i18next';
 import DeviceInfo from 'react-native-device-info';
 import { RouteProp, useRoute, useIsFocused } from '@react-navigation/native';
+
 interface Props { }
 let systemVersion = DeviceInfo.getVersion();
 let buildVersion = DeviceInfo.getBuildNumber();
@@ -138,9 +139,7 @@ function ProfileScreen({ }: Props) {
                 {item.name}
               </ListItem.Title>
             </ListItem.Content>
-            {
-              checkMessage && i === 1 ? <View style={styles.messageshow}></View> : <View></View>
-            }
+            
             <Image source={item.rightIcon} style={styles.rightIcon} />
           </ListItem>
         ))}

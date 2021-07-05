@@ -131,7 +131,7 @@ function HomeScreen({ }: Props) {
               <Image source={require('assets/icon-24-切换钱包-light.png')} />
             </TouchableOpacity>
             <Text style={styles.headerTitle}>{t("wallet")}</Text>
-            <TouchableOpacity onPress={() => navigate('ScanQRCode')}>
+            <TouchableOpacity onPress={() => navigate('ScanQRCode',{title:'HomeScreen'})}>
               <Image
                 style={styles.image}
                 source={require('assets/icon-24-扫一扫-light.png')}

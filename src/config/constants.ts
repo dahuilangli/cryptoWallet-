@@ -1,8 +1,8 @@
 
 import { Dimensions } from 'react-native';
-
+//本地
 // export const HOST = 'http://192.168.2.21:80';
-
+//测试网
 export const HOST = 'http://121.43.176.103';
 
 export const API_ENDPOINT = `${HOST}/api/service`;
