@@ -21,8 +21,10 @@ import { useSelector } from 'react-redux';
 import { SCREENHEIGHT, SCREENWIDTH } from "config/constants"
 import walletAction from 'actions/wallet';
 import { getAccountList, getUser } from 'reducers/walletStateReducer';
+import { getCurrency } from 'reducers/dataStateReducer';
 import * as helper from 'apis/helper'
 import { AssetsList } from 'actions/types';
+import { Mul, Div, Add, Sub } from 'wallets/ethsWallet'
 interface Props {
   route: {
     params: {
@@ -40,20 +42,18 @@ function TransferScreen(props: Props) {
 
   const [receivingAddress, setReceivingAddress] = useState(address);
   const [transferAmount, setTransferAmount] = useState('');
-  const [gasList, setGasList] = useState([]);
+  const [gasList, setGasList] = useState<Array<{ title: string; balance: string; amount: string }>>([]);
   const [gasIndex, setGasIndex] = useState(-1);
   const [selectCoinIndex, setSelectCoinIndex] = useState(0);
 
+  const currenTUnit = useSelector(getCurrency);
   const walletlist = useSelector(getAccountList);
   const user = useSelector(getUser);
   const thisUser = walletlist.get(user.type)?.find(x => x.address === user.address)
-  console.log('====================================');
-  console.log(thisUser);
-  console.log('====================================');
   const { t } = useTranslation();
   useEffect(() => {
     getAssetsList(selectCoinIndex),
-    getGas()
+      getGas()
   }, []);
   async function getCoinItem(index: number) {
     setSelectCoinIndex(index);
@@ -81,41 +81,33 @@ function TransferScreen(props: Props) {
       "wallet": thisUser?.coinInfo?.wallet
     }
     const { code, data } = await helper.get('/wallet/gas', params)
-    console.log('============gas==============');
-    console.log(data);
-    console.log('====================================');
     if (data && code == 200) {
-      let gas: Array<any> = []
-      if (data.average) {
-        let num = Number(data.average) / Math.pow(10, Number(thisUser?.coinInfo.gas_decimal))
-        console.log('====================================');
-        console.log(Number(num));
-        console.log('====================================');
-        gas.push()
-      }
+      let gas: Array<{ title: string; balance: string; amount: string }> = []
+      gas[0] = {
+        title: '快速',
+        balance: Div(Mul(data.fastest, thisUser?.coinInfo.gas_limit), Math.pow(10, Number(thisUser?.coinInfo?.gas_decimal))).toString(),
+        amount: Mul(Div(Mul(data.fastest, thisUser?.coinInfo.gas_limit), Math.pow(10, Number(thisUser?.coinInfo?.gas_decimal))), data.rate_currency).toString(),
+      };
+      gas[1] = {
+        title: '平均',
+        balance: Div(Mul(data.average, thisUser?.coinInfo.gas_limit), Math.pow(10, Number(thisUser?.coinInfo?.gas_decimal))).toString(),
+        amount: Mul(Div(Mul(data.average, thisUser?.coinInfo.gas_limit), Math.pow(10, Number(thisUser?.coinInfo?.gas_decimal))), data.rate_currency).toString(),
+      };
+      gas[2] = {
+        title: '最慢',
+        balance: Div(Mul(data.slow, thisUser?.coinInfo.gas_limit), Math.pow(10, Number(thisUser?.coinInfo?.gas_decimal))).toString(),
+        amount: Mul(Div(Mul(data.slow, thisUser?.coinInfo.gas_limit), Math.pow(10, Number(thisUser?.coinInfo?.gas_decimal))), data.rate_currency).toString(),
+      };
+      setGasList(gas)
     }
   }
 
-  // let gasList = [
-  //   {
-  //     title: '快速',
-  //     quantity: '0.000666',
-  //     coin: 'ETH',
-  //     cny: '0.6',
-  //   },
-  //   {
-  //     title: '平均',
-  //     quantity: '0.000348',
-  //     coin: 'ETH',
-  //     cny: '0.4',
-  //   },
-  //   {
-  //     title: '最慢',
-  //     quantity: '0.000219',
-  //     coin: 'ETH',
-  //     cny: '0.2',
-  //   },
-  // ];
+  let verification = receivingAddress && receivingAddress.startsWith('0x') && transferAmount;
+  console.log('=======verification=================');
+  console.log(receivingAddress && receivingAddress.startsWith('0x'));
+  console.log(typeof transferAmount);
+  console.log(verification);
+  console.log('====================================');
   return (
     <SafeAreaView style={styles.container}>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -206,7 +198,7 @@ function TransferScreen(props: Props) {
                         : styles.gasItemSum
                     }
                   >
-                    {item?.quantity} {item?.coin}
+                    {item?.balance} {user?.type}
                   </Text>
                   <Text
                     style={
@@ -220,7 +212,7 @@ function TransferScreen(props: Props) {
                         : styles.gasItemSums
                     }
                   >
-                    ≈￥{item?.cny} {item?.coin}
+                    ≈ {currenTUnit === 'USDT' ? '$' : '￥'} {item?.amount}
                   </Text>
                 </TouchableOpacity>
               ))}
@@ -230,6 +222,7 @@ function TransferScreen(props: Props) {
             <Button
               buttonStyle={styles.buttonStyle}
               title={t("sure")}
+              disabled= {!verification}
               titleStyle={styles.buttonTitle}
               onPress={() => setTransferConfirm(!transferConfirm)}
             />
@@ -569,7 +562,7 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 8,
     borderTopRightRadius: 8,
     width: SCREENWIDTH,
-    height: SCREENHEIGHT / 2
+    maxHeight: SCREENHEIGHT / 2
   },
   headView: {
     flexDirection: 'row',
