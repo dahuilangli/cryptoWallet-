@@ -21,9 +21,32 @@ interface Props {
   };
 }
 const SetWalletNameScreen = (props: Props) => {
-  const { type, loginType, coinInfo } = props.route.params;
+  const { type, loginType, coinInfo, desc } = props.route.params;
   const [walletName, setWalletName] = useState('');
   const { t } = useTranslation();
+  let accountInfo = {};
+  useEffect(() => {
+    switch (loginType) {
+      case 'mnemonic':
+        accountInfo = importByMnemonic(desc);
+        console.log('====================================');
+        console.log('mnemonic 解析', accountInfo);
+        console.log('====================================');
+        break;
+      case 'privateKey':
+        accountInfo = importByprivateKey(desc);
+        console.log('====================================');
+        console.log('privateKey 解析', accountInfo);
+        console.log('====================================');
+        break;
+      default:
+        accountInfo = genWallet();
+        console.log('====================================');
+        console.log('创建账号', accountInfo);
+        console.log('====================================');
+        break;
+    }
+  }, []);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -45,7 +68,7 @@ const SetWalletNameScreen = (props: Props) => {
             buttonStyle={styles.nextButton}
             onPress={() => {
               navigate('SetWalletPwdScreen', {
-                accountInfo: { walletName, type, coinInfo },
+                accountInfo: { walletName, type, coinInfo, ...accountInfo },
                 loginType,
               });
             }}

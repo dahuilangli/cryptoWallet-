@@ -109,7 +109,7 @@ const ScanQRCode = (props: Props) => {
         try {
             const { data } = result; //只要拿到data就可以了
             if (checkwalletAdress(data) && title === 'HomeScreen') {
-                navigate('TransferScreen', { address: data });
+                navigate('TransferScreen', { address: data ,assetsList:[]});
             } else if (verifyURL(data) && title === 'PrivateKeyScreen') {
                 navigate('WebScreen', { title: 'Dapp', uri: data })
             } else if (checkwalletPrivateKey(data) && title === 'DappScreen') {
@@ -120,7 +120,7 @@ const ScanQRCode = (props: Props) => {
                
                
                if(checkwalletAdress(splitStr) && title === 'HomeScreen'){
-                navigate('TransferScreen', { address: splitStr });
+                navigate('TransferScreen', { address: splitStr ,assetsList:[]});
                }else{
                   
               setTimeout(() => {

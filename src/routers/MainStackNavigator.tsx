@@ -37,7 +37,8 @@ import { goBack, navigate } from 'components/navigationService';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import walletAction from 'actions/wallet';
-import { AddressBookItem } from 'actions/types';
+import { Account, AddressBookItem, AssetsList, thisUser } from 'actions/types';
+import { walletState } from 'reducers/walletStateReducer';
 export type MainStackParamList = {
   TabNavigator: undefined;
   PostFeedScreen: undefined;
@@ -56,12 +57,12 @@ export type MainStackParamList = {
   FeedListScreen: { title: string; showMyself?: boolean };
   WebScreen: { title?: any; uri: string };
   WebHtmlScreen: { title?: any; uri: string };
-  SearchScreen: { wallet: string };
+  SearchScreen: { user: thisUser, assetsList: Array<AssetsList> };
   DappSearchScreen: { coin: Array<string> };
   CoinDetailScreen: { title: string };
   WalletBoardScreen: undefined;
   WalletDetailScreen: undefined;
-  TransferScreen: { address: string };
+  TransferScreen: { address: string, assetsList: Array<AssetsList> };
   ReceivePaymentScreen: { address: string };
   ExportMnemonicScreen: undefined;
   ExportPrivateKeyScreen: undefined;

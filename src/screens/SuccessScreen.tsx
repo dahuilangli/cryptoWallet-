@@ -27,19 +27,22 @@ interface Props {
 const SuccessScreen = ({ route }: Props) => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
-  let { title } = route.params;
-  let { accountInfo } = route.params;
+  let { title, accountInfo } = route.params;
   const walletlist = useSelector(getAccountList);
+  console.log('======success======');
+  console.log(walletlist);
+  console.log('====================================');
   async function storageAccount() {
     try {
-      console.log('=========walletlist==================');
-      console.log(walletlist);
-      console.log('====================================');
+      accountInfo.contracts = ['']
       if (walletlist.size === 0) {
-        await dispatch(walletAction.createUser(accountInfo));
+        dispatch(walletAction.createUser({ address: accountInfo.address, type: accountInfo.type }));
       }
       await dispatch(walletAction.createAccount(accountInfo));
     } catch (err) {
+      console.log('========err=============');
+      console.log(err);
+      console.log('====================================');
       Alert.alert(`${title}失败，请重新选择钱包后重试`);
     }
   }

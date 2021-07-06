@@ -99,7 +99,7 @@ function ProfileScreen({ }: Props) {
         name: t("UserAgreement"),
         leftIcon: require('assets/icon-24-协议.png'),
         rightIcon: require('assets/icon-20-arrow-right.png'),
-        navigate: async () => await navigate('WebHtmlScreen', { title: '测试', uri: html })
+        navigate: async () => await navigate('WebHtmlScreen', { title: t("UserAgreement"), uri: html })
       }, {
         name: t("aboutus"),
         leftIcon: require('assets/icon-24-关于我们.png'),

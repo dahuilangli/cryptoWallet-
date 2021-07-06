@@ -29,7 +29,7 @@ export const showWithImage = (text: string, imageSource: any) => {
   WToast.show(toastOpts);
 };
 
-export function subSplit(text: string, start: number, end: number) {
+export function subSplit(text: string|undefined, start: number, end: number) {
   if (text && text !== " ") {
     return text.substr(0, start) + '...' + text.substr(text.length - end, text.length);
   }
@@ -43,19 +43,22 @@ export function checkEmail(emailText: string) {
   }
 }
 
-export function formatDate(date: any) {
-  date = new Date(date);
-  var y = date.getFullYear();
-  var m = date.getMonth() + 1;
-  var d = date.getDate();
-  var h = date.getHours();
-  var m1 = date.getMinutes();
-  m = m < 10 ? ("0" + m) : m;
-  d = d < 10 ? ("0" + d) : d;
-  return y + "-" + m + "-" + d + " " + h + ":" + m1;
+export function formatDate(timestamp: any) {
+  var date = new Date(timestamp);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
+            var Y = date.getFullYear() + '-';
+            var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+            var D = (date.getDate() < 10 ? '0'+date.getDate() : date.getDate()) + ' ';
+            var h = (date.getHours() < 10 ? '0'+date.getHours() : date.getHours()) + ':';
+            var m = (date.getMinutes() < 10 ? '0'+date.getMinutes() : date.getMinutes()) + ':';
+            var s = (date.getSeconds() < 10 ? '0'+date.getSeconds() : date.getSeconds());
+
+            let strDate = Y+M+D+h+m+s;
+            console.log(strDate) //2020-05-08 17:44:56　
+            return strDate;
+
 }
 //替换字符串‘*’
-export function replaceMoney(moneyString: string) {
+export function replaceMoney(moneyString: any) {
   var moneyArr = moneyString.split('')
   var replaceresult = '';
   moneyArr.map((x, i) => {
