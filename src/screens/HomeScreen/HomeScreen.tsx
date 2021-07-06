@@ -122,10 +122,22 @@ function HomeScreen({ }: Props) {
             </TouchableOpacity>
           </View>
           <View style={styles.subnav}>
-            <Image
-              style={styles.logo}
-              source={require('assets/img-40-coointype-eth.png')}
-            />
+            {user.type === 'ETH' ? (
+              <Image
+                style={styles.logo}
+                source={require('assets/coins/img-40-indexcoin-eth.png')}
+              />
+            ) : user.type === 'BNB' ? (
+              <Image
+                style={styles.logo}
+                source={require('assets/coins/img-40-indexcoin-bnb.png')}
+              />
+            ) : user.type === 'HT' ? (
+              <Image
+                style={styles.logo}
+                source={require('assets/coins/img-40-indexcoin-huobi.png')}
+              />
+            ) : undefined }
             <Text style={styles.wallName}>{thisUser?.walletName}</Text>
             <Text style={styles.address}>{subSplit(thisUser?.address, 4, 8)}</Text>
             <View style={styles.amountContainer}>
