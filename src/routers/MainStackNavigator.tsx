@@ -48,7 +48,7 @@ export type MainStackParamList = {
   MessageScreen: undefined;
   SetUpScreen: undefined;
   FlashRecordScreen: undefined;
-  ScanQRCode: {title?:string};
+  ScanQRCode: {title?:string , assetsList: Array<AssetsList> };
   LanguageSetScreen: undefined;
   CurrencySetScreen: undefined;
   AddressBookScreen: { title: string; showMyself?: boolean };

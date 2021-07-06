@@ -40,18 +40,20 @@ function TransferScreen(props: Props) {
 
   const [receivingAddress, setReceivingAddress] = useState(address);
   const [transferAmount, setTransferAmount] = useState('');
+  const [gasList, setGasList] = useState([]);
   const [gasIndex, setGasIndex] = useState(-1);
   const [selectCoinIndex, setSelectCoinIndex] = useState(0);
 
   const walletlist = useSelector(getAccountList);
   const user = useSelector(getUser);
   const thisUser = walletlist.get(user.type)?.find(x => x.address === user.address)
+  console.log('====================================');
+  console.log(thisUser);
+  console.log('====================================');
   const { t } = useTranslation();
   useEffect(() => {
-    console.log('=========selectCoinIndex===============');
-    console.log(selectCoinIndex);
-    console.log('====================================');
-    getAssetsList(selectCoinIndex)
+    getAssetsList(selectCoinIndex),
+    getGas()
   }, []);
   async function getCoinItem(index: number) {
     setSelectCoinIndex(index);
@@ -61,8 +63,6 @@ function TransferScreen(props: Props) {
     }, 150);
   }
   async function getAssetsList(coinIndex: number) {
-    console.log('===========获取数量Balance==========');
-    console.log('====================================');
     let params = {
       "address": thisUser?.address,
       "contracts": [thisUser?.contracts[coinIndex]],
@@ -71,31 +71,51 @@ function TransferScreen(props: Props) {
     const { data } = await helper.post('/wallet/assets', params)
     if (data && data.length > 0) {
       return data[0]
+    } else {
+      return assetsList[coinIndex]
     }
-    return
   }
 
+  async function getGas() {
+    let params = {
+      "wallet": thisUser?.coinInfo?.wallet
+    }
+    const { code, data } = await helper.get('/wallet/gas', params)
+    console.log('============gas==============');
+    console.log(data);
+    console.log('====================================');
+    if (data && code == 200) {
+      let gas: Array<any> = []
+      if (data.average) {
+        let num = Number(data.average) / Math.pow(10, Number(thisUser?.coinInfo.gas_decimal))
+        console.log('====================================');
+        console.log(Number(num));
+        console.log('====================================');
+        gas.push()
+      }
+    }
+  }
 
-  let gasList = [
-    {
-      title: '快速',
-      quantity: '0.000666',
-      coin: 'ETH',
-      cny: '0.6',
-    },
-    {
-      title: '平均',
-      quantity: '0.000348',
-      coin: 'ETH',
-      cny: '0.4',
-    },
-    {
-      title: '最慢',
-      quantity: '0.000219',
-      coin: 'ETH',
-      cny: '0.2',
-    },
-  ];
+  // let gasList = [
+  //   {
+  //     title: '快速',
+  //     quantity: '0.000666',
+  //     coin: 'ETH',
+  //     cny: '0.6',
+  //   },
+  //   {
+  //     title: '平均',
+  //     quantity: '0.000348',
+  //     coin: 'ETH',
+  //     cny: '0.4',
+  //   },
+  //   {
+  //     title: '最慢',
+  //     quantity: '0.000219',
+  //     coin: 'ETH',
+  //     cny: '0.2',
+  //   },
+  // ];
   return (
     <SafeAreaView style={styles.container}>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>

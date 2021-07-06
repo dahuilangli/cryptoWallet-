@@ -22,7 +22,7 @@ import { CHAINS } from "config/constants"
 import { useSelector, useDispatch } from 'react-redux';
 import walletAction from 'actions/wallet';
 import { getUser, getAccountList } from 'reducers/walletStateReducer';
-import { getShowMoney } from 'reducers/dataStateReducer';
+import { getShowMoney ,getCurrency} from 'reducers/dataStateReducer';
 import { replaceMoney } from 'utils'
 import * as helper from 'apis/helper'
 import { useIsFocused } from '@react-navigation/native';
@@ -67,6 +67,7 @@ function HomeScreen({ }: Props) {
   const user = useSelector(getUser);
   const thisUser = walletlist.get(user.type)?.find(x => x.address === user.address)
   const showMoney = useSelector(getShowMoney);
+  const currenTUnit = useSelector(getCurrency);
   const [modalVisible, setModalVisible] = useState(false);
   const [selectItem, setSelectItem] = useState(0);
   const [selectAddress, setSelectAddress] = useState(thisUser?.address);
@@ -113,7 +114,7 @@ function HomeScreen({ }: Props) {
               <Image source={require('assets/icon-24-切换钱包-light.png')} />
             </TouchableOpacity>
             <Text style={styles.headerTitle}>{t("wallet")}</Text>
-            <TouchableOpacity onPress={() => navigate('ScanQRCode',{title:'HomeScreen'})}>
+            <TouchableOpacity onPress={() => navigate('ScanQRCode',{title:'HomeScreen',assetsList})}>
               <Image
                 style={styles.image}
                 source={require('assets/icon-24-扫一扫-light.png')}
@@ -128,7 +129,7 @@ function HomeScreen({ }: Props) {
             <Text style={styles.wallName}>{thisUser?.walletName}</Text>
             <Text style={styles.address}>{subSplit(thisUser?.address, 4, 8)}</Text>
             <View style={styles.amountContainer}>
-              <Text style={styles.amountText}>¥{showMoney ? assetsSum : replaceMoney(assetsSum)}</Text>
+              <Text style={styles.amountText}>{currenTUnit === 'USDT'?'$':'¥'}{showMoney ? assetsSum : replaceMoney(assetsSum)}</Text>
               <TouchableOpacity onPress={() => { hideOrShowMoney() }}>
                 <Image
                   style={styles.eye}
@@ -209,7 +210,7 @@ function HomeScreen({ }: Props) {
                   <Text style={styles.itemText}>{item?.symbol}</Text>
                   <View style={styles.itemDesc}>
                     <Text style={styles.descTitle}>{showMoney ? item?.balance : replaceMoney(item?.balance)}</Text>
-                    <Text style={styles.descInfo}>￥{showMoney ? item?.rate_price : replaceMoney(item?.rate_price)}</Text>
+                    <Text style={styles.descInfo}>{currenTUnit === 'USDT'?'$':'¥'}{showMoney ? item?.rate_price : replaceMoney(item?.rate_price)}</Text>
                   </View>
                 </View>
               </TouchableOpacity>
@@ -352,7 +353,7 @@ function HomeScreen({ }: Props) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: Platform.OS === 'ios' ? 35 : 0, // 处理iOS状态栏
+    paddingTop: Platform.OS === 'ios' ? 50 : 0, // 处理iOS状态栏
     height: Platform.OS === 'ios' ? 88 : 48, // 处理iOS状态栏
   },
   header: {
