@@ -129,7 +129,8 @@ function HomeScreen({ }: Props) {
             <Text style={styles.wallName}>{thisUser?.walletName}</Text>
             <Text style={styles.address}>{subSplit(thisUser?.address, 4, 8)}</Text>
             <View style={styles.amountContainer}>
-              <Text style={styles.amountText}>{currenTUnit === 'USDT'?'$':'¥'}{showMoney ? assetsSum : replaceMoney(assetsSum)}</Text>
+              <Text style = {styles.dengyuText}>{showMoney ?'≈':''}</Text>
+              <Text style={styles.amountText}>{showMoney ?currenTUnit === 'USDT'?'$':'¥' :'*'}{showMoney ? assetsSum : '*****'}</Text>
               <TouchableOpacity onPress={() => { hideOrShowMoney() }}>
                 <Image
                   style={styles.eye}
@@ -209,8 +210,8 @@ function HomeScreen({ }: Props) {
                   />
                   <Text style={styles.itemText}>{item?.symbol}</Text>
                   <View style={styles.itemDesc}>
-                    <Text style={styles.descTitle}>{showMoney ? item?.balance : replaceMoney(item?.balance)}</Text>
-                    <Text style={styles.descInfo}>{currenTUnit === 'USDT'?'$':'¥'}{showMoney ? item?.rate_price : replaceMoney(item?.rate_price)}</Text>
+                    <Text style={styles.descTitle}>{showMoney ? item?.balance : '******'}</Text>
+                    <Text style={styles.descInfo}>{showMoney ?'≈ ':''}{showMoney ?currenTUnit === 'USDT'?'$':'¥':'*'}{showMoney ? item?.rate_price : '*****'}</Text>
                   </View>
                 </View>
               </TouchableOpacity>
@@ -319,7 +320,7 @@ function HomeScreen({ }: Props) {
                       >
                         {subSplit(item?.address, 8, 8)}
                       </Text>
-                      <View style={styles.itemAmountContainer}>
+                      {/* <View style={styles.itemAmountContainer}>
                         <Text
                           style={
                             selectAddress === item.address
@@ -338,7 +339,7 @@ function HomeScreen({ }: Props) {
                         >
                           {item?.amount | 20000}
                         </Text>
-                      </View>
+                      </View> */}
                     </TouchableOpacity>
                   ))}
                 </ScrollView>
@@ -405,6 +406,11 @@ const styles = StyleSheet.create({
     fontSize: 28,
     color: '#FFFFFF',
     fontWeight: '400',
+  },
+  dengyuText: {
+    fontSize: 15,
+    color: '#FFFFFF',
+    fontWeight: '200',
   },
   eye: {
     width: 20,
@@ -487,7 +493,11 @@ const styles = StyleSheet.create({
     color: '#C4C8D2',
     fontWeight: '500',
   },
-
+  dengyuInfo: {
+    fontSize: 10,
+    color: '#C4C8D2',
+    fontWeight: '300',
+  },
   centeredView: {
     flex: 1,
     backgroundColor: 'rgba(0,0,0,0.5)',

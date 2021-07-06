@@ -3,11 +3,16 @@ import { StyleSheet, View, SafeAreaView, Text } from 'react-native';
 
 import { Button } from 'react-native-elements';
 import { goBack } from 'components/navigationService';
-interface Props {}
+interface Props {
+  route: {
+    params: {
+      mnemonic:string,
+    }
+  }
+}
 
-const ExportMnemonicScreen = ({}: Props) => {
-  let mnemonic =
-    'suffer any ensure unfold vivid analyst ahead mango divide indoor kidney much';
+const ExportMnemonicScreen = (props: Props) => {
+  let mnemonic = props.route.params.mnemonic
   const mnemonicList: string[] = mnemonic.split(' ');
   return (
     <SafeAreaView style={styles.container}>

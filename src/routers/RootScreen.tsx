@@ -21,9 +21,10 @@ function RootScreen() {
   console.log('========accountList=================');
   console.log(accountList);
   console.log('====================================');
-  i18n.changeLanguage(CurrentLanguage);
+  
   React.useEffect(() => {
     findToken();
+    i18n.changeLanguage(CurrentLanguage);
     SplashScreen.hide();
   }, []);
   async function findToken() {
