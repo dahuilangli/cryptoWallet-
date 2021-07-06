@@ -1,26 +1,44 @@
 import { useTranslation } from 'react-i18next';
-import React, {useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, View, Text, TextInput, SafeAreaView } from 'react-native';
 
 import { Button } from 'react-native-elements';
 import { navigate } from 'components/navigationService';
 import { Account } from "actions/types";
-
+import {
+  genWallet,
+  importByprivateKey,
+  importByMnemonic,
+} from 'wallets/ethsWallet';
 interface Props {
   route: {
     params: {
       accountInfo: Account;
       loginType: string;
+      desc: string;
     };
   };
 }
 
 const SetWalletPwdScreen = (props: Props) => {
-  const { accountInfo } = props.route.params;
-  const { loginType } = props.route.params;
+  const { accountInfo, loginType, desc } = props.route.params;
   const [pwd, setPwd] = useState('');
+  const [account, setAccount] = useState({});
   const [repwd, setRepwd] = useState('');
-  const {t} = useTranslation();
+  const { t } = useTranslation();
+  useEffect(() => {
+    switch (loginType) {
+      case 'mnemonic':
+        setAccount(importByMnemonic(desc));
+        break;
+      case 'privateKey':
+        setAccount(importByprivateKey(desc));
+        break;
+      default:
+        setAccount(genWallet());
+        break;
+    }
+  }, []);
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.main}>
@@ -46,17 +64,14 @@ const SetWalletPwdScreen = (props: Props) => {
         <Button
           buttonStyle={styles.nextButton}
           onPress={() => {
-            console.log('====================================');
-            console.log(loginType);
-            console.log('====================================');
             if (loginType) {
               navigate('SuccessScreen', {
                 title: t("Importsuccessful"),
-                accountInfo: {...accountInfo,securityCode:repwd},
+                accountInfo: { ...account, ...accountInfo, securityCode: repwd },
               });
             } else {
               navigate('SafetyTipsScreen', {
-                accountInfo: {...accountInfo,securityCode:repwd},
+                accountInfo: { ...account, ...accountInfo, securityCode: repwd },
               });
             }
           }}

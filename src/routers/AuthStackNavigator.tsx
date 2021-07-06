@@ -21,7 +21,7 @@ export type AuthStackParamList = {
   SuccessScreen: { title: string | undefined; accountInfo: object };
   SelectWalletScreen: { loginType: string };
   SetWalletNameScreen: { type: string; loginType?: string; coinInfo: object, desc?: string };
-  SetWalletPwdScreen: { accountInfo: object; loginType?: string };
+  SetWalletPwdScreen: { loginType?: string, desc?: string, accountInfo: object};
   SafetyTipsScreen: { accountInfo: object };
   BackupMnemonicScreen: { accountInfo: object };
   VerifyMnemonicScreen: { accountInfo: object };

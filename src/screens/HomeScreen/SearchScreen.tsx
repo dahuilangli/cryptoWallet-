@@ -168,7 +168,7 @@ function SearchScreen({ route }: Props) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: Platform.OS === 'ios' ? 35 : 0, // 处理iOS状态栏
+    paddingTop: Platform.OS === 'ios' ? 44 : 0, // 处理iOS状态栏
     height: Platform.OS === 'ios' ? 88 : 48, // 处理iOS状态栏
   },
   header: {
