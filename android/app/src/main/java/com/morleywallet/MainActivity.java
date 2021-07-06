@@ -1,4 +1,4 @@
-package com.flowermate;
+package com.morleywallet;
 
 import android.os.Bundle; 
 import com.facebook.react.ReactActivity;
@@ -21,7 +21,7 @@ public class MainActivity extends ReactActivity {
    */
   @Override
   protected String getMainComponentName() {
-    return "flowermate";
+    return "morleywallet";
   }
 
   @Override

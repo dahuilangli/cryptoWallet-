@@ -15,6 +15,7 @@ import { once, title } from 'process';
 import { checkwalletAdress, checkwalletPrivateKey, verifyURL } from 'utils';
 import { stopClock } from 'react-native-reanimated';
 import { stopCoverage } from 'v8';
+import { walletConnect } from 'helper/connect';
 let camera;
 interface Props {
     route: {
