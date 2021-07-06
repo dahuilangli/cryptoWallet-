@@ -251,7 +251,7 @@ function TransferScreen(props: Props) {
           <View style={styles.modalView}>
             <View style={styles.headView}>
               <Text style={styles.headText}>{t("Choosecurrency")}</Text>
-              <TouchableWithoutFeedback
+              <TouchableOpacity
                 style={{ ...styles.openButton }}
                 onPress={() => {
                   setModalVisible(!modalVisible);
@@ -261,7 +261,7 @@ function TransferScreen(props: Props) {
                   style={styles.textStyle}
                   source={require('assets/icon-20-close.png')}
                 />
-              </TouchableWithoutFeedback>
+              </TouchableOpacity>
             </View>
             <ScrollView style={styles.groupView}>
               {assetsList.map((item, i) => (
@@ -380,7 +380,7 @@ function TransferScreen(props: Props) {
           <View style={styles.modalView}>
             <View style={styles.headViews}>
               <Text style={styles.headText} />
-              <TouchableWithoutFeedback
+              <TouchableOpacity
                 style={{ ...styles.openButton }}
                 onPress={() => {
                   setRiskWarning(!riskWarning);
@@ -390,7 +390,7 @@ function TransferScreen(props: Props) {
                   style={styles.textStyle}
                   source={require('assets/icon-20-close.png')}
                 />
-              </TouchableWithoutFeedback>
+              </TouchableOpacity>
             </View>
             <View style={styles.groupView}>
               <View style={styles.alignItemsCenter}>
@@ -593,13 +593,13 @@ const styles = StyleSheet.create({
   openButton: {
     width: 20,
     height: 20,
-    backgroundColor: 'red',
+    marginTop: 20,
+    marginLeft: SCREENWIDTH / 2 - 135,
   },
   textStyle: {
     width: 20,
     height: 20,
-    marginTop: 20,
-    marginLeft: SCREENWIDTH / 2 - 135,
+    
   },
   list: {
     flexDirection: 'row',

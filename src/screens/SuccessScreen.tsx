@@ -30,7 +30,7 @@ const SuccessScreen = ({ route }: Props) => {
   let { title, accountInfo } = route.params;
   const walletlist = useSelector(getAccountList);
   console.log('======success======');
-  console.log(accountInfo);
+  console.log(walletlist);
   console.log('====================================');
   async function storageAccount() {
     try {

@@ -81,7 +81,7 @@ function HomeScreen() {
   }
 
   async function getTransferRecordList() {
-    const data = await helper.get('/wallet/transfer_record', {address_list:['0xEFD0576c3BfBFaD91f113d722676B6Dc5a0B6879'],id:100})
+    const data = await helper.post('/wallet/transfer_record', {address_list:['0x1795C7bf318F9Ec0429fe5261E5095b3f5da4331']})
     console.log('--------------------');
     console.log(data);
     console.log('--------------------');
@@ -93,10 +93,10 @@ function HomeScreen() {
     <TouchableOpacity onPress={onPress1} style={[styles.background, style1]}>
       <View style={styles.headView}>
         <Text style={styles.titleStyle}>{item1.type}</Text>
-        <Text style={styles.timeStyle}>{formatDate(item1.time)}</Text>
+        <Text style={styles.timeStyle}>{formatDate(item1.rtime)}</Text>
       </View>
       <Text style={styles.desStyle}>{item1.title}</Text>
-      <Text numberOfLines={2} style={styles.conStyle}>{item1.content}</Text>
+      <Text numberOfLines={2} style={styles.conStyle}>{item1.subtitle}</Text>
     </TouchableOpacity>
   )
 
@@ -105,7 +105,8 @@ function HomeScreen() {
       <Item1
         item1={item}
         style1={styles.itemStyle}
-        onPress1={() => navigate('AboutUsScreen')}
+        // navigate: async () => await navigate('WebHtmlScreen', { title: '测试', uri: html })
+        onPress1={() =>  navigate('WebHtmlScreen', { title: item.title, uri: item.content })}
       >
 
       </Item1>
@@ -126,7 +127,6 @@ function HomeScreen() {
 }
 
 function SettingsScreen() {
-
   const Item2 = ({ item2, onPress2, style2 }) => (
     <TouchableOpacity onPress={onPress2} style={[styles.background, style2]}>
       <View style = {styles.headView}>

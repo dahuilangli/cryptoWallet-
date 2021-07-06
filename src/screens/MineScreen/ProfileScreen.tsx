@@ -21,6 +21,7 @@ import { User } from 'actions/types';
 import { useTranslation } from 'react-i18next';
 import DeviceInfo from 'react-native-device-info';
 import { RouteProp, useRoute, useIsFocused } from '@react-navigation/native';
+
 interface Props { }
 let systemVersion = DeviceInfo.getVersion();
 let buildVersion = DeviceInfo.getBuildNumber();
@@ -98,7 +99,7 @@ function ProfileScreen({ }: Props) {
         name: t("UserAgreement"),
         leftIcon: require('assets/icon-24-协议.png'),
         rightIcon: require('assets/icon-20-arrow-right.png'),
-        navigate: async () => await navigate('WebHtmlScreen', { title: '测试', uri: html })
+        navigate: async () => await navigate('WebHtmlScreen', { title: t("UserAgreement"), uri: html })
       }, {
         name: t("aboutus"),
         leftIcon: require('assets/icon-24-关于我们.png'),
@@ -138,9 +139,7 @@ function ProfileScreen({ }: Props) {
                 {item.name}
               </ListItem.Title>
             </ListItem.Content>
-            {
-              checkMessage && i === 1 ? <View style={styles.messageshow}></View> : <View></View>
-            }
+            
             <Image source={item.rightIcon} style={styles.rightIcon} />
           </ListItem>
         ))}

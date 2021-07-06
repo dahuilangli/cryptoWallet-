@@ -137,7 +137,7 @@ function DappScreen({ }: Props) {
           <Text style={styles.searchInput}>{t("enterDappURL")}</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.scanImage} onPress={() => {
-          navigate('ScanQRCode');
+          navigate('ScanQRCode',{title:'DappScreen',assetsList:[]});
         }}>
           <Image style={{ width: 20, height: 20 }} source={require('assets/icon-20-扫一扫.png')} />
         </TouchableOpacity>

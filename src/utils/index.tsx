@@ -43,16 +43,19 @@ export function checkEmail(emailText: string) {
   }
 }
 
-export function formatDate(date: any) {
-  date = new Date(date);
-  var y = date.getFullYear();
-  var m = date.getMonth() + 1;
-  var d = date.getDate();
-  var h = date.getHours();
-  var m1 = date.getMinutes();
-  m = m < 10 ? ("0" + m) : m;
-  d = d < 10 ? ("0" + d) : d;
-  return y + "-" + m + "-" + d + " " + h + ":" + m1;
+export function formatDate(timestamp: any) {
+  var date = new Date(timestamp);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
+            var Y = date.getFullYear() + '-';
+            var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+            var D = (date.getDate() < 10 ? '0'+date.getDate() : date.getDate()) + ' ';
+            var h = (date.getHours() < 10 ? '0'+date.getHours() : date.getHours()) + ':';
+            var m = (date.getMinutes() < 10 ? '0'+date.getMinutes() : date.getMinutes()) + ':';
+            var s = (date.getSeconds() < 10 ? '0'+date.getSeconds() : date.getSeconds());
+
+            let strDate = Y+M+D+h+m+s;
+            console.log(strDate) //2020-05-08 17:44:56　
+            return strDate;
+
 }
 //替换字符串‘*’
 export function replaceMoney(moneyString: any) {
@@ -78,4 +81,16 @@ export const verifyURL = (text: string) => {
 export const parseURL = (text: string) => {
   let a = /(\w+):\/\/([^\/:]+)(:\d*)?([^# ]*)/
   return text.match(a)
+}
+
+// 判断是否是钱包地址
+export function checkwalletAdress(walletAdress: string) {
+  var emailPattern = /^(0x)?[0-9a-fA-F]{40}$/;
+  return emailPattern.test(walletAdress)
+}
+
+//判断钱包私钥 
+export function checkwalletPrivateKey(PrivateKey: string) {
+  var emailPattern = /^(0x)?[0-9a-fA-F]{64}$/;
+  return emailPattern.test(PrivateKey)
 }
