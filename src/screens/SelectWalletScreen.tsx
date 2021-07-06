@@ -80,7 +80,6 @@ const SelectWalletScreen = (prop: Props) => {
                 case 'new':
                   navigate('SetWalletNameScreen', {
                     type: item.name_en,
-                    loginType: 'mnemonic',
                     coinInfo: item
                   });
                   break;
@@ -106,11 +105,11 @@ const SelectWalletScreen = (prop: Props) => {
             <View style={styles.listItem}>
               <Avatar
                 rounded
-                title={item.wallet[0]}
+                title={item?.name_en[0]}
                 source={{ uri: item.icon }}
                 containerStyle={styles.avatar}
               />
-              <Text style={styles.text}>{item.wallet}</Text>
+              <Text style={styles.text}>{item?.name_en}</Text>
               <Image
                 style={styles.icon}
                 source={require('assets/icon-20-arrow-right.png')}

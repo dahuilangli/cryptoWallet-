@@ -17,31 +17,19 @@ import { Avatar, Button } from 'react-native-elements';
 import { navigate } from 'components/navigationService';
 import LinearGradient from 'react-native-linear-gradient';
 import { TouchableHighlight } from 'react-native-gesture-handler';
-import { getUser } from 'reducers/walletStateReducer';
-import { Account } from 'actions/types';
 import { subSplit } from 'utils'
 import { CHAINS } from "config/constants"
 import { useSelector, useDispatch } from 'react-redux';
 import walletAction from 'actions/wallet';
-import { getAccountList } from 'reducers/walletStateReducer';
-import { getShowMoney } from 'reducers/dataStateReducer';
+import { getUser, getAccountList } from 'reducers/walletStateReducer';
+import { getShowMoney ,getCurrency} from 'reducers/dataStateReducer';
 import { replaceMoney } from 'utils'
 import * as helper from 'apis/helper'
 import { useIsFocused } from '@react-navigation/native';
+import { AssetsList } from 'actions/types';
 
 interface Props { }
-interface responseItem {
-  balance: string,
-  decimals: number,
-  gas_limit: number,
-  icon: string,
-  name: string,
-  precision: string,
-  rate_price: string,
-  symbol: string,
-  token: string,
-  wallet: string,
-}
+
 const modelLeft = [
   {
     title: CHAINS.eth,
@@ -77,10 +65,12 @@ function HomeScreen({ }: Props) {
   const isFocused = useIsFocused();
   const walletlist = useSelector(getAccountList);
   const user = useSelector(getUser);
+  const thisUser = walletlist.get(user.type)?.find(x => x.address === user.address)
   const showMoney = useSelector(getShowMoney);
+  const currenTUnit = useSelector(getCurrency);
   const [modalVisible, setModalVisible] = useState(false);
   const [selectItem, setSelectItem] = useState(0);
-  const [selectAddress, setSelectAddress] = useState(user.address);
+  const [selectAddress, setSelectAddress] = useState(thisUser?.address);
   const [assetsList, setAssetsList] = useState([])
   const [assetsSum, setAssetsSum] = useState('-')
   const { t } = useTranslation();
@@ -91,21 +81,22 @@ function HomeScreen({ }: Props) {
   }, [isFocused])
   async function getAssetsList() {
     let params = {
-      "address": user?.address,
-      "contracts": user?.contracts,
-      "wallet": user?.coinInfo?.wallet
+      "address": thisUser?.address,
+      "contracts": thisUser?.contracts,
+      "wallet": thisUser?.coinInfo?.wallet
     }
     const { data } = await helper.post('/wallet/assets', params)
-
-    setAssetsList(data)
-    console.log('====================================');
-    console.log(data);
-    console.log('====================================');
-    let a = 0;
-    data.map((s: responseItem) => {
-      a += parseFloat(s.rate_price)
-    })
-    setAssetsSum(String(a))
+    if (data && data.length > 0) {
+      setAssetsList(data)
+      let a = 0;
+      data.map((s: AssetsList) => {
+        a += parseFloat(s.rate_price)
+      })
+      setAssetsSum(String(a))
+    } else {
+      setAssetsList([])
+      setAssetsSum('-')
+    }
   }
   async function hideOrShowMoney() {
     await dispatch(walletAction.setShowMoney(!showMoney));
@@ -113,14 +104,6 @@ function HomeScreen({ }: Props) {
   function clickOnItem(index: number) {
     setSelectItem(index);
   }
-  const list = [
-    {
-      name: 'ETH',
-      avatar_url: require('assets/img-40-coointype-eth.png'),
-    },
-  ];
-
-
   return (
     <LinearGradient colors={['#3060C2', '#3B6ED5']} style={styles.container}>
       <View style={styles.main}>
@@ -131,7 +114,7 @@ function HomeScreen({ }: Props) {
               <Image source={require('assets/icon-24-切换钱包-light.png')} />
             </TouchableOpacity>
             <Text style={styles.headerTitle}>{t("wallet")}</Text>
-            <TouchableOpacity onPress={() => navigate('ScanQRCode')}>
+            <TouchableOpacity onPress={() => navigate('ScanQRCode',{title:'HomeScreen',assetsList})}>
               <Image
                 style={styles.image}
                 source={require('assets/icon-24-扫一扫-light.png')}
@@ -143,10 +126,10 @@ function HomeScreen({ }: Props) {
               style={styles.logo}
               source={require('assets/img-40-coointype-eth.png')}
             />
-            <Text style={styles.wallName}>{user?.walletName}</Text>
-            <Text style={styles.address}>{subSplit(user?.address, 4, 8)}</Text>
+            <Text style={styles.wallName}>{thisUser?.walletName}</Text>
+            <Text style={styles.address}>{subSplit(thisUser?.address, 4, 8)}</Text>
             <View style={styles.amountContainer}>
-              <Text style={styles.amountText}>¥{showMoney ? assetsSum : replaceMoney(assetsSum)}</Text>
+              <Text style={styles.amountText}>{currenTUnit === 'USDT'?'$':'¥'}{showMoney ? assetsSum : replaceMoney(assetsSum)}</Text>
               <TouchableOpacity onPress={() => { hideOrShowMoney() }}>
                 <Image
                   style={styles.eye}
@@ -172,7 +155,7 @@ function HomeScreen({ }: Props) {
                 buttonStyle={styles.button}
                 title={t("Transfer")}
                 titleStyle={styles.buttonTitle}
-                onPress={() => navigate('TransferScreen',{address:''})}
+                onPress={() => navigate('TransferScreen', { address: '', assetsList })}
               />
               <Button
                 type="clear"
@@ -191,7 +174,7 @@ function HomeScreen({ }: Props) {
                 buttonStyle={styles.buttonOne}
                 title={t("Receive")}
                 titleStyle={styles.buttonTitle}
-                onPress={() => navigate('ReceivePaymentScreen', { address: user?.address })}
+                onPress={() => navigate('ReceivePaymentScreen', { address: thisUser?.address })}
               />
             </View>
           </View>
@@ -200,7 +183,7 @@ function HomeScreen({ }: Props) {
           <View style={styles.assetsHeard}>
             <Text style={styles.assetsHeardTitle}>{t("assets")}</Text>
             <TouchableOpacity
-              onPress={() => navigate('SearchScreen', { wallet: user?.coinInfo?.wallet })}
+              onPress={() => navigate('SearchScreen', { user, assetsList })}
             >
               <Image
                 style={styles.assetsHeardImage}
@@ -209,10 +192,10 @@ function HomeScreen({ }: Props) {
             </TouchableOpacity>
           </View>
           <ScrollView>
-            {assetsList.map((item: responseItem, i) => (
+            {assetsList.map((item: AssetsList, i) => (
               <TouchableOpacity
                 style={styles.assetsList}
-                key={item?.symbol}
+                key={item?.token}
                 onPress={() =>
                   navigate('CoinDetailScreen', { title: item.symbol })
                 }
@@ -227,7 +210,7 @@ function HomeScreen({ }: Props) {
                   <Text style={styles.itemText}>{item?.symbol}</Text>
                   <View style={styles.itemDesc}>
                     <Text style={styles.descTitle}>{showMoney ? item?.balance : replaceMoney(item?.balance)}</Text>
-                    <Text style={styles.descInfo}>￥{showMoney ? item?.rate_price : replaceMoney(item?.rate_price)}</Text>
+                    <Text style={styles.descInfo}>{currenTUnit === 'USDT'?'$':'¥'}{showMoney ? item?.rate_price : replaceMoney(item?.rate_price)}</Text>
                   </View>
                 </View>
               </TouchableOpacity>
@@ -299,7 +282,7 @@ function HomeScreen({ }: Props) {
                 <Text style={styles.submenuHeader}>
                   {modelLeft[selectItem].title}
                 </Text>
-                <ScrollView scrollIndicatorInsets={{ right: -6 }}>
+                <ScrollView>
                   {walletlist.get(modelLeft[selectItem].title)?.map((item, index) => (
                     <TouchableOpacity
                       style={
@@ -353,7 +336,7 @@ function HomeScreen({ }: Props) {
                               : styles.itemAmountText
                           }
                         >
-                          {item?.amount}
+                          {item?.amount | 20000}
                         </Text>
                       </View>
                     </TouchableOpacity>
@@ -370,7 +353,7 @@ function HomeScreen({ }: Props) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: Platform.OS === 'ios' ? 35 : 0, // 处理iOS状态栏
+    paddingTop: Platform.OS === 'ios' ? 50 : 0, // 处理iOS状态栏
     height: Platform.OS === 'ios' ? 88 : 48, // 处理iOS状态栏
   },
   header: {
@@ -452,12 +435,12 @@ const styles = StyleSheet.create({
   assetsContainer: {
     flex: 1,
     backgroundColor: '#F2F5F8',
-    paddingHorizontal: 20,
   },
   assetsHeard: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     paddingVertical: 15,
+    paddingHorizontal: 20,
   },
   assetsHeardTitle: {
     fontSize: 18,
@@ -468,7 +451,9 @@ const styles = StyleSheet.create({
     width: 20,
     height: 20,
   },
-  assetsList: {},
+  assetsList: {
+    paddingHorizontal: 20,
+  },
   assetsListItem: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -548,7 +533,7 @@ const styles = StyleSheet.create({
   textStyle: {
     width: 20,
     height: 20,
-    
+
   },
   groupView: {
     flexDirection: 'row',

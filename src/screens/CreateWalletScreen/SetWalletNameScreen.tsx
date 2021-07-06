@@ -2,12 +2,6 @@ import { useTranslation } from 'react-i18next';
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, View, Text, TextInput, SafeAreaView, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { Button } from 'react-native-elements';
-import { Account } from 'actions/types';
-import {
-  genWallet,
-  importByprivateKey,
-  importByMnemonic,
-} from 'wallets/ethsWallet';
 import { navigate } from 'components/navigationService';
 
 interface Props {
@@ -21,9 +15,10 @@ interface Props {
   };
 }
 const SetWalletNameScreen = (props: Props) => {
-  const { type, loginType, coinInfo } = props.route.params;
+  const { type, loginType, coinInfo, desc } = props.route.params;
   const [walletName, setWalletName] = useState('');
   const { t } = useTranslation();
+  
 
   return (
     <SafeAreaView style={styles.container}>
@@ -46,6 +41,7 @@ const SetWalletNameScreen = (props: Props) => {
             onPress={() => {
               navigate('SetWalletPwdScreen', {
                 accountInfo: { walletName, type, coinInfo },
+                desc,
                 loginType,
               });
             }}

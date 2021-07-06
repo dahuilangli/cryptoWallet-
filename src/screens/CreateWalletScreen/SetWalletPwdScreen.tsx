@@ -4,30 +4,41 @@ import { StyleSheet, View, Text, TextInput, SafeAreaView } from 'react-native';
 
 import { Button } from 'react-native-elements';
 import { navigate } from 'components/navigationService';
-import { genWallet } from "wallets/ethsWallet";
 import { Account } from "actions/types";
-
+import {
+  genWallet,
+  importByprivateKey,
+  importByMnemonic,
+} from 'wallets/ethsWallet';
 interface Props {
   route: {
     params: {
       accountInfo: Account;
       loginType: string;
+      desc: string;
     };
   };
 }
 
 const SetWalletPwdScreen = (props: Props) => {
-  const { accountInfo } = props.route.params;
-  const { loginType } = props.route.params;
-  
-  let [account,setAccount] = useState({});
+  const { accountInfo, loginType, desc } = props.route.params;
   const [pwd, setPwd] = useState('');
+  const [account, setAccount] = useState({});
   const [repwd, setRepwd] = useState('');
-  const {t} = useTranslation();
-
+  const { t } = useTranslation();
   useEffect(() => {
-    setAccount(genWallet());
-  },[]);
+    switch (loginType) {
+      case 'mnemonic':
+        setAccount(importByMnemonic(desc));
+        break;
+      case 'privateKey':
+        setAccount(importByprivateKey(desc));
+        break;
+      default:
+        setAccount(genWallet());
+        break;
+    }
+  }, []);
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.main}>
@@ -55,12 +66,12 @@ const SetWalletPwdScreen = (props: Props) => {
           onPress={() => {
             if (loginType) {
               navigate('SuccessScreen', {
-                title: t("Createdsuccessfully"),
-                accountInfo: {...account,...accountInfo,securityCode:repwd},
+                title: t("Importsuccessful"),
+                accountInfo: { ...account, ...accountInfo, securityCode: repwd },
               });
             } else {
               navigate('SafetyTipsScreen', {
-                accountInfo: { ...account,...accountInfo,securityCode:repwd},
+                accountInfo: { ...account, ...accountInfo, securityCode: repwd },
               });
             }
           }}

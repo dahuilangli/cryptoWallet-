@@ -5,9 +5,9 @@ import MainStackNavigator from './MainStackNavigator';
 import AuthStackNavigator from './AuthStackNavigator';
 import SplashScreen from 'react-native-splash-screen';
 import { useDispatch, useSelector } from 'react-redux';
-import { getToken } from 'reducers/dataStateReducer';
+import { getToken ,getLanguage} from 'reducers/dataStateReducer';
 import { getAccountList } from 'reducers/walletStateReducer';
-
+import i18n from "i18n";
 // getAccountList
 import walletAction from 'actions/wallet'
 import * as helper from "apis/helper"
@@ -18,11 +18,12 @@ function RootScreen() {
   
   const dispatch = useDispatch();
   const accountList = useSelector(getAccountList);
+  const CurrentLanguage = useSelector(getLanguage);
   const token = useSelector(getToken);
   console.log('========accountList=================');
   console.log(accountList);
-  console.log(accountList.size);
   console.log('====================================');
+  i18n.changeLanguage(CurrentLanguage);
   React.useEffect(() => {
     findToken();
     connector

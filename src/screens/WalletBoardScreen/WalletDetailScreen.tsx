@@ -420,7 +420,6 @@ const styles = StyleSheet.create({
     height: 20,
     marginTop: 20,
     marginLeft: SCREENWIDTH / 2 - 135,
-    backgroundColor:'red',
   },
   textStyle: {
     width: 20,

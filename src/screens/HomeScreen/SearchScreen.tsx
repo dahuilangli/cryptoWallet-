@@ -14,16 +14,23 @@ import { Avatar } from 'react-native-elements';
 import { goBack } from 'components/navigationService';
 import LinearGradient from 'react-native-linear-gradient';
 import * as helper from 'apis/helper'
+import { AssetsList, thisUser } from 'actions/types';
+import { useDispatch, useSelector } from 'react-redux';
+import walletAction from 'actions/wallet';
+import { getAccountList } from 'reducers/walletStateReducer';
+import { Alert } from 'react-native';
+import { show } from 'utils';
 interface Props {
   route: {
     params: {
-      wallet: string
+      user: thisUser,
+      assetsList: Array<AssetsList>
     }
   }
 }
 
 interface responseItem {
-  "token": string,
+  "token": string | '',
   "wallet": string,
   "icon": string,
   "symbol": string,
@@ -31,35 +38,45 @@ interface responseItem {
   "info": string,
   "name": string
 }
+function getIndex(arr: string[] | Array<string>, key: string){
+  return arr.indexOf(key) != -1 ? arr.indexOf(key) : 10000;
+}
 
 function SearchScreen({ route }: Props) {
-  const { wallet } = route.params
+  const dispatch = useDispatch();
+  const { user, assetsList } = route.params;
+  const walletlist = useSelector(getAccountList);
+  const thisUser = walletlist.get(user.type)?.find(x => x.address === user.address)
   const { t } = useTranslation();
   const [coinName, setCoinName] = useState('');
   const [coinList, setCoinList] = useState({ title: '', data: [] })
-  let obj = {
-    title: t("Myassets"),
-    data: [
-      {
-        name: 'ETH',
-        contract_address: '0x32be34….8c102d88',
-        avatar_url: require('assets/img-40-coointype-eth.png'),
-      },
-      {
-        name: 'BSC',
-        contract_address: '0x32be34….8c102d88',
-        avatar_url: require('assets/img-40-coointype-币安.png'),
-      },
-    ],
-  };
-
+  const [defaultCoinList, setdefaultCoinList] = useState({ title: t("Myassets"), data: assetsList })
+  
   async function seachName(name: string) {
     if (name) {
       name = name.trim()
-      const { data } = await helper.get('/wallet/coin', { keyword: name, wallet })
-      setCoinList({ title: '搜索结果', data })
+      const { data } = await helper.get('/wallet/coin', { keyword: name, wallet: thisUser?.coinInfo?.wallet })
+      if (data.length > 0) {
+        let sortArr1: string[] = thisUser?.contracts;
+        setCoinList({ title: '搜索结果', data: data.sort(function (a: responseItem, b: responseItem) {
+          if (getIndex(sortArr1, a.token) == getIndex(data, b.token)) {
+            return 0
+          } else {
+            return getIndex(sortArr1, a.token) > getIndex(sortArr1, b.token) ? 1 : -1
+          }
+        })})
+      }
     }
   }
+
+  const addCoin = async (token: string) => {
+    if (thisUser?.contracts?.length <= 200) {
+      dispatch(walletAction.setContracts({ address: thisUser?.address, tokne: token, type: thisUser?.type }));
+    } else {
+      show('币种数量暂不支持200+')
+    }
+  }
+
 
   return (
     <LinearGradient colors={['#3060C2', '#3B6ED5']} style={styles.container}>
@@ -93,19 +110,24 @@ function SearchScreen({ route }: Props) {
                   <View style={styles.assetsListItem}>
                     <Avatar
                       rounded
-                      title={item?.name[0]}
+                      title={item?.symbol[0]}
                       source={{ uri: item?.icon }}
                       containerStyle={styles.itemAvatar}
                     />
                     <View style={styles.itemDesc}>
-                      <Text style={styles.descTitle}>{item?.name}</Text>
+                      <Text style={styles.descTitle}>{item?.symbol}</Text>
                     </View>
-                    <Image
-                      source={require('assets/icon-20-添加资产-已添加.png')}
-                    />
-                    <Image
-                      source={require('assets/icon-20-添加资产.png')}
-                    />
+                    {thisUser?.contracts?.indexOf(item.token) !== -1 ? (
+                      <Image
+                        source={require('assets/icon-20-添加资产-已添加.png')}
+                      />
+                    ) : (
+                      <TouchableOpacity onPress={() => addCoin(item.token)}>
+                        <Image
+                          source={require('assets/icon-20-添加资产.png')}
+                        />
+                      </TouchableOpacity>
+                    )}
                   </View>
                 </TouchableOpacity>
               ))}
@@ -114,20 +136,20 @@ function SearchScreen({ route }: Props) {
         ) : (
           <View style={styles.assetsContainer}>
             <View style={styles.assetsHeard}>
-              <Text style={styles.assetsHeardTitle}>{obj.title}</Text>
+              <Text style={styles.assetsHeardTitle}>{defaultCoinList.title}</Text>
             </View>
             <ScrollView>
-              {obj.data.map((item, i) => (
+              {defaultCoinList.data.map((item, i) => (
                 <TouchableOpacity style={styles.assetsList} key={i}>
                   <View style={styles.assetsListItem}>
                     <Avatar
                       rounded
-                      source={item.avatar_url}
+                      title={item.symbol[0]}
+                      source={{ uri: item.icon }}
                       containerStyle={styles.itemAvatar}
                     />
                     <View style={styles.itemDesc}>
-                      <Text style={styles.descTitle}>{item.name}</Text>
-                      <Text style={styles.descInfo}>{item.contract_address}</Text>
+                      <Text style={styles.descTitle}>{item.symbol}</Text>
                     </View>
                     <Image
                       source={require('assets/icon-20-添加资产-已添加.png')}
@@ -146,7 +168,7 @@ function SearchScreen({ route }: Props) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: Platform.OS === 'ios' ? 35 : 0, // 处理iOS状态栏
+    paddingTop: Platform.OS === 'ios' ? 44 : 0, // 处理iOS状态栏
     height: Platform.OS === 'ios' ? 88 : 48, // 处理iOS状态栏
   },
   header: {

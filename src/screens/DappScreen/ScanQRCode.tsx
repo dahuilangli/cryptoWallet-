@@ -11,12 +11,23 @@ import {
     Alert,
 } from 'react-native';
 import { navigate } from 'components/navigationService';
-import { title } from 'process';
-import { walletConnect } from 'helper/connect';
-import WalletConnect from '@walletconnect/client';
-import { createIconSetFromIcoMoon } from 'react-native-vector-icons';
+import { once, title } from 'process';
+import { checkwalletAdress, checkwalletPrivateKey, verifyURL } from 'utils';
+import { stopClock } from 'react-native-reanimated';
+import { stopCoverage } from 'v8';
 let camera;
-const ScanQRCode = () => {
+interface Props {
+    route: {
+        params: {
+            title: string,
+            assetsList: any ,
+        }
+    }
+}
+
+const ScanQRCode = (props: Props) => {
+    const {title} = props.route.params;
+    const {assetsList} = props.route.params;
     const moveAnim = useRef(new Animated.Value(-2)).current;
     useEffect(() => {
         requestCameraPermission();
@@ -96,15 +107,35 @@ const ScanQRCode = () => {
         ]).start(() => startAnimation());
 
     };
-    const onBarCodeRead =  (result: any) => {
-        const { data } = result; //只要拿到data就可以了
-        
-        walletConnect(data)
-          if(data != undefined){
-              navigate('TransferScreen',{address : data});
-          }
-        //扫码后的操作
-        // navigate('WebScreen',{title:'Dapp',uri:data})
+    const onBarCodeRead = (result) => {
+        try {
+            const { data } = result; //只要拿到data就可以了
+            walletConnect(data)
+            if (checkwalletAdress(data) && title === 'HomeScreen') {
+                navigate('TransferScreen', { address: data ,assetsList});
+            } else if (verifyURL(data) && title === 'PrivateKeyScreen') {
+                navigate('WebScreen', { title: 'Dapp', uri: data })
+            } else if (checkwalletPrivateKey(data) && title === 'DappScreen') {
+                Alert.alert('检验私钥');
+            } else {
+               const splitStr = data.split(':')[1];
+               console.log(splitStr);
+               
+               
+               if(checkwalletAdress(splitStr) && title === 'HomeScreen'){
+                navigate('TransferScreen', { address: splitStr ,assetsList});
+               }else{
+                  
+              setTimeout(() => {
+                    Alert.alert('地址不合规')
+                }, 1);
+               }
+               clearTimeout
+
+            }
+        } catch (error) {
+
+        }
 
     };
    
@@ -119,6 +150,7 @@ const ScanQRCode = () => {
                 type={RNCamera.Constants.Type.back}/*切换前后摄像头 front前back后*/
                 flashMode={RNCamera.Constants.FlashMode.off}/*相机闪光模式*/
                 onBarCodeRead={onBarCodeRead}
+                captureAudio={false}
             >
                 <View style={{
                     width: 500,
@@ -138,7 +170,9 @@ const ScanQRCode = () => {
                 </View>
 
                 <View style={{ flex: 1, backgroundColor: 'rgba(0, 0, 0, 0.5)', width: 500, alignItems: 'center' }}>
-                    <Text style={styles.rectangleText}>将二维码放入框内，即可自动扫描</Text>
+                    <Text style={styles.rectangleText}>{
+                        title === 'HomeScreen'?'将地址二维码放入框内，即可自动扫描':title === 'PrivateKeyScreen'? '将私钥二维码放入框内，即可自动扫描': '将网址二维码放入框内，即可自动扫描'
+                    }</Text>
                 </View>
             </RNCamera>
 

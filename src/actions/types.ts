@@ -3,13 +3,13 @@ import { DataState } from 'reducers/dataStateReducer';
 import { SettingsState } from 'reducers/settingsStateReducer';
 import { UIState } from 'reducers/uiStateReducer';
 export { UIState, DataState, SettingsState };
-import {ActionValue} from 'redux-type-actions';
+import { ActionValue } from 'redux-type-actions';
 
 import { MainStackParamList } from 'routers/MainStackNavigator';
 import { TabParamList } from 'routers/TabNavigator';
 import { AuthStackParamList } from 'routers/AuthStackNavigator';
 import walletAction from './wallet';
-import {ethers} from 'ethers';
+import { ethers } from 'ethers';
 import { getType } from 'react-native-device-info';
 import { walletState } from 'reducers/walletStateReducer';
 
@@ -17,14 +17,19 @@ export type ScreensParamList = MainStackParamList &
   TabParamList &
   AuthStackParamList;
 
+export interface thisUser {
+  address: string,
+  type: string
+}
 export interface Account {
   address: string|undefined;
   mnemonic?: ethers.utils.Mnemonic;
   privateKey: string;
   securityCode?: string;
   walletName?: string;
-  password?:string;
-  type:string;
+  password?: string;
+  type: string;
+  contracts: string[];
   coinInfo: {
     describe?: string,
     gas_decimal: number,
@@ -38,7 +43,19 @@ export interface Account {
     tx_browser?: string,
     wallet: string,
   },
-  contracts: Array<string>
+}
+
+export interface AssetsList {
+  balance?: string,
+  decimals?: number,
+  gas_limit?: number,
+  icon?: string,
+  name?: string,
+  precision?: string,
+  rate_price: string,
+  symbol: string,
+  token?: string,
+  wallet?: string,
 }
 
 export interface DappRecentItem {

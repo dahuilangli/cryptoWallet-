@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   StyleSheet,
+  ScrollView,
   SafeAreaView,
   View,
   TouchableOpacity,
@@ -16,69 +17,105 @@ import {
   Alert,
 } from 'react-native';
 import { Avatar, Button } from 'react-native-elements';
-import {SCREENHEIGHT,SCREENWIDTH} from "config/constants"
+import { useSelector } from 'react-redux';
+import { SCREENHEIGHT, SCREENWIDTH } from "config/constants"
+import walletAction from 'actions/wallet';
+import { getAccountList, getUser } from 'reducers/walletStateReducer';
+import * as helper from 'apis/helper'
+import { AssetsList } from 'actions/types';
 interface Props {
   route: {
     params: {
-      address: string
+      address: string,
+      assetsList: Array<AssetsList>,
     }
   }
 }
 
 function TransferScreen(props: Props) {
-  const { address } = props.route.params;
+  const { address, assetsList } = props.route.params;
   const [modalVisible, setModalVisible] = useState(false);
   const [transferConfirm, setTransferConfirm] = useState(false);
   const [riskWarning, setRiskWarning] = useState(false);
 
   const [receivingAddress, setReceivingAddress] = useState(address);
   const [transferAmount, setTransferAmount] = useState('');
+  const [gasList, setGasList] = useState([]);
   const [gasIndex, setGasIndex] = useState(-1);
-  const [selectCoinIndex, setSelectCoinIndex] = useState(-1);
-  const {t} = useTranslation();
-  // for (let index = 0; index < 10; index++) {
-  //   setGenericPassword(index.toString(), '密码' + index);
-  // }
-  // getGenericPassword();
+  const [selectCoinIndex, setSelectCoinIndex] = useState(0);
 
-  let list = [
-    {
-      coinName: 'ETH',
-      avatar_url: require('assets/img-40-coointype-eth.png'),
-    },
-    {
-      coinName: 'STO',
-      avatar_url: require('assets/img-40-coointype-sto.png'),
-    },
-    {
-      coinName: 'BSC',
-      avatar_url: require('assets/img-40-coointype-币安.png'),
-    },
-    {
-      coinName: 'USDT',
-      avatar_url: require('assets/img-40-coointype-USDT.png'),
-    },
-  ];
-  let gasList = [
-    {
-      title: '快速',
-      quantity: '0.000666',
-      coin: 'ETH',
-      cny: '0.6',
-    },
-    {
-      title: '平均',
-      quantity: '0.000348',
-      coin: 'ETH',
-      cny: '0.4',
-    },
-    {
-      title: '最慢',
-      quantity: '0.000219',
-      coin: 'ETH',
-      cny: '0.2',
-    },
-  ];
+  const walletlist = useSelector(getAccountList);
+  const user = useSelector(getUser);
+  const thisUser = walletlist.get(user.type)?.find(x => x.address === user.address)
+  console.log('====================================');
+  console.log(thisUser);
+  console.log('====================================');
+  const { t } = useTranslation();
+  useEffect(() => {
+    getAssetsList(selectCoinIndex),
+    getGas()
+  }, []);
+  async function getCoinItem(index: number) {
+    setSelectCoinIndex(index);
+    getAssetsList(selectCoinIndex)
+    setTimeout(() => {
+      setModalVisible(!modalVisible);
+    }, 150);
+  }
+  async function getAssetsList(coinIndex: number) {
+    let params = {
+      "address": thisUser?.address,
+      "contracts": [thisUser?.contracts[coinIndex]],
+      "wallet": thisUser?.coinInfo?.wallet
+    }
+    const { data } = await helper.post('/wallet/assets', params)
+    if (data && data.length > 0) {
+      return data[0]
+    } else {
+      return assetsList[coinIndex]
+    }
+  }
+
+  async function getGas() {
+    let params = {
+      "wallet": thisUser?.coinInfo?.wallet
+    }
+    const { code, data } = await helper.get('/wallet/gas', params)
+    console.log('============gas==============');
+    console.log(data);
+    console.log('====================================');
+    if (data && code == 200) {
+      let gas: Array<any> = []
+      if (data.average) {
+        let num = Number(data.average) / Math.pow(10, Number(thisUser?.coinInfo.gas_decimal))
+        console.log('====================================');
+        console.log(Number(num));
+        console.log('====================================');
+        gas.push()
+      }
+    }
+  }
+
+  // let gasList = [
+  //   {
+  //     title: '快速',
+  //     quantity: '0.000666',
+  //     coin: 'ETH',
+  //     cny: '0.6',
+  //   },
+  //   {
+  //     title: '平均',
+  //     quantity: '0.000348',
+  //     coin: 'ETH',
+  //     cny: '0.4',
+  //   },
+  //   {
+  //     title: '最慢',
+  //     quantity: '0.000219',
+  //     coin: 'ETH',
+  //     cny: '0.2',
+  //   },
+  // ];
   return (
     <SafeAreaView style={styles.container}>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -89,13 +126,15 @@ function TransferScreen(props: Props) {
               style={styles.selectCoin}
               onPress={() => setModalVisible(!modalVisible)}
             >
-              <Image
-                style={styles.coinLogo}
-                source={require('assets/img-40-coointype-eth.png')}
+              <Avatar
+                rounded
+                title={assetsList[selectCoinIndex]?.symbol[0]}
+                containerStyle={styles.coinLogo}
+                source={{ uri: assetsList[selectCoinIndex]?.icon }}
               />
               <View style={styles.coinNameList}>
-                <Text style={styles.coinName}>ETH</Text>
-                <Text style={styles.coinNameInfo}>{t("Balance")}: 0.0043 ETH</Text>
+                <Text style={styles.coinName}>{assetsList[selectCoinIndex]?.symbol}</Text>
+                <Text style={styles.coinNameInfo}>{t("Balance")}: {assetsList[selectCoinIndex]?.balance} {assetsList[selectCoinIndex]?.symbol}</Text>
               </View>
               <Image
                 style={styles.coinGo}
@@ -136,11 +175,11 @@ function TransferScreen(props: Props) {
                   style={
                     gasIndex === index
                       ? // eslint-disable-next-line react-native/no-inline-styles
-                        {
-                          ...styles.gasItem,
-                          borderColor: '#3D73DD',
-                          borderWidth: 0.5,
-                        }
+                      {
+                        ...styles.gasItem,
+                        borderColor: '#3D73DD',
+                        borderWidth: 0.5,
+                      }
                       : styles.gasItem
                   }
                   onPress={() => setGasIndex(index)}
@@ -149,7 +188,7 @@ function TransferScreen(props: Props) {
                     style={
                       gasIndex === index
                         ? // eslint-disable-next-line react-native/no-inline-styles
-                          { ...styles.gasItemTitle, color: '#3D73DD' }
+                        { ...styles.gasItemTitle, color: '#3D73DD' }
                         : styles.gasItemTitle
                     }
                   >
@@ -159,11 +198,11 @@ function TransferScreen(props: Props) {
                     style={
                       gasIndex === index
                         ? // eslint-disable-next-line react-native/no-inline-styles
-                          {
-                            ...styles.gasItemSum,
-                            color: '#3D73DD',
-                            opacity: 0.5,
-                          }
+                        {
+                          ...styles.gasItemSum,
+                          color: '#3D73DD',
+                          opacity: 0.5,
+                        }
                         : styles.gasItemSum
                     }
                   >
@@ -173,11 +212,11 @@ function TransferScreen(props: Props) {
                     style={
                       gasIndex === index
                         ? // eslint-disable-next-line react-native/no-inline-styles
-                          {
-                            ...styles.gasItemSums,
-                            color: '#3D73DD',
-                            opacity: 0.5,
-                          }
+                        {
+                          ...styles.gasItemSums,
+                          color: '#3D73DD',
+                          opacity: 0.5,
+                        }
                         : styles.gasItemSums
                     }
                   >
@@ -219,7 +258,7 @@ function TransferScreen(props: Props) {
           <View style={styles.modalView}>
             <View style={styles.headView}>
               <Text style={styles.headText}>{t("Choosecurrency")}</Text>
-              <TouchableWithoutFeedback
+              <TouchableOpacity
                 style={{ ...styles.openButton }}
                 onPress={() => {
                   setModalVisible(!modalVisible);
@@ -229,27 +268,22 @@ function TransferScreen(props: Props) {
                   style={styles.textStyle}
                   source={require('assets/icon-20-close.png')}
                 />
-              </TouchableWithoutFeedback>
+              </TouchableOpacity>
             </View>
-            <View style={styles.groupView}>
-              {list.map((item, i) => (
+            <ScrollView style={styles.groupView}>
+              {assetsList.map((item, i) => (
                 <TouchableOpacity
                   style={styles.list}
-                  key={item.coinName}
-                  onPress={() => {
-                    setSelectCoinIndex(i);
-
-                    setTimeout(() => {
-                      setModalVisible(!modalVisible);
-                    }, 150);
-                  }}
+                  key={item?.token}
+                  onPress={() => getCoinItem(i)}
                 >
                   <Avatar
                     rounded
-                    source={item.avatar_url}
+                    title={item?.symbol[0]}
+                    source={{ uri: item?.icon }}
                     containerStyle={styles.avatar}
                   />
-                  <Text style={styles.listCoinName}>{item.coinName}</Text>
+                  <Text style={styles.listCoinName}>{item?.symbol}</Text>
                   {selectCoinIndex === i ? (
                     <Avatar
                       rounded
@@ -259,7 +293,7 @@ function TransferScreen(props: Props) {
                   ) : undefined}
                 </TouchableOpacity>
               ))}
-            </View>
+            </ScrollView>
             <View style={styles.lineView} />
           </View>
         </View>
@@ -353,7 +387,7 @@ function TransferScreen(props: Props) {
           <View style={styles.modalView}>
             <View style={styles.headViews}>
               <Text style={styles.headText} />
-              <TouchableWithoutFeedback
+              <TouchableOpacity
                 style={{ ...styles.openButton }}
                 onPress={() => {
                   setRiskWarning(!riskWarning);
@@ -363,7 +397,7 @@ function TransferScreen(props: Props) {
                   style={styles.textStyle}
                   source={require('assets/icon-20-close.png')}
                 />
-              </TouchableWithoutFeedback>
+              </TouchableOpacity>
             </View>
             <View style={styles.groupView}>
               <View style={styles.alignItemsCenter}>
@@ -535,6 +569,7 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 8,
     borderTopRightRadius: 8,
     width: SCREENWIDTH,
+    height: SCREENHEIGHT / 2
   },
   headView: {
     flexDirection: 'row',
@@ -565,13 +600,13 @@ const styles = StyleSheet.create({
   openButton: {
     width: 20,
     height: 20,
-    backgroundColor :'red',
+    marginTop: 20,
+    marginLeft: SCREENWIDTH / 2 - 135,
   },
   textStyle: {
     width: 20,
     height: 20,
-    marginTop: 20,
-    marginLeft: SCREENWIDTH / 2 - 135,
+    
   },
   list: {
     flexDirection: 'row',
