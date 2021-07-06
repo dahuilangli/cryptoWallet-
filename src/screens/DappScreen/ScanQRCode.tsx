@@ -12,6 +12,9 @@ import {
 } from 'react-native';
 import { navigate } from 'components/navigationService';
 import { title } from 'process';
+import { walletConnect } from 'helper/connect';
+import WalletConnect from '@walletconnect/client';
+import { createIconSetFromIcoMoon } from 'react-native-vector-icons';
 let camera;
 const ScanQRCode = () => {
     const moveAnim = useRef(new Animated.Value(-2)).current;
@@ -93,13 +96,18 @@ const ScanQRCode = () => {
         ]).start(() => startAnimation());
 
     };
-    const onBarCodeRead = (result) => {
-        const {data}  = result; //只要拿到data就可以了
+    const onBarCodeRead =  (result: any) => {
+        const { data } = result; //只要拿到data就可以了
+        
+        walletConnect(data)
+          if(data != undefined){
+              navigate('TransferScreen',{address : data});
+          }
         //扫码后的操作
         // navigate('WebScreen',{title:'Dapp',uri:data})
-        navigate('TransferScreen',{address : data});
 
     };
+   
     return (
         <View style={styles.container}>
             <RNCamera

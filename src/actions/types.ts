@@ -18,7 +18,7 @@ export type ScreensParamList = MainStackParamList &
   AuthStackParamList;
 
 export interface Account {
-  address: string;
+  address: string|undefined;
   mnemonic?: ethers.utils.Mnemonic;
   privateKey: string;
   securityCode?: string;
