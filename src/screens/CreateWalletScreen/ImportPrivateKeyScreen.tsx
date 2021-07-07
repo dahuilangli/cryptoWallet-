@@ -51,6 +51,10 @@ const ImportPrivateKeyScreen = (props: Props) => {
               importByprivateKey(
                 privateKey.replace(/(^\s*)|(\s*$)/g, ''),
               );
+              console.log('111111111111111');
+              
+              console.log(coinInfo);
+              
               navigate('SetWalletNameScreen', {
                 type,
                 loginType: 'privateKey',
