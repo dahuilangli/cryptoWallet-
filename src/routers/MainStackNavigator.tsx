@@ -39,16 +39,17 @@ import { useDispatch } from 'react-redux';
 import walletAction from 'actions/wallet';
 import { Account, AddressBookItem, AssetsList, thisUser } from 'actions/types';
 import { walletState } from 'reducers/walletStateReducer';
+
 export type MainStackParamList = {
   TabNavigator: undefined;
   PostFeedScreen: undefined;
   AboutUsScreen: undefined;
   SuggestScreen: undefined;
-  UpdateScreen: {item:Object;checkVersion:Boolean};
+  UpdateScreen: { item: Object; checkVersion: Boolean };
   MessageScreen: undefined;
   SetUpScreen: undefined;
   FlashRecordScreen: undefined;
-  ScanQRCode: {title?:string , assetsList: Array<AssetsList> };
+  ScanQRCode: { title?: string, assetsList: Array<AssetsList> };
   LanguageSetScreen: undefined;
   CurrencySetScreen: undefined;
   AddressBookScreen: { title: string; showMyself?: boolean };
@@ -61,12 +62,12 @@ export type MainStackParamList = {
   DappSearchScreen: { coin: Array<string> };
   CoinDetailScreen: { title: string };
   WalletBoardScreen: undefined;
-  WalletDetailScreen: undefined;
+  WalletDetailScreen: { addressMessage: any };
   TransferScreen: { assetsList: Array<AssetsList> };
   ReceivePaymentScreen: { address: string };
-  ExportMnemonicScreen: undefined;
-  ExportPrivateKeyScreen: undefined;
-  EditPwdScreen: undefined;
+  ExportMnemonicScreen: { mnemonic: string };
+  ExportPrivateKeyScreen: { privatekey: string };
+  EditPwdScreen: { address: string, pwds: string, type: string, setPwds: Function };
 
   DappWebScreen: { title?: string; uri: string; item: {} }
 };
@@ -76,6 +77,7 @@ const { Navigator, Screen } = createStackNavigator<MainStackParamList>();
 export default function MainStackNavigator() {
   const { t } = useTranslation();
   const dispatch = useDispatch();
+
   async function addAddressBook(item: AddressBookItem) {
     await dispatch(walletAction.deleteAddressBookList(item));
   }

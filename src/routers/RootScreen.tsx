@@ -24,6 +24,7 @@ function RootScreen() {
   React.useEffect(() => {
     i18n.changeLanguage(CurrentLanguage);
     findToken();
+    i18n.changeLanguage(CurrentLanguage);
     SplashScreen.hide();
   }, []);
   async function findToken() {

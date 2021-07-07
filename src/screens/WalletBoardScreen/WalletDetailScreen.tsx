@@ -13,33 +13,72 @@ import {
   KeyboardAvoidingView,
   Platform,
   Keyboard,
+  Alert,
 } from 'react-native';
 import { Button } from 'react-native-elements';
 import { copyToClipboard } from 'utils';
 import { navigate } from 'components/navigationService';
-import i18n from 'i18n'
-import {SCREENHEIGHT,SCREENWIDTH} from "config/constants"
+import { SCREENHEIGHT, SCREENWIDTH } from "config/constants"
 import { useTranslation } from 'react-i18next';
+import { useDispatch, useSelector } from 'react-redux';
+import walletAction from 'actions/wallet';
+import { Account } from 'actions/types';
+interface Props {
+  route: {
+    params: {
+        addressMessage: {
+        address: string;
+        mnemonic: string;
+        privateKey: string;
+        securityCode: string;
+        walletName: string;
+        password: string;
+        type: string;
+        contracts: string[];
+        coinInfo: {
+          describe: string,
+          gas_decimal: number,
+          gas_limit: number,
+          icon: string,
+          name_en: string,
+          name_zh: string,
+          token: string,
+          token_limit: number,
+          token_name: string,
+          tx_browser: string,
+          wallet: string,
+        },
+      }
+    }
+  }
+}
+function WalletDetailScreen(props: Props) {
+  const { t } = useTranslation();
 
-
-interface Props {}
-function WalletDetailScreen({}: Props) {
-  const {t} = useTranslation();
-  let pwds = '111111';
+  const dispatch = useDispatch();
+  const { addressMessage } = props.route.params;
+  console.log(addressMessage);
+  const [pwds ,setPwds] = useState(addressMessage.securityCode);
   const [pwd, setPwd] = useState('');
-  let name = 'Jason的钱包';
-  const [wallName, setWallName] = useState(name);
+  const [wallName, setWallName] = useState(addressMessage.walletName);
   const [transferConfirm, setTransferConfirm] = useState(false);
   const [wallNameModel, setWallNameModel] = useState(false);
-  const address = '0x4250c3c0094A65dd12f6C41D8c4C6ec10ff458f7';
-
   const [navigateName, setNavigateName] = useState('');
+  const [exportModel, setExportModel] = useState(false);
+  const changeWalletName = async (walletNameStr: string) => {
+    await dispatch(walletAction.setWalletName({ address: addressMessage.address, walletName: walletNameStr, type: addressMessage.type }));
+  }
+
 
   function goNavigate(screenName: string) {
     if (screenName) {
       setNavigateName(screenName);
       setPwd('');
-      setTransferConfirm(!transferConfirm);
+      if (screenName === 'mnemonic') {
+        addressMessage.mnemonic ? setTransferConfirm(!transferConfirm) : Alert.alert('私钥导入创建暂无助记词')
+      } else {
+        setTransferConfirm(!transferConfirm);
+      }
     }
     return;
   }
@@ -47,7 +86,9 @@ function WalletDetailScreen({}: Props) {
     <SafeAreaView style={styles.flex_1}>
       <View style={{ ...styles.flex_1, ...styles.container }}>
         <TouchableWithoutFeedback
-          onPress={() => setWallNameModel(!wallNameModel)}
+          onPress={() => {
+            setWallNameModel(!wallNameModel)
+          }}
         >
           <View
             style={{
@@ -56,14 +97,14 @@ function WalletDetailScreen({}: Props) {
               ...styles.padding_20,
             }}
           >
-            <Text style={styles.title}>{name}</Text>
+            <Text style={styles.title}>{wallName}</Text>
             <Image
               style={styles.icon_20}
               source={require('assets/icon-20-edit.png')}
             />
           </View>
         </TouchableWithoutFeedback>
-        <TouchableWithoutFeedback onPress={() => copyToClipboard(address, t('copySuccess'))}>
+        <TouchableWithoutFeedback onPress={() => copyToClipboard(addressMessage.address, t('copySuccess'))}>
           <View style={styles.itemContainer}>
             <View
               style={{
@@ -87,7 +128,7 @@ function WalletDetailScreen({}: Props) {
                 ...styles.paddingBottom_20,
               }}
             >
-              {address}
+              {addressMessage.address}
             </Text>
           </View>
         </TouchableWithoutFeedback>
@@ -174,7 +215,7 @@ function WalletDetailScreen({}: Props) {
                     onPress={() => {
                       setTransferConfirm(!transferConfirm);
                       console.log('111111111111r');
-                      
+
                     }}
                   >
                     <Image
@@ -202,13 +243,13 @@ function WalletDetailScreen({}: Props) {
                             setTransferConfirm(!transferConfirm);
                             switch (navigateName) {
                               case 'privateKey':
-                                navigate('ExportPrivateKeyScreen');
+                                navigate('ExportPrivateKeyScreen', { privatekey: addressMessage.privateKey });
                                 break;
                               case 'mnemonic':
-                                navigate('ExportMnemonicScreen');
+                                navigate('ExportMnemonicScreen', { mnemonic: addressMessage.mnemonic });
                                 break;
                               case 'editPwd':
-                                navigate('EditPwdScreen');
+                                navigate('EditPwdScreen',{address:addressMessage.address,type:addressMessage.type,pwds:addressMessage.securityCode,setPwds});
                                 break;
                               default:
                                 break;
@@ -283,7 +324,10 @@ function WalletDetailScreen({}: Props) {
                         buttonStyle={styles.buttonStyle}
                         title={t("sure")}
                         titleStyle={styles.buttonModelTitle}
-                        onPress={() => (name = wallName)}
+                        onPress={() => {
+                          setWallNameModel(!wallNameModel);
+                          changeWalletName(wallName);
+                        }}
                       />
                       <Button
                         buttonStyle={styles.cancelButtonStyle}
@@ -299,6 +343,17 @@ function WalletDetailScreen({}: Props) {
             </TouchableWithoutFeedback>
           </KeyboardAvoidingView>
         </View>
+      </Modal>
+      <Modal
+        animationType="fade"
+        transparent={true}
+        hardwareAccelerated={true}
+        visible={wallNameModel}
+        onRequestClose={() => {
+          setExportModel(!exportModel);
+        }}
+      >
+
       </Modal>
     </SafeAreaView>
   );

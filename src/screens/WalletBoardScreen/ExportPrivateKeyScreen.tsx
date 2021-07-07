@@ -8,11 +8,17 @@ import { copyToClipboard } from 'utils';
 import { useTranslation } from 'react-i18next';
 
 
-interface Props {}
+interface Props {
+  route: {
+    params: {
+      privatekey:string,
+    }
+  }
+}
 
 
-const ExportPrivateKeyScreen = ({}: Props) => {
-  let privateKey = '0x4250c3c0094A65d3c0094A65dd12f6Cd123';
+const ExportPrivateKeyScreen = (props: Props) => {
+  let privateKey = props.route.params.privatekey;
   const {t} = useTranslation();
   return (
     <SafeAreaView style={styles.container}>

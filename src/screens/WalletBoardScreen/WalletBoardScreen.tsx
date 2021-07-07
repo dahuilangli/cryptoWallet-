@@ -13,101 +13,35 @@ import {
 import {SCREENHEIGHT,SCREENWIDTH} from "config/constants"
 import { Button } from 'react-native-elements';
 import { navigate } from 'components/navigationService';
+import { CHAINS } from "config/constants"
+import { useSelector } from 'react-redux';
+import { getAccountList , getUser} from 'reducers/walletStateReducer';
+import { subSplit } from 'utils'
 interface Props {}
 
 const modelLeft = [
   {
-    title: 'ETH',
-    img: require('assets/img-40-coointype-eth.png'),
+    title: CHAINS.eth,
+    img: require('assets/coins/img-40-coointype-eth.png'),
+    img_off: require('assets/coins/img-40-coointype-eth-off.png'),
   },
   {
-    title: 'ETH',
-    img: require('assets/img-40-coointype-币安-off.png'),
+    title: CHAINS.bnb,
+    img: require('assets/coins/img-40-coointype-币安.png'),
+    img_off: require('assets/coins/img-40-coointype-币安-off.png'),
   },
   {
-    title: 'ETH',
-    img: require('assets/img-40-coointype-pk-off.png'),
+    title: CHAINS.ht,
+    img: require('assets/coins/img-40-coointype-pk.png'),
+    img_off: require('assets/coins/img-40-coointype-pk-off.png'),
   },
 ];
-const DATA = [
-  {
-    title: 'ETH',
-    data: [
-      {
-        walletName: '钱包1',
-        address: '0x32be34….8c102d81',
-        amount: 0,
-      },
-      {
-        walletName: '钱包2',
-        address: '0x32be34….8c102d82',
-        amount: 0,
-      },
-      {
-        walletName: '钱包3',
-        address: '0x32be34….8c102d83',
-        amount: 0,
-      },
-      {
-        walletName: '钱包4',
-        address: '0x32be34….8c102d84',
-        amount: 0,
-      },
-    ],
-  },
-  {
-    title: 'OKEX',
-    data: [
-      {
-        walletName: '钱包1',
-        address: '0x32be34….8c102d85',
-        amount: 0,
-      },
-      {
-        walletName: '钱包2',
-        address: '0x32be34….8c102d86',
-        amount: 0,
-      },
-      {
-        walletName: '钱包3',
-        address: '0x32be34….8c102d87',
-        amount: 0,
-      },
-      {
-        walletName: '钱包4',
-        address: '0x32be34….8c102d88',
-        amount: 0,
-      },
-    ],
-  },
-  {
-    title: 'HUOBI',
-    data: [
-      {
-        walletName: '钱包1',
-        address: '0x32be34….8c102d89',
-        amount: 0,
-      },
-      {
-        walletName: '钱包2',
-        address: '0x32be34….8c102d10',
-        amount: 0,
-      },
-      {
-        walletName: '钱包3',
-        address: '0x32be34….8c102d11',
-        amount: 0,
-      },
-      {
-        walletName: '钱包4',
-        address: '0x32be34….8c102d12',
-        amount: 0,
-      },
-    ],
-  },
-];
+
 function WalletBoardScreen({}: Props) {
   const {t} = useTranslation();
+  const walletlist = useSelector(getAccountList);
+  const USer = useSelector(getUser);
+  
   let sectionList: any;
   const [selectItem, setSelectItem] = useState(0);
   function clickOnItem(index: number) {
@@ -128,35 +62,37 @@ function WalletBoardScreen({}: Props) {
             <TouchableHighlight
               key={index}
               underlayColor="transparent"
-              style={index === selectItem ? styles.menuItemS : styles.menuItem}
+              style={
+                index === selectItem ? styles.menuItemS : styles.menuItem
+              }
               onPress={() => clickOnItem(index)}
             >
-              <Image source={item.img} />
+              <Image source={index === selectItem ? item.img : item.img_off} />
             </TouchableHighlight>
           ))}
         </View>
         <View style={styles.submenu}>
-          <Text style={styles.submenuHeader}>{DATA[selectItem]?.title}</Text>
+          <Text style={styles.submenuHeader}>{modelLeft[selectItem]?.title}</Text>
           <ScrollView scrollIndicatorInsets={{ right: -6 }}>
-            {DATA[selectItem]?.data.map((item, index) => (
+            {walletlist.get(modelLeft[selectItem].title)?.map((item, index) =>(
               <TouchableOpacity
                 style={styles.submenuItem}
                 key={index}
-                onPress={() => navigate('WalletDetailScreen')}
+                onPress={() => navigate('WalletDetailScreen',{addressMessage:item})}
               >
                 <Text style={styles.itemNameText}>{item?.walletName}</Text>
                 <View style={styles.itemName}>
-                  <Text style={styles.itemAddress}>{item?.address}</Text>
+                  <Text style={styles.itemAddress}>{subSplit(item?.address, 8, 8)}</Text>
 
                   <Image
                     style={styles.itemNameImage}
                     source={require('assets/icon-20-arrow-right.png')}
                   />
                 </View>
-                <View style={styles.itemAmountContainer}>
+                {/* <View style={styles.itemAmountContainer}>
                   <Text style={styles.itemAmount}>{t("AvailableBalance")}</Text>
                   <Text style={styles.itemAmountText}>{item?.amount}</Text>
-                </View>
+                </View> */}
               </TouchableOpacity>
             ))}
           </ScrollView>

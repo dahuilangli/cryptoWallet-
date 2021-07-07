@@ -24,6 +24,8 @@ const Wallet = createActions({
   setLocation: createAction<Location>(),
   // 添加账户币种
   setContracts: createAction<{address: string | undefined, tokne: string, type: string | ''}>(),
+  setWalletName:createAction<{address:string | undefined,walletName:string,type: string | ''}>(),
+  setPassWord:createAction<{address:string | undefined,securityCode:string ,type: string | ''}>(),
   getAccountList: NoArgAction,
   getUser: NoArgAction,
   getToken: NoArgAction,

@@ -59,7 +59,21 @@ export default (origin = initialState, walletAction: WalletAction) =>{
         let payload = walletAction.payload;
         state.accountList.get(payload.type)?.find(x => x.address === payload.address)?.contracts.push(payload.tokne)
         return;
+      case 'setWalletName':
+        let payload1 = walletAction.payload;
+        console.log('11111111');
+        const WALLETName = state.accountList.get(payload1.type)?.find(x => x.address === payload1.address)
+        var walletnameObject = Object(WALLETName)
+        walletnameObject.walletName = payload1.walletName;
         
+        return;
+      case 'setPassWord':
+        console.log(walletAction.payload);
+        let payload2 = walletAction.payload;
+        const WALLETName1  = state.accountList.get(payload2.type)?.find(x => x.address === payload2.address);
+        var walletnameObject = Object(WALLETName1)
+        walletnameObject.securityCode=payload2.securityCode;
+        return;
       default:
         return
     }
