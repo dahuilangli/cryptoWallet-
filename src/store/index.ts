@@ -3,17 +3,14 @@ import {rootReducer} from 'reducers';
 import {createStore,applyMiddleware } from 'redux';
 import { persistReducer, persistStore,createTransform } from 'redux-persist';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import createSagaMiddleware from 'redux-saga';
+// import createSagaMiddleware from 'redux-saga';
 import logger from 'redux-logger';
-import {sagas} from 'sagas';
-import { fromJS, Record } from 'immutable'
+// import {sagas} from 'sagas';
 import thunkMiddleware from "redux-thunk";
-import { Account } from 'actions/types';
 import { walletState } from 'reducers/walletStateReducer';
-// import immutableTransform from 'redux-persist-transform-immutable'
-// import { walletState } from 'reducers/walletStateReducer';
 
-const sagaMiddleware = createSagaMiddleware()
+
+// const sagaMiddleware = createSagaMiddleware()
 
 const MapTransform = createTransform(
   (inboundState: walletState, key:any) => {
@@ -33,7 +30,8 @@ const persistedReducer = persistReducer(
   rootReducer,
 );
 
-export  const ReduxStore = createStore(persistedReducer, composeWithDevTools(applyMiddleware(thunkMiddleware,sagaMiddleware)));
+// export  const ReduxStore = createStore(persistedReducer, composeWithDevTools(applyMiddleware(thunkMiddleware,logger,sagaMiddleware)));
+export  const ReduxStore = createStore(persistedReducer, composeWithDevTools(applyMiddleware(thunkMiddleware,logger)));
 
-sagaMiddleware.run(sagas);
+// sagaMiddleware.run(sagas);
 export const persistor = persistStore(ReduxStore)

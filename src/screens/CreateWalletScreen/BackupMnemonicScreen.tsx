@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
   },
   main: {
     flex: 1,
-    marginHorizontal: 25,
+    marginHorizontal: 20,
     justifyContent: 'space-between',
   },
   presentText: {
@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
     height: 55,
     borderRadius: 8,
     fontSize: 16,
-    marginTop: 40,
+    marginBottom: 20,
     backgroundColor: '#3B6ED5',
   },
   nextButtonTitle: {
