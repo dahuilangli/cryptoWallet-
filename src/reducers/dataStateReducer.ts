@@ -9,6 +9,7 @@ export interface DataState {
   language: string;
   currency: string;
   showMoney: boolean;
+  showRisk: boolean;
 }
 export const initialState: Readonly<DataState> = {
   token: '',
@@ -16,7 +17,8 @@ export const initialState: Readonly<DataState> = {
   addressBookList: [],
   language: 'en',
   currency: 'CNY',
-  showMoney:true,
+  showMoney: true,
+  showRisk: true,
 };
 
 export const selectDataState = (reduxState: ReduxState) => reduxState.dataState;
@@ -40,6 +42,11 @@ export const getShowMoney = createSelector(
   selectDataState,
   (dataState) => dataState.showMoney,
 );
+export const getShowRisk = createSelector(
+  selectDataState,
+  (dataState) => dataState.showRisk,
+);
+
 
 export const getDappSearchList = createSelector(
   selectDataState,
@@ -63,8 +70,8 @@ const reducer = (originalState = initialState, walletAction: WalletAction) =>
       case 'setLanguage':
         state.language = walletAction.payload;
         return;
-      case 'setLanguage':
-        state.language = walletAction.payload;
+      case 'setShowRisk':
+        state.showRisk = walletAction.payload;
         return;
       case 'setCurrency':
         state.currency = walletAction.payload;

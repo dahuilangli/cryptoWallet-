@@ -167,7 +167,7 @@ function HomeScreen({ }: Props) {
                 buttonStyle={styles.button}
                 title={t("Transfer")}
                 titleStyle={styles.buttonTitle}
-                onPress={() => navigate('TransferScreen', { address: '', assetsList })}
+                onPress={() => navigate('TransferScreen', { assetsList })}
               />
               <Button
                 type="clear"

@@ -16,13 +16,13 @@ import DeviceInfo from 'react-native-device-info';
 function RootScreen() {
   const dispatch = useDispatch();
   const accountList = useSelector(getAccountList);
-  const CurrentLanguage = useSelector(getLanguage);
   const token = useSelector(getToken);
+  const CurrentLanguage = useSelector(getLanguage);
   console.log('========accountList=================');
   console.log(accountList);
   console.log('====================================');
-  i18n.changeLanguage(CurrentLanguage);
   React.useEffect(() => {
+    i18n.changeLanguage(CurrentLanguage);
     findToken();
     SplashScreen.hide();
   }, []);

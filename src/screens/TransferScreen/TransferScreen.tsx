@@ -17,43 +17,46 @@ import {
   Alert,
 } from 'react-native';
 import { Avatar, Button } from 'react-native-elements';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { SCREENHEIGHT, SCREENWIDTH } from "config/constants"
 import walletAction from 'actions/wallet';
 import { getAccountList, getUser } from 'reducers/walletStateReducer';
-import { getCurrency } from 'reducers/dataStateReducer';
+import { getCurrency, getShowRisk } from 'reducers/dataStateReducer';
 import * as helper from 'apis/helper'
 import { AssetsList } from 'actions/types';
-import { Mul, Div, Add, Sub } from 'wallets/ethsWallet'
+import { Mul, Div, Add, Sub, transaction } from 'wallets/ethsWallet'
 interface Props {
   route: {
     params: {
-      address: string,
       assetsList: Array<AssetsList>,
     }
   }
 }
 
 function TransferScreen(props: Props) {
-  const { address, assetsList } = props.route.params;
+  const dispatch = useDispatch();
+  const currenTUnit = useSelector(getCurrency);
+  const showRisk = useSelector(getShowRisk);
   const [modalVisible, setModalVisible] = useState(false);
   const [transferConfirm, setTransferConfirm] = useState(false);
   const [riskWarning, setRiskWarning] = useState(false);
 
-  const [receivingAddress, setReceivingAddress] = useState(address);
+  const [assetsList, setAssetsList] = useState(props.route.params.assetsList);
+  const [receivingAddress, setReceivingAddress] = useState('');
   const [transferAmount, setTransferAmount] = useState('');
-  const [gasList, setGasList] = useState<Array<{ title: string; balance: string; amount: string }>>([]);
+  const [securityCode, setSecurityCode] = useState('');
+  const [gasList, setGasList] = useState<Array<{ gasPrice: string; title: string; balance: string; amount: string }>>([]);
   const [gasIndex, setGasIndex] = useState(-1);
   const [selectCoinIndex, setSelectCoinIndex] = useState(0);
 
-  const currenTUnit = useSelector(getCurrency);
+
   const walletlist = useSelector(getAccountList);
   const user = useSelector(getUser);
   const thisUser = walletlist.get(user.type)?.find(x => x.address === user.address)
   const { t } = useTranslation();
   useEffect(() => {
-    getAssetsList(selectCoinIndex),
-      getGas()
+    getAssetsList(selectCoinIndex);
+    getGas();
   }, []);
   async function getCoinItem(index: number) {
     setSelectCoinIndex(index);
@@ -62,52 +65,109 @@ function TransferScreen(props: Props) {
       setModalVisible(!modalVisible);
     }, 150);
   }
+  // 刷新币种信息缓存
   async function getAssetsList(coinIndex: number) {
     let params = {
-      "address": thisUser?.address,
+      "address": user?.address,
       "contracts": [thisUser?.contracts[coinIndex]],
       "wallet": thisUser?.coinInfo?.wallet
     }
     const { data } = await helper.post('/wallet/assets', params)
     if (data && data.length > 0) {
-      return data[0]
-    } else {
-      return assetsList[coinIndex]
+      assetsList[coinIndex] = data[0]
+      setAssetsList(assetsList)
     }
+    return
   }
-
+  // 获取GasList
   async function getGas() {
     let params = {
       "wallet": thisUser?.coinInfo?.wallet
     }
     const { code, data } = await helper.get('/wallet/gas', params)
     if (data && code == 200) {
-      let gas: Array<{ title: string; balance: string; amount: string }> = []
+      let gas: Array<{ gasPrice: string; title: string; balance: string; amount: string }> = []
       gas[0] = {
         title: '快速',
+        gasPrice: data.fastest,
         balance: Div(Mul(data.fastest, thisUser?.coinInfo.gas_limit), Math.pow(10, Number(thisUser?.coinInfo?.gas_decimal))).toString(),
         amount: Mul(Div(Mul(data.fastest, thisUser?.coinInfo.gas_limit), Math.pow(10, Number(thisUser?.coinInfo?.gas_decimal))), data.rate_currency).toString(),
       };
       gas[1] = {
         title: '平均',
+        gasPrice: data.average,
         balance: Div(Mul(data.average, thisUser?.coinInfo.gas_limit), Math.pow(10, Number(thisUser?.coinInfo?.gas_decimal))).toString(),
         amount: Mul(Div(Mul(data.average, thisUser?.coinInfo.gas_limit), Math.pow(10, Number(thisUser?.coinInfo?.gas_decimal))), data.rate_currency).toString(),
       };
       gas[2] = {
         title: '最慢',
+        gasPrice: data.slow,
         balance: Div(Mul(data.slow, thisUser?.coinInfo.gas_limit), Math.pow(10, Number(thisUser?.coinInfo?.gas_decimal))).toString(),
         amount: Mul(Div(Mul(data.slow, thisUser?.coinInfo.gas_limit), Math.pow(10, Number(thisUser?.coinInfo?.gas_decimal))), data.rate_currency).toString(),
       };
       setGasList(gas)
     }
   }
+  // 关闭首次弹出
+  function setShowRisk() {
+    dispatch(walletAction.setShowRisk(false))
+    setRiskWarning(false);
+    setTimeout(() => {
+      setTransferConfirm(true)
+    }, 100);
+  }
+  // 校验安全密码
+  async function verifySecurityPwd(arg0: boolean) {
+    if (arg0) {
+      if (securityCode === thisUser?.securityCode) {
+        let address = user?.address;
+        let wallet = thisUser?.coinInfo?.wallet;
+        let gas_price = Mul(gasList[gasIndex].gasPrice, Math.pow(10, 8)).toString();
+        let amount = transferAmount;
+        let to = receivingAddress;
+        let symbol = assetsList[selectCoinIndex].symbol;
+        helper.get('/wallet/transfer_nonce', { address, wallet }).then(res => {
+          const { code, data, msg } = res;
+          if (code == 200) {
+            let nonce = data.nonce;
+            console.log('======nonce=================');
+            console.log(nonce);
+            console.log('====================================');
+            transaction(thisUser.privateKey, nonce, thisUser.coinInfo.gas_limit, gas_price, to, amount).then(sign => {
+              let params = {
+                "amount": amount,
+                "from": address,
+                "gas": gas_price,
+                "nonce": Number(nonce),
+                "signature": sign,
+                "symbol": symbol,
+                "to": to,
+                "wallet": wallet
+              }
+              console.log('========请求参数================');
+              console.log(params);
+              console.log('====================================');
+              helper.post('/wallet/transfer', params).then(res => {
+                console.log('====================================');
+                console.log(res);
+                console.log('====================================');
+              }).catch(err => {
+                console.log('====================================');
+                console.log(err);
+                console.log('====================================');
+              })
+            })
+          }
+
+        })
+      }
+    }
+    setSecurityCode('')
+    setTransferConfirm(!transferConfirm)
+  }
+
 
   let verification = receivingAddress && receivingAddress.startsWith('0x') && transferAmount;
-  console.log('=======verification=================');
-  console.log(receivingAddress && receivingAddress.startsWith('0x'));
-  console.log(typeof transferAmount);
-  console.log(verification);
-  console.log('====================================');
   return (
     <SafeAreaView style={styles.container}>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -222,9 +282,9 @@ function TransferScreen(props: Props) {
             <Button
               buttonStyle={styles.buttonStyle}
               title={t("sure")}
-              disabled= {!verification}
+              disabled={!verification}
               titleStyle={styles.buttonTitle}
-              onPress={() => setTransferConfirm(!transferConfirm)}
+              onPress={() => showRisk ? setRiskWarning(true) : setTransferConfirm(!transferConfirm)}
             />
           </View>
         </View>
@@ -334,19 +394,26 @@ function TransferScreen(props: Props) {
                 </View>
                 <View style={styles.groupView}>
                   <View style={styles.codeInputView}>
-                    <TextInput placeholder={t("enterpassword")} style={styles.codeInput} />
+                    <TextInput
+                      placeholder={t("enterpassword")}
+                      maxLength={12}
+                      style={styles.codeInput}
+                      value={securityCode}
+                      onChangeText={setSecurityCode}
+                      secureTextEntry
+                    />
                     <View style={styles.codeButtonView}>
                       <Button
                         buttonStyle={styles.buttonStyle}
                         title={t("sure")}
                         titleStyle={styles.buttonTitle}
-                        onPress={() => setTransferConfirm(!transferConfirm)}
+                        onPress={() => verifySecurityPwd(true)}
                       />
                       <Button
                         buttonStyle={styles.cancelButtonStyle}
                         title={t("cancel")}
                         titleStyle={styles.cancelButtonTitle}
-                        onPress={() => setTransferConfirm(!transferConfirm)}
+                        onPress={() => verifySecurityPwd(false)}
                       />
                     </View>
                   </View>
@@ -377,7 +444,7 @@ function TransferScreen(props: Props) {
           >
             <View style={styles.outContair} />
           </TouchableWithoutFeedback>
-          <View style={styles.modalView}>
+          <View style={{ ...styles.modalView, maxHeight: 'auto' }}>
             <View style={styles.headViews}>
               <Text style={styles.headText} />
               <TouchableOpacity
@@ -418,12 +485,7 @@ function TransferScreen(props: Props) {
                 buttonStyle={styles.warningButtonStyle}
                 title="我知道了"
                 titleStyle={styles.buttonTitle}
-                onPress={() => {
-                  Alert.alert('点击了');
-                  setTimeout(() => {
-                    setRiskWarning(!riskWarning);
-                  }, 150);
-                }}
+                onPress={setShowRisk}
               />
             </View>
             <View style={styles.lineView} />
@@ -599,7 +661,7 @@ const styles = StyleSheet.create({
   textStyle: {
     width: 20,
     height: 20,
-    
+
   },
   list: {
     flexDirection: 'row',
