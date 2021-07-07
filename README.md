@@ -1,4 +1,4 @@
-# flowermate
+# morleywallet
 
 本代码仅用于本公司去中心化钱包，请勿商用、传播。
 

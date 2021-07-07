@@ -11,36 +11,36 @@
 		13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		437E2EB0C0D2BE68EE0D72E1 /* libPods-flowermate.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E857814BE6934F4DC1572D53 /* libPods-flowermate.a */; };
+		437E2EB0C0D2BE68EE0D72E1 /* libPods-morleywallet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E857814BE6934F4DC1572D53 /* libPods-morleywallet.a */; };
 		F1610B5E2470EA1900079771 /* dummy.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1610B5D2470EA1900079771 /* dummy.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
-		13B07F961A680F5B00A75B9A /* flowermate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = flowermate.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = flowermate/AppDelegate.h; sourceTree = "<group>"; };
-		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = flowermate/AppDelegate.m; sourceTree = "<group>"; };
+		13B07F961A680F5B00A75B9A /* morleywallet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = morleywallet.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = morleywallet/AppDelegate.h; sourceTree = "<group>"; };
+		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = morleywallet/AppDelegate.m; sourceTree = "<group>"; };
 		13B07FB21A68108700A75B9A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = flowermate/Images.xcassets; sourceTree = "<group>"; };
-		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = flowermate/Info.plist; sourceTree = "<group>"; };
-		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = flowermate/main.m; sourceTree = "<group>"; };
-		14910AA4F56D0B21CD7FE247 /* Pods-flowermateTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-flowermateTests.release.xcconfig"; path = "Target Support Files/Pods-flowermateTests/Pods-flowermateTests.release.xcconfig"; sourceTree = "<group>"; };
-		1750977165BD1F1DF6033654 /* Pods-flowermateTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-flowermateTests.debug.xcconfig"; path = "Target Support Files/Pods-flowermateTests/Pods-flowermateTests.debug.xcconfig"; sourceTree = "<group>"; };
-		5D6B605BEB9500DA00E8E133 /* libPods-flowermate-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-flowermate-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		86D33225C4A1085BD03F2463 /* Pods-flowermate-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-flowermate-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-flowermate-tvOS/Pods-flowermate-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
-		90539CA1321720E0DE33DC61 /* Pods-flowermate.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-flowermate.release.xcconfig"; path = "Target Support Files/Pods-flowermate/Pods-flowermate.release.xcconfig"; sourceTree = "<group>"; };
-		A3C418D98210B1B58207066D /* libPods-flowermate-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-flowermate-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		AAA14AE56051A3AE193ABCF1 /* Pods-flowermate-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-flowermate-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-flowermate-tvOSTests/Pods-flowermate-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
-		B86562C734789D0782F7BF19 /* Pods-flowermate.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-flowermate.debug.xcconfig"; path = "Target Support Files/Pods-flowermate/Pods-flowermate.debug.xcconfig"; sourceTree = "<group>"; };
-		C51C668215B49AC9593EC07A /* Pods-flowermate-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-flowermate-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-flowermate-tvOSTests/Pods-flowermate-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
-		D7340BD523FCABF16101B1D0 /* Pods-flowermate-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-flowermate-tvOS.release.xcconfig"; path = "Target Support Files/Pods-flowermate-tvOS/Pods-flowermate-tvOS.release.xcconfig"; sourceTree = "<group>"; };
-		E857814BE6934F4DC1572D53 /* libPods-flowermate.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-flowermate.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = morleywallet/Images.xcassets; sourceTree = "<group>"; };
+		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = morleywallet/Info.plist; sourceTree = "<group>"; };
+		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = morleywallet/main.m; sourceTree = "<group>"; };
+		14910AA4F56D0B21CD7FE247 /* Pods-morleywalletTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-morleywalletTests.release.xcconfig"; path = "Target Support Files/Pods-morleywalletTests/Pods-morleywalletTests.release.xcconfig"; sourceTree = "<group>"; };
+		1750977165BD1F1DF6033654 /* Pods-morleywalletTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-morleywalletTests.debug.xcconfig"; path = "Target Support Files/Pods-morleywalletTests/Pods-morleywalletTests.debug.xcconfig"; sourceTree = "<group>"; };
+		5D6B605BEB9500DA00E8E133 /* libPods-morleywallet-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-morleywallet-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		86D33225C4A1085BD03F2463 /* Pods-morleywallet-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-morleywallet-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-morleywallet-tvOS/Pods-morleywallet-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
+		90539CA1321720E0DE33DC61 /* Pods-morleywallet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-morleywallet.release.xcconfig"; path = "Target Support Files/Pods-morleywallet/Pods-morleywallet.release.xcconfig"; sourceTree = "<group>"; };
+		A3C418D98210B1B58207066D /* libPods-morleywallet-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-morleywallet-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		AAA14AE56051A3AE193ABCF1 /* Pods-morleywallet-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-morleywallet-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-morleywallet-tvOSTests/Pods-morleywallet-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
+		B86562C734789D0782F7BF19 /* Pods-morleywallet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-morleywallet.debug.xcconfig"; path = "Target Support Files/Pods-morleywallet/Pods-morleywallet.debug.xcconfig"; sourceTree = "<group>"; };
+		C51C668215B49AC9593EC07A /* Pods-morleywallet-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-morleywallet-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-morleywallet-tvOSTests/Pods-morleywallet-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
+		D7340BD523FCABF16101B1D0 /* Pods-morleywallet-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-morleywallet-tvOS.release.xcconfig"; path = "Target Support Files/Pods-morleywallet-tvOS/Pods-morleywallet-tvOS.release.xcconfig"; sourceTree = "<group>"; };
+		E857814BE6934F4DC1572D53 /* libPods-morleywallet.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-morleywallet.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
-		F1610B5C2470EA1900079771 /* flowermate-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "flowermate-Bridging-Header.h"; sourceTree = "<group>"; };
+		F1610B5C2470EA1900079771 /* morleywallet-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "morleywallet-Bridging-Header.h"; sourceTree = "<group>"; };
 		F1610B5D2470EA1900079771 /* dummy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = dummy.swift; sourceTree = "<group>"; };
 		F1C408FE23E075F200148FC1 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
-		F3E2D82895E01969A07E6DD1 /* libPods-flowermateTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-flowermateTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F3E2D82895E01969A07E6DD1 /* libPods-morleywalletTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-morleywalletTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -48,14 +48,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				437E2EB0C0D2BE68EE0D72E1 /* libPods-flowermate.a in Frameworks */,
+				437E2EB0C0D2BE68EE0D72E1 /* libPods-morleywallet.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		13B07FAE1A68108700A75B9A /* flowermate */ = {
+		13B07FAE1A68108700A75B9A /* morleywallet */ = {
 			isa = PBXGroup;
 			children = (
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
@@ -66,9 +66,9 @@
 				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
 				13B07FB71A68108700A75B9A /* main.m */,
 				F1610B5D2470EA1900079771 /* dummy.swift */,
-				F1610B5C2470EA1900079771 /* flowermate-Bridging-Header.h */,
+				F1610B5C2470EA1900079771 /* morleywallet-Bridging-Header.h */,
 			);
-			name = flowermate;
+			name = morleywallet;
 			sourceTree = "<group>";
 		};
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
@@ -76,10 +76,10 @@
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
-				E857814BE6934F4DC1572D53 /* libPods-flowermate.a */,
-				5D6B605BEB9500DA00E8E133 /* libPods-flowermate-tvOS.a */,
-				A3C418D98210B1B58207066D /* libPods-flowermate-tvOSTests.a */,
-				F3E2D82895E01969A07E6DD1 /* libPods-flowermateTests.a */,
+				E857814BE6934F4DC1572D53 /* libPods-morleywallet.a */,
+				5D6B605BEB9500DA00E8E133 /* libPods-morleywallet-tvOS.a */,
+				A3C418D98210B1B58207066D /* libPods-morleywallet-tvOSTests.a */,
+				F3E2D82895E01969A07E6DD1 /* libPods-morleywalletTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -87,14 +87,14 @@
 		80DACC8F95332E6C105089E7 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				B86562C734789D0782F7BF19 /* Pods-flowermate.debug.xcconfig */,
-				90539CA1321720E0DE33DC61 /* Pods-flowermate.release.xcconfig */,
-				86D33225C4A1085BD03F2463 /* Pods-flowermate-tvOS.debug.xcconfig */,
-				D7340BD523FCABF16101B1D0 /* Pods-flowermate-tvOS.release.xcconfig */,
-				AAA14AE56051A3AE193ABCF1 /* Pods-flowermate-tvOSTests.debug.xcconfig */,
-				C51C668215B49AC9593EC07A /* Pods-flowermate-tvOSTests.release.xcconfig */,
-				1750977165BD1F1DF6033654 /* Pods-flowermateTests.debug.xcconfig */,
-				14910AA4F56D0B21CD7FE247 /* Pods-flowermateTests.release.xcconfig */,
+				B86562C734789D0782F7BF19 /* Pods-morleywallet.debug.xcconfig */,
+				90539CA1321720E0DE33DC61 /* Pods-morleywallet.release.xcconfig */,
+				86D33225C4A1085BD03F2463 /* Pods-morleywallet-tvOS.debug.xcconfig */,
+				D7340BD523FCABF16101B1D0 /* Pods-morleywallet-tvOS.release.xcconfig */,
+				AAA14AE56051A3AE193ABCF1 /* Pods-morleywallet-tvOSTests.debug.xcconfig */,
+				C51C668215B49AC9593EC07A /* Pods-morleywallet-tvOSTests.release.xcconfig */,
+				1750977165BD1F1DF6033654 /* Pods-morleywalletTests.debug.xcconfig */,
+				14910AA4F56D0B21CD7FE247 /* Pods-morleywalletTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -109,7 +109,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				13B07FAE1A68108700A75B9A /* flowermate */,
+				13B07FAE1A68108700A75B9A /* morleywallet */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
@@ -123,7 +123,7 @@
 		83CBBA001A601CBA00E9B192 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				13B07F961A680F5B00A75B9A /* flowermate.app */,
+				13B07F961A680F5B00A75B9A /* morleywallet.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -131,9 +131,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		13B07F861A680F5B00A75B9A /* flowermate */ = {
+		13B07F861A680F5B00A75B9A /* morleywallet */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "flowermate" */;
+			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "morleywallet" */;
 			buildPhases = (
 				79D3AD5281C418E7B22AE8DC /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
@@ -148,9 +148,9 @@
 			);
 			dependencies = (
 			);
-			name = flowermate;
-			productName = flowermate;
-			productReference = 13B07F961A680F5B00A75B9A /* flowermate.app */;
+			name = morleywallet;
+			productName = morleywallet;
+			productReference = 13B07F961A680F5B00A75B9A /* morleywallet.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -163,12 +163,12 @@
 				ORGANIZATIONNAME = Facebook;
 				TargetAttributes = {
 					13B07F861A680F5B00A75B9A = {
-						DevelopmentTeam = Y3DJRPG42K;
+						DevelopmentTeam = Y83D3S2J65;
 						LastSwiftMigration = 1140;
 					};
 				};
 			};
-			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "flowermate" */;
+			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "morleywallet" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -182,7 +182,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				13B07F861A680F5B00A75B9A /* flowermate */,
+				13B07F861A680F5B00A75B9A /* morleywallet */,
 			);
 		};
 /* End PBXProject section */
@@ -220,7 +220,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-flowermate/Pods-flowermate-resources.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-morleywallet/Pods-morleywallet-resources.sh",
 				"${PODS_CONFIGURATION_BUILD_DIR}/RNImageCropPicker/QBImagePicker.bundle",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Entypo.ttf",
@@ -267,7 +267,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-flowermate/Pods-flowermate-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-morleywallet/Pods-morleywallet-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		2489AB4D3287D2CC7D4D67DE /* [CP] Embed Pods Frameworks */ = {
@@ -276,7 +276,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-flowermate/Pods-flowermate-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-morleywallet/Pods-morleywallet-frameworks.sh",
 				"${PODS_XCFRAMEWORKS_BUILD_DIR}/OpenSSL/OpenSSL.framework/OpenSSL",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -285,7 +285,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-flowermate/Pods-flowermate-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-morleywallet/Pods-morleywallet-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		79D3AD5281C418E7B22AE8DC /* [CP] Check Pods Manifest.lock */ = {
@@ -303,7 +303,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-flowermate-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-morleywallet-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -352,7 +352,7 @@
 				F1C408FE23E075F200148FC1 /* zh-Hans */,
 			);
 			name = LaunchScreen.xib;
-			path = flowermate;
+			path = morleywallet;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -360,14 +360,14 @@
 /* Begin XCBuildConfiguration section */
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B86562C734789D0782F7BF19 /* Pods-flowermate.debug.xcconfig */;
+			baseConfigurationReference = B86562C734789D0782F7BF19 /* Pods-morleywallet.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 4;
 				DEAD_CODE_STRIPPING = NO;
-				DEVELOPMENT_TEAM = Y3DJRPG42K;
-				INFOPLIST_FILE = flowermate/Info.plist;
+				DEVELOPMENT_TEAM = Y83D3S2J65;
+				INFOPLIST_FILE = morleywallet/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MARKETING_VERSION = 1.0.0;
@@ -376,9 +376,9 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.morleywallet.MorleyWallet;
-				PRODUCT_NAME = flowermate;
-				SWIFT_OBJC_BRIDGING_HEADER = "flowermate-Bridging-Header.h";
+				PRODUCT_BUNDLE_IDENTIFIER = com.morleywallet.MorleyWallet.x;
+				PRODUCT_NAME = morleywallet;
+				SWIFT_OBJC_BRIDGING_HEADER = "morleywallet-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -387,13 +387,13 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 90539CA1321720E0DE33DC61 /* Pods-flowermate.release.xcconfig */;
+			baseConfigurationReference = 90539CA1321720E0DE33DC61 /* Pods-morleywallet.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 4;
-				DEVELOPMENT_TEAM = Y3DJRPG42K;
-				INFOPLIST_FILE = flowermate/Info.plist;
+				DEVELOPMENT_TEAM = Y83D3S2J65;
+				INFOPLIST_FILE = morleywallet/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MARKETING_VERSION = 1.0.0;
@@ -402,9 +402,9 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.morleywallet.MorleyWallet;
-				PRODUCT_NAME = flowermate;
-				SWIFT_OBJC_BRIDGING_HEADER = "flowermate-Bridging-Header.h";
+				PRODUCT_BUNDLE_IDENTIFIER = com.morleywallet.MorleyWallet.x;
+				PRODUCT_NAME = morleywallet;
+				SWIFT_OBJC_BRIDGING_HEADER = "morleywallet-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -512,7 +512,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "flowermate" */ = {
+		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "morleywallet" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				13B07F941A680F5B00A75B9A /* Debug */,
@@ -521,7 +521,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "flowermate" */ = {
+		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "morleywallet" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				83CBBA201A601CBA00E9B192 /* Debug */,

@@ -19,9 +19,9 @@ default_platform(:ios)
 platform :ios do
   desc "Push a new beta build to TestFlight"
   lane :beta do
-    increment_build_number(xcodeproj: "flowermate.xcodeproj")
+    increment_build_number(xcodeproj: "morleywallet.xcodeproj")
     get_provisioning_profile
-    build_app(workspace: "flowermate.xcworkspace", scheme: "flowermate")
+    build_app(workspace: "morleywallet.xcworkspace", scheme: "morleywallet")
     upload_to_testflight(
     username: "ronghv8@163.com",
     distribute_external: true,
