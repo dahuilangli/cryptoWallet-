@@ -22,7 +22,7 @@ import { CHAINS } from "config/constants"
 import { useSelector, useDispatch } from 'react-redux';
 import walletAction from 'actions/wallet';
 import { getUser, getAccountList } from 'reducers/walletStateReducer';
-import { getShowMoney ,getCurrency} from 'reducers/dataStateReducer';
+import { getShowMoney, getCurrency } from 'reducers/dataStateReducer';
 import { replaceMoney } from 'utils'
 import * as helper from 'apis/helper'
 import { useIsFocused } from '@react-navigation/native';
@@ -114,7 +114,7 @@ function HomeScreen({ }: Props) {
               <Image source={require('assets/icon-24-切换钱包-light.png')} />
             </TouchableOpacity>
             <Text style={styles.headerTitle}>{t("wallet")}</Text>
-            <TouchableOpacity onPress={() => navigate('ScanQRCode',{title:'HomeScreen',assetsList})}>
+            <TouchableOpacity onPress={() => navigate('ScanQRCode', { title: 'HomeScreen', assetsList })}>
               <Image
                 style={styles.image}
                 source={require('assets/icon-24-扫一扫-light.png')}
@@ -137,12 +137,12 @@ function HomeScreen({ }: Props) {
                 style={styles.logo}
                 source={require('assets/coins/img-40-indexcoin-huobi.png')}
               />
-            ) : undefined }
+            ) : undefined}
             <Text style={styles.wallName}>{thisUser?.walletName}</Text>
             <Text style={styles.address}>{subSplit(thisUser?.address, 4, 8)}</Text>
             <View style={styles.amountContainer}>
-              <Text style = {styles.dengyuText}>{showMoney ?'≈':''}</Text>
-              <Text style={styles.amountText}>{showMoney ?currenTUnit === 'USDT'?'$':'¥' :'*'}{showMoney ? assetsSum : '*****'}</Text>
+              <Text style={styles.dengyuText}>{showMoney ? '≈' : ''}</Text>
+              <Text style={styles.amountText}>{showMoney ? currenTUnit === 'USDT' ? '$' : '¥' : '*'}{showMoney ? assetsSum : '*****'}</Text>
               <TouchableOpacity onPress={() => { hideOrShowMoney() }}>
                 <Image
                   style={styles.eye}
@@ -210,7 +210,7 @@ function HomeScreen({ }: Props) {
                 style={styles.assetsList}
                 key={item?.token}
                 onPress={() =>
-                  navigate('CoinDetailScreen', { title: item.symbol })
+                  navigate('CoinDetailScreen', { title: item.symbol, assetsList: item })
                 }
               >
                 <View style={styles.assetsListItem}>
@@ -223,7 +223,7 @@ function HomeScreen({ }: Props) {
                   <Text style={styles.itemText}>{item?.symbol}</Text>
                   <View style={styles.itemDesc}>
                     <Text style={styles.descTitle}>{showMoney ? item?.balance : '******'}</Text>
-                    <Text style={styles.descInfo}>{showMoney ?'≈ ':''}{showMoney ?currenTUnit === 'USDT'?'$':'¥':'*'}{showMoney ? item?.rate_price : '*****'}</Text>
+                    <Text style={styles.descInfo}>{showMoney ? '≈ ' : ''}{showMoney ? currenTUnit === 'USDT' ? '$' : '¥' : '*'}{showMoney ? item?.rate_price : '*****'}</Text>
                   </View>
                 </View>
               </TouchableOpacity>

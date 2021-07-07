@@ -25,6 +25,7 @@ import { getCurrency, getShowRisk } from 'reducers/dataStateReducer';
 import * as helper from 'apis/helper'
 import { AssetsList } from 'actions/types';
 import { Mul, Div, Add, Sub, transaction } from 'wallets/ethsWallet'
+import { show } from 'utils';
 interface Props {
   route: {
     params: {
@@ -130,9 +131,6 @@ function TransferScreen(props: Props) {
           const { code, data, msg } = res;
           if (code == 200) {
             let nonce = data.nonce;
-            console.log('======nonce=================');
-            console.log(nonce);
-            console.log('====================================');
             transaction(thisUser.privateKey, nonce, thisUser.coinInfo.gas_limit, gas_price, to, amount).then(sign => {
               let params = {
                 "amount": amount,
@@ -144,21 +142,18 @@ function TransferScreen(props: Props) {
                 "to": to,
                 "wallet": wallet
               }
-              console.log('========请求参数================');
-              console.log(params);
-              console.log('====================================');
               helper.post('/wallet/transfer', params).then(res => {
-                console.log('====================================');
-                console.log(res);
-                console.log('====================================');
-              }).catch(err => {
-                console.log('====================================');
-                console.log(err);
-                console.log('====================================');
+                const { code, msg } = res;
+                if (code == 200) {
+                  show('转账成功')
+                } else {
+                  show(msg)
+                }
               })
             })
+          } else {
+            show(msg)
           }
-
         })
       }
     }
@@ -407,6 +402,7 @@ function TransferScreen(props: Props) {
                         buttonStyle={styles.buttonStyle}
                         title={t("sure")}
                         titleStyle={styles.buttonTitle}
+                        disabled={!(securityCode.length >= 6 && securityCode.length >= 6)}
                         onPress={() => verifySecurityPwd(true)}
                       />
                       <Button
@@ -624,7 +620,8 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 8,
     borderTopRightRadius: 8,
     width: SCREENWIDTH,
-    maxHeight: SCREENHEIGHT / 2
+    maxHeight: SCREENHEIGHT / 2,
+    minHeight: SCREENHEIGHT/ 3,
   },
   headView: {
     flexDirection: 'row',

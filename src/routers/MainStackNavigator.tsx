@@ -60,7 +60,7 @@ export type MainStackParamList = {
   WebHtmlScreen: { title?: any; uri: string };
   SearchScreen: { user: thisUser, assetsList: Array<AssetsList> };
   DappSearchScreen: { coin: Array<string> };
-  CoinDetailScreen: { title: string };
+  CoinDetailScreen: { title: string, assetsList: AssetsList };
   WalletBoardScreen: undefined;
   WalletDetailScreen: { addressMessage: any };
   TransferScreen: { assetsList: Array<AssetsList> };
