@@ -12,7 +12,6 @@ import i18n from "i18n";
 import walletAction from 'actions/wallet'
 import * as helper from "apis/helper"
 import DeviceInfo from 'react-native-device-info';
-import { connector } from 'helper/connect';
 
 function RootScreen() {
   
@@ -26,7 +25,6 @@ function RootScreen() {
   i18n.changeLanguage(CurrentLanguage);
   React.useEffect(() => {
     findToken();
-    connector
     SplashScreen.hide();
   }, []);
   async function findToken() {
