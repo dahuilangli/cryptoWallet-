@@ -19,7 +19,7 @@ export type AuthStackParamList = {
   CameraScreen: undefined;
   LoginScreen: undefined;
   SuccessScreen: { title: string | undefined; accountInfo: object };
-  SelectWalletScreen: { loginType: string };
+  SelectWalletScreen: { loginType?: string };
   SetWalletNameScreen: { type: string; loginType?: string; coinInfo: object, desc?: string };
   SetWalletPwdScreen: { loginType?: string, desc?: string, accountInfo: object};
   SafetyTipsScreen: { accountInfo: object };
