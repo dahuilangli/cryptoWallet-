@@ -279,16 +279,15 @@ function HomeScreen({ }: Props) {
             <View style={styles.groupView}>
               <View style={styles.menu}>
                 {modelLeft.map((item, index) => (
-                  <TouchableHighlight
+                  <TouchableOpacity
                     key={item.title}
-                    underlayColor="transparent"
                     style={
                       index === selectItem ? styles.menuItemS : styles.menuItem
                     }
                     onPress={() => clickOnItem(index)}
                   >
                     <Image source={index === selectItem ? item.img : item.img_off} />
-                  </TouchableHighlight>
+                  </TouchableOpacity>
                 ))}
               </View>
               <View style={styles.submenu}>

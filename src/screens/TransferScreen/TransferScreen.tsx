@@ -135,7 +135,7 @@ function TransferScreen(props: Props) {
               let params = {
                 "amount": amount,
                 "from": address,
-                "gas": gas_price,
+                "gas": gasList[gasIndex].balance,
                 "nonce": Number(nonce),
                 "signature": sign,
                 "symbol": symbol,
