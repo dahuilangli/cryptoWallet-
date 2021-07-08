@@ -37,8 +37,7 @@ import { goBack, navigate } from 'components/navigationService';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import walletAction from 'actions/wallet';
-import { Account, AddressBookItem, AssetsList, thisUser } from 'actions/types';
-import { walletState } from 'reducers/walletStateReducer';
+import { AddressBookItem, AssetsList, thisUser } from 'actions/types';
 
 export type MainStackParamList = {
   TabNavigator: undefined;

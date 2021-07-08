@@ -127,11 +127,12 @@ function TransferScreen(props: Props) {
         let amount = transferAmount;
         let to = receivingAddress;
         let symbol = assetsList[selectCoinIndex].symbol;
+        let gas_limit: any = assetsList[selectCoinIndex].gas_limit;
         helper.get('/wallet/transfer_nonce', { address, wallet }).then(res => {
           const { code, data, msg } = res;
           if (code == 200) {
             let nonce = data.nonce;
-            transaction(thisUser.privateKey, nonce, thisUser.coinInfo.gas_limit, gas_price, to, amount).then(sign => {
+            transaction(thisUser.privateKey, nonce, gas_limit, gas_price, to, amount).then(sign => {
               let params = {
                 "amount": amount,
                 "from": address,
@@ -142,10 +143,10 @@ function TransferScreen(props: Props) {
                 "to": to,
                 "wallet": wallet
               }
+              show('提交成功')
               helper.post('/wallet/transfer', params).then(res => {
                 const { code, msg } = res;
                 if (code == 200) {
-                  show('转账成功')
                 } else {
                   show(msg)
                 }

@@ -6,33 +6,36 @@ import SetWalletPwdScreen from 'screens/CreateWalletScreen/SetWalletPwdScreen';
 import SafetyTipsScreen from 'screens/CreateWalletScreen/SafetyTipsScreen';
 import BackupMnemonicScreen from 'screens/CreateWalletScreen/BackupMnemonicScreen';
 import VerifyMnemonicScreen from 'screens/CreateWalletScreen/VerifyMnemonicScreen';
+import ScanQRCode from 'screens/DappScreen/ScanQRCode';
 import ImportPrivateKeyScreen from 'screens/CreateWalletScreen/ImportPrivateKeyScreen';
 import ImportMnemonicScreen from 'screens/CreateWalletScreen/ImportMnemonicScreen';
 import SuccessScreen from 'screens/SuccessScreen';
-import CameraScreen from 'components/Camera';
 import { useTranslation } from 'react-i18next';
 import { Image, Platform, TouchableOpacity } from 'react-native';
 import React from 'react';
 import { navigate } from 'components/navigationService';
+import { AssetsList } from 'actions/types';
 
 export type AuthStackParamList = {
-  CameraScreen: undefined;
   LoginScreen: undefined;
   SuccessScreen: { title: string | undefined; accountInfo: object };
   SelectWalletScreen: { loginType?: string };
   SetWalletNameScreen: { type: string; loginType?: string; coinInfo: object, desc?: string };
-  SetWalletPwdScreen: { loginType?: string, desc?: string, accountInfo: object};
+  SetWalletPwdScreen: { loginType?: string, desc?: string, accountInfo: object };
   SafetyTipsScreen: { accountInfo: object };
   BackupMnemonicScreen: { accountInfo: object };
   VerifyMnemonicScreen: { accountInfo: object };
   ImportPrivateKeyScreen: { type: string; loginType: string, coinInfo: object };
   ImportMnemonicScreen: { type: string; loginType: string, coinInfo: object };
+
+
+  ScanQRCode: { title?: string, assetsList: Array<AssetsList> };
 };
 
 const { Navigator, Screen } = createStackNavigator<AuthStackParamList>();
 
 export default function AuthStackNavigator() {
-  const {t} = useTranslation();
+  const { t } = useTranslation();
   return (
     <Navigator
       screenOptions={{
@@ -88,7 +91,7 @@ export default function AuthStackNavigator() {
         options={{
           title: t("privatekeyimport"),
           headerRight: () => (
-            <TouchableOpacity onPress={() => navigate('CameraScreen')}>
+            <TouchableOpacity onPress={() => navigate('ScanQRCode')}>
               <Image source={require('assets/icon-24-扫一扫-light.png')} />
             </TouchableOpacity>
           ),
@@ -105,10 +108,11 @@ export default function AuthStackNavigator() {
         component={SuccessScreen}
         options={{ headerShown: false }}
       />
+
       <Screen
-        name="CameraScreen"
-        component={CameraScreen}
-        options={{ title: undefined }}
+        name="ScanQRCode"
+        component={ScanQRCode}
+        options={{ title: t("Scan") }}
       />
     </Navigator>
   );
