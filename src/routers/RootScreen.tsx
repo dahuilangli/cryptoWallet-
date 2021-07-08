@@ -18,13 +18,10 @@ function RootScreen() {
   const accountList = useSelector(getAccountList);
   const token = useSelector(getToken);
   const CurrentLanguage = useSelector(getLanguage);
-  console.log('========accountList=================');
-  console.log(accountList);
-  console.log('====================================');
+  
   React.useEffect(() => {
     i18n.changeLanguage(CurrentLanguage);
     findToken();
-    i18n.changeLanguage(CurrentLanguage);
     SplashScreen.hide();
   }, []);
   async function findToken() {
