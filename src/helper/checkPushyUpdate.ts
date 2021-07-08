@@ -1,5 +1,6 @@
 import { Platform, Alert, Linking } from 'react-native';
 import { useTranslation } from 'react-i18next';
+import React, { useState, useEffect } from 'react';
 import {
   isFirstTime,
   isRolledBack,
@@ -12,13 +13,15 @@ import {
 import * as helper from 'apis/helper'
 import DeviceInfo from 'react-native-device-info';
 import _updateConfig from '../../update.json';
+import { RouteProp, useRoute, useIsFocused } from '@react-navigation/native';
+
 // @ts-ignore
 const { appKey } = _updateConfig[Platform.OS];
 let systemVersion = DeviceInfo.getVersion();
 let buildVersion = DeviceInfo.getBuildNumber();
 export default async function checkPushyUpdate() {
-  async function getVersion() {
-    const { data } = await helper.get('/sys/version', {})
+  
+    const {data} = await helper.get('/sys/version', {})
     console.log('===========/sys/version=============');
     console.log(data);
     console.log(systemVersion);
@@ -48,12 +51,12 @@ export default async function checkPushyUpdate() {
       }
       
     }
-  }
-  if (isFirstTime) {
-    markSuccess();
-  } else if (isRolledBack) {
-    // Alert.alert('提示', '刚刚更新失败了,版本被回滚.');
-  }
+  
+  // if (isFirstTime) {
+  //   markSuccess();
+  // } else if (isRolledBack) {
+  //   // Alert.alert('提示', '刚刚更新失败了,版本被回滚.');
+  // }
   
   // console.log(appKey);
   // try {
