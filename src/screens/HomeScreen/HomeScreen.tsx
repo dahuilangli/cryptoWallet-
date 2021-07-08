@@ -279,16 +279,15 @@ function HomeScreen({ }: Props) {
             <View style={styles.groupView}>
               <View style={styles.menu}>
                 {modelLeft.map((item, index) => (
-                  <TouchableHighlight
+                  <TouchableOpacity
                     key={item.title}
-                    underlayColor="transparent"
                     style={
                       index === selectItem ? styles.menuItemS : styles.menuItem
                     }
                     onPress={() => clickOnItem(index)}
                   >
                     <Image source={index === selectItem ? item.img : item.img_off} />
-                  </TouchableHighlight>
+                  </TouchableOpacity>
                 ))}
               </View>
               <View style={styles.submenu}>
@@ -366,8 +365,8 @@ function HomeScreen({ }: Props) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: Platform.OS === 'ios' ? 50 : 0, // 处理iOS状态栏
-    height: Platform.OS === 'ios' ? 88 : 48, // 处理iOS状态栏
+    paddingTop: Platform.OS === 'ios' ? 50 : 50, // 处理iOS状态栏
+    height: Platform.OS === 'ios' ? 88 : 88, // 处理iOS状态栏
   },
   header: {
     paddingHorizontal: 20,

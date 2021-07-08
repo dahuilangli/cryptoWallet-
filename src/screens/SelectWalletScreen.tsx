@@ -60,8 +60,8 @@ const SelectWalletScreen = (prop: Props) => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFocused]);
-  async function getTypeList() {
-    await helper.get('/wallet/type', {}).then((res: any) => {
+  function getTypeList() {
+    helper.get('/wallet/type', {}).then((res: any) => {
       if (res?.data) {
         setTypeList(res.data)
       }

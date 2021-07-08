@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, Text, SafeAreaView, TouchableOpacity ,Image} from 'react-native';
+import { StyleSheet, View, Text, SafeAreaView, Linking ,Image} from 'react-native';
 import { navigate } from 'components/navigationService';
 import { ScreensParamList, Feed } from 'actions/types';
 import { RouteProp, useRoute, useIsFocused } from '@react-navigation/native';
@@ -18,6 +18,10 @@ function UpdateScreen(props: any) {
   const updateVersion = props.route.params.item.app_ver;
   const updateBuild = props.route.params.item.build_ver;
   const  checkVersion = props.route.params.checkVersion;
+  const downlodURL = props.route.params.item.download_url;
+  console.log(downlodURL);
+  
+  
   return (
 
     <SafeAreaView style={styles.container}>
@@ -41,8 +45,9 @@ function UpdateScreen(props: any) {
           titleStyle={styles.Tlabel}
           buttonStyle={styles.Tbutton}
           onPress={() =>
-            {}
-          }
+            {
+              Linking.openURL(downlodURL)
+            }}
           disabled={!checkVersion}
         />
       </View>
@@ -118,7 +123,7 @@ const styles = StyleSheet.create({
     fontFamily:'CircularPro-Book',
   },
   Tbutton: {
-    
+    marginTop:20,
     marginBottom: 54,
     height: 55,
     backgroundColor: '#3B6ED5',

@@ -9,9 +9,10 @@ import {
   Text,
   Image,
 } from 'react-native';
+import LinearGradient from 'react-native-linear-gradient';
 import { useSelector, useDispatch } from 'react-redux';
 import { navigate } from 'components/navigationService';
-import { ListItem, Header } from 'react-native-elements';
+import { ListItem } from 'react-native-elements';
 import { SCREENWIDTH } from 'config/constants';
 import ActionSheet from 'react-native-action-sheet';
 import pickImage from 'components/pickImage';
@@ -54,14 +55,14 @@ function ProfileScreen({ }: Props) {
     }
   }
   let html = ''
-  helper.get('/sys/user/agreement',{}).then((res: any) => {
-    
+  helper.get('/sys/user/agreement', {}).then((res: any) => {
+
     // console.log('====================================');
     // console.log(res.data);
     // console.log('====================================');
     html = res.data.content
   })
-    
+
   const list = {
     top: [
       {
@@ -113,16 +114,11 @@ function ProfileScreen({ }: Props) {
   const dispatch = useDispatch();
   const checkMessage = true;
   return (
-    <View style={styles.container}>
-      <Header
-        placement="center"
-        centerComponent={{ text: t("Personalcenter"), style: { fontSize: 18, fontWeight: 'bold', color: 'white', } }}
-        containerStyle={{
-          backgroundColor: '#3D73DD',
-          flexDirection: 'row',
-          alignItems: 'center',
-        }}
-      />
+    <LinearGradient colors={['#3060C2', '#3B6ED5']} style={styles.container}>
+      <View style={styles.header}>
+        <Text style={styles.headerTitle}>{t("Personalcenter")}</Text>
+      </View>
+      <View style = {{flex:1,backgroundColor : '#F2F5F8'}}>
       <View style={styles.listGroup}>
         {list.top.map((item, i) => (
           <ListItem
@@ -139,7 +135,7 @@ function ProfileScreen({ }: Props) {
                 {item.name}
               </ListItem.Title>
             </ListItem.Content>
-            
+
             <Image source={item.rightIcon} style={styles.rightIcon} />
           </ListItem>
         ))}
@@ -164,14 +160,33 @@ function ProfileScreen({ }: Props) {
             </ListItem>
           ))}
         </View>
+        </View>
       </View>
-    </View>
+    </LinearGradient>
   );
 }
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F2F5F8',
+    paddingTop: Platform.OS === 'ios' ? 50 : 50, // 处理iOS状态栏
+    height: Platform.OS === 'ios' ? 88 : 88, // 处理iOS状态栏
+    backgroundColor: '#efefef',
+  },
+  header: {
+    paddingHorizontal: 20,
+    height: 38,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  headerTitle: {
+    fontSize: 18,
+
+    fontWeight: 'bold',
+    color: '#FFFFFF',
+  },
+  main: {
+    flex: 1,
   },
   listGroup: {
     width: SCREENWIDTH,

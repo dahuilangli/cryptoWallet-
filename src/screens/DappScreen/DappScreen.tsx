@@ -21,6 +21,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import walletAction from 'actions/wallet';
 import * as helper from 'apis/helper'
 import { DappRecentItem } from 'actions/types';
+import {walletConnect} from "helper/connect"
 
 interface Props {
 
@@ -43,6 +44,7 @@ function DappScreen({ }: Props) {
   useEffect(() => {
     if (isFocused) {
       getBanner();
+      walletConnect("111")
     }
   }, [isFocused]);
   async function getBanner() {

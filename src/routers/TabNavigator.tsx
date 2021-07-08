@@ -1,11 +1,10 @@
 import React from 'react';
-import {Image} from 'react-native';
+import {Image, Platform} from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import ProfileScreen from 'screens/MineScreen/ProfileScreen';
 import HomeScreen from 'screens/HomeScreen/HomeScreen';
 import FlashExchangeScreen from 'screens/FlashExchangeScreen/FlashExchangeScreen';
 import DappScreen from 'screens/DappScreen/DappScreen';
-import Icon from 'react-native-vector-icons/FontAwesome';
 import { useTranslation } from 'react-i18next';
 export type TabParamList = {
   HomeScreen: undefined;
@@ -44,6 +43,12 @@ function TabNavigator() {
       tabBarOptions = {{
         activeTintColor:'#3B6ED5',
         inactiveTintColor:'#263C75',
+        tabStyle: {
+          height: 50,
+          justifyContent: 'center',
+          alignItems: 'center',
+          paddingVertical: Platform.OS === 'ios' ? 3 : 5,
+        }
       }}
     >
       

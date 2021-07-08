@@ -1,7 +1,7 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { Image, Text } from 'react-native';
+import { Image, Platform, Text } from 'react-native';
 import TabNavigator from './TabNavigator';
 import WebScreen from 'screens/WebScreen';
 import WebHtmlScreen from 'screens/WebHtmlScreen';
@@ -84,13 +84,15 @@ export default function MainStackNavigator() {
   return (
     <Navigator
       screenOptions={{
-        headerStyle: { backgroundColor: '#3D73DD' },
+        headerStyle: { backgroundColor: '#3D73DD', height: 88 },
         headerBackTitleVisible: false,
         headerTitleStyle: { fontSize: 18, fontWeight: 'bold', color: 'white' },
+        headerBackAllowFontScaling: true,
+        headerTitleAlign: "center",
         headerBackImage: () => (
           <Image source={require('assets/icon-24-返回-light.png')} />
         ),
-        headerLeftContainerStyle: { marginLeft: 20 },
+        headerLeftContainerStyle: { paddingLeft: Platform.OS === 'ios' ? 20 : 10 },
       }}
     >
       <Screen

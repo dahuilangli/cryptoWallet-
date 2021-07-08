@@ -1,5 +1,7 @@
 package com.morleywallet;
 
+import org.reactnative.camera.RNCameraPackage;
+
 import android.app.Application;
 import android.content.Context;
 import com.facebook.react.PackageList;
@@ -35,6 +37,15 @@ public class MainApplication extends Application implements ReactApplication {
           // packages.add(new RNCameraPackage());
           return packages;
         }
+
+        /*
+        protected List<ReactPackage> getPackages() {
+          return Arrays.<ReactPackage>asList(
+              new MainReactPackage(),
+              new RNCameraPackage()
+          );
+        }
+        */
 
         @Override
         protected String getJSMainModuleName() {

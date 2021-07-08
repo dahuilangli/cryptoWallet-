@@ -42,7 +42,7 @@ const LoginScreen = ({}: Props) => {
       <StatusBar barStyle="light-content" />
       <SafeAreaView style={styles.flex_1}>
         <View style={styles.logoContainer}>
-          <Image style={styles.logo} source={require('assets/logo.png')} />
+          <Image style={styles.logo} resizeMethod="auto" source={require('assets/first-load-logo.png')} />
           <Text style={styles.logoText}>MORLEYSTONE</Text>
         </View>
         <View style={styles.buttonContainer}>
@@ -146,7 +146,7 @@ const styles = StyleSheet.create({
     fontSize: 28,
   },
   buttonContainer: {
-    paddingBottom: 15,
+    paddingBottom: 20,
   },
   newCreate: {
     height: 55,

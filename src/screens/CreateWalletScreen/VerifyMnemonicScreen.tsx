@@ -26,7 +26,7 @@ const reorganize = function (array: Array<string>): Array<string> {
   });
 };
 const VerifyMnemonicScreen = (props: Props) => {
-  const {t} = useTranslation();
+  const { t } = useTranslation();
   const { accountInfo } = props.route.params;
   const mnemonic = JSON.stringify(accountInfo.mnemonics);
   const [mnemonicList, setMnemonicList] = useState<string[]>(
@@ -51,7 +51,7 @@ const VerifyMnemonicScreen = (props: Props) => {
   console.log(mnemonic);
 
   async function storageAccount() {
-   
+
     let account: Account;
     try {
       account = accountInfo;
@@ -103,13 +103,17 @@ const VerifyMnemonicScreen = (props: Props) => {
               ))}
           </View>
         </View>
-        <Button
-          buttonStyle={styles.nextButton}
-          onPress={storageAccount}
-          title={t("sure")}
-          disabled={!verifyMnemonic}
-          titleStyle={styles.nextButtonTitle}
-        />
+
+        <View style={styles.bottonContainer}>
+          <Button
+            buttonStyle={styles.nextButton}
+            onPress={storageAccount}
+            title={t("sure")}
+            disabled={!verifyMnemonic}
+            titleStyle={styles.nextButtonTitle}
+          />
+        </View>
+
       </View>
     </SafeAreaView>
   );
@@ -195,6 +199,9 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#3D73DD',
     fontWeight: '500',
+  },
+  bottonContainer: {
+    paddingBottom: 20,
   },
   nextButton: {
     height: 55,
