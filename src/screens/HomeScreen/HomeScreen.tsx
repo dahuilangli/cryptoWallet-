@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   ScrollView,
@@ -26,7 +26,7 @@ import { getShowMoney, getCurrency } from 'reducers/dataStateReducer';
 import { replaceMoney } from 'utils'
 import * as helper from 'apis/helper'
 import { useIsFocused } from '@react-navigation/native';
-import { AssetsList } from 'actions/types';
+import { Account, AssetsList } from 'actions/types';
 
 interface Props { }
 
@@ -62,7 +62,6 @@ defatltCoin.set('HT', {
 })
 function HomeScreen({ }: Props) {
   const dispatch = useDispatch()
-  const isFocused = useIsFocused();
   const walletlist = useSelector(getAccountList);
   const user = useSelector(getUser);
   const thisUser = walletlist.get(user.type)?.find(x => x.address === user.address)
@@ -75,10 +74,13 @@ function HomeScreen({ }: Props) {
   const [assetsSum, setAssetsSum] = useState('-')
   const { t } = useTranslation();
   useEffect(() => {
-    if (isFocused) {
       getAssetsList()
-    }
-  }, [isFocused])
+  }, [user])
+  function switchWallet(item: Account) {
+    setSelectAddress(item.address)
+    dispatch(walletAction.createUser({ address: item.address, type: item.type }));
+    setModalVisible(!modalVisible);
+  }
   async function getAssetsList() {
     let params = {
       "address": thisUser?.address,
@@ -285,6 +287,7 @@ function HomeScreen({ }: Props) {
                       index === selectItem ? styles.menuItemS : styles.menuItem
                     }
                     onPress={() => clickOnItem(index)}
+                    
                   >
                     <Image source={index === selectItem ? item.img : item.img_off} />
                   </TouchableOpacity>
@@ -303,7 +306,7 @@ function HomeScreen({ }: Props) {
                           : styles.submenuItem
                       }
                       key={item.address}
-                      onPress={() => setSelectAddress(item.address)}
+                      onPress={() => switchWallet(item)}
                     >
                       <View style={styles.itemName}>
                         <Text
@@ -656,3 +659,4 @@ const styles = StyleSheet.create({
   },
 });
 export default HomeScreen;
+

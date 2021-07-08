@@ -17,7 +17,7 @@ import { useIsFocused } from '@react-navigation/native';
 interface Props {
   route: {
     params: {
-      loginType: string;
+      loginType?: string;
     };
   };
 }

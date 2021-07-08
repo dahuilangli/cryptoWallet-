@@ -5,20 +5,20 @@ import MainStackNavigator from './MainStackNavigator';
 import AuthStackNavigator from './AuthStackNavigator';
 import SplashScreen from 'react-native-splash-screen';
 import { useDispatch, useSelector } from 'react-redux';
-import { getToken ,getLanguage} from 'reducers/dataStateReducer';
-import { getAccountList } from 'reducers/walletStateReducer';
+import { getWalletStatus, getToken, getLanguage } from 'reducers/dataStateReducer';
 import i18n from "i18n";
-// getAccountList
 import walletAction from 'actions/wallet'
 import * as helper from "apis/helper"
 import DeviceInfo from 'react-native-device-info';
 
 function RootScreen() {
   const dispatch = useDispatch();
-  const accountList = useSelector(getAccountList);
+  const walletStatus = useSelector(getWalletStatus);
+  console.log('====================================');
+  console.log(walletStatus);
+  console.log('====================================');
   const token = useSelector(getToken);
   const CurrentLanguage = useSelector(getLanguage);
-  
   React.useEffect(() => {
     i18n.changeLanguage(CurrentLanguage);
     findToken();
@@ -42,7 +42,7 @@ function RootScreen() {
   }
   return (
     <NavigationContainer ref={navigationRef}>
-      {accountList.size > 0 ? <MainStackNavigator /> : <AuthStackNavigator />}
+      {walletStatus ? <MainStackNavigator /> : <AuthStackNavigator /> }
     </NavigationContainer>
   );
 }

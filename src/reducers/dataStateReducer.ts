@@ -4,6 +4,7 @@ import { User, WalletAction, ReduxState, DappRecentItem, AddressBookItem, Accoun
 
 export interface DataState {
   token: string;
+  walletStatus: boolean;
   dappSearchList: Array<DappRecentItem>;
   addressBookList: Array<AddressBookItem>;
   language: string;
@@ -13,6 +14,7 @@ export interface DataState {
 }
 export const initialState: Readonly<DataState> = {
   token: '',
+  walletStatus: false,
   dappSearchList: [],
   addressBookList: [],
   language: 'en',
@@ -26,6 +28,11 @@ export const selectDataState = (reduxState: ReduxState) => reduxState.dataState;
 export const getToken = createSelector(
   selectDataState,
   (dataState) => dataState.token,
+);
+
+export const getWalletStatus = createSelector(
+  selectDataState,
+  (dataState) => dataState.walletStatus,
 );
 
 export const getLanguage = createSelector(
@@ -61,6 +68,9 @@ export const getAddressBookList = createSelector(
 const reducer = (originalState = initialState, walletAction: WalletAction) =>
   produce(originalState, state => {
     switch (walletAction.type) {
+      case 'setWalletStatus':
+        state.walletStatus =  walletAction.payload;
+        return;
       case 'setShowMoney':
         state.showMoney = walletAction.payload;
         return;

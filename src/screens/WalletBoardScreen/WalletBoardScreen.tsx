@@ -10,14 +10,15 @@ import {
   TouchableOpacity,
   TouchableHighlight,
 } from 'react-native';
-import {SCREENHEIGHT,SCREENWIDTH} from "config/constants"
+import { SCREENHEIGHT, SCREENWIDTH } from "config/constants"
 import { Button } from 'react-native-elements';
 import { navigate } from 'components/navigationService';
 import { CHAINS } from "config/constants"
-import { useSelector } from 'react-redux';
-import { getAccountList , getUser} from 'reducers/walletStateReducer';
+import { useDispatch, useSelector } from 'react-redux';
+import walletAction from 'actions/wallet';
+import { getAccountList, getUser } from 'reducers/walletStateReducer';
 import { subSplit } from 'utils'
-interface Props {}
+interface Props { }
 
 const modelLeft = [
   {
@@ -37,11 +38,12 @@ const modelLeft = [
   },
 ];
 
-function WalletBoardScreen({}: Props) {
-  const {t} = useTranslation();
+function WalletBoardScreen({ }: Props) {
+  const dispatch = useDispatch();
+  const { t } = useTranslation();
   const walletlist = useSelector(getAccountList);
   const USer = useSelector(getUser);
-  
+
   let sectionList: any;
   const [selectItem, setSelectItem] = useState(0);
   function clickOnItem(index: number) {
@@ -74,11 +76,11 @@ function WalletBoardScreen({}: Props) {
         <View style={styles.submenu}>
           <Text style={styles.submenuHeader}>{modelLeft[selectItem]?.title}</Text>
           <ScrollView scrollIndicatorInsets={{ right: -6 }}>
-            {walletlist.get(modelLeft[selectItem].title)?.map((item, index) =>(
+            {walletlist.get(modelLeft[selectItem].title)?.map((item, index) => (
               <TouchableOpacity
                 style={styles.submenuItem}
                 key={index}
-                onPress={() => navigate('WalletDetailScreen',{addressMessage:item})}
+                onPress={() => navigate('WalletDetailScreen', { addressMessage: item })}
               >
                 <Text style={styles.itemNameText}>{item?.walletName}</Text>
                 <View style={styles.itemName}>
@@ -102,13 +104,13 @@ function WalletBoardScreen({}: Props) {
         <Button
           buttonStyle={styles.button}
           title={t("Createwallet")}
-          onPress={() => navigate('SelectWalletScreen', { loginType: 'new' })}
+          onPress={() => dispatch(walletAction.setWalletStatus(false))}
           titleStyle={styles.buttonTitle}
         />
         <Button
           buttonStyle={styles.buttonOne}
           title={t("Importwallet")}
-          onPress={() => navigate('SelectWalletScreen')}
+          onPress={() => dispatch(walletAction.setWalletStatus(false))}
           titleStyle={styles.buttonTitle}
         />
       </View>
