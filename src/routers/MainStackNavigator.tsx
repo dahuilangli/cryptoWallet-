@@ -45,11 +45,11 @@ export type MainStackParamList = {
   PostFeedScreen: undefined;
   AboutUsScreen: undefined;
   SuggestScreen: undefined;
-  UpdateScreen: {item:Object;checkVersion:Boolean};
+  UpdateScreen: { item: Object; checkVersion: Boolean };
   MessageScreen: undefined;
   SetUpScreen: undefined;
   FlashRecordScreen: undefined;
-  ScanQRCode: {title?:string , assetsList: Array<AssetsList> };
+  ScanQRCode: { title?: string, assetsList: Array<AssetsList> };
   LanguageSetScreen: undefined;
   CurrencySetScreen: undefined;
   AddressBookScreen: { title: string; showMyself?: boolean };
@@ -60,14 +60,14 @@ export type MainStackParamList = {
   WebHtmlScreen: { title?: any; uri: string };
   SearchScreen: { user: thisUser, assetsList: Array<AssetsList> };
   DappSearchScreen: { coin: Array<string> };
-  CoinDetailScreen: { title: string };
+  CoinDetailScreen: { title: string, assetsList: AssetsList };
   WalletBoardScreen: undefined;
-  WalletDetailScreen: {addressMessage:any};
-  TransferScreen: { address: string, assetsList: Array<AssetsList> };
+  WalletDetailScreen: { addressMessage: any };
+  TransferScreen: { assetsList: Array<AssetsList> };
   ReceivePaymentScreen: { address: string };
-  ExportMnemonicScreen: {mnemonic:string};
-  ExportPrivateKeyScreen: {privatekey:string};
-  EditPwdScreen: {address:string ,pwds:string ,type: string ,setPwds:Function};
+  ExportMnemonicScreen: { mnemonic: string };
+  ExportPrivateKeyScreen: { privatekey: string };
+  EditPwdScreen: { address: string, pwds: string, type: string, setPwds: Function };
 
   DappWebScreen: { title?: string; uri: string; item: {} }
 };
@@ -77,7 +77,7 @@ const { Navigator, Screen } = createStackNavigator<MainStackParamList>();
 export default function MainStackNavigator() {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  
+
   async function addAddressBook(item: AddressBookItem) {
     await dispatch(walletAction.deleteAddressBookList(item));
   }
