@@ -10,7 +10,7 @@ import i18n from "i18n";
 import walletAction from 'actions/wallet'
 import * as helper from "apis/helper"
 import DeviceInfo from 'react-native-device-info';
-
+import checkPushyUpdate from 'helper/checkPushyUpdate';
 function RootScreen() {
   const dispatch = useDispatch();
   const walletStatus = useSelector(getWalletStatus);
@@ -22,6 +22,7 @@ function RootScreen() {
   React.useEffect(() => {
     i18n.changeLanguage(CurrentLanguage);
     findToken();
+    
     SplashScreen.hide();
   }, []);
   async function findToken() {
@@ -38,7 +39,9 @@ function RootScreen() {
           dispatch(walletAction.setToken(data.token))
         }
       })
+
     }
+   await checkPushyUpdate();
   }
   return (
     <NavigationContainer ref={navigationRef}>
