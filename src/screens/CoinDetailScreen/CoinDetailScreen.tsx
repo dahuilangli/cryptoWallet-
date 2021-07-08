@@ -1,4 +1,4 @@
-import React, { useState ,useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   StyleSheet,
@@ -8,107 +8,117 @@ import {
   Platform,
   Image,
   Animated,
+  RefreshControl,
+  ActivityIndicator,
 } from 'react-native';
 import { Button } from 'react-native-elements';
 import { useIsFocused } from '@react-navigation/native';
-import {  SCREENWIDTH } from 'config/constants';
+import { SCREENWIDTH } from 'config/constants';
 import { navigate } from 'components/navigationService';
 import StickyHeader from 'components/StickyHeader';
 import * as helper from 'apis/helper'
+import { AssetsList } from 'actions/types';
+import { getUser } from 'reducers/walletStateReducer';
+import { useSelector } from 'react-redux';
+import { subSplit } from 'utils';
+import { getCurrency } from 'reducers/dataStateReducer';
 interface Props {
   route: {
     params: {
       title: string;
+      assetsList: AssetsList;
     };
   };
 }
-const list = [
-  {
-    title: '转入',
-    status: 0,
-    value: '+0.043432',
-    time: '2021-5-1 23:33',
-    gas: '0',
-    hash: '0xf9cbae4f18e6……83f15e8f0f8f2f480',
-  },
-  {
-    title: '转出',
-    status: 1,
-    value: '-0.043432',
-    time: '2021-5-1 23:33',
-    gas: '0',
-    hash: '0xf9cbae4f18e6……83f15e8f0f8f2f480',
-  },
-  {
-    title: '转出',
-    status: 1,
-    value: '-0.043432',
-    time: '2021-5-1 23:33',
-    gas: '0',
-    hash: '0xf9cbae4f18e6……83f15e8f0f8f2f480',
-  },
-  {
-    title: '转入',
-    status: 0,
-    value: '+0.043432',
-    time: '2021-5-1 23:33',
-    gas: '0',
-    hash: '0xf9cbae4f18e6……83f15e8f0f8f2f480',
-  },
-  {
-    title: '转入',
-    status: 0,
-    value: '+0.043432',
-    time: '2021-5-1 23:33',
-    gas: '0',
-    hash: '0xf9cbae4f18e6……83f15e8f0f8f2f480',
-  },
-  {
-    title: '转入',
-    status: 0,
-    value: '+0.043432',
-    time: '2021-5-1 23:33',
-    gas: '0',
-    hash: '0xf9cbae4f18e6……83f15e8f0f8f2f480',
-  },
-  {
-    title: '转入',
-    status: 0,
-    value: '+0.043432',
-    time: '2021-5-1 23:33',
-    gas: '0',
-    hash: '0xf9cbae4f18e6……83f15e8f0f8f2f480',
-  },
-  {
-    title: '转入',
-    status: 0,
-    value: '+0.043432',
-    time: '2021-5-1 23:33',
-    gas: '0',
-    hash: '0xf9cbae4f18e6……83f15e8f0f8f2f480',
-  },
-];
+interface TransferListItem {
+  "amount": string,
+  "ctime": string,
+  "device": string,
+  "from": string,
+  "gas": string,
+  "gas_use"?: string,
+  "id": number,
+  "ledger_index"?: any,
+  "nonce": number,
+  "state": number,
+  "symbol": string,
+  "to": string,
+  "tx_hash": string,
+  wallet: string,
+  remarks: string,
+}
 
 function CoinDetailScreen({ route }: Props) {
-  const { title } = route.params;
+  const { title, assetsList } = route.params;
+  const user = useSelector(getUser);
+  const currency = useSelector(getCurrency);
   const [navStatus, setNavStatus] = useState(false);
   const [scrollY, setScrollY] = useState(new Animated.Value(0));
   const [headHeight, setHeadHeight] = useState(-1);
-  const {t} = useTranslation();
+  const { t } = useTranslation();
   const [transferlistData, setTransferListData] = useState([]);
-  const isFocused = useIsFocused(); useEffect(() => {
+
+  const [loading, setLoading] = useState<'refresh' | 'more' | null>(null);
+  const isEndReached = React.useRef(false);
+  const isFetching = React.useRef(false);
+  const isFocused = useIsFocused();
+  useEffect(() => {
     if (isFocused) {
-      getTransferRecordList();
+      getTransferRecordList(true);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFocused]);
-  async function getTransferRecordList() {
-    const data = await helper.get('/wallet/transfer_record', {address:'0xEFD0576c3BfBFaD91f113d722676B6Dc5a0B6879',symbol:'SBC',wallet:'STO'})
-    console.log('--------------------');
-    console.log(data);
-    console.log('--------------------');
+  async function getTransferRecordList(isRefresh?: boolean) {
+    if (isFetching.current) {
+      return;
+    }
+    if (!isRefresh && isEndReached.current) {
+      return;
+    }
+
+    isFetching.current = true;
+    setLoading(isRefresh ? 'refresh' : 'more');
+    const { data } = await helper.get(
+      '/wallet/transfer_record',
+      {
+        id: isRefresh ? null : transferlistData[transferlistData.length - 1].id,
+        address: user?.address,
+        symbol: assetsList?.symbol,
+        wallet: assetsList?.wallet
+      }
+    );
+    setLoading(null);
     if (data) {
-      
+      if (isRefresh) {
+        console.log('=========下拉刷新===========');
+        setTransferListData(data);
+      } else {
+        console.log('=========上拉加载===========');
+        setTransferListData(transferlistData.concat(data));
+      }
+      if (data.length === 0) {
+        console.log('=========不能再上拉加载了===========');
+        isEndReached.current = true;
+      } else {
+        console.log('=========可以进行上拉加载===========');
+        isEndReached.current = false;
+      }
+    }
+    isFetching.current = false;
+  }
+
+  /**
+ * 上拉触底
+ */
+  const _contentViewScroll = (e) => {
+
+    var offsetY = e.nativeEvent.contentOffset.y; //滑动距离
+    var contentSizeHeight = e.nativeEvent.contentSize.height; //scrollView contentSize高度
+    var oriageScrollHeight = e.nativeEvent.layoutMeasurement.height; //scrollView高度
+
+    if (offsetY + oriageScrollHeight >= contentSizeHeight) {
+      console.log('==========上拉============');
+      getTransferRecordList(false)
+      // 在这里面加入你需要指行得方法和加载数据
     }
   }
   return (
@@ -130,6 +140,15 @@ function CoinDetailScreen({ route }: Props) {
           }, // 可选的异步监听函数
         )}
         scrollEventThrottle={1}
+        refreshControl={
+          <RefreshControl
+            refreshing={loading === 'refresh'}
+            onRefresh={() => getTransferRecordList(true)}
+          >
+          </RefreshControl>
+        }
+        onMomentumScrollEnd={_contentViewScroll}
+        automaticallyAdjustContentInsets={false}
       >
         <View style={styles.main}>
           <View
@@ -144,8 +163,8 @@ function CoinDetailScreen({ route }: Props) {
               source={require('assets/img-40-coointype-eth.png')}
             />
             <View style={styles.navAmount}>
-              <Text style={styles.navUSDT}>56.867491</Text>
-              <Text style={styles.navCNY}>≈ ¥345454.43</Text>
+              <Text style={styles.navUSDT}>{assetsList?.balance}</Text>
+              <Text style={styles.navCNY}>≈ {currency === 'USDT' ? '$' : '¥'}{assetsList?.rate_price}</Text>
             </View>
           </View>
           {/* <View
@@ -166,8 +185,8 @@ function CoinDetailScreen({ route }: Props) {
                 />
                 <Text style={styles.subNavTitle}>{title}</Text>
                 <View style={styles.subNavAmount}>
-                  <Text style={styles.subNavUSDT}>56.867491</Text>
-                  <Text style={styles.subNavCNY}>≈ ¥345454.43</Text>
+                  <Text style={styles.subNavUSDT}>{assetsList?.balance}</Text>
+                  <Text style={styles.subNavCNY}>≈ {currency === 'USDT' ? '$' : '¥'}{assetsList?.rate_price}</Text>
                 </View>
               </View>
             ) : undefined}
@@ -176,28 +195,36 @@ function CoinDetailScreen({ route }: Props) {
           <View style={styles.transactions}>
             <Text style={styles.transactionsTitle}>{t("Transaction Record")}</Text>
             <View style={styles.transactionsList}>
-              {list.map((item, i) => (
+              {transferlistData.map((item: TransferListItem, i) => (
                 <View style={styles.list} key={i}>
                   <View style={styles.listItem}>
                     <View style={styles.listNav}>
-                      <Text style={styles.listNavTitle}>{item.title}</Text>
-                      <View style={styles.listNavStatus}>
+                      <Text style={styles.listNavTitle}>{item?.from === user?.address ? '转出' : '转入'}</Text>
+                      <View style={item?.state > 0 ? styles.listNavStatus_1 : item?.state < 0 ? styles.listNavStatus_def : styles.listNavStatus_0}>
                         <Text style={styles.statusText}>
-                          {item?.status > 0
+                          {item?.state > 0
                             ? t("completed")
-                            : item?.status < 0
-                            ? t("failure")
-                            : t("processing")}
+                            : item?.state < 0
+                              ? t("failure")
+                              : t("processing")}
                         </Text>
                       </View>
                       <View style={styles.listNavAmount}>
-                        <Text style={styles.amountText}>{item.value}</Text>
+                        <Text style={
+                          item?.state < 0 ?
+                          { ...styles.amountText, color: '#D4D8E1' } :
+                          item?.from === user?.address ?
+                            { ...styles.amountText, color: '#DD3D50' } :
+                            { ...styles.amountText, color: '#3DDD94' }
+                        }>
+                          {item?.from === user?.address ? '-' : '+'}{item?.amount}
+                        </Text>
                       </View>
                     </View>
                     <View style={styles.listNavDesc}>
-                      <Text style={styles.descText}>{t("transactiontime")}:{item?.time}</Text>
+                      <Text style={styles.descText}>{t("transactiontime")}: {item?.ctime}</Text>
                       <Text style={styles.descText}>
-                        {t("handlefee")}:{item?.gas} ETH
+                        {t("handlefee")}: {item?.gas} {user.type}
                       </Text>
                     </View>
                     <TouchableOpacity
@@ -205,11 +232,11 @@ function CoinDetailScreen({ route }: Props) {
                       onPress={() =>
                         navigate('WebScreen', {
                           title: 'Ethereum',
-                          uri: 'https://cn.etherscan.com/tx/${item?.hash}',
+                          uri: item?.remarks,
                         })
                       }
                     >
-                      <Text style={styles.hashText}>HASH:{item?.hash}</Text>
+                      <Text style={styles.hashText}>HASH: {subSplit(item?.tx_hash, 14, 17)}</Text>
                       <Image
                         style={styles.hashGoImg}
                         source={require('assets/icon-20-arrow-right.png')}
@@ -218,6 +245,9 @@ function CoinDetailScreen({ route }: Props) {
                   </View>
                 </View>
               ))}
+              {
+                loading === 'more' ? <ActivityIndicator /> : null
+              }
             </View>
           </View>
         </View>
@@ -234,6 +264,7 @@ function CoinDetailScreen({ route }: Props) {
           buttonStyle={styles.button}
           title={t("Transfer")}
           titleStyle={styles.buttonTitle}
+          onPress={() => navigate('TransferScreen', { assetsList: [assetsList] })}
         />
         <Button
           icon={
@@ -245,6 +276,7 @@ function CoinDetailScreen({ route }: Props) {
           buttonStyle={styles.buttonOne}
           title={t("Receive")}
           titleStyle={styles.buttonTitle}
+          onPress={() => navigate('ReceivePaymentScreen', { address: user?.address })}
         />
       </View>
     </View>
@@ -262,6 +294,7 @@ const styles = StyleSheet.create({
   nav: {
     alignItems: 'center',
     paddingVertical: 30,
+    backgroundColor: '#FFFFFF',
   },
   navImage: {
     width: 80,
@@ -322,6 +355,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: '#394867',
     fontWeight: '500',
+    paddingTop: 20,
   },
   transactionsList: {
     paddingTop: 15,
@@ -345,8 +379,18 @@ const styles = StyleSheet.create({
     color: '#394867',
     fontWeight: '500',
   },
-  listNavStatus: {
+  listNavStatus_0: {
     backgroundColor: '#FFC029',
+    borderRadius: 10,
+    marginLeft: 8,
+  },
+  listNavStatus_1: {
+    backgroundColor: '#14CC25',
+    borderRadius: 10,
+    marginLeft: 8,
+  },
+  listNavStatus_def: {
+    backgroundColor: '#D4D8E1',
     borderRadius: 10,
     marginLeft: 8,
   },
@@ -364,7 +408,6 @@ const styles = StyleSheet.create({
     textAlign: 'right',
     fontSize: 20,
     fontWeight: '400',
-    color: '#3DDD94',
   },
   listNavDesc: {
     flexDirection: 'row',

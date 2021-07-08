@@ -14,6 +14,7 @@ import walletAction from 'actions/wallet';
 import { Account } from 'actions/types';
 import { useTranslation } from 'react-i18next';
 import { getAccountList } from 'reducers/walletStateReducer';
+import * as helper from 'apis/helper'
 
 // import { setGenericPassword } from 'utils/keyChain';
 interface Props {
@@ -29,20 +30,19 @@ const SuccessScreen = ({ route }: Props) => {
   const { t } = useTranslation();
   let { title, accountInfo } = route.params;
   const walletlist = useSelector(getAccountList);
-  console.log('======success======');
-  console.log(walletlist);
-  console.log('====================================');
   async function storageAccount() {
     try {
       accountInfo.contracts = ['']
       if (walletlist.size === 0) {
         dispatch(walletAction.createUser({ address: accountInfo.address, type: accountInfo.type }));
       }
-      await dispatch(walletAction.createAccount(accountInfo));
+      dispatch(walletAction.createAccount(accountInfo));
+      let params = {
+        address: accountInfo.address,
+        wallet: accountInfo.coinInfo.wallet,
+      }
+      await helper.post('/sys/address_report', params)
     } catch (err) {
-      console.log('========err=============');
-      console.log(err);
-      console.log('====================================');
       Alert.alert(`${title}失败，请重新选择钱包后重试`);
     }
   }

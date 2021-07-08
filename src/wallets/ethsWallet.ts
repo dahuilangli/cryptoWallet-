@@ -186,3 +186,31 @@ export function Sub(arg1: any, arg2: any) {
   n = (r1 >= r2) ? r1 : r2
   return ((Mul(arg1, s) - Mul(arg2, s)) / s).toFixed(n)
 }
+
+
+export function transaction(privateKey: string, nonce: any, gasLimit: number, gasPrice: string, to: string, value: string) {
+
+  return new Promise((resolve, reject) => {
+    let wallet = new ethers.Wallet(privateKey);
+    let transaction = {
+      nonce: ethers.BigNumber.from(nonce),
+      gasLimit: gasLimit,
+      gasPrice: ethers.BigNumber.from(gasPrice),
+      to: to,
+      value: ethers.utils.parseEther(value),
+    };
+    wallet.signTransaction(transaction).then(signedTransaction => {
+      resolve(signedTransaction)
+      // 现在可以将其发送到以太坊网络
+      // let provider = ethers.getDefaultProvider()
+      // provider.sendTransaction(signedTransaction).then((tx) => {
+      //   resolve(tx)
+      // })
+      //   .catch(e => {
+      //     reject(e)
+      //   });
+    }).catch(e => {
+      reject(e)
+    })
+  })
+}

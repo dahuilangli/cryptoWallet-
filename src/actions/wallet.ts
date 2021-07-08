@@ -19,6 +19,7 @@ const Wallet = createActions({
   deleteAddressBookList: createAction<AddressBookItem>(),
   setLanguage: StringAction,
   setShowMoney: createAction<boolean>(),
+  setShowRisk: createAction<boolean>(),
   setCurrency: StringAction,
   setLocation: createAction<Location>(),
   // 添加账户币种
@@ -29,6 +30,7 @@ const Wallet = createActions({
   getUser: NoArgAction,
   getToken: NoArgAction,
   getHelp: NoArgAction,
+  getShowRisk: NoArgAction,
   GET_TOKEN_SUCCESS: StringAction,
   GET_TOKEN_ERROR: NoArgAction,
 });
