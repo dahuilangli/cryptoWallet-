@@ -53,14 +53,18 @@ function AddressBookScreen({}: Props) {
 
   return (
       <SafeAreaView style={styles.container}>
-        <FlatList 
-        data={dppSearchList} 
-        style={styles.item}
-        renderItem={renderItem}
-        keyExtractor={(item) => item.walletaddress}
-        >
+        {
+          dppSearchList.length>0?(
+          <FlatList 
+            data={dppSearchList} 
+            style={styles.item}
+            renderItem={renderItem}
+            keyExtractor={(item) => item.walletaddress}
+            >
+            
+          </FlatList>):(<View style={styles.nodataContainer}><Image source={require('assets/seach-nodata.png')} /><Text style={styles.nodata}>{t('nodata')}</Text></View>)
+        }
         
-        </FlatList>
         
       </SafeAreaView>
     );
@@ -126,6 +130,17 @@ const styles = StyleSheet.create({
       color:'#9CA4B3',
       fontWeight:'400',
     },
+    nodataContainer: { 
+      flex: 1, 
+      alignItems: 'center', 
+      justifyContent: 'center',
+      paddingBottom: 150,
+    },
+    nodata: {
+      fontSize: 16,
+      color: '#9CA4B3',
+      fontWeight: '500',
+    }
   });
 
 export default AddressBookScreen;

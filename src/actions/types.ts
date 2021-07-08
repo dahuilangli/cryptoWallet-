@@ -73,6 +73,7 @@ export interface AddressBookItem {
   remarks?: string,
   logo: any,
   walletaddress: string,
+  onlyID:number,
 }
 
 export interface Token {
