@@ -10,7 +10,6 @@ import { TabParamList } from 'routers/TabNavigator';
 import { AuthStackParamList } from 'routers/AuthStackNavigator';
 import walletAction from './wallet';
 import { ethers } from 'ethers';
-import { getType } from 'react-native-device-info';
 import { walletState } from 'reducers/walletStateReducer';
 
 export type ScreensParamList = MainStackParamList &

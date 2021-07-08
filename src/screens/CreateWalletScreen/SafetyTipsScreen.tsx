@@ -10,17 +10,32 @@ import {
 } from 'react-native';
 import { Button } from 'react-native-elements';
 import { navigate } from 'components/navigationService';
+import { Account } from 'actions/types';
 
 interface Props {
   route: {
     params: {
-      accountInfo: object;
+      accountInfo: any;
     };
   };
 }
 const SafetyTipsScreen = (props: Props) => {
   const {t} = useTranslation();
   const { accountInfo } = props.route.params;
+
+
+  async function storageAccount() {
+
+    let account: Account;
+    try {
+      account = accountInfo;
+      navigate('SuccessScreen', { title: t("Createdsuccessfully"), accountInfo: account });
+    } catch (err) {
+      console.log('====================================');
+      console.log(err);
+      console.log('====================================');
+    }
+  }
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.main}>
@@ -46,9 +61,7 @@ const SafetyTipsScreen = (props: Props) => {
         />
         <Button
           buttonStyle={styles.noneButton}
-          onPress={() => {
-            Alert.alert(t("becontinued"));
-          }}
+          onPress={storageAccount}
           title={t("Backuplater")}
           titleStyle={styles.noneButtonTitle}
         />

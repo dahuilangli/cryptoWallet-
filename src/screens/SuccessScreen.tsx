@@ -37,6 +37,7 @@ const SuccessScreen = ({ route }: Props) => {
         dispatch(walletAction.createUser({ address: accountInfo.address, type: accountInfo.type }));
       }
       dispatch(walletAction.createAccount(accountInfo));
+      dispatch(walletAction.setWalletStatus(true));
       let params = {
         address: accountInfo.address,
         wallet: accountInfo.coinInfo.wallet,
