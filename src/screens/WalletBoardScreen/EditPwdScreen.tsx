@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import walletAction from 'actions/wallet';
 import { Button } from 'react-native-elements';
 import { show } from 'utils'
+import { goBack } from 'components/navigationService';
 interface Props {
     route: {
         params: {
@@ -15,6 +16,8 @@ interface Props {
     }
 }
 const EditPwdScreen = (props: Props) => {
+    console.log(props.route.params);
+    
     const { address ,pwds,type,setPwds} = props.route.params;
     const dispatch = useDispatch();
     const [lastPassWord, setLastPassWord] = useState('');
@@ -54,6 +57,7 @@ const EditPwdScreen = (props: Props) => {
                                     if (secondPassWord === firstPassWord) {
                                         setPwds(firstPassWord);
                                         changePassWord(secondPassWord);
+                                        goBack();
                                     }else{
                                         show('新密码和确认密码不一样')
                                     }
