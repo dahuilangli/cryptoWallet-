@@ -18,7 +18,7 @@ const SetWalletNameScreen = (props: Props) => {
   const { type, loginType, coinInfo, desc } = props.route.params;
   const [walletName, setWalletName] = useState('');
   const { t } = useTranslation();
-  
+
 
   return (
     <SafeAreaView style={styles.container}>
@@ -36,19 +36,21 @@ const SetWalletNameScreen = (props: Props) => {
               onChangeText={setWalletName}
             />
           </View>
-          <Button
-            buttonStyle={styles.nextButton}
-            onPress={() => {
-              navigate('SetWalletPwdScreen', {
-                accountInfo: { walletName, type, coinInfo },
-                desc,
-                loginType,
-              });
-            }}
-            disabled={!walletName}
-            title={t("NextStep")}
-            titleStyle={styles.nextButtonTitle}
-          />
+          <View style={styles.bottonContainer}>
+            <Button
+              buttonStyle={styles.nextButton}
+              onPress={() => {
+                navigate('SetWalletPwdScreen', {
+                  accountInfo: { walletName, type, coinInfo },
+                  desc,
+                  loginType,
+                });
+              }}
+              disabled={!walletName}
+              title={t("NextStep")}
+              titleStyle={styles.nextButtonTitle}
+            />
+          </View>
         </View>
       </TouchableWithoutFeedback>
     </SafeAreaView>
@@ -66,7 +68,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   inputContainer: {
-    // flex: 1,
   },
   presentText: {
     fontSize: 14,
@@ -81,6 +82,10 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     paddingHorizontal: 17.5,
     textAlign: 'center',
+  },
+  bottonContainer: {
+    // flex: 1,
+    paddingBottom: 20,
   },
   nextButton: {
     height: 55,

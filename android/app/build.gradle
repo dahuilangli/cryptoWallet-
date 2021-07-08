@@ -1,7 +1,6 @@
 apply plugin: "com.android.application"
 
 import com.android.build.OutputFile
-implementation project(':react-native-camera')
 
 /**
  * The react.gradle file registers a task for each build variant (e.g. bundleDebugJsAndAssets
@@ -134,6 +133,7 @@ android {
         versionCode 1
         versionName "1.0"
         vectorDrawables.useSupportLibrary = true
+        missingDimensionStrategy 'react-native-camera', 'general' // <--- insert this line
     }
     splits {
         abi {
@@ -150,6 +150,13 @@ android {
             keyAlias 'androiddebugkey'
             keyPassword 'android'
         }
+        // 打包配置
+        release {
+            storeFile file(MYAPP_RELEASE_STORE_FILE)
+            storePassword MYAPP_RELEASE_STORE_PASSWORD
+            keyAlias MYAPP_RELEASE_KEY_ALIAS
+            keyPassword MYAPP_RELEASE_KEY_PASSWORD
+        }
     }
     buildTypes {
         debug {
@@ -160,6 +167,8 @@ android {
             // Caution! In production, you need to generate your own keystore file.
             // see https://facebook.github.io/react-native/docs/signed-apk-android.
             signingConfig signingConfigs.debug
+            // 打包配置
+            signingConfig signingConfigs.release
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }
@@ -199,6 +208,9 @@ dependencies {
         exclude group:'com.facebook.flipper'
     }
 
+    // react-native-camera
+    implementation project(':react-native-camera')
+    
     if (enableHermes) {
         def hermesPath = "../../node_modules/hermes-engine/android/";
         debugImplementation files(hermesPath + "hermes-debug.aar")

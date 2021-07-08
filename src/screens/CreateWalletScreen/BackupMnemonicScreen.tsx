@@ -15,7 +15,7 @@ interface Props {
 const BackupMnemonicScreen = (props: Props) => {
   const { accountInfo } = props.route.params;
   const mnemonicList: string[] = accountInfo.mnemonic.split(' ');
-  const {t} = useTranslation();
+  const { t } = useTranslation();
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.main}>
@@ -37,16 +37,18 @@ const BackupMnemonicScreen = (props: Props) => {
               ))}
           </View>
         </View>
-        <Button
-          buttonStyle={styles.nextButton}
-          onPress={() => {
-            navigate('VerifyMnemonicScreen', {
-              accountInfo: { ...accountInfo, mnemonics: mnemonicList },
-            });
-          }}
-          title={t("NextStep")}
-          titleStyle={styles.nextButtonTitle}
-        />
+        <View style={styles.bottonContainer}>
+          <Button
+            buttonStyle={styles.nextButton}
+            onPress={() => {
+              navigate('VerifyMnemonicScreen', {
+                accountInfo: { ...accountInfo, mnemonics: mnemonicList },
+              });
+            }}
+            title={t("NextStep")}
+            titleStyle={styles.nextButtonTitle}
+          />
+        </View>
       </View>
     </SafeAreaView>
   );
@@ -97,6 +99,9 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#3D73DD',
     fontWeight: '500',
+  },
+  bottonContainer: {
+    paddingBottom: 20,
   },
   nextButton: {
     height: 55,

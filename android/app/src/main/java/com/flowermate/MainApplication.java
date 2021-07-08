@@ -1,5 +1,7 @@
 package com.flowermate;
 
+import org.reactnative.camera.RNCameraPackage;
+
 import android.app.Application;
 import android.content.Context;
 import com.facebook.react.PackageList;
@@ -11,7 +13,6 @@ import com.facebook.soloader.SoLoader;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import cn.reactnative.modules.update.UpdateContext;
-import org.reactnative.camera.RNCameraPackage;
 
 public class MainApplication extends Application implements ReactApplication {
 
@@ -30,11 +31,22 @@ public class MainApplication extends Application implements ReactApplication {
         @Override
         protected List<ReactPackage> getPackages() {
           @SuppressWarnings("UnnecessaryLocalVariable")
-          List<ReactPackage> packages = new PackageList(this).getPackages(), new RNCameraPackage();
+          List<ReactPackage> packages = new PackageList(this).getPackages();
           // Packages that cannot be autolinked yet can be added manually here, for example:
           // packages.add(new MyReactNativePackage());
+          // 打开摄像头
+//          packages.add(new RNCameraPackage());
           return packages;
         }
+
+        /*
+        protected List<ReactPackage> getPackages() {
+          return Arrays.<ReactPackage>asList(
+              new MainReactPackage(),
+              new RNCameraPackage()
+          );
+        }
+        */
 
         @Override
         protected String getJSMainModuleName() {

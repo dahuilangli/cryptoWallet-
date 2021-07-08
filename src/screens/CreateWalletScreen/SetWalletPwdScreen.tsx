@@ -27,18 +27,21 @@ const SetWalletPwdScreen = (props: Props) => {
   const [repwd, setRepwd] = useState('');
   const { t } = useTranslation();
   useEffect(() => {
+    createAccount()
+  }, []);
+  async function createAccount() {
     switch (loginType) {
       case 'mnemonic':
-        setAccount(importByMnemonic(desc));
+        await setAccount(importByMnemonic(desc));
         break;
       case 'privateKey':
-        setAccount(importByprivateKey(desc));
+        await setAccount(importByprivateKey(desc));
         break;
       default:
-        setAccount(genWallet());
+        await setAccount(genWallet());
         break;
     }
-  }, []);
+  }
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.main}>
@@ -61,24 +64,27 @@ const SetWalletPwdScreen = (props: Props) => {
             secureTextEntry
           />
         </View>
-        <Button
-          buttonStyle={styles.nextButton}
-          onPress={() => {
-            if (loginType) {
-              navigate('SuccessScreen', {
-                title: t("Importsuccessful"),
-                accountInfo: { ...account, ...accountInfo, securityCode: repwd },
-              });
-            } else {
-              navigate('SafetyTipsScreen', {
-                accountInfo: { ...account, ...accountInfo, securityCode: repwd },
-              });
-            }
-          }}
-          disabled={!(pwd.length >= 6 && repwd.length >= 6 && repwd === pwd)}
-          title={t("NextStep")}
-          titleStyle={styles.nextButtonTitle}
-        />
+        <View style={styles.bottonContainer}>
+          <Button
+            buttonStyle={styles.nextButton}
+            onPress={() => {
+              if (loginType) {
+                navigate('SuccessScreen', {
+                  title: t("Importsuccessful"),
+                  accountInfo: { ...account, ...accountInfo, securityCode: repwd },
+                });
+              } else {
+                navigate('SafetyTipsScreen', {
+                  accountInfo: { ...account, ...accountInfo, securityCode: repwd },
+                });
+              }
+            }}
+            disabled={!(pwd.length >= 6 && repwd.length >= 6 && repwd === pwd)}
+            title={t("NextStep")}
+            titleStyle={styles.nextButtonTitle}
+          />
+        </View>
+
       </View>
     </SafeAreaView>
   );
@@ -116,6 +122,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 17.5,
     marginTop: 20,
     textAlign: 'center',
+  },
+  bottonContainer: {
+    paddingBottom: 20,
   },
   nextButton: {
     position: 'relative',

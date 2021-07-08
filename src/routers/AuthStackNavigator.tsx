@@ -11,7 +11,7 @@ import ImportMnemonicScreen from 'screens/CreateWalletScreen/ImportMnemonicScree
 import SuccessScreen from 'screens/SuccessScreen';
 import CameraScreen from 'components/Camera';
 import { useTranslation } from 'react-i18next';
-import { Image, TouchableOpacity } from 'react-native';
+import { Image, Platform, TouchableOpacity } from 'react-native';
 import React from 'react';
 import { navigate } from 'components/navigationService';
 
@@ -36,13 +36,15 @@ export default function AuthStackNavigator() {
   return (
     <Navigator
       screenOptions={{
-        headerStyle: { backgroundColor: '#3D73DD' },
+        headerStyle: { backgroundColor: '#3D73DD', height: 88 },
         headerBackTitleVisible: false,
         headerTitleStyle: { fontSize: 18, fontWeight: 'bold', color: 'white' },
+        headerBackAllowFontScaling: true,
+        headerTitleAlign: "center",
         headerBackImage: () => (
-          <Image source={require('../../assets/icon-24-返回-light.png')} />
+          <Image source={require('assets/icon-24-返回-light.png')} />
         ),
-        headerLeftContainerStyle: { marginLeft: 20 },
+        headerLeftContainerStyle: { paddingLeft: Platform.OS === 'ios' ? 20 : 10 },
       }}
     >
       <Screen
