@@ -11,6 +11,7 @@ interface Props {
         params: {
             title: string,
             item: {
+                onlyID:number,
                 add_type: string,
                 add_name: string,
                 remarks?: string,
@@ -21,19 +22,20 @@ interface Props {
     };
 }
 
-function AddressBookEditorScreen(props: Props) {
+function AddressBookEditorScreen(props: Props) {    
     const { t } = useTranslation();
-    const { item } = props.route.params;
+    const { item ,title} = props.route.params;
     const [addType, setAddType] = useState(item.add_type ? item.add_type : 'ETH');
-
     const [addname, setAddName] = useState(item.add_name);
     const [remarks, setRemarks] = useState(item.remarks);
     const [typeLogo, setTypeLogo] = useState(item.logo ? item.logo : require('assets/coins/ethereum.png'));
     const [WalletAdress, setWalletAdress] = useState(item.walletaddress);
     const dispatch = useDispatch();
     async function addAddressBook() {
+
         await dispatch(walletAction.setAddressBookList(
             {
+                onlyID:t("editpayee") === title ? item.onlyID:new Date().getTime(),
                 add_type: addType,
                 add_name: addname,
                 remarks: remarks,

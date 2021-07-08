@@ -88,7 +88,7 @@ const reducer = (originalState = initialState, walletAction: WalletAction) =>
         let list1 = state.addressBookList;
         if (list1.length > 0) {
           list1.map((x, i) => {
-            if (x.walletaddress === payload1.walletaddress) {
+            if (x.onlyID === payload1.onlyID) {
               list1.splice(i, 1);
             }
           })
@@ -101,7 +101,7 @@ const reducer = (originalState = initialState, walletAction: WalletAction) =>
         let payload2 = walletAction.payload;
         let list2 = state.addressBookList;
         list2.map((x, i) => {
-          if (x.walletaddress === payload2.walletaddress) {
+          if (x.onlyID === payload2.onlyID) {
             list2.splice(i, 1)
           }
         })

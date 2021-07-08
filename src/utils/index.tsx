@@ -17,6 +17,8 @@ export function show(text: string) {
 };
 
 export const showWithImage = (text: string, imageSource: any) => {
+  console.log(text);
+  
   const toastOpts = {
     data: text,
     textColor: '#ffffff',

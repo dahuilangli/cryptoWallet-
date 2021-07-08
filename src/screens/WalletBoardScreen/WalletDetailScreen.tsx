@@ -57,7 +57,6 @@ function WalletDetailScreen(props: Props) {
 
   const dispatch = useDispatch();
   const { addressMessage } = props.route.params;
-  console.log(addressMessage);
   const [pwds ,setPwds] = useState(addressMessage.securityCode);
   const [pwd, setPwd] = useState('');
   const [wallName, setWallName] = useState(addressMessage.walletName);
@@ -249,7 +248,7 @@ function WalletDetailScreen(props: Props) {
                                 navigate('ExportMnemonicScreen', { mnemonic: addressMessage.mnemonic });
                                 break;
                               case 'editPwd':
-                                navigate('EditPwdScreen',{address:addressMessage.address,type:addressMessage.type,pwds:addressMessage.securityCode,setPwds});
+                                navigate('EditPwdScreen',{address:addressMessage.address,type:addressMessage.type,pwds:pwds,setPwds});
                                 break;
                               default:
                                 break;
