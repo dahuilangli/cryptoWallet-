@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, Text, SafeAreaView, FlatList, TouchableOpacity,Image  } from 'react-native';
+import { StyleSheet, View, Text, SafeAreaView, FlatList, TouchableOpacity, Image } from 'react-native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { navigate } from 'components/navigationService';
 import { ScreensParamList, Feed } from 'actions/types';
-import {  SCREENWIDTH } from 'config/constants';
+import { SCREENWIDTH } from 'config/constants';
 import { RouteProp, useRoute, useIsFocused } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 import { formatDate } from 'utils'
@@ -62,8 +62,8 @@ const list2 = [
 function HomeScreen() {
   const [messagelistData, setMessageListData] = useState([]);
   const [transferlistData, setTransferListData] = useState([]);
- 
-  const isFocused = useIsFocused();  useEffect(() => {
+
+  const isFocused = useIsFocused(); useEffect(() => {
     if (isFocused) {
       getMessage();
       getTransferRecordList();
@@ -71,7 +71,7 @@ function HomeScreen() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFocused]);
   async function getMessage() {
-    const { data } = await helper.get('/sys/notice/list',{})
+    const { data } = await helper.get('/sys/notice/list', {})
     console.log('===========/sys/notice/list=============');
     console.log(data);
     console.log('====================================');
@@ -80,14 +80,14 @@ function HomeScreen() {
     }
   }
 
-  async function getTransferRecordList() {
-    const data = await helper.post('/wallet/transfer_record', {address_list:['0x1795C7bf318F9Ec0429fe5261E5095b3f5da4331']})
-    console.log('--------------------');
-    console.log(data);
-    console.log('--------------------');
-    if (data) {
-      
-    }
+  function getTransferRecordList() {
+    helper.post('/wallet/transfer_record', { address_list: ['0x1795C7bf318F9Ec0429fe5261E5095b3f5da4331'] }).then((res: any) => {
+      console.log('--------------------');
+      console.log(res);
+      console.log('--------------------');
+    }).catch(e => {
+      throw new Error(e)
+    })
   }
   const Item1 = ({ item1, onPress1, style1 }) => (
     <TouchableOpacity onPress={onPress1} style={[styles.background, style1]}>
@@ -106,7 +106,7 @@ function HomeScreen() {
         item1={item}
         style1={styles.itemStyle}
         // navigate: async () => await navigate('WebHtmlScreen', { title: '测试', uri: html })
-        onPress1={() =>  navigate('WebHtmlScreen', { title: item.title, uri: item.content })}
+        onPress1={() => navigate('WebHtmlScreen', { title: item.title, uri: item.content })}
       >
 
       </Item1>
@@ -129,24 +129,24 @@ function HomeScreen() {
 function SettingsScreen() {
   const Item2 = ({ item2, onPress2, style2 }) => (
     <TouchableOpacity onPress={onPress2} style={[styles.background, style2]}>
-      <View style = {styles.headView}>
-        <Text style={styles.titleStyle}>{item2.form === item2.to ?'转入通知' :'转出通知'}</Text>
+      <View style={styles.headView}>
+        <Text style={styles.titleStyle}>{item2.form === item2.to ? '转入通知' : '转出通知'}</Text>
         <Text style={styles.timeStyle}>{item2.time}</Text>
       </View>
-      <View style = {styles.centerView}>
+      <View style={styles.centerView}>
         <Text style={styles.desStyle1}>{item2.form}</Text>
         <Text style={{
           fontSize: 18,
           fontWeight: '400',
-          color: (item2.form === item2.to)?'#3DDD94':'#DD3D50',
-        }}>{(item2.form === item2.to) ? '+ ' :'- ' }{item2.gas} {item2.gas_unit} </Text>
+          color: (item2.form === item2.to) ? '#3DDD94' : '#DD3D50',
+        }}>{(item2.form === item2.to) ? '+ ' : '- '}{item2.gas} {item2.gas_unit} </Text>
       </View>
-      <View style = {styles.lineView}></View>
-      <View style = {styles.centerView}>
+      <View style={styles.lineView}></View>
+      <View style={styles.centerView}>
         <Text style={styles.hashStyle1}>HASH:{item2.hash}</Text>
         <Image
-          source = {require('assets/icon-20-arrow-right.png')}
-          style = {styles.rightBtn}
+          source={require('assets/icon-20-arrow-right.png')}
+          style={styles.rightBtn}
         />
       </View>
     </TouchableOpacity>
@@ -180,7 +180,7 @@ const Tab = createMaterialTopTabNavigator();
 
 
 function MessageScreen({ }: Props) {
-  const {t} = useTranslation();
+  const { t } = useTranslation();
   return (
     <Tab.Navigator
       tabBarOptions={{
@@ -210,7 +210,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#F2F5F8',
   },
   itemStyle: {
-    
+
     marginHorizontal: 20,
     backgroundColor: 'white',
     marginTop: 20,
@@ -230,7 +230,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
-  centerView:{
+  centerView: {
     marginHorizontal: 15,
     marginTop: 15,
     height: 20,
@@ -257,7 +257,7 @@ const styles = StyleSheet.create({
   },
   conStyle: {
     marginTop: 5,
-    marginBottom:15,
+    marginBottom: 15,
     marginHorizontal: 15,
     fontSize: 12,
     lineHeight: 20,
@@ -265,29 +265,29 @@ const styles = StyleSheet.create({
     color: '#616D86',
     alignItems: 'center',
   },
-  desStyle1:{
+  desStyle1: {
     fontSize: 14,
     fontWeight: '500',
     color: '#394867',
   },
-  numberStyle:{
+  numberStyle: {
     fontSize: 18,
     fontWeight: '400',
     color: '#3DDD94',
   },
-  lineView:{
-    marginTop:15,
-    height:0.5,
-    backgroundColor:'#E9EDF1',
+  lineView: {
+    marginTop: 15,
+    height: 0.5,
+    backgroundColor: '#E9EDF1',
   },
-  hashStyle1:{
-    color:'#9CA4B3',
-    fontSize:12,
-    fontWeight:'400',
+  hashStyle1: {
+    color: '#9CA4B3',
+    fontSize: 12,
+    fontWeight: '400',
   },
-  rightBtn:{
-    width:8,
-    height:15,
+  rightBtn: {
+    width: 8,
+    height: 15,
   }
 });
 

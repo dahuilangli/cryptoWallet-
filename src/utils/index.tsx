@@ -4,12 +4,12 @@ import { WToast } from "react-native-smart-tip";
 
 
 
-export function show(text: string) {
+export function show(text: string, duration = WToast.duration.SHORT) {
   const toastOpts = {
     data: text,
     textColor: '#ffffff',
     backgroundColor: '#444444',
-    duration: WToast.duration.SHORT, //1.SHORT 2.LONG
+    duration: duration, //1.SHORT 2.LONG
     position: WToast.position.CENTER, // 1.TOP 2.CENTER 3.BOTTOM
   };
 
