@@ -77,22 +77,25 @@ function SearchScreen({ }: Props) {
               style={styles.coinNameIcon}
               source={require('assets/icon-20-搜索.png')}
             />
-            <TextInput
-              placeholder={t("EnterDappname")}
-              value={dappName}
-              style={styles.coinNameText}
-              onChangeText={(text) => setDappName(text)}
-              onSubmitEditing={() => onSubmit(dappName)}
-            />
+            <View >
+              <TextInput
+                placeholder={t("EnterDappname")}
+                value={dappName}
+                style={styles.coinNameText}
+                onChangeText={(text) => setDappName(text)}
+                onSubmitEditing={() => onSubmit(dappName)}
+              />
+            </View>
+
           </View>
           <TouchableOpacity onPress={goBack} style={styles.goBlack}>
             <Text style={styles.goBlackText}>{t("cancel")}</Text>
           </TouchableOpacity>
         </View>
-        
+
         <SafeAreaView style={styles.assetsContainer}>
           {seachDataList?.length > 0 ? (
-            <View style={{flex: 1}}>
+            <View style={{ flex: 1 }}>
               <View style={styles.assetsHeard}>
                 <Text style={styles.assetsHeardTitle}>{t("searchresult")}</Text>
               </View>
@@ -125,8 +128,8 @@ function SearchScreen({ }: Props) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: Platform.OS === 'ios' ? 35 : 0, // 处理iOS状态栏
-    height: Platform.OS === 'ios' ? 88 : 48, // 处理iOS状态栏
+    paddingTop: Platform.OS === 'ios' ? 50 : 50, // 处理iOS状态栏
+    height: Platform.OS === 'ios' ? 88 : 88,
   },
   header: {
     paddingHorizontal: 10,
@@ -217,9 +220,9 @@ const styles = StyleSheet.create({
     fontWeight: '500',
   },
 
-  nodataContainer: { 
-    flex: 1, 
-    alignItems: 'center', 
+  nodataContainer: {
+    flex: 1,
+    alignItems: 'center',
     justifyContent: 'center',
     paddingBottom: 150,
   },

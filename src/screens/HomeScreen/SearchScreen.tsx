@@ -170,8 +170,8 @@ function SearchScreen({ route }: Props) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: Platform.OS === 'ios' ? 44 : 0, // 处理iOS状态栏
-    height: Platform.OS === 'ios' ? 88 : 48, // 处理iOS状态栏
+    paddingTop: Platform.OS === 'ios' ? 50 : 50, // 处理iOS状态栏
+    height: Platform.OS === 'ios' ? 88 : 88,
   },
   header: {
     paddingHorizontal: 10,
@@ -195,8 +195,6 @@ const styles = StyleSheet.create({
     marginHorizontal: 5,
   },
   coinNameText: {
-    fontSize: 13,
-    fontWeight: '500',
     flex: 1,
   },
   goBlack: {
