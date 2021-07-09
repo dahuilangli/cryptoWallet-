@@ -18,7 +18,7 @@ export const initialState: Readonly<DataState> = {
   dappSearchList: [],
   addressBookList: [],
   language: 'en',
-  currency: 'CNY',
+  currency: 'USDT',
   showMoney: true,
   showRisk: true,
 };

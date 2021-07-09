@@ -34,8 +34,9 @@ export default (origin = initialState, walletAction: WalletAction) =>{
     switch (walletAction.type) {
       case 'createAccount':
         try {
-          if(state.accountList.has(walletAction.payload.type)){
-            const accounts = state.accountList.get(walletAction.payload.type);
+          let stateAccountList = state.accountList;
+          if(stateAccountList.has(walletAction.payload.type)){
+            const accounts = stateAccountList.get(walletAction.payload.type);
             const finded = accounts?.findIndex((value,index,arr)=>{
               return value.address == walletAction.payload.address
             })
@@ -43,8 +44,12 @@ export default (origin = initialState, walletAction: WalletAction) =>{
               accounts?.push(walletAction.payload);
             }
           }else{
-            state.accountList.set(walletAction.payload.type,[walletAction.payload])
+            console.log(walletAction.payload.type,[walletAction.payload]);
+            stateAccountList.set(walletAction.payload.type,[walletAction.payload])
           }
+          state.accountList = stateAccountList;
+          console.log('==========');
+          console.log(state.accountList);
         } catch (error) {
           console.log('========error===================');
           console.log(error);
@@ -61,7 +66,6 @@ export default (origin = initialState, walletAction: WalletAction) =>{
         return;
       case 'setWalletName':
         let payload1 = walletAction.payload;
-        console.log('11111111');
         const WALLETName = state.accountList.get(payload1.type)?.find(x => x.address === payload1.address)
         var walletnameObject = Object(WALLETName)
         walletnameObject.walletName = payload1.walletName;

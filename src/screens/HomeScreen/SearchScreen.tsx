@@ -55,17 +55,19 @@ function SearchScreen({ route }: Props) {
   async function seachName(name: string) {
     if (name) {
       name = name.trim()
-      const { data } = await helper.get('/wallet/coin', { keyword: name, wallet: thisUser?.coinInfo?.wallet })
-      if (data.length > 0) {
-        let sortArr1: string[] = thisUser?.contracts;
-        setCoinList({ title: '搜索结果', data: data.sort(function (a: responseItem, b: responseItem) {
-          if (getIndex(sortArr1, a.token) == getIndex(data, b.token)) {
-            return 0
-          } else {
-            return getIndex(sortArr1, a.token) > getIndex(sortArr1, b.token) ? 1 : -1
-          }
-        })})
-      }
+      await helper.get('/wallet/coin', { keyword: name, wallet: thisUser?.coinInfo?.wallet }).then((res:any)=>{
+        if (res.length > 0) {
+          let sortArr1: string[] = thisUser?.contracts;
+          setCoinList({ title: '搜索结果', data: res.sort(function (a: responseItem, b: responseItem) {
+            if (getIndex(sortArr1, a.token) == getIndex(res, b.token)) {
+              return 0
+            } else {
+              return getIndex(sortArr1, a.token) > getIndex(sortArr1, b.token) ? 1 : -1
+            }
+          })})
+        }
+      })
+      
     }
   }
 

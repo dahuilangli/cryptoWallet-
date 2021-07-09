@@ -77,7 +77,7 @@ function CoinDetailScreen({ route }: Props) {
 
     isFetching.current = true;
     setLoading(isRefresh ? 'refresh' : 'more');
-    const { data } = await helper.get(
+    const data = await helper.get(
       '/wallet/transfer_record',
       {
         id: isRefresh ? null : transferlistData[transferlistData.length - 1].id,

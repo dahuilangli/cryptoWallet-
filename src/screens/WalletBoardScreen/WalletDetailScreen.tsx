@@ -59,6 +59,7 @@ function WalletDetailScreen(props: Props) {
   const { addressMessage } = props.route.params;
   const [pwds ,setPwds] = useState(addressMessage.securityCode);
   const [pwd, setPwd] = useState('');
+  const [replaceName ,setReplaceName] = useState(addressMessage.walletName);
   const [wallName, setWallName] = useState(addressMessage.walletName);
   const [transferConfirm, setTransferConfirm] = useState(false);
   const [wallNameModel, setWallNameModel] = useState(false);
@@ -315,8 +316,8 @@ function WalletDetailScreen(props: Props) {
                     <TextInput
                       style={styles.codeInput}
                       placeholder={t("enterwalletname")}
-                      value={wallName}
-                      onChangeText={setWallName}
+                      value={replaceName}
+                      onChangeText={setReplaceName}
                     />
                     <View style={styles.codeButtonView}>
                       <Button
@@ -325,7 +326,8 @@ function WalletDetailScreen(props: Props) {
                         titleStyle={styles.buttonModelTitle}
                         onPress={() => {
                           setWallNameModel(!wallNameModel);
-                          changeWalletName(wallName);
+                          setWallName(replaceName);
+                          changeWalletName(replaceName);
                         }}
                       />
                       <Button

@@ -62,13 +62,7 @@ const SelectWalletScreen = (prop: Props) => {
   }, [isFocused]);
   function getTypeList() {
     helper.get('/wallet/type', {}).then((res: any) => {
-      console.log(res);
-      
-      if (res?.data) {
-        setTypeList(res.data)
-      } else {
-        setTypeList([])
-      }
+      setTypeList(res)
     })
   }
   return (

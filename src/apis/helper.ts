@@ -3,6 +3,10 @@ import { API_ENDPOINT } from 'config/constants';
 import { getToken, getLanguage ,getCurrency } from 'reducers/dataStateReducer';
 import { ReduxStore } from 'store';
 import DeviceInfo from 'react-native-device-info';
+import errorCode from './errorCode.json'
+import { Alert } from "react-native";
+import { DevSettings } from "react-native";
+import { show } from "utils";
 
 axios.defaults.headers['Content-Type'] = 'application/json;charset=utf-8'
 
@@ -52,20 +56,72 @@ client.interceptors.request.use(config => {
   }
   return config
 }, error => {
-  console.log(error)
-  Promise.reject(error)
+  Promise.reject(error.data)
 })
+
+// 响应拦截器
+client.interceptors.response.use(res => {
+  // 未设置状态码则默认成功状态
+  console.log('=======状态码================');
+  console.log(res.data.data);
+  console.log('====================================');
+  const code: any = res.data.code || 200;
+  // 获取错误信息
+  
+  const msg = errorCode[code] || res.data.msg || errorCode['default']
+  if (code === '401') {
+    Alert.alert(
+      '提示',
+      '登录状态已过期，您可以继续留在该页面，或者重新启动',
+      [
+        {
+          text: '是',
+          onPress: async () => {
+            try {
+              DevSettings.reload()
+            } catch (err) {
+              Alert.alert('提示', '重启失败，请手动重启');
+            }
+          },
+        },
+        { text: '否' },
+      ],
+    );
+  } else if (code === '500') {
+    Alert.alert(msg)
+    return Promise.reject(new Error(msg))
+  } else if (code !== '200') {
+    Alert.alert(msg)
+    return Promise.reject('error')
+  } else {
+    return res.data
+  }
+},
+error => {
+  console.log('err' + error)
+  let { message } = error;
+  if (message == "Network Error") {
+    message = "后端接口连接异常";
+  }
+  else if (message.includes("timeout")) {
+    message = "系统接口请求超时";
+  }
+  else if (message.includes("Request failed with status code")) {
+    message = "系统接口" + message.substr(message.length - 3) + "异常";
+  }
+  Alert.alert(message)
+  return Promise.reject(error)
+}
+)
 
 export function get(url: string, params: object) {
   return new Promise((resolve, reject) => {
     client.get(API_ENDPOINT + url, { params })
       .then(res => {
-        console.log(res);
-        
         resolve(res.data)
       })
       .catch(err => {
-        reject(err)
+        reject(err.data)
       })
   })
 }
@@ -77,7 +133,7 @@ export function post(url: string, params: object) {
         resolve(res.data)
       })
       .catch(err => {
-        reject(err)
+        reject(err.data)
       })
   })
 }

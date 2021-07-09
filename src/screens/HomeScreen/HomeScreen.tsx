@@ -81,24 +81,23 @@ function HomeScreen({ }: Props) {
     dispatch(walletAction.createUser({ address: item.address, type: item.type }));
     setModalVisible(!modalVisible);
   }
-  async function getAssetsList() {
+  function getAssetsList() {
     let params = {
       "address": thisUser?.address,
       "contracts": thisUser?.contracts,
       "wallet": thisUser?.coinInfo?.wallet
     }
-    const { data } = await helper.post('/wallet/assets', params)
-    if (data && data.length > 0) {
-      setAssetsList(data)
+    helper.post('/wallet/assets', params).then((res : any) => {
+      setAssetsList(res)
       let a = 0;
-      data.map((s: AssetsList) => {
+      res.map((s: AssetsList) => {
         a += parseFloat(s.rate_price)
       })
       setAssetsSum(String(a))
-    } else {
+    }).catch(e => {
       setAssetsList([])
       setAssetsSum('-')
-    }
+    })
   }
   async function hideOrShowMoney() {
     await dispatch(walletAction.setShowMoney(!showMoney));
