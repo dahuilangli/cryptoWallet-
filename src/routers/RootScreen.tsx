@@ -10,7 +10,6 @@ import i18n from "i18n";
 import walletAction from 'actions/wallet'
 import * as helper from "apis/helper"
 import DeviceInfo from 'react-native-device-info';
-
 function RootScreen() {
   const dispatch = useDispatch();
   const walletStatus = useSelector(getWalletStatus);
@@ -22,9 +21,10 @@ function RootScreen() {
   React.useEffect(() => {
     i18n.changeLanguage(CurrentLanguage);
     findToken();
+    
     SplashScreen.hide();
   }, []);
-  async function findToken() {
+  function findToken() {
     if (!token) {
       const params = {
         device_id: DeviceInfo.getUniqueId(),
@@ -32,11 +32,10 @@ function RootScreen() {
         mobile_type: DeviceInfo.getSystemName(),
         sys_version: DeviceInfo.getSystemVersion()
       };
-      await helper.post('/sys/device_authorization', params).then((res: any) => {
-        let data = res.data;
-        if (data) {
-          dispatch(walletAction.setToken(data.token))
-        }
+      helper.post('/sys/device_authorization', params).then((res: any) => {
+        dispatch(walletAction.setToken(res.token))
+      }).catch(e => {
+        throw console.error(e);
       })
     }
   }

@@ -73,41 +73,38 @@ function TransferScreen(props: Props) {
       "contracts": [thisUser?.contracts[coinIndex]],
       "wallet": thisUser?.coinInfo?.wallet
     }
-    const { data } = await helper.post('/wallet/assets', params)
-    if (data && data.length > 0) {
-      assetsList[coinIndex] = data[0]
+    helper.post('/wallet/assets', params).then((res: any) => {
+      assetsList[coinIndex] = res[0]
       setAssetsList(assetsList)
-    }
-    return
+    })
   }
   // 获取GasList
   async function getGas() {
     let params = {
       "wallet": thisUser?.coinInfo?.wallet
     }
-    const { code, data } = await helper.get('/wallet/gas', params)
-    if (data && code == 200) {
+    helper.get('/wallet/gas', params).then((res: any) => {
       let gas: Array<{ gasPrice: string; title: string; balance: string; amount: string }> = []
       gas[0] = {
         title: '快速',
-        gasPrice: data.fastest,
-        balance: Div(Mul(data.fastest, thisUser?.coinInfo.gas_limit), Math.pow(10, Number(thisUser?.coinInfo?.gas_decimal))).toString(),
-        amount: Mul(Div(Mul(data.fastest, thisUser?.coinInfo.gas_limit), Math.pow(10, Number(thisUser?.coinInfo?.gas_decimal))), data.rate_currency).toString(),
+        gasPrice: res.fastest,
+        balance: Div(Mul(res.fastest, thisUser?.coinInfo.gas_limit), Math.pow(10, Number(thisUser?.coinInfo?.gas_decimal))).toString(),
+        amount: Mul(Div(Mul(res.fastest, thisUser?.coinInfo.gas_limit), Math.pow(10, Number(thisUser?.coinInfo?.gas_decimal))), res.rate_currency).toString(),
       };
       gas[1] = {
         title: '平均',
-        gasPrice: data.average,
-        balance: Div(Mul(data.average, thisUser?.coinInfo.gas_limit), Math.pow(10, Number(thisUser?.coinInfo?.gas_decimal))).toString(),
-        amount: Mul(Div(Mul(data.average, thisUser?.coinInfo.gas_limit), Math.pow(10, Number(thisUser?.coinInfo?.gas_decimal))), data.rate_currency).toString(),
+        gasPrice: res.average,
+        balance: Div(Mul(res.average, thisUser?.coinInfo.gas_limit), Math.pow(10, Number(thisUser?.coinInfo?.gas_decimal))).toString(),
+        amount: Mul(Div(Mul(res.average, thisUser?.coinInfo.gas_limit), Math.pow(10, Number(thisUser?.coinInfo?.gas_decimal))), res.rate_currency).toString(),
       };
       gas[2] = {
         title: '最慢',
-        gasPrice: data.slow,
-        balance: Div(Mul(data.slow, thisUser?.coinInfo.gas_limit), Math.pow(10, Number(thisUser?.coinInfo?.gas_decimal))).toString(),
-        amount: Mul(Div(Mul(data.slow, thisUser?.coinInfo.gas_limit), Math.pow(10, Number(thisUser?.coinInfo?.gas_decimal))), data.rate_currency).toString(),
+        gasPrice: res.slow,
+        balance: Div(Mul(res.slow, thisUser?.coinInfo.gas_limit), Math.pow(10, Number(thisUser?.coinInfo?.gas_decimal))).toString(),
+        amount: Mul(Div(Mul(res.slow, thisUser?.coinInfo.gas_limit), Math.pow(10, Number(thisUser?.coinInfo?.gas_decimal))), res.rate_currency).toString(),
       };
       setGasList(gas)
-    }
+    })
   }
   // 关闭首次弹出
   function setShowRisk() {
@@ -128,33 +125,23 @@ function TransferScreen(props: Props) {
         let to = receivingAddress;
         let symbol = assetsList[selectCoinIndex].symbol;
         let gas_limit: any = assetsList[selectCoinIndex].gas_limit;
-        helper.get('/wallet/transfer_nonce', { address, wallet }).then(res => {
-          const { code, data, msg } = res;
-          if (code == 200) {
-            let nonce = data.nonce;
-            transaction(thisUser.privateKey, nonce, gas_limit, gas_price, to, amount).then(sign => {
-              let params = {
-                "amount": amount,
-                "from": address,
-                "gas": gasList[gasIndex].balance,
-                "nonce": Number(nonce),
-                "signature": sign,
-                "symbol": symbol,
-                "to": to,
-                "wallet": wallet
-              }
-              show('提交成功')
-              helper.post('/wallet/transfer', params).then(res => {
-                const { code, msg } = res;
-                if (code == 200) {
-                } else {
-                  show(msg)
-                }
-              })
+        helper.get('/wallet/transfer_nonce', { address, wallet }).then((res : any) => {
+          let nonce = res.nonce;
+          transaction(thisUser.privateKey, nonce, gas_limit, gas_price, to, amount).then(sign => {
+            let params = {
+              "amount": amount,
+              "from": address,
+              "gas": gasList[gasIndex].balance,
+              "nonce": Number(nonce),
+              "signature": sign,
+              "symbol": symbol,
+              "to": to,
+              "wallet": wallet
+            }
+            show('提交成功')
+            helper.post('/wallet/transfer', params).then((res: any) => {
             })
-          } else {
-            show(msg)
-          }
+          })
         })
       }
     }
@@ -254,7 +241,7 @@ function TransferScreen(props: Props) {
                         : styles.gasItemSum
                     }
                   >
-                    {item?.balance} {user?.type}
+                    {item?.balance} {thisUser?.coinInfo?.token}
                   </Text>
                   <Text
                     style={

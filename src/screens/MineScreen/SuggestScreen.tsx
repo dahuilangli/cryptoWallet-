@@ -34,18 +34,12 @@ function SuggestScreen({ }: Props) {
       content: detailsText,
       address: walletAddressText,
     };
-    const data: any = await helper.post('/sys/help', body)
-    console.log(data);
-    
-    if (data.code === '200') {
+    helper.post('/sys/help', body).then((res: any) => {
       showWithImage('提交成功', require('assets/icon-20-有误.png'))
       goBack()
-    }else{
-      show(data.msg)
-    }
-
-    return data
-
+    }).catch(e => {
+      throw new Error(e)
+    })
   }
 
   return (

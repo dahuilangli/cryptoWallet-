@@ -45,14 +45,11 @@ function DappScreen({ }: Props) {
       getBanner();
     }
   }, [isFocused]);
-  async function getBanner() {
-    const { data } = await helper.get('/dapp/banner', {})
-    console.log('===========/dapp/banner=============');
-    console.log(data);
-    console.log('====================================');
-    if (data && data.length) {
-      setBannerListData(data)
-    }
+  function getBanner() {
+    helper.get('/dapp/banner', {}).then((res:any)=>{
+      setBannerListData(res)
+    })
+    
   }
   async function goWebView(item: DappRecentItem) {
     await dispatch(walletAction.setDappSearchList(item));

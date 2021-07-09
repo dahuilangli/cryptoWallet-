@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, Text, SafeAreaView, FlatList, TouchableOpacity,Image  } from 'react-native';
+import { StyleSheet, View, Text, SafeAreaView, FlatList, TouchableOpacity, Image } from 'react-native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { navigate } from 'components/navigationService';
 import { ScreensParamList, Feed } from 'actions/types';
-import { useDispatch, useSelector } from 'react-redux';
-import {  SCREENWIDTH } from 'config/constants';
+import { SCREENWIDTH } from 'config/constants';
 import { RouteProp, useRoute, useIsFocused } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
+import { useDispatch, useSelector } from 'react-redux';
 import { formatDate ,subSplit} from 'utils'
 import * as helper from 'apis/helper'
 import { getAccountList } from 'reducers/walletStateReducer';
@@ -14,24 +14,6 @@ import { add } from 'react-native-reanimated';
 
 type MessageScreenRouteProp = RouteProp<ScreensParamList, 'MessageScreen'>;
 interface Props { }
-
-interface TransferListItem {
-  "amount": string,
-  "ctime": string,
-  "device": string,
-  "from": string,
-  "gas": string,
-  "gas_use"?: string,
-  "id": number,
-  "ledger_index"?: any,
-  "nonce": number,
-  "state": number,
-  "symbol": string,
-  "to": string,
-  "tx_hash": string,
-  wallet: string,
-  remarks: string,
-}
 
 function HomeScreen() {
   const {t} = useTranslation();
@@ -42,14 +24,11 @@ function HomeScreen() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFocused]);
-  async function getMessage() {
-    const { data } = await helper.get('/sys/notice/list',{})
-    // console.log('===========/sys/notice/list=============');
-    // console.log(data);
-    // console.log('====================================');
-    if (data && data.length) {
-      setMessageListData(data)
-    }
+  function getMessage() {
+    helper.get('/sys/notice/list', {}).then((res:any) =>{
+      setMessageListData(res)
+    })
+    
   }
 
   
@@ -128,17 +107,14 @@ function SettingsScreen() {
     }
     isFetching.current = true;
     setLoading(isRefresh ? 'refresh' : 'more');
-    const {data} = await helper.post('/wallet/transfer_record', 
+    helper.post('/wallet/transfer_record', 
     {
       address_list:['0xf3e0c6F599a33E8cD5b273A377e925EBD327b13A'],
       id: isRefresh ? null : transferlistData[transferlistData.length - 1].id,
+    }).then((res:any)=>{
+      setTransferListData(res)
     })
-    console.log('--------------------');
-    console.log(data);
-    console.log('--------------------');
-    if (data && data.length) {
-      setTransferListData(data)
-    }
+   
   }
   const Item2 = ({ item2,  style2 }) => (
     <View  style={[styles.background, style2]}>
@@ -163,8 +139,8 @@ function SettingsScreen() {
                       }>
         <Text style={styles.hashStyle1}>HASH:{subSplit(item2?.tx_hash, 14, 17)}</Text>
         <Image
-          source = {require('assets/icon-20-arrow-right.png')}
-          style = {styles.rightBtn}
+          source={require('assets/icon-20-arrow-right.png')}
+          style={styles.rightBtn}
         />
       </TouchableOpacity>
     </View>
@@ -198,7 +174,7 @@ const Tab = createMaterialTopTabNavigator();
 
 
 function MessageScreen({ }: Props) {
-  const {t} = useTranslation();
+  const { t } = useTranslation();
   return (
     <Tab.Navigator
       tabBarOptions={{
@@ -228,7 +204,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#F2F5F8',
   },
   itemStyle: {
-    
+
     marginHorizontal: 20,
     backgroundColor: 'white',
     marginTop: 20,
@@ -248,7 +224,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
-  centerView:{
+  centerView: {
     marginHorizontal: 15,
     marginTop: 15,
     height: 20,
@@ -275,7 +251,7 @@ const styles = StyleSheet.create({
   },
   conStyle: {
     marginTop: 5,
-    marginBottom:15,
+    marginBottom: 15,
     marginHorizontal: 15,
     fontSize: 12,
     lineHeight: 20,
@@ -283,25 +259,25 @@ const styles = StyleSheet.create({
     color: '#616D86',
     alignItems: 'center',
   },
-  desStyle1:{
+  desStyle1: {
     fontSize: 14,
     fontWeight: '500',
     color: '#394867',
   },
-  numberStyle:{
+  numberStyle: {
     fontSize: 18,
     fontWeight: '400',
     color: '#3DDD94',
   },
-  lineView:{
-    marginTop:15,
-    height:0.5,
-    backgroundColor:'#E9EDF1',
+  lineView: {
+    marginTop: 15,
+    height: 0.5,
+    backgroundColor: '#E9EDF1',
   },
-  hashStyle1:{
-    color:'#9CA4B3',
-    fontSize:12,
-    fontWeight:'400',
+  hashStyle1: {
+    color: '#9CA4B3',
+    fontSize: 12,
+    fontWeight: '400',
   },
   rightBtn:{
     width:8,

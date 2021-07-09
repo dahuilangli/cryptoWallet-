@@ -30,9 +30,11 @@ const SuccessScreen = ({ route }: Props) => {
   const { t } = useTranslation();
   let { title, accountInfo } = route.params;
   const walletlist = useSelector(getAccountList);
+  
   async function storageAccount() {
     try {
       accountInfo.contracts = ['']
+      console.log(walletlist.size);
       if (walletlist.size === 0) {
         dispatch(walletAction.createUser({ address: accountInfo.address, type: accountInfo.type }));
       }

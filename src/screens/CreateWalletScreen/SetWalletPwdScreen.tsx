@@ -73,6 +73,8 @@ const SetWalletPwdScreen = (props: Props) => {
                   title: t("Importsuccessful"),
                   accountInfo: { ...account, ...accountInfo, securityCode: repwd },
                 });
+                console.log({ ...account, ...accountInfo, securityCode: repwd });
+                
               } else {
                 navigate('SafetyTipsScreen', {
                   accountInfo: { ...account, ...accountInfo, securityCode: repwd },
