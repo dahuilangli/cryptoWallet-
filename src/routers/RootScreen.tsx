@@ -38,9 +38,7 @@ function RootScreen() {
       }).catch(e => {
         throw console.error(e);
       })
-
     }
-   await checkPushyUpdate();
   }
   return (
     <NavigationContainer ref={navigationRef}>
