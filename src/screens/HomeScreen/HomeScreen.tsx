@@ -87,7 +87,10 @@ function HomeScreen({ }: Props) {
       "contracts": thisUser?.contracts,
       "wallet": thisUser?.coinInfo?.wallet
     }
+    console.log(thisUser?.address);
     const { data } = await helper.post('/wallet/assets', params)
+    console.log(data);
+    
     if (data && data.length > 0) {
       setAssetsList(data)
       let a = 0;

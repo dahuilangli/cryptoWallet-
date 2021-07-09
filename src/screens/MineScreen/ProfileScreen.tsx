@@ -38,9 +38,7 @@ function ProfileScreen({ }: Props) {
   }, [isFocused]);
   async function getVersion() {
     const { data } = await helper.get('/sys/version', {})
-    console.log('===========/sys/version=============');
-    console.log(data);
-    console.log(systemVersion);
+
     if (data) {
       if (data.app_ver > systemVersion) {
         setCheckVersion(true)

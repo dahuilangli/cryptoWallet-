@@ -11,7 +11,7 @@ interface Props {
         params: {
             title: string,
             item: {
-                onlyID:number,
+                onlyID: number,
                 add_type: string,
                 add_name: string,
                 remarks?: string,
@@ -22,9 +22,9 @@ interface Props {
     };
 }
 
-function AddressBookEditorScreen(props: Props) {    
+function AddressBookEditorScreen(props: Props) {
     const { t } = useTranslation();
-    const { item ,title} = props.route.params;
+    const { item, title } = props.route.params;
     const [addType, setAddType] = useState(item.add_type ? item.add_type : 'ETH');
     const [addname, setAddName] = useState(item.add_name);
     const [remarks, setRemarks] = useState(item.remarks);
@@ -35,7 +35,7 @@ function AddressBookEditorScreen(props: Props) {
 
         await dispatch(walletAction.setAddressBookList(
             {
-                onlyID:t("editpayee") === title ? item.onlyID:new Date().getTime(),
+                onlyID: t("editpayee") === title ? item.onlyID : new Date().getTime(),
                 add_type: addType,
                 add_name: addname,
                 remarks: remarks,
@@ -68,10 +68,10 @@ function AddressBookEditorScreen(props: Props) {
                     <Text style={styles.typeText}>{t("addressname")}</Text>
                     <View style={styles.nameView}>
                         <TextInput
-                            style={styles.nameInput}
                             placeholder={t("enterAddName")}
-                            defaultValue={item.add_name}
-                            onChangeText={(text: string) => (setAddName(text))}
+                            style={styles.nameInput}
+                            value={addname}
+                            onChangeText={setAddName}
                         >
 
                         </TextInput>
@@ -79,10 +79,10 @@ function AddressBookEditorScreen(props: Props) {
                     <Text style={styles.typeText}>{t("marks")}</Text>
                     <View style={styles.nameView}>
                         <TextInput
-                            style={styles.nameInput}
                             placeholder={t("enterWalMark")}
-                            defaultValue={item.remarks}
-                            onChangeText={(text: string) => (setRemarks(text))}>
+                            style={styles.nameInput}
+                            value={remarks}
+                            onChangeText={setRemarks}>
                         </TextInput>
                     </View>
                     <Text style={styles.typeText}>{t("walletaddress")}</Text>
@@ -91,7 +91,7 @@ function AddressBookEditorScreen(props: Props) {
                             style={styles.addressInput}
                             multiline
                             placeholder={t("pasteWalAddress")}
-                            defaultValue={item.walletaddress}
+                            value={WalletAdress}
                             onChangeText={(text: string) => (setWalletAdress(text))}>
                         </TextInput>
                     </View>
@@ -155,11 +155,8 @@ const styles = StyleSheet.create({
         borderRadius: 8,
     },
     nameInput: {
-        marginHorizontal: 15,
-        marginTop: 18,
-        height: 20,
-        fontSize: 14,
-        fontWeight: '400',
+        height:55,
+        flex:1,
     },
     addressView: {
         marginHorizontal: 20,
@@ -168,10 +165,8 @@ const styles = StyleSheet.create({
         borderRadius: 8,
     },
     addressInput: {
-        marginHorizontal: 15,
-        marginVertical: 18,
-        fontSize: 14,
-        fontWeight: '400',
+        height:95,
+        flex:1,
     },
     Tbutton: {
         marginLeft: 20,

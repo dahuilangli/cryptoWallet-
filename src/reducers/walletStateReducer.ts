@@ -61,7 +61,6 @@ export default (origin = initialState, walletAction: WalletAction) =>{
         return;
       case 'setWalletName':
         let payload1 = walletAction.payload;
-        console.log('11111111');
         const WALLETName = state.accountList.get(payload1.type)?.find(x => x.address === payload1.address)
         var walletnameObject = Object(WALLETName)
         walletnameObject.walletName = payload1.walletName;
