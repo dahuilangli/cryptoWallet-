@@ -1,14 +1,14 @@
 import produce from 'immer';
 import { thisUser,  WalletAction, Account, ReduxState } from 'actions/types';
 import { createSelector } from 'reselect';
-import { Map } from 'immutable';
+// import { Map } from 'immutable';
 
 export interface walletState {
   user: thisUser,
   accountList: Map<string,Array<Account>>
 }
 const initialState: Readonly<walletState> = {
-  accountList : Map({}),
+  accountList : new Map(),
   user: {
     address: '',
     type: ''
@@ -29,7 +29,7 @@ export const getUser = createSelector(
   (dataState) => dataState.user,
 );
 
-export default (origin = initialState, walletAction: WalletAction) =>{
+const reducer = (origin = initialState, walletAction: WalletAction) =>{
  return produce(origin, state => {
     switch (walletAction.type) {
       case 'createAccount':
@@ -44,11 +44,12 @@ export default (origin = initialState, walletAction: WalletAction) =>{
               accounts?.push(walletAction.payload);
             }
           }else{
+            console.log('=====state.walletAction=====');
             console.log(walletAction.payload.type,[walletAction.payload]);
             stateAccountList.set(walletAction.payload.type,[walletAction.payload])
           }
           state.accountList = stateAccountList;
-          console.log('==========');
+          console.log('=====state.accountList=====');
           console.log(state.accountList);
         } catch (error) {
           console.log('========error===================');
@@ -83,3 +84,5 @@ export default (origin = initialState, walletAction: WalletAction) =>{
     }
   })
 };
+
+export default reducer;
