@@ -87,7 +87,7 @@ function SearchScreen({ route }: Props) {
           <View style={styles.coinNameContainer}>
             <Image
               style={styles.coinNameIcon}
-              source={require('assets/icon-20-搜索.png')}
+              source={require('assets/icon_search.png')}
             />
             <View style = {styles.coinNameView}>
             <TextInput
@@ -123,12 +123,12 @@ function SearchScreen({ route }: Props) {
                     </View>
                     {thisUser?.contracts?.indexOf(item.token) !== -1 ? (
                       <Image
-                        source={require('assets/icon-20-添加资产-已添加.png')}
+                        source={require('assets/icon_assets_added.png')}
                       />
                     ) : (
                       <TouchableOpacity onPress={() => addCoin(item.token)}>
                         <Image
-                          source={require('assets/icon-20-添加资产.png')}
+                          source={require('assets/icon_addassets.png')}
                         />
                       </TouchableOpacity>
                     )}
@@ -156,7 +156,7 @@ function SearchScreen({ route }: Props) {
                       <Text style={styles.descTitle}>{item.symbol}</Text>
                     </View>
                     <Image
-                      source={require('assets/icon-20-添加资产-已添加.png')}
+                      source={require('assets/icon_assets_added.png')}
                     />
                   </View>
                 </TouchableOpacity>

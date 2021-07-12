@@ -12,7 +12,7 @@ import i18n from "i18n";
 import walletAction from 'actions/wallet';
 import { useSelector, useDispatch } from 'react-redux';
 import { getLanguage } from 'reducers/dataStateReducer';
-import {showWithImage} from 'utils'
+import {show} from 'utils'
 
 type SetUpScreenRouteProp = RouteProp<ScreensParamList, 'SetUpScreen'>;
 interface Props {
@@ -42,14 +42,14 @@ const list1 = [
             await dispatch(walletAction.setLanguage(params));
              setDefaultLanguage(params)
             i18n.changeLanguage(params);
-            showWithImage('切换'+(params === 'en' ? 'English' : '中文(简体)')+'成功',require('assets/icon-20-有误.png'));
+            show('切换'+(params === 'en' ? 'English' : '中文(简体)')+'成功');
         }
     }
 
     const Item = ({ item, onPress, style }) => (
         <TouchableOpacity onPress={onPress} style={style}>
             <Text style={styles.nameText}>{item.language}</Text>
-            <Image style={styles.imageText} source={defaultLanguage === item.code ? require('assets/icon-20-选择-on.png') : require('assets/icon-20-选择-off.png')}></Image>
+            <Image style={styles.imageText} source={defaultLanguage === item.code ? require('assets/icon_choose_on.png') : require('assets/icon_choose_of.png')}></Image>
         </TouchableOpacity>
     );
     const renderItem = ({item} ) => {

@@ -61,16 +61,11 @@ const reducer = (origin = initialState, walletAction: WalletAction) =>{
               }
           }
         } catch (error) {
-          console.log('========error===================');
           console.log(error);
-          console.log('====================================');
         }
-        
         return;
       case 'createUser':
         state.user = walletAction.payload;
-        console.log("2222222222222")
-        console.log(walletAction.payload)
         return;
       case 'setContracts':
         let payload = walletAction.payload;

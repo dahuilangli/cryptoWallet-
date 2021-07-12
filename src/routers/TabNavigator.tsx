@@ -25,17 +25,17 @@ function TabNavigator() {
           let selectImage;
           let normalImage;
           if (routeName === 'HomeScreen') {
-            selectImage = require('assets/icon-24-wallet-selected.png');
-            normalImage = require('assets/icon-24-wallet-normal.png');
+            selectImage = require('assets/icon_wallet_selected.png');
+            normalImage = require('assets/icon_wallet_normal.png');
           } else if (routeName === 'FlashExchangeScreen') {
-            selectImage = require('assets/icon-24-闪兑-selected.png');
-            normalImage = require('assets/icon-24-闪兑-normal.png');
+            selectImage = require('assets/icon_flash_selected.png');
+            normalImage = require('assets/icon_flash_normal.png');
           } else if (routeName === 'ProfileScreen') {
-            selectImage = require('assets/icon-24-我的-selected.png');
-            normalImage = require('assets/icon-24-我的-normal.png');
+            selectImage = require('assets/icon_our_selected.png');
+            normalImage = require('assets/icon_our_normal.png');
           } else if (routeName === 'DappScreen') {
-            selectImage = require('assets/icon-24-dapp-selected.png');
-            normalImage = require('assets/icon-24-dapp-normal.png');
+            selectImage = require('assets/icon_dapp_selected.png');
+            normalImage = require('assets/icon_dapp_normal.png');
           }
           return <Image source = {focused?selectImage:normalImage} />;
         },

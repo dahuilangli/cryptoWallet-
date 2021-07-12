@@ -45,7 +45,7 @@ export default function AuthStackNavigator() {
         headerBackAllowFontScaling: true,
         headerTitleAlign: "center",
         headerBackImage: () => (
-          <Image source={require('assets/icon-24-返回-light.png')} />
+          <Image source={require('assets/icon_back_light.png')} />
         ),
         headerLeftContainerStyle: { paddingLeft: Platform.OS === 'ios' ? 20 : 10 },
       }}
@@ -92,7 +92,7 @@ export default function AuthStackNavigator() {
           title: t("privatekeyimport"),
           headerRight: () => (
             <TouchableOpacity onPress={() => navigate('ScanQRCode')}>
-              <Image source={require('assets/icon-24-扫一扫-light.png')} />
+              <Image source={require('assets/icon_sacn_light.png')} />
             </TouchableOpacity>
           ),
           headerRightContainerStyle: { marginEnd: 20 },

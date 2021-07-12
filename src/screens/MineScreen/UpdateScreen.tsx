@@ -27,7 +27,7 @@ function UpdateScreen(props: any) {
     <SafeAreaView style={styles.container}>
 
       <View style={styles.headView}>
-        <Image source={require('assets/icon-125-aboutuslogo.png')} style={styles.iconImage} />
+        <Image source={require('assets/icon_aboutus_logo.png')} style={styles.iconImage} />
         <Text style={styles.nameLabel}>{t("projectname")}</Text>
         <Text style={styles.currentVersion}>{t("currentversion")}</Text>
         <Text style={styles.localVersion}>
@@ -36,7 +36,7 @@ function UpdateScreen(props: any) {
       </View>
       <View style={styles.bottomView}>
         {checkVersion?<View style = {styles.VersionNumber}>
-          <Image style = {styles.Icon} source = {require('assets/icon-125-aboutuslogo.png')}/>
+          <Image style = {styles.Icon} source = {require('assets/icon_aboutus_logo.png')}/>
           <Text style = {styles.findText}>{t("newversionfound")}</Text>
           <Text>v{updateVersion}({updateBuild})</Text>
         </View>:null}

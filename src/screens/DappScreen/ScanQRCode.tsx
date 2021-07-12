@@ -161,7 +161,7 @@ const ScanQRCode = (props: Props) => {
 
                 <View style={[{ flexDirection: 'row' }]}>
                     <View style={{ backgroundColor: 'rgba(0,0,0,0.5)', height: 200, width: 200 }} />
-                    <ImageBackground source={require('assets/扫一扫.png')} style={{ width: 200, height: 200 }}>
+                    <ImageBackground source={require('assets/icon_scan_background.png')} style={{ width: 200, height: 200 }}>
                         <Animated.View style={[
                             styles.border, { transform: [{ translateY: moveAnim }] }
                         ]} />
