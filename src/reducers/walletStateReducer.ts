@@ -33,6 +33,9 @@ const reducer = (origin = initialState, walletAction: WalletAction) =>{
  return produce(origin, state => {
     switch (walletAction.type) {
       case 'createAccount':
+        console.log('=======createAccount==========');
+        console.log();
+        console.log('====================================');
         try {
           if(state.accountList.has(walletAction.payload.type)){
             const accounts = state.accountList.get(walletAction.payload.type);
@@ -43,7 +46,6 @@ const reducer = (origin = initialState, walletAction: WalletAction) =>{
               accounts?.push(walletAction.payload);
             }
           }else{
-            
             state.accountList.set(walletAction.payload.type,[walletAction.payload])
           }
         } catch (error) {
@@ -51,7 +53,6 @@ const reducer = (origin = initialState, walletAction: WalletAction) =>{
           console.log(error);
           console.log('====================================');
         }
-        
         return;
       case 'createUser':
         state.user = walletAction.payload;

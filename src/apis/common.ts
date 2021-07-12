@@ -22,3 +22,6 @@ export async function help() {
   })
   return null
 }
+
+export const deviceId = DeviceInfo.getUniqueId()
+export const mobileType =  DeviceInfo.getSystemName()

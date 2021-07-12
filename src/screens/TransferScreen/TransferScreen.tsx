@@ -122,14 +122,17 @@ function TransferScreen(props: Props) {
       if (securityCode === thisUser?.securityCode) {
         let address = user?.address;
         let wallet = thisUser?.coinInfo?.wallet;
-        let gas_price = Mul(gasList[gasIndex].gasPrice, Math.pow(10, 8)).toString();
+        let gas_price = Mul(gasList[gasIndex].gasPrice, Math.pow(10, thisUser?.coinInfo?.gas_decimal)).toString();
         let amount = transferAmount;
+        let amountSign = Mul(amount, assetsList[selectCoinIndex].gas_limit);
         let to = receivingAddress;
         let symbol = assetsList[selectCoinIndex].symbol;
         let gas_limit: any = assetsList[selectCoinIndex].gas_limit;
         helper.get('/wallet/transfer_nonce', { address, wallet }).then((res : any) => {
           let nonce = res.nonce;
-          transaction(thisUser.privateKey, nonce, gas_limit, gas_price, to, amount).then(sign => {
+          transaction(thisUser.privateKey, nonce, gas_limit, gas_price, to, amountSign ).then(sign => {
+            console.log(sign);
+            console.log('签名');
             let params = {
               "amount": amount,
               "from": address,
@@ -141,10 +144,11 @@ function TransferScreen(props: Props) {
               "wallet": wallet
             }
             show('提交成功')
-            helper.post('/wallet/transfer', params).then((res: any) => {
-            })
+            helper.post('/wallet/transfer', params)
           })
         })
+      } else {
+        show('请输入正确的安全密码')
       }
     }
     setSecurityCode('')
@@ -152,7 +156,7 @@ function TransferScreen(props: Props) {
   }
 
 
-  let verification = receivingAddress && receivingAddress.startsWith('0x') && transferAmount;
+  let verification = receivingAddress && receivingAddress.startsWith('0x') && transferAmount && gasIndex!== -1;
   return (
     <SafeAreaView style={styles.container}>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>

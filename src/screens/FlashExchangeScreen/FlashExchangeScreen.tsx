@@ -1,81 +1,222 @@
 /** 
  * 闪兑
  */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import LinearGradient from 'react-native-linear-gradient';
 import {
-  SafeAreaView,
+  ScrollView,
   StyleSheet,
   View,
   TouchableOpacity,
   Text,
   Image,
-  Alert,
   Modal,
   TouchableWithoutFeedback,
   Keyboard,
   KeyboardAvoidingView,
   Platform,
-  TextInput
+  TextInput,
+  Alert
 } from 'react-native';
 import { SCREENHEIGHT, SCREENWIDTH } from "config/constants";
-import Icon from 'react-native-vector-icons/FontAwesome';
 import { navigate } from 'components/navigationService';
 import { Avatar, Button } from 'react-native-elements';
 import * as helper from 'apis/helper'
-
-const list = [
-
-  {
-    name: 'ETH',
-    avatar_url: require('assets/img_coointype_eth.png'),
-    type: 'privateKey',
-  },
-  {
-    name: 'STO',
-    avatar_url: require('assets/img_coointype_sto.png'),
-    type: 'privateKey',
-  }, {
-    name: 'BSC',
-    avatar_url: require('assets/icon_coointype_bian.png'),
-    type: 'mnemonic',
-  },
-  {
-    name: 'USDT',
-    avatar_url: require('assets/img_coointype_usdt.png'),
-    type: 'mnemonic',
-  },
-
-];
+import { post } from 'apis/request'
+import { useDispatch, useSelector } from 'react-redux';
+import { getAccountList, getUser } from 'reducers/walletStateReducer';
+import { show } from 'utils';
+import { AssetsList } from 'actions/types';
+import { Div, Mul, transaction } from 'wallets/ethsWallet';
+import { mobileType } from 'apis/common';
 
 
 interface Props { }
+interface ResponseItem {
+  "coin_code": string,
+  "coin_decimal": number,
+  "contact": any,
+  "ctime": string,
+  "gas_limit": number,
+  "icon": string,
+  "id": number,
+  "remarks": string,
+  "state": number,
+  "symbol": string,
+  "wallet": string,
+}
+
+interface BaseObj {
+  "deposit_max": string,
+  "deposit_min": string,
+  "instant_rate": string,
+  "miner_fee": string,
+  "receive_coin_fee": string,
+}
+
 function FlashExchangeScreen({ }: Props) {
   const { t } = useTranslation();
-  const [outImage, setOutImage] = useState(require('assets/img_coointype_eth.png'));
-  const [inPutImage, setInPutImage] = useState(require('assets/img_coointype_usdt.png'));
-  const [outName, setOutName] = useState('ETH');
-  const [inPutName, setInPutName] = useState('USDT');
+  const user = useSelector(getUser);
+  const walletlist = useSelector(getAccountList);
+  const thisUser = walletlist.get(user.type)?.find(x => x.address === user.address)
+
+  const [coinList, setCoinList] = useState([]);
+  const [assetsList, setAssetsList] = useState<Array<AssetsList>>();
+  const [balance, setBalance] = useState<AssetsList>();
+  const [base, setBase] = useState<BaseObj>();
+  const [out, setOut] = useState<ResponseItem>();
+  const [inPut, setInPut] = useState<ResponseItem>();
+
   const [modalVisible, setModalVisible] = useState(false);
   const [modalVisible1, setModalVisible1] = useState(false);
   const [currentChange, setCurrentChange] = useState(1);
   const [outNumber, setOutNumber] = useState('');
   const [inNumber, setInNumber] = useState('');
+  const [securityCode, setSecurityCode] = useState('');
 
+  const [isSigninInProgress, setIsSigninInProgress] = useState(false);
 
-  async function getSwftCoinList() {
-    helper.get('/swft/coin', { wallet: '' })
+  useEffect(() => {
+    getSwftCoinList();
+    getAssetsList();
+    setOutNumber('');
+    setInNumber('');
+  }, [user]);
 
+  useEffect(() => {
+    setOut(coinList[0])
+    setInPut(coinList[1])
+  }, [coinList])
+
+  useEffect(() => {
+    if (out && inPut) {
+      getBase()
+    }
+  }, [out, inPut]);
+
+  useEffect(() => {
+    if (out && assetsList) {
+      let b = assetsList?.find(x => x.symbol === out?.symbol);
+      setBalance(b ? b : { balance: '0', symbol: out.symbol })
+    }
+  }, [out, assetsList]);
+
+  function getAssetsList() {
+    let params = {
+      "address": thisUser?.address,
+      "contracts": thisUser?.contracts,
+      "wallet": thisUser?.coinInfo?.wallet
+    }
+    helper.post('/wallet/assets', params).then((res: any) => {
+      console.log('====================================');
+      console.log(res);
+      console.log('====================================');
+      setAssetsList(res)
+    })
   }
 
+  function getSwftCoinList() {
+    helper.get('/swft/coin', { wallet: thisUser?.coinInfo.wallet }).then((res: any) => {
+      setCoinList(res)
+    })
+  }
+
+  function getBase() {
+    helper.get('/swft/base_info', { depositCoinCode: out?.coin_code, receiveCoinCode: inPut?.coin_code }).then((res: any) => {
+      setBase(res)
+    })
+  }
+
+  function exchange() {
+    if (outNumber <= balance?.balance) {
+      if (outNumber >= base?.deposit_min && outNumber <= base?.deposit_max) {
+        setModalVisible1(true)
+      } else {
+        show('转出数量必须大于小于最小最大金额')
+      }
+    } else {
+      show('余额不足，请确认账户是否余额充足')
+    }
+  }
+  let accountExchange: any;
+  async function exchangeSub() {
+    setIsSigninInProgress(true);
+    if (securityCode === thisUser?.securityCode) {
+      try {
+        let sourceType = mobileType.toUpperCase();
+        let equipmentNo = `Morleystone-${thisUser?.coinInfo?.wallet}-${thisUser.address}`;
+        const { data }: any = await post('/accountExchange', {
+          equipmentNo,
+          sourceType,
+          depositCoinCode: out?.coin_code,
+          receiveCoinCode: inPut?.coin_code,
+          receiveCoinAmt: Mul(outNumber, base?.instant_rate),
+          depositCoinAmt: outNumber,
+          destinationAddr: thisUser.address,
+          refundAddr: thisUser.address,
+          sourceFlag: 'MorleyStone'
+        })
+        accountExchange = data;
+        if (accountExchange) {
+          let address = user?.address;
+          let wallet = thisUser?.coinInfo?.wallet;
+          // 获取GasList
+          helper.get('/wallet/gas', { wallet }).then((res: any) => {
+            let gas = {
+              title: '快速',
+              gasPrice: res.fastest,
+              balance: Div(Mul(res.fastest, thisUser?.coinInfo.gas_limit), Math.pow(10, Number(thisUser?.coinInfo?.gas_decimal))).toString(),
+              amount: Mul(Div(Mul(res.fastest, thisUser?.coinInfo.gas_limit), Math.pow(10, Number(thisUser?.coinInfo?.gas_decimal))), res.rate_currency).toString(),
+            }
+            let gas_price = Mul(gas.gasPrice, Math.pow(10, thisUser?.coinInfo?.gas_decimal)).toString();
+            let gas_limit: any = balance?.gas_limit;
+            let amount = accountExchange?.depositCoinAmt;
+            let amountSign = Mul(amount, balance?.gas_limit);
+            let to = accountExchange?.platformAddr;
+            let symbol = balance?.symbol;
+            helper.get('/wallet/transfer_nonce', { address, wallet }).then((res: any) => {
+              let nonce = res.nonce;
+              transaction(thisUser.privateKey, nonce, gas_limit, gas_price, to, amountSign).then(sign => {
+                let params = {
+                  "amount": amount,
+                  "equipment_no": equipmentNo,
+                  "from": address,
+                  "gas": gas?.balance,
+                  "nonce": Number(nonce),
+                  "order_id": accountExchange?.orderId,
+                  "signature": sign,
+                  "source_type": sourceType,
+                  "symbol": symbol,
+                  "to": to,
+                  "wallet": wallet
+                }
+                helper.post('/swft/deposit', params).then((res: any) => {
+                  show('存币成功')
+                })
+              })
+            })
+          })
+        } else {
+          Alert.alert('创建订单后失败，请检查网络和输入后重试');
+        }
+      } finally {
+        setIsSigninInProgress(false);
+        setModalVisible1(false)
+        setSecurityCode('')
+      }
+    } else {
+      show('请输入正确的安全密码')
+      setSecurityCode('')
+    }
+  }
   return (
     <LinearGradient colors={['#3060C2', '#3B6ED5']} style={styles.container}>
       <View style={styles.main}>
         <View style={styles.header}>
           <Text style={styles.leftBtn}>{t("record")}</Text>
           <Text style={styles.headerTitle}>{t("flash")}</Text>
-          <TouchableOpacity onPress={() => navigate('FlashRecordScreen')}>
+          <TouchableOpacity onPress={() => navigate('FlashRecordScreen', { equipmentNo: `Morleystone-${thisUser?.coinInfo?.wallet}-${thisUser.address}`})}>
             <Text style={styles.rightBtn}>{t("record")}</Text>
           </TouchableOpacity>
         </View>
@@ -90,8 +231,8 @@ function FlashExchangeScreen({ }: Props) {
                   setCurrentChange(1);
                 }}
               >
-                <Image style={styles.inputImage} source={outImage} />
-                <Text style={styles.inputText}>{outName}</Text>
+                <Image style={styles.inputImage} source={{ uri: out?.icon }} />
+                <Text style={styles.inputText}>{out?.symbol}</Text>
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.input}
@@ -100,18 +241,16 @@ function FlashExchangeScreen({ }: Props) {
                   setCurrentChange(2);
                 }}
               >
-                <Text style={styles.outText}>{inPutName}</Text>
-                <Image style={styles.outImage} source={inPutImage} />
+                <Text style={styles.outText}>{inPut?.symbol}</Text>
+                <Image style={styles.outImage} source={{ uri: inPut?.icon }} />
               </TouchableOpacity>
             </View>
             <View style={styles.lineView} />
             <TouchableOpacity
               style={styles.exchange}
               onPress={() => {
-                setInPutImage(outImage);
-                setOutImage(inPutImage);
-                setInPutName(outName);
-                setOutName(inPutName);
+                setInPut(out);
+                setOut(inPut);
               }}>
               <Image style={{ width: 40, height: 40 }} source={require('assets/icon_flash_change.png')} />
             </TouchableOpacity>
@@ -122,7 +261,15 @@ function FlashExchangeScreen({ }: Props) {
                   <TextInput
                     placeholder={t("numberoftransfers")}
                     style={styles.inputNumber}
-                    onChangeText={(text: string) => setOutNumber(text)}
+                    keyboardType="numeric"
+                    value={outNumber}
+                    onChangeText={(text) => {
+                      setOutNumber(text);
+                      if (text) {
+                        let num = Mul(parseFloat(text), parseFloat(base?.instant_rate));
+                        setInNumber(num.toString())
+                      }
+                    }}
                   >
                   </TextInput>
                 </View>
@@ -133,7 +280,10 @@ function FlashExchangeScreen({ }: Props) {
                   <TextInput
                     placeholder={t("numberreceive")}
                     style={styles.outNumber}
-                    onChangeText={(text: string) => setInNumber(text)}
+                    keyboardType="numeric"
+                    editable={false}
+                    value={inNumber}
+                    onChangeText={setInNumber}
                   >
                   </TextInput>
                 </View>
@@ -142,16 +292,12 @@ function FlashExchangeScreen({ }: Props) {
             <View style={styles.bottomView}>
               <View style={{ flexDirection: 'row' }}>
                 <Text style={styles.useText}>{t("Available")}</Text>
-                <Text style={styles.useNumber}>0.023875129 ETH</Text>
+                <Text style={styles.useNumber}>
+                  {balance?.balance} {out?.symbol}</Text>
               </View>
-              <Text style={styles.rateText}>{t("exchangerate")}  1 ETH ≈ 786.564 USDT</Text>
+              <Text style={styles.rateText}>{t("exchangerate")}  1 {out?.symbol} ≈ {base?.instant_rate} {inPut?.symbol}</Text>
               <Text style={styles.rateText}>{t("handlefee")}  0.03%</Text>
-              <TouchableOpacity style={styles.exchangeBtn} onPress={() => {
-                if (inPutName === outName) {
-                  return;
-                }
-                setModalVisible1(true);
-              }}>
+              <TouchableOpacity style={styles.exchangeBtn} onPress={exchange}>
                 <Text style={styles.changeText}>{t("exchange")}</Text>
               </TouchableOpacity>
             </View>
@@ -189,37 +335,50 @@ function FlashExchangeScreen({ }: Props) {
                     />
                   </TouchableOpacity>
                 </View>
-                <View style={styles.groupView}>
-                  {list.map((item, i) => (
+                <ScrollView style={styles.groupView}>
+                  {coinList.map((item: ResponseItem, i) => (
                     <TouchableOpacity
                       style={styles.list}
-                      key={i}
+                      key={i + item.coin_code}
                       onPress={() => {
                         setModalVisible(!modalVisible);
-                        currentChange === 1 ?
-                          (
-                            setOutImage(item.avatar_url),
-                            setOutName(item.name)
-                          ) :
-                          (
-                            setInPutImage(item.avatar_url),
-                            setInPutName(item.name)
-                          );
+                        if (currentChange === 1) {
+                          if (thisUser?.contracts.indexOf(item?.contact === null ? "" : item?.contact) !== -1) {
+                            if (item?.coin_code !== inPut?.coin_code) {
+                              setOut(item);
+                            } else {
+                              show(`不能进行同一币种兑换`)
+                            }
+                          } else {
+                            show(`当前未添加${item.symbol}资产，请添加后再次进行闪兑操作`)
+                          }
+                        } else {
+                          if (thisUser?.contracts.indexOf(item?.contact === null ? "" : item?.contact) !== -1) {
+                            if (item?.coin_code !== out?.coin_code) {
+                              setInPut(item);
+                            } else {
+                              show(`不能进行同一币种兑换`)
+                            }
+                          } else {
+                            show(`当前未添加${item.symbol}资产，请添加后再次进行闪兑操作`)
+                          }
+                        }
                       }}
                     >
                       <View style={styles.lineView} />
                       <View style={styles.listItem}>
                         <Avatar
                           rounded
-                          source={item.avatar_url}
+                          title={item.symbol[0]}
+                          source={{ uri: item?.icon }}
                           containerStyle={styles.avatar}
                         />
-                        <Text style={styles.text}>{item.name}</Text>
-                        {!!(currentChange === 1 && item.name === outName) && <Avatar
+                        <Text style={styles.text}>{item?.symbol}</Text>
+                        {!!(currentChange === 1 && item.symbol === out?.symbol) && <Avatar
                           source={require('assets/icon_selected_styleone.png')}
                           containerStyle={styles.selected}
                         />}
-                        {!!(currentChange === 2 && item.name === inPutName) && <Avatar
+                        {!!(currentChange === 2 && item.symbol === inPut?.symbol) && <Avatar
                           source={require('assets/icon_selected_styleone.png')}
                           containerStyle={styles.selected}
                         />}
@@ -227,7 +386,7 @@ function FlashExchangeScreen({ }: Props) {
                     </TouchableOpacity>
                   ))}
                   <View style={styles.lineView} />
-                </View>
+                </ScrollView>
               </View>
             </View>
           </Modal>
@@ -271,14 +430,14 @@ function FlashExchangeScreen({ }: Props) {
                     </View>
                     <View style={styles.centerView1}>
                       <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                        <Image source={outImage} style={styles.outImage2} />
-                        <Text style={styles.outName2}>{outName}</Text>
+                        <Image source={{ uri: out?.icon }} style={styles.outImage2} />
+                        <Text style={styles.outName2}>{out?.symbol}</Text>
                         <Text style={styles.outNumber2}>-{outNumber}</Text>
                       </View>
                       <Image style={styles.dianImage} source={require('assets/icon_coointype_bian.png')} />
                       <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                        <Image source={inPutImage} style={styles.outImage2} />
-                        <Text style={styles.outName2}>{inPutName}</Text>
+                        <Image source={{ uri: inPut?.icon }} style={styles.outImage2} />
+                        <Text style={styles.outName2}>{inPut?.symbol}</Text>
                         <Text style={styles.inNumber2}>+{inNumber}</Text>
                       </View>
                     </View>
@@ -286,11 +445,11 @@ function FlashExchangeScreen({ }: Props) {
                     <View style={styles.centerView1}>
                       <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                         <Text style={styles.poundage}>{t("handlefee")}</Text>
-                        <Text style={styles.des}>0.023875129 ETH</Text>
+                        <Text style={styles.des}> {Mul(outNumber ? outNumber : 0, 0.0003)} {out?.symbol}</Text>
                       </View>
                       <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 20 }}>
                         <Text style={styles.poundage}>{t("exchangerate")}</Text>
-                        <Text style={styles.des}>1 ETH ≈ 786.564 USDT</Text>
+                        <Text style={styles.des}> 1 {out?.symbol} ≈ {base?.instant_rate} {inPut?.symbol}</Text>
                       </View>
                     </View>
                     <View style={styles.lineView1}></View>
@@ -298,20 +457,24 @@ function FlashExchangeScreen({ }: Props) {
                       <TextInput
                         placeholder={t("entersecurepassword")}
                         style={styles.passwordNumber}
-                        onChangeText={(text: string) => { }}
+                        value={securityCode}
+                        onChangeText={setSecurityCode}
+                        secureTextEntry
                       >
                       </TextInput>
                     </View>
                     <View style={styles.bottomView1}>
-                      <TouchableOpacity style={styles.sureBtn} onPress={() => {
-                        if (inPutName === outName) {
-                          Alert.alert('兑换名称不能一致');
-                          return;
-                        }
+                      <Button
+                        buttonStyle={styles.sureBtn}
+                        title={t("confirmredemption")}
+                        disabled={isSigninInProgress}
+                        onPress={exchangeSub}
+                      />
+                      {/* <TouchableOpacity style={styles.sureBtn} onPress={() => {
                         setModalVisible1(true);
                       }}>
                         <Text style={styles.changeText}>{t("confirmredemption")}</Text>
-                      </TouchableOpacity>
+                      </TouchableOpacity> */}
                     </View>
                   </View>
                 </TouchableWithoutFeedback>
@@ -525,7 +688,8 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 8,
     borderTopRightRadius: 8,
     width: SCREENWIDTH,
-    height: (list.length + 1) * 60 + 34,
+    maxHeight: SCREENHEIGHT / 2,
+    minHeight: SCREENHEIGHT / 4,
   },
   modalView2: {
     backgroundColor: 'white',

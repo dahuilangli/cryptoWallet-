@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   ScrollView,
@@ -10,6 +10,7 @@ import {
   Alert,
   Modal,
   TouchableOpacity,
+  RefreshControl,
 } from 'react-native';
 
 import { SCREENHEIGHT, SCREENWIDTH } from "config/constants";
@@ -77,12 +78,17 @@ function HomeScreen({ }: Props) {
   const [selectAddress, setSelectAddress] = useState(thisUser?.address);
   const [assetsList, setAssetsList] = useState([])
   const [assetsSum, setAssetsSum] = useState('-')
+  const [refreshing, setRefreshing] = useState(false)
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    getAssetsList()
+  }, []);
   const { t } = useTranslation();
   useEffect(() => {
-      getAssetsList()
-      console.log('==============');
-      
+    getAssetsList()
   }, [user])
+
+  
   function switchWallet(item: Account) {
     setSelectAddress(item.address)
     dispatch(walletAction.createUser({ address: item.address, type: item.type }));
@@ -94,7 +100,7 @@ function HomeScreen({ }: Props) {
       "contracts": thisUser?.contracts,
       "wallet": thisUser?.coinInfo?.wallet
     }
-    helper.post('/wallet/assets', params).then((res : any) => {
+    helper.post('/wallet/assets', params).then((res: any) => {
       setAssetsList(res)
       let a = 0;
       res.map((s: AssetsList) => {
@@ -104,6 +110,8 @@ function HomeScreen({ }: Props) {
     }).catch(e => {
       setAssetsList([])
       setAssetsSum('-')
+    }).finally( () => {
+      setRefreshing(false)
     })
   }
   async function hideOrShowMoney() {
@@ -212,7 +220,15 @@ function HomeScreen({ }: Props) {
               />
             </TouchableOpacity>
           </View>
-          <ScrollView>
+          <ScrollView
+            refreshControl={
+              <RefreshControl
+                refreshing={refreshing}
+                onRefresh={onRefresh}
+                colors={['red','green','blue']}
+                title="正在加载中..."
+              />
+            }>
             {assetsList.map((item: AssetsList, i) => (
               <TouchableOpacity
                 style={styles.assetsList}
@@ -293,7 +309,7 @@ function HomeScreen({ }: Props) {
                       index === selectItem ? styles.menuItemS : styles.menuItem
                     }
                     onPress={() => clickOnItem(index)}
-                    
+
                   >
                     <Image source={index === selectItem ? item.img : item.img_off} />
                   </TouchableOpacity>
