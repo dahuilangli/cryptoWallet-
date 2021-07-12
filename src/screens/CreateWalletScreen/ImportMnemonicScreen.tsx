@@ -101,7 +101,7 @@ const ImportMnemonicScreen = (props: Props) => {
               }
             }}
             // disabled={}
-            title="下一步"
+            title={t("NextStep")}
             titleStyle={styles.nextButtonTitle}
           />
         </View>

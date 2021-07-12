@@ -62,9 +62,9 @@ client.interceptors.request.use(config => {
 // 响应拦截器
 client.interceptors.response.use(res => {
   // 未设置状态码则默认成功状态
-  console.log('=======状态码================');
-  console.log(res.data.data);
-  console.log('====================================');
+  // console.log('=======状态码================');
+  // console.log(res.data);
+  // console.log('====================================');
   const code: any = res.data.code || 200;
   // 获取错误信息
   
@@ -121,7 +121,7 @@ export function get(url: string, params: object) {
         resolve(res.data)
       })
       .catch(err => {
-        reject(err.data)
+        reject(err)
       })
   })
 }
@@ -133,7 +133,7 @@ export function post(url: string, params: object) {
         resolve(res.data)
       })
       .catch(err => {
-        reject(err.data)
+        reject(err)
       })
   })
 }

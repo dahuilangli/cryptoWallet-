@@ -43,37 +43,38 @@ const ImportPrivateKeyScreen = (props: Props) => {
               />
             </View>
           </View>
-        
-        <Button
-          buttonStyle={styles.nextButton}
-          onPress={() => {
-            try {
-              importByprivateKey(
-                privateKey.replace(/(^\s*)|(\s*$)/g, ''),
-              );
-              console.log('111111111111111');
-              
-              console.log(coinInfo);
-              
-              navigate('SetWalletNameScreen', {
-                type,
-                loginType: 'privateKey',
-                desc: privateKey.replace(/(^\s*)|(\s*$)/g, ''),
-                coinInfo
-              });
-            } catch (error) {
-              WToast.show({
-                data: t("Pleaseentercorrectprivatekey"),
-                duration: WToast.duration.LONG,
-                position: WToast.position.CENTER,
-              });
-            }
-          }}
-          disabled={!privateKey}
-          title={t("NextStep")}
-          titleStyle={styles.nextButtonTitle}
-        />
-      </View>
+          <View style={styles.bottonContainer}>
+            <Button
+              buttonStyle={styles.nextButton}
+              onPress={() => {
+                try {
+                  importByprivateKey(
+                    privateKey.replace(/(^\s*)|(\s*$)/g, ''),
+                  );
+                  console.log('111111111111111');
+
+                  console.log(coinInfo);
+
+                  navigate('SetWalletNameScreen', {
+                    type,
+                    loginType: 'privateKey',
+                    desc: privateKey.replace(/(^\s*)|(\s*$)/g, ''),
+                    coinInfo
+                  });
+                } catch (error) {
+                  WToast.show({
+                    data: t("Pleaseentercorrectprivatekey"),
+                    duration: WToast.duration.LONG,
+                    position: WToast.position.CENTER,
+                  });
+                }
+              }}
+              disabled={!privateKey}
+              title={t("NextStep")}
+              titleStyle={styles.nextButtonTitle}
+            />
+          </View>
+        </View>
       </TouchableWithoutFeedback>
     </SafeAreaView>
   );
@@ -106,6 +107,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 17.5,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  bottonContainer: {
+    // flex: 1,
+    paddingBottom: 20,
   },
   nextButton: {
     height: 55,
