@@ -1,8 +1,8 @@
+import React, { useState, useEffect } from 'react';
 import Clipboard from "@react-native-clipboard/clipboard";
 import { Image } from "react-native";
 import { WToast } from "react-native-smart-tip";
-
-
+import QRCode from 'qrcode-generator';
 
 export function show(text: string, duration = WToast.duration.SHORT) {
   const toastOpts = {
@@ -16,16 +16,14 @@ export function show(text: string, duration = WToast.duration.SHORT) {
   WToast.show(toastOpts);
 };
 
-export const showWithImage = (text: string, imageSource: any) => {
-  console.log(text);
-  
+export function showWithImage(text: string, imageSource: any)  {  
   const toastOpts = {
     data: text,
     textColor: '#ffffff',
     backgroundColor: '#444444',
     duration: WToast.duration.SHORT, //1.SHORT 2.LONG
     position: WToast.position.CENTER, // 1.TOP 2.CENTER 3.BOTTOM
-    icon: <Image source={imageSource} style={{ width: 16, height: 16, resizeMode: 'contain' }} />,
+    icon: <Image source={require('assets/icon-20-有误.png')} style={{ width: 16, height: 16, resizeMode: 'contain' }} />,
   };
 
   WToast.show(toastOpts);
@@ -41,7 +39,9 @@ export function subSplit(text: string|undefined, start: number, end: number) {
 export function checkEmail(emailText: string) {
   var emailPattern = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/;
   if (emailPattern.test(emailText) == false) {
-    show('请填写正确的邮箱');
+    return false
+  }else{
+    return true
   }
 }
 
@@ -63,7 +63,7 @@ export function formatDate(timestamp: any) {
 export function replaceMoney(moneyString: any) {
   var moneyArr = moneyString.split('')
   var replaceresult = '';
-  moneyArr.map((x, i) => {
+  moneyArr.map(() => {
     replaceresult = replaceresult + '*'
   })
   return replaceresult;
@@ -96,3 +96,4 @@ export function checkwalletPrivateKey(PrivateKey: string) {
   var emailPattern = /^(0x)?[0-9a-fA-F]{64}$/;
   return emailPattern.test(PrivateKey)
 }
+

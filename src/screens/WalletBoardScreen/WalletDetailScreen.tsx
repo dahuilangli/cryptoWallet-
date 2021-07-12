@@ -16,7 +16,7 @@ import {
   Alert,
 } from 'react-native';
 import { Button } from 'react-native-elements';
-import { copyToClipboard } from 'utils';
+import { copyToClipboard, show } from 'utils';
 import { navigate } from 'components/navigationService';
 import { SCREENHEIGHT, SCREENWIDTH } from "config/constants"
 import { useTranslation } from 'react-i18next';
@@ -59,6 +59,7 @@ function WalletDetailScreen(props: Props) {
   const { addressMessage } = props.route.params;
   const [pwds ,setPwds] = useState(addressMessage.securityCode);
   const [pwd, setPwd] = useState('');
+  const [replaceName ,setReplaceName] = useState(addressMessage.walletName);
   const [wallName, setWallName] = useState(addressMessage.walletName);
   const [transferConfirm, setTransferConfirm] = useState(false);
   const [wallNameModel, setWallNameModel] = useState(false);
@@ -179,7 +180,7 @@ function WalletDetailScreen(props: Props) {
       <Button
         buttonStyle={styles.button}
         title={t("deletewallet")}
-        onPress={() => setTransferConfirm(!transferConfirm)}
+        onPress={() => goNavigate('deleteWallet')}
         titleStyle={styles.buttonTitle}
       />
 
@@ -250,9 +251,15 @@ function WalletDetailScreen(props: Props) {
                               case 'editPwd':
                                 navigate('EditPwdScreen',{address:addressMessage.address,type:addressMessage.type,pwds:pwds,setPwds});
                                 break;
+                              case 'deleteWallet':
+                                Alert.alert('shanchu');
+                                break;
                               default:
                                 break;
                             }
+                          }else{
+                            setTransferConfirm(!transferConfirm);
+                            show('密码不正确')
                           }
                         }}
                       />
@@ -315,8 +322,8 @@ function WalletDetailScreen(props: Props) {
                     <TextInput
                       style={styles.codeInput}
                       placeholder={t("enterwalletname")}
-                      value={wallName}
-                      onChangeText={setWallName}
+                      value={replaceName}
+                      onChangeText={setReplaceName}
                     />
                     <View style={styles.codeButtonView}>
                       <Button
@@ -325,7 +332,8 @@ function WalletDetailScreen(props: Props) {
                         titleStyle={styles.buttonModelTitle}
                         onPress={() => {
                           setWallNameModel(!wallNameModel);
-                          changeWalletName(wallName);
+                          setWallName(replaceName);
+                          changeWalletName(replaceName);
                         }}
                       />
                       <Button

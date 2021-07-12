@@ -43,9 +43,11 @@ const SuccessScreen = ({ route }: Props) => {
   }).start(storageAccount);
 
 
+  
   async function storageAccount() {
     try {
       accountInfo.contracts = ['']
+      console.log(walletlist.size);
       if (walletlist.size === 0) {
         dispatch(walletAction.createUser({ address: accountInfo.address, type: accountInfo.type }));
       }

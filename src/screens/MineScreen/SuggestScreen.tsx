@@ -7,7 +7,7 @@ import { Button } from 'react-native-elements'
 import * as helper from 'apis/helper'
 import { useTranslation } from 'react-i18next';
 import { show, showWithImage } from 'utils';
-import { checkEmail } from 'utils'
+import { checkEmail ,checkwalletAdress} from 'utils'
 import { Image } from 'react-native-elements/dist/image/Image';
 type SuggestScreenRouteProp = RouteProp<ScreensParamList, 'SuggestScreen'>;
 interface Props { }
@@ -20,6 +20,15 @@ function SuggestScreen({ }: Props) {
 
 
   async function postSuggest() {
+    if(!checkEmail(emailText)){
+      show('请输入正确的邮箱')
+      return
+    }
+    if(!checkwalletAdress(walletAddressText)){
+      show('请输入正确的钱包地址')
+      return
+    }
+    
     const body = {
       email: emailText,
       content: detailsText,
@@ -43,7 +52,7 @@ function SuggestScreen({ }: Props) {
             style={styles.input}
             placeholder={t("enteremailaddress")}
             onChangeText={setEmailText}
-            onEndEditing={() => checkEmail(emailText)}
+            
           >
 
           </TextInput>
@@ -113,12 +122,7 @@ const styles = StyleSheet.create({
 
   },
   input: {
-    marginLeft: 15,
-    marginRight: 15,
-    marginTop: 18,
-    marginBottom: 17,
-    fontSize: 14,
-    color: 'black',
+    flex:1
   },
   main: {
     flex: 1,

@@ -51,7 +51,7 @@ export type MainStackParamList = {
   ScanQRCode: { title?: string, assetsList: Array<AssetsList> };
   LanguageSetScreen: undefined;
   CurrencySetScreen: undefined;
-  AddressBookScreen: { title: string; showMyself?: boolean };
+  AddressBookScreen: { title: string; address?:string; setAddress:Function; type?:string};
   AddressBookEditorScreen: { title?: string; item: {} };
   AddressTypeScreen: { addType: string; setAddType: Function; typeLogo: string; setTypeLogo: Function };
   FeedListScreen: { title: string; showMyself?: boolean };
@@ -62,7 +62,7 @@ export type MainStackParamList = {
   CoinDetailScreen: { title: string, assetsList: AssetsList };
   WalletBoardScreen: undefined;
   WalletDetailScreen: { addressMessage: any };
-  TransferScreen: { assetsList: Array<AssetsList> };
+  TransferScreen: { assetsList: Array<AssetsList> ,address?:string};
   ReceivePaymentScreen: { address: string };
   ExportMnemonicScreen: { mnemonic: string };
   ExportPrivateKeyScreen: { privatekey: string };

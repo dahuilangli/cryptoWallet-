@@ -1,14 +1,14 @@
 import produce from 'immer';
 import { thisUser,  WalletAction, Account, ReduxState } from 'actions/types';
 import { createSelector } from 'reselect';
-import { Map } from 'immutable';
+// import { Map } from 'immutable';
 
 export interface walletState {
   user: thisUser,
   accountList: Map<string,Array<Account>>
 }
 const initialState: Readonly<walletState> = {
-  accountList : Map({}),
+  accountList : new Map(),
   user: {
     address: '',
     type: ''
@@ -29,7 +29,7 @@ export const getUser = createSelector(
   (dataState) => dataState.user,
 );
 
-const wallReducer = (origin = initialState, walletAction: WalletAction) =>{
+const reducer = (origin = initialState, walletAction: WalletAction) =>{
  return produce(origin, state => {
     switch (walletAction.type) {
       case 'createAccount':
@@ -46,9 +46,6 @@ const wallReducer = (origin = initialState, walletAction: WalletAction) =>{
               accounts?.push(walletAction.payload);
             }
           }else{
-            console.log('=======第一次创建、导入==========');
-            console.log();
-            console.log('====================================');
             state.accountList.set(walletAction.payload.type,[walletAction.payload])
           }
         } catch (error) {
@@ -66,7 +63,6 @@ const wallReducer = (origin = initialState, walletAction: WalletAction) =>{
         return;
       case 'setWalletName':
         let payload1 = walletAction.payload;
-        console.log('11111111');
         const WALLETName = state.accountList.get(payload1.type)?.find(x => x.address === payload1.address)
         var walletnameObject = Object(WALLETName)
         walletnameObject.walletName = payload1.walletName;
@@ -84,4 +80,5 @@ const wallReducer = (origin = initialState, walletAction: WalletAction) =>{
     }
   })
 };
-export default wallReducer;
+
+export default reducer;

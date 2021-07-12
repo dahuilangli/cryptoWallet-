@@ -10,7 +10,6 @@ import i18n from "i18n";
 import walletAction from 'actions/wallet'
 import * as helper from "apis/helper"
 import DeviceInfo from 'react-native-device-info';
-import checkPushyUpdate from 'helper/checkPushyUpdate';
 function RootScreen() {
   const dispatch = useDispatch();
   const walletStatus = useSelector(getWalletStatus);

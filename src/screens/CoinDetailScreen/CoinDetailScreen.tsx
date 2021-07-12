@@ -365,6 +365,7 @@ const styles = StyleSheet.create({
     fontWeight: '400',
   },
   transactions: {
+    
     marginHorizontal: 20,
   },
   transactionsTitle: {

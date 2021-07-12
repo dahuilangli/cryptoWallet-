@@ -55,17 +55,19 @@ function SearchScreen({ route }: Props) {
   async function seachName(name: string) {
     if (name) {
       name = name.trim()
-      const { data } = await helper.get('/wallet/coin', { keyword: name, wallet: thisUser?.coinInfo?.wallet })
-      if (data.length > 0) {
-        let sortArr1: string[] = thisUser?.contracts;
-        setCoinList({ title: '搜索结果', data: data.sort(function (a: responseItem, b: responseItem) {
-          if (getIndex(sortArr1, a.token) == getIndex(data, b.token)) {
-            return 0
-          } else {
-            return getIndex(sortArr1, a.token) > getIndex(sortArr1, b.token) ? 1 : -1
-          }
-        })})
-      }
+      await helper.get('/wallet/coin', { keyword: name, wallet: thisUser?.coinInfo?.wallet }).then((res:any)=>{
+        if (res.length > 0) {
+          let sortArr1: string[] = thisUser?.contracts;
+          setCoinList({ title: '搜索结果', data: res.sort(function (a: responseItem, b: responseItem) {
+            if (getIndex(sortArr1, a.token) == getIndex(res, b.token)) {
+              return 0
+            } else {
+              return getIndex(sortArr1, a.token) > getIndex(sortArr1, b.token) ? 1 : -1
+            }
+          })})
+        }
+      })
+      
     }
   }
 
@@ -87,6 +89,7 @@ function SearchScreen({ route }: Props) {
               style={styles.coinNameIcon}
               source={require('assets/icon-20-搜索.png')}
             />
+            <View style = {styles.coinNameView}>
             <TextInput
               placeholder={t("EnterTokenorcontractaddress")}
               value={coinName}
@@ -94,6 +97,7 @@ function SearchScreen({ route }: Props) {
               onChangeText={setCoinName}
               onSubmitEditing={() => seachName(coinName)}
             />
+            </View>
           </View>
           <TouchableOpacity onPress={goBack} style={styles.goBlack}>
             <Text style={styles.goBlackText}>{t("cancel")}</Text>
@@ -168,8 +172,8 @@ function SearchScreen({ route }: Props) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: Platform.OS === 'ios' ? 44 : 0, // 处理iOS状态栏
-    height: Platform.OS === 'ios' ? 88 : 48, // 处理iOS状态栏
+    paddingTop: Platform.OS === 'ios' ? 50 : 50, // 处理iOS状态栏
+    height: Platform.OS === 'ios' ? 88 : 88,
   },
   header: {
     paddingHorizontal: 10,
@@ -192,10 +196,13 @@ const styles = StyleSheet.create({
     height: 20,
     marginHorizontal: 5,
   },
+  coinNameView:{
+    height: 34,
+    marginRight:5,
+  },
   coinNameText: {
-    fontSize: 13,
-    fontWeight: '500',
     flex: 1,
+
   },
   goBlack: {
     paddingStart: 15,

@@ -37,30 +37,24 @@ function ProfileScreen({ }: Props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFocused]);
   async function getVersion() {
-    const { data } = await helper.get('/sys/version', {})
-    console.log('===========/sys/version=============');
-    console.log(data);
-    console.log(systemVersion);
-    if (data) {
-      if (data.app_ver > systemVersion) {
-        setCheckVersion(true)
-      } else {
-        if (data.build_ver > buildVersion) {
+    await helper.get('/sys/version', {}).then((res:any)=>{
+      if (res) {
+        if (res.app_ver > systemVersion) {
           setCheckVersion(true)
         } else {
-          setCheckVersion(false)
+          if (res.build_ver > buildVersion) {
+            setCheckVersion(true)
+          } else {
+            setCheckVersion(false)
+          }
         }
+        setMessageListData(res)
       }
-      setMessageListData(data)
-    }
+    })
   }
   let html = ''
   helper.get('/sys/user/agreement', {}).then((res: any) => {
-
-    // console.log('====================================');
-    // console.log(res.data);
-    // console.log('====================================');
-    html = res.data.content
+    html = res.content
   })
 
   const list = {
@@ -70,7 +64,7 @@ function ProfileScreen({ }: Props) {
         leftIcon: require('assets/icon-24-地址薄.png'),
         rightIcon: require('assets/icon-20-arrow-right.png'),
         navigate: () =>
-          navigate('AddressBookScreen', { title: '地址本', showMyself: true }),
+          navigate('AddressBookScreen', { title: '收款人', showMyself: true ,type:'person'}),
       },
       {
         name: t("Message"),
