@@ -29,10 +29,13 @@ export const getUser = createSelector(
   (dataState) => dataState.user,
 );
 
-export default (origin = initialState, walletAction: WalletAction) =>{
+const wallReducer = (origin = initialState, walletAction: WalletAction) =>{
  return produce(origin, state => {
     switch (walletAction.type) {
       case 'createAccount':
+        console.log('=======createAccount==========');
+        console.log();
+        console.log('====================================');
         try {
           if(state.accountList.has(walletAction.payload.type)){
             const accounts = state.accountList.get(walletAction.payload.type);
@@ -43,6 +46,9 @@ export default (origin = initialState, walletAction: WalletAction) =>{
               accounts?.push(walletAction.payload);
             }
           }else{
+            console.log('=======第一次创建、导入==========');
+            console.log();
+            console.log('====================================');
             state.accountList.set(walletAction.payload.type,[walletAction.payload])
           }
         } catch (error) {
@@ -50,7 +56,6 @@ export default (origin = initialState, walletAction: WalletAction) =>{
           console.log(error);
           console.log('====================================');
         }
-        
         return;
       case 'createUser':
         state.user = walletAction.payload;
@@ -79,3 +84,4 @@ export default (origin = initialState, walletAction: WalletAction) =>{
     }
   })
 };
+export default wallReducer;

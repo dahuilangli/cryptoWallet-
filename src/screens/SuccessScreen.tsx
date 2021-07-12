@@ -30,6 +30,19 @@ const SuccessScreen = ({ route }: Props) => {
   const { t } = useTranslation();
   let { title, accountInfo } = route.params;
   const walletlist = useSelector(getAccountList);
+  let spinValue = new Animated.Value(0);
+  const spin = spinValue.interpolate({
+    inputRange: [0, 1], //输入值
+    outputRange: ['360deg', '0deg'], //输出值
+  });
+  Animated.timing(spinValue, {
+    toValue: 1,
+    duration: 400,
+    easing: Easing.linear,
+    useNativeDriver: true,
+  }).start(storageAccount);
+
+
   async function storageAccount() {
     try {
       accountInfo.contracts = ['']
@@ -47,17 +60,6 @@ const SuccessScreen = ({ route }: Props) => {
       Alert.alert(`${title}失败，请重新选择钱包后重试`);
     }
   }
-  let spinValue = new Animated.Value(0);
-  const spin = spinValue.interpolate({
-    inputRange: [0, 1], //输入值
-    outputRange: ['360deg', '0deg'], //输出值
-  });
-  Animated.timing(spinValue, {
-    toValue: 1,
-    duration: 400,
-    easing: Easing.linear,
-    useNativeDriver: true,
-  }).start(storageAccount);
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="dark-content" />

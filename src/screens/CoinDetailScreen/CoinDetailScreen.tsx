@@ -144,6 +144,8 @@ function CoinDetailScreen({ route }: Props) {
           <RefreshControl
             refreshing={loading === 'refresh'}
             onRefresh={() => getTransferRecordList(true)}
+            colors={['red','green','blue']}
+            title="正在加载中..."
           >
           </RefreshControl>
         }
@@ -160,7 +162,7 @@ function CoinDetailScreen({ route }: Props) {
           >
             <Image
               style={styles.navImage}
-              source={require('assets/img-40-coointype-eth.png')}
+              source={{ uri: assetsList?.icon }}
             />
             <View style={styles.navAmount}>
               <Text style={styles.navUSDT}>{assetsList?.balance}</Text>
@@ -181,7 +183,7 @@ function CoinDetailScreen({ route }: Props) {
               <View style={styles.subNav}>
                 <Image
                   style={styles.subNavImage}
-                  source={require('assets/img-40-coointype-eth.png')}
+                  source={{ uri: assetsList?.icon }}
                 />
                 <Text style={styles.subNavTitle}>{title}</Text>
                 <View style={styles.subNavAmount}>
@@ -193,61 +195,75 @@ function CoinDetailScreen({ route }: Props) {
           </StickyHeader>
 
           <View style={styles.transactions}>
-            <Text style={styles.transactionsTitle}>{t("Transaction Record")}</Text>
+            <Text style={styles.transactionsTitle}>{t("TransactionRecord")}</Text>
+
             <View style={styles.transactionsList}>
-              {transferlistData.map((item: TransferListItem, i) => (
-                <View style={styles.list} key={i}>
-                  <View style={styles.listItem}>
-                    <View style={styles.listNav}>
-                      <Text style={styles.listNavTitle}>{item?.from === user?.address ? '转出' : '转入'}</Text>
-                      <View style={item?.state > 0 ? styles.listNavStatus_1 : item?.state < 0 ? styles.listNavStatus_def : styles.listNavStatus_0}>
-                        <Text style={styles.statusText}>
-                          {item?.state > 0
-                            ? t("completed")
-                            : item?.state < 0
-                              ? t("failure")
-                              : t("processing")}
-                        </Text>
+              {transferlistData.length > 0 ? (
+                <View>
+
+                  {
+                    transferlistData.map((item: TransferListItem, i) => (
+                      <View style={styles.list} key={i}>
+                        <View style={styles.listItem}>
+                          <View style={styles.listNav}>
+                            <Text style={styles.listNavTitle}>{item?.from === user?.address ? '转出' : '转入'}</Text>
+                            <View style={item?.state > 0 ? styles.listNavStatus_1 : item?.state < 0 ? styles.listNavStatus_def : styles.listNavStatus_0}>
+                              <Text style={styles.statusText}>
+                                {item?.state > 0
+                                  ? t("completed")
+                                  : item?.state < 0
+                                    ? t("failure")
+                                    : t("processing")}
+                              </Text>
+                            </View>
+                            <View style={styles.listNavAmount}>
+                              <Text style={
+                                item?.state < 0 ?
+                                  { ...styles.amountText, color: '#D4D8E1' } :
+                                  item?.from === user?.address ?
+                                    { ...styles.amountText, color: '#DD3D50' } :
+                                    { ...styles.amountText, color: '#3DDD94' }
+                              }>
+                                {item?.from === user?.address ? '-' : '+'}{item?.amount}
+                              </Text>
+                            </View>
+                          </View>
+                          <View style={styles.listNavDesc}>
+                            <Text style={styles.descText}>{t("transactiontime")}: {item?.ctime}</Text>
+                            <Text style={styles.descText}>
+                              {t("handlefee")}: {item?.gas} {user.type}
+                            </Text>
+                          </View>
+                          <TouchableOpacity
+                            style={styles.listNavHash}
+                            onPress={() =>
+                              navigate('WebScreen', {
+                                title: 'Ethereum',
+                                uri: item?.remarks,
+                              })
+                            }
+                          >
+                            <Text style={styles.hashText}>HASH: {subSplit(item?.tx_hash, 14, 17)}</Text>
+                            <Image
+                              style={styles.hashGoImg}
+                              source={require('assets/icon-20-arrow-right.png')}
+                            />
+                          </TouchableOpacity>
+                        </View>
                       </View>
-                      <View style={styles.listNavAmount}>
-                        <Text style={
-                          item?.state < 0 ?
-                          { ...styles.amountText, color: '#D4D8E1' } :
-                          item?.from === user?.address ?
-                            { ...styles.amountText, color: '#DD3D50' } :
-                            { ...styles.amountText, color: '#3DDD94' }
-                        }>
-                          {item?.from === user?.address ? '-' : '+'}{item?.amount}
-                        </Text>
-                      </View>
-                    </View>
-                    <View style={styles.listNavDesc}>
-                      <Text style={styles.descText}>{t("transactiontime")}: {item?.ctime}</Text>
-                      <Text style={styles.descText}>
-                        {t("handlefee")}: {item?.gas} {user.type}
-                      </Text>
-                    </View>
-                    <TouchableOpacity
-                      style={styles.listNavHash}
-                      onPress={() =>
-                        navigate('WebScreen', {
-                          title: 'Ethereum',
-                          uri: item?.remarks,
-                        })
-                      }
-                    >
-                      <Text style={styles.hashText}>HASH: {subSplit(item?.tx_hash, 14, 17)}</Text>
-                      <Image
-                        style={styles.hashGoImg}
-                        source={require('assets/icon-20-arrow-right.png')}
-                      />
-                    </TouchableOpacity>
-                  </View>
+                    ))
+                  }
+                  {
+                    loading === 'more' ? <ActivityIndicator /> : null
+                  }
+
                 </View>
-              ))}
-              {
-                loading === 'more' ? <ActivityIndicator /> : null
-              }
+              ) : (
+                <View style={{ marginTop: 80, alignItems: 'center', justifyContent: 'center' }}>
+                  <Image style={{ height: 140, width: 240 }} source={require('assets/缺省-无记录.png')}></Image>
+                  <Text style={styles.notdata}>{t("noRecords")}</Text>
+                </View>
+              )}
             </View>
           </View>
         </View>
@@ -288,8 +304,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#F2F5F8',
   },
   main: {
-    flex: 1,
-    justifyContent: 'space-between',
+    // flex: 1,
+    // justifyContent: 'space-between',
   },
   nav: {
     alignItems: 'center',
@@ -467,6 +483,11 @@ const styles = StyleSheet.create({
   buttonTitle: {
     fontSize: 16,
     color: '#FFFFFF',
+    fontWeight: '500',
+  },
+  notdata: {
+    fontSize: 16,
+    color: '#CCCFD9',
     fontWeight: '500',
   },
 });

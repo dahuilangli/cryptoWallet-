@@ -51,8 +51,8 @@ export interface AssetsList {
   icon?: string,
   name?: string,
   precision?: string,
-  rate_price: string,
-  symbol: string,
+  rate_price?: string,
+  symbol?: string,
   token?: string,
   wallet?: string,
 }

@@ -64,7 +64,9 @@ client.interceptors.request.use(config => {
 client.interceptors.response.use(res => {
   // 未设置状态码则默认成功状态
   console.log('=======状态码================');
-  console.log(res.data.data);
+  console.log(res.data.code);
+  console.log(res.data);
+  console.log(res.data.msg);
   console.log('====================================');
   const code: any = res.data.code || 200;
   // 获取错误信息
@@ -119,8 +121,6 @@ export function get(url: string, params: object) {
   return new Promise((resolve, reject) => {
     client.get(API_ENDPOINT + url, { params })
       .then(res => {
-        console.log(res);
-        
         resolve(res.data)
       })
       .catch(err => {
