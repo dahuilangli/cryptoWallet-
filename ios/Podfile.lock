@@ -262,6 +262,8 @@ PODS:
     - React-Core
   - react-native-pager-view (5.2.1):
     - React-Core
+  - react-native-randombytes (3.6.1):
+    - React-Core
   - react-native-safe-area-context (3.2.0):
     - React-Core
   - react-native-splash-screen (3.2.0):
@@ -441,6 +443,7 @@ DEPENDENCIES:
   - react-native-camera (from `../node_modules/react-native-camera`)
   - react-native-get-random-values (from `../node_modules/react-native-get-random-values`)
   - react-native-pager-view (from `../node_modules/react-native-pager-view`)
+  - react-native-randombytes (from `../node_modules/react-native-randombytes`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - react-native-splash-screen (from `../node_modules/react-native-splash-screen`)
   - react-native-update (from `../node_modules/react-native-update`)
@@ -525,6 +528,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-get-random-values"
   react-native-pager-view:
     :path: "../node_modules/react-native-pager-view"
+  react-native-randombytes:
+    :path: "../node_modules/react-native-randombytes"
   react-native-safe-area-context:
     :path: "../node_modules/react-native-safe-area-context"
   react-native-splash-screen:
@@ -609,6 +614,7 @@ SPEC CHECKSUMS:
   react-native-camera: 7bf59f2728ffb019fa25e60a225d2c57e1a8f0f6
   react-native-get-random-values: 237bffb1c7e05fb142092681531810a29ba53015
   react-native-pager-view: 2864530d861ab2970beb2cd0b4cf2292cd30cd84
+  react-native-randombytes: 421f1c7d48c0af8dbcd471b0324393ebf8fe7846
   react-native-safe-area-context: f0906bf8bc9835ac9a9d3f97e8bde2a997d8da79
   react-native-splash-screen: 200d11d188e2e78cea3ad319964f6142b6384865
   react-native-update: 7dc5bf3a9a43f0d08c9ae54bc1617b72feddab42
@@ -638,6 +644,6 @@ SPEC CHECKSUMS:
   Yoga: 7d13633d129fd179e01b8953d38d47be90db185a
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: 769aed3800e43730380297872f3bac245a4c9383
+PODFILE CHECKSUM: 2ead9e46c3bf2cd79e91c3f856bae639092bb3b1
 
 COCOAPODS: 1.10.1
