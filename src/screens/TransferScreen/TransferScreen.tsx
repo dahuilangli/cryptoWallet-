@@ -26,10 +26,12 @@ import * as helper from 'apis/helper'
 import { AssetsList } from 'actions/types';
 import { Mul, Div, Add, Sub, transaction } from 'wallets/ethsWallet'
 import { show } from 'utils';
+import { navigate } from 'components/navigationService';
 interface Props {
   route: {
     params: {
       assetsList: Array<AssetsList>,
+      address?:string,
     }
   }
 }
@@ -43,7 +45,7 @@ function TransferScreen(props: Props) {
   const [riskWarning, setRiskWarning] = useState(false);
 
   const [assetsList, setAssetsList] = useState(props.route.params.assetsList);
-  const [receivingAddress, setReceivingAddress] = useState('');
+  const [receivingAddress, setReceivingAddress] = useState(props.route.params.address);
   const [transferAmount, setTransferAmount] = useState('');
   const [securityCode, setSecurityCode] = useState('');
   const [gasList, setGasList] = useState<Array<{ gasPrice: string; title: string; balance: string; amount: string }>>([]);
@@ -185,10 +187,14 @@ function TransferScreen(props: Props) {
                 value={receivingAddress}
                 onChangeText={setReceivingAddress}
               />
+              <TouchableOpacity onPress = {()=>{
+                navigate('AddressBookScreen', { title: '收款人', type:'tansfer',setAddress:setReceivingAddress})
+              }}>
               <Image
                 style={styles.inputRightIcon}
                 source={require('assets/icon-20-地址本.png')}
               />
+              </TouchableOpacity>
             </View>
 
             <Text style={styles.coinTypeS}>{t("transferamount")}</Text>

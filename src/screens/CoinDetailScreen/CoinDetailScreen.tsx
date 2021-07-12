@@ -194,7 +194,7 @@ function CoinDetailScreen({ route }: Props) {
 
           <View style={styles.transactions}>
             <Text style={styles.transactionsTitle}>{t("Transaction Record")}</Text>
-            <View style={styles.transactionsList}>
+            {transferlistData.length>0 ? <View style={styles.transactionsList}>
               {transferlistData.map((item: TransferListItem, i) => (
                 <View style={styles.list} key={i}>
                   <View style={styles.listItem}>
@@ -248,7 +248,8 @@ function CoinDetailScreen({ route }: Props) {
               {
                 loading === 'more' ? <ActivityIndicator /> : null
               }
-            </View>
+            </View>:(<View style={styles.nodataContainer}><Image source={require('assets/缺省-无记录.png')} /><Text style={styles.nodata}>{t('norecord')}</Text></View>)
+            } 
           </View>
         </View>
       </Animated.ScrollView>
@@ -349,6 +350,7 @@ const styles = StyleSheet.create({
     fontWeight: '400',
   },
   transactions: {
+    
     marginHorizontal: 20,
   },
   transactionsTitle: {
@@ -469,5 +471,16 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     fontWeight: '500',
   },
+  nodataContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingTop: 120,
+  },
+  nodata: {
+    fontSize: 16,
+    color: '#9CA4B3',
+    fontWeight: '500',
+  }
 });
 export default CoinDetailScreen;

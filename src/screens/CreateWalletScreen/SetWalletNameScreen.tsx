@@ -63,6 +63,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#F2F5F8',
   },
   main: {
+    
     flex: 1,
     marginHorizontal: 25,
     justifyContent: 'space-between',

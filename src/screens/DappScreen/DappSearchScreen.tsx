@@ -77,7 +77,7 @@ function SearchScreen({ }: Props) {
               style={styles.coinNameIcon}
               source={require('assets/icon-20-搜索.png')}
             />
-            <View >
+            <View style = {styles.coinNameView}>
               <TextInput
                 placeholder={t("EnterDappname")}
                 value={dappName}
@@ -152,10 +152,14 @@ const styles = StyleSheet.create({
     height: 20,
     marginHorizontal: 5,
   },
+  coinNameView:{
+    height: 34,
+    marginRight:5,
+  },
   coinNameText: {
-    fontSize: 13,
+    fontSize:13,
     fontWeight: '500',
-    flex: 1,
+    flex:1,
   },
   goBlack: {
     paddingStart: 15,

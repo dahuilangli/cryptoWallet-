@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import walletAction from 'actions/wallet';
 import { Button } from 'react-native-elements';
 import { show } from 'utils'
+import { useTranslation } from 'react-i18next';
 import { goBack } from 'components/navigationService';
 interface Props {
     route: {
@@ -11,14 +12,14 @@ interface Props {
             address: string,
             pwds: string,
             type: string,
-            setPwds:Function,
+            setPwds: Function,
         }
     }
 }
 const EditPwdScreen = (props: Props) => {
     console.log(props.route.params);
-    
-    const { address ,pwds,type,setPwds} = props.route.params;
+    const { t } = useTranslation();
+    const { address, pwds, type, setPwds } = props.route.params;
     const dispatch = useDispatch();
     const [lastPassWord, setLastPassWord] = useState('');
     const [firstPassWord, setFirstPassWord] = useState('');
@@ -31,39 +32,52 @@ const EditPwdScreen = (props: Props) => {
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                 <View style={styles.main}>
                     <View style={styles.inputItem}>
-                        <Text style={styles.inputTitle}>当前密码</Text>
-                        <TextInput placeholder='请输入当前密码' style={styles.inputText} onChangeText={(Text) => setLastPassWord(Text)} />
+                        <Text style={styles.inputTitle}>{t("currentpassword")}</Text>
+                        <TextInput placeholder={t("entercurrentpassword")}
+                            style={styles.inputText}
+                            onChangeText={(Text) => setLastPassWord(Text)}
+                            maxLength={12}
+                            secureTextEntry />
                     </View>
 
                     <View style={styles.inputItem}>
-                        <Text style={styles.inputTitle}>新密码</Text>
-                        <TextInput placeholder='请输入新密码' style={styles.inputText} onChangeText={(Text) => setFirstPassWord(Text)} />
+                        <Text style={styles.inputTitle}>{t("newpassword")}</Text>
+                        <TextInput placeholder={t("enternewpassword")}
+                            style={styles.inputText}
+                            onChangeText={(Text) => setFirstPassWord(Text)}
+                            maxLength={12}
+                            secureTextEntry />
                     </View>
 
                     <View style={styles.inputItem}>
-                        <Text style={styles.inputTitle}>确认密码</Text>
-                        <TextInput placeholder='请输入确认密码' style={styles.inputText} onChangeText={(Text) => setSecondPassWord(Text)} />
+                        <Text style={styles.inputTitle}>{t("confirmpassword")}</Text>
+                        <TextInput
+                            placeholder={t("enterconfirmpassword")}
+                            style={styles.inputText}
+                            onChangeText={(Text) => setSecondPassWord(Text)}
+                            maxLength={12}
+                            secureTextEntry />
                     </View>
                     <Button
                         buttonStyle={styles.nextButton}
-                        title="确认"
+                        title={t("sure")}
                         titleStyle={styles.nextButtonTitle}
-                        disabled = {false}
+                        disabled={lastPassWord&&firstPassWord&&secondPassWord?false:true}
                         onPress={() => {
                             if (pwds === lastPassWord) {
                                 if (firstPassWord === lastPassWord) {
-                                    show('新密码不能和上次密码一样')
+                                    show('新密码不能和旧密码一样')
                                 } else {
-                                    if (secondPassWord === firstPassWord) {
+                                    if (secondPassWord === firstPassWord ) {
                                         setPwds(firstPassWord);
                                         changePassWord(secondPassWord);
                                         goBack();
-                                    }else{
+                                    } else {
                                         show('新密码和确认密码不一样')
                                     }
                                 }
                             } else {
-                                show('原始密码错误')
+                                show('旧密码错误')
                             }
 
                         }}

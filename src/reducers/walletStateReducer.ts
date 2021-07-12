@@ -34,9 +34,8 @@ const reducer = (origin = initialState, walletAction: WalletAction) =>{
     switch (walletAction.type) {
       case 'createAccount':
         try {
-          let stateAccountList = state.accountList;
-          if(stateAccountList.has(walletAction.payload.type)){
-            const accounts = stateAccountList.get(walletAction.payload.type);
+          if(state.accountList.has(walletAction.payload.type)){
+            const accounts = state.accountList.get(walletAction.payload.type);
             const finded = accounts?.findIndex((value,index,arr)=>{
               return value.address == walletAction.payload.address
             })
@@ -44,13 +43,9 @@ const reducer = (origin = initialState, walletAction: WalletAction) =>{
               accounts?.push(walletAction.payload);
             }
           }else{
-            console.log('=====state.walletAction=====');
-            console.log(walletAction.payload.type,[walletAction.payload]);
-            stateAccountList.set(walletAction.payload.type,[walletAction.payload])
+            
+            state.accountList.set(walletAction.payload.type,[walletAction.payload])
           }
-          state.accountList = stateAccountList;
-          console.log('=====state.accountList=====');
-          console.log(state.accountList);
         } catch (error) {
           console.log('========error===================');
           console.log(error);

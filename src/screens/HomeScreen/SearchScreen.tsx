@@ -89,6 +89,7 @@ function SearchScreen({ route }: Props) {
               style={styles.coinNameIcon}
               source={require('assets/icon-20-搜索.png')}
             />
+            <View style = {styles.coinNameView}>
             <TextInput
               placeholder={t("EnterTokenorcontractaddress")}
               value={coinName}
@@ -96,6 +97,7 @@ function SearchScreen({ route }: Props) {
               onChangeText={setCoinName}
               onSubmitEditing={() => seachName(coinName)}
             />
+            </View>
           </View>
           <TouchableOpacity onPress={goBack} style={styles.goBlack}>
             <Text style={styles.goBlackText}>{t("cancel")}</Text>
@@ -194,8 +196,13 @@ const styles = StyleSheet.create({
     height: 20,
     marginHorizontal: 5,
   },
+  coinNameView:{
+    height: 34,
+    marginRight:5,
+  },
   coinNameText: {
     flex: 1,
+
   },
   goBlack: {
     paddingStart: 15,

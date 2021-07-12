@@ -23,10 +23,10 @@ function ReceivePaymentScreen(props: Props) {
       <View style={styles.main}>
         <View style={styles.codeContainer}>
           <CustomQrCode text={address} styl={styles.qrCode} />
-          <Text style={styles.codeInfo}>扫二维码接收付款</Text>
+          <Text style={styles.codeInfo}>{t("ScanQRcodereceivepayment")}</Text>
         </View>
         <View style={styles.addressContainer}>
-          <Text style={styles.addressTitle}>钱包地址</Text>
+          <Text style={styles.addressTitle}>{t("walletaddress")}</Text>
           <Text style={styles.addressInfo}>{address}</Text>
         </View>
       </View>
@@ -34,7 +34,7 @@ function ReceivePaymentScreen(props: Props) {
         type="clear"
         buttonStyle={styles.button}
         onPress={() => copyToClipboard(address, t('copySuccess'))}
-        title="复制地址"
+        title={t("copyAddress")}
         titleStyle={styles.buttonTitle}
       />
     </SafeAreaView>

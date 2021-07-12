@@ -21,13 +21,15 @@ export const rootReducer = combineReducers({
     {
       key: 'data',
       storage: AsyncStorage,
+      blacklist: ['location', 'mapLocation'],
     },
     dataStateReducer,
   ),
   walletState: persistReducer(
     {
-      key: '@wallet',
+      key: '@wallet/',
       storage: AsyncStorage,
+      whitelist: ["tds"],
     },
     walletReducer,
   ),

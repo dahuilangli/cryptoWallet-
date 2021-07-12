@@ -54,7 +54,7 @@ function ProfileScreen({ }: Props) {
   }
   let html = ''
   helper.get('/sys/user/agreement', {}).then((res: any) => {
-    html = res.data.content
+    html = res.content
   })
 
   const list = {
@@ -64,7 +64,7 @@ function ProfileScreen({ }: Props) {
         leftIcon: require('assets/icon-24-地址薄.png'),
         rightIcon: require('assets/icon-20-arrow-right.png'),
         navigate: () =>
-          navigate('AddressBookScreen', { title: '地址本', showMyself: true }),
+          navigate('AddressBookScreen', { title: '收款人', showMyself: true ,type:'person'}),
       },
       {
         name: t("Message"),
