@@ -6,7 +6,7 @@ import { RouteProp, useRoute, useIsFocused } from '@react-navigation/native';
 import { Button } from 'react-native-elements'
 import * as helper from 'apis/helper'
 import { useTranslation } from 'react-i18next';
-import { show, showWithImage } from 'utils';
+import { show } from 'utils';
 import { checkEmail ,checkwalletAdress} from 'utils'
 import { Image } from 'react-native-elements/dist/image/Image';
 type SuggestScreenRouteProp = RouteProp<ScreensParamList, 'SuggestScreen'>;
@@ -35,7 +35,7 @@ function SuggestScreen({ }: Props) {
       address: walletAddressText,
     };
     helper.post('/sys/help', body).then((res: any) => {
-      showWithImage('提交成功', require('assets/icon_correct.png'))
+      show('提交成功')
       goBack()
     }).catch(e => {
       throw new Error(e)
@@ -122,6 +122,7 @@ const styles = StyleSheet.create({
 
   },
   input: {
+    marginHorizontal:15,
     flex:1
   },
   main: {

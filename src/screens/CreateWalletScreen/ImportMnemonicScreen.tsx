@@ -100,7 +100,7 @@ const ImportMnemonicScreen = (props: Props) => {
                 });
               }
             }}
-            // disabled={}
+            disabled={mnemonic?false:true}
             title={t("NextStep")}
             titleStyle={styles.nextButtonTitle}
           />
