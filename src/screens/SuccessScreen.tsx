@@ -35,7 +35,7 @@ const SuccessScreen = ({ route }: Props) => {
     try {
       accountInfo.contracts = ['']
       console.log(walletlist.size);
-      if (walletlist.size === 0) {
+      if (walletlist.get("ETH")?.length === 0 && walletlist.get("BSC")?.length === 0 && walletlist.get("HT")?.length === 0) {
         dispatch(walletAction.createUser({ address: accountInfo.address, type: accountInfo.type }));
       }
       dispatch(walletAction.createAccount(accountInfo));

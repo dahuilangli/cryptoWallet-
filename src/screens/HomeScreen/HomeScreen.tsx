@@ -63,9 +63,6 @@ defatltCoin.set('HT', {
 function HomeScreen({ }: Props) {
   const dispatch = useDispatch()
   const walletlist = useSelector(getAccountList);
-  console.log('=====111======');
-  console.log(walletlist);
-  console.log('======111=====');
   
   
   const user = useSelector(getUser);
