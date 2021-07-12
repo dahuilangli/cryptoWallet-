@@ -1,8 +1,8 @@
+import React, { useState, useEffect } from 'react';
 import Clipboard from "@react-native-clipboard/clipboard";
 import { Image } from "react-native";
 import { WToast } from "react-native-smart-tip";
-
-
+import QRCode from 'qrcode-generator';
 
 export function show(text: string, duration = WToast.duration.SHORT) {
   const toastOpts = {
@@ -96,3 +96,4 @@ export function checkwalletPrivateKey(PrivateKey: string) {
   var emailPattern = /^(0x)?[0-9a-fA-F]{64}$/;
   return emailPattern.test(PrivateKey)
 }
+

@@ -155,6 +155,7 @@ const styles = StyleSheet.create({
         borderRadius: 8,
     },
     nameInput: {
+        marginHorizontal:15,
         height:55,
         flex:1,
     },
@@ -165,6 +166,7 @@ const styles = StyleSheet.create({
         borderRadius: 8,
     },
     addressInput: {
+        marginHorizontal:15,
         height:95,
         flex:1,
     },

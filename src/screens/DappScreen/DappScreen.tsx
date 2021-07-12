@@ -46,9 +46,14 @@ function DappScreen({ }: Props) {
       getBanner();
       walletConnect("111")
     }
+
   }, [isFocused]);
   function getBanner() {
     helper.get('/dapp/banner', {}).then((res:any)=>{
+      console.log('===============');
+      
+      console.log(res);
+      
       setBannerListData(res)
     })
     
@@ -121,7 +126,7 @@ function DappScreen({ }: Props) {
 
         >
           {bannerlistData.map((item: response, index) => (
-            <Image key={item.id} source={{ uri: item.img_pic }} style={styles.slide1}/>
+            <Image key={item.id} source={{ uri: item.img_pic}} style={styles.slide1}/>
           ))}
         </Swiper>
       </View>
@@ -144,11 +149,11 @@ function DappScreen({ }: Props) {
       <Text style={styles.recentText}>{t("recent")}</Text>
       <View style={styles.smallLine} />
       <View style={styles.bigLine} />
-      <FlatList
+      {dppSearchList.length>0 ?<FlatList
         keyExtractor={keyExtractor}
         data={dppSearchList}
         renderItem={renderItem}
-      />
+      />:(<View style={styles.nodataContainer}><Image source={require('assets/缺省-无记录.png')} /><Text style={styles.nodata}>{t('norecord')}</Text></View>)}
 
     </View>
   );
@@ -258,6 +263,16 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     height: 40,
   },
-
+nodataContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingBottom: 100,
+  },
+  nodata: {
+    fontSize: 16,
+    color: '#9CA4B3',
+    fontWeight: '500',
+  }
 });
 export default DappScreen;

@@ -8172,7 +8172,7 @@ react-native-touchable-scale@^2.1.2:
 
 react-native-update@^5.9.1:
   version "5.10.1"
-  resolved "https://registry.nlark.com/react-native-update/download/react-native-update-5.10.1.tgz"
+  resolved "https://registry.nlark.com/react-native-update/download/react-native-update-5.10.1.tgz#77595896f0892972e4b45264ab1008c24ce51c8d"
   integrity sha1-d1lYlvCJKXLktFJkqxAIwkzlHI0=
   dependencies:
     uuid "3"

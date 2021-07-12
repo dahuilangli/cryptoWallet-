@@ -3,7 +3,7 @@
   
   "Personalcenter":"个人中心",
   "checkToken":"获取token失败，请检查网络后重试",
-  "Addressbook":"地址本",
+  "Addressbook":"收款人",
   "Message":"消息通知",
   "Usesettings":"使用设置",
   "HelpFeedback":"帮助反馈", 
@@ -40,6 +40,10 @@
   "officialwebsite":"官网",
   "TelegramGroup":"电报群",
   "twitter":"推特",
+  "Nopayee":"暂无收款人",
+  "nomessage":"暂无消息",
+  "norecord":"暂无记录",
+  "noticedetails":"通知详情",
 
 
   "enterDappURL":"搜索或输入Dapp网址",
@@ -141,5 +145,16 @@
   "Backupprivatekey":"备份私钥",
   "scan":"扫一扫",
   "nodata": "暂无结果",
-  "copySuccess": "复制成功"
+  "copySuccess": "复制成功",
+  "ScanQRcodereceivepayment":"扫二维码接收付款",
+  "copyAddress":"复制地址",
+  "entercurrentpassword":"请输入当前密码",
+  "enternewpassword":"请输入当前密码",
+  "enterconfirmpassword":"请输入确认密码",
+  "confirmpassword":"确认密码",
+  "currentpassword":"当前密码",
+  "newpassword":"新密码",
+  "newpasswordcannotsameoldpassword":"新密码不能和旧密码一样",
+  "newpasswordisnotsameconfirmationpassword":"新密码和确认密码不一样",
+  "Oldpassworderror":"旧密码错误"
 }

@@ -16,7 +16,7 @@ import {
   Alert,
 } from 'react-native';
 import { Button } from 'react-native-elements';
-import { copyToClipboard } from 'utils';
+import { copyToClipboard, show } from 'utils';
 import { navigate } from 'components/navigationService';
 import { SCREENHEIGHT, SCREENWIDTH } from "config/constants"
 import { useTranslation } from 'react-i18next';
@@ -180,7 +180,7 @@ function WalletDetailScreen(props: Props) {
       <Button
         buttonStyle={styles.button}
         title={t("deletewallet")}
-        onPress={() => setTransferConfirm(!transferConfirm)}
+        onPress={() => goNavigate('deleteWallet')}
         titleStyle={styles.buttonTitle}
       />
 
@@ -251,9 +251,15 @@ function WalletDetailScreen(props: Props) {
                               case 'editPwd':
                                 navigate('EditPwdScreen',{address:addressMessage.address,type:addressMessage.type,pwds:pwds,setPwds});
                                 break;
+                              case 'deleteWallet':
+                                Alert.alert('shanchu');
+                                break;
                               default:
                                 break;
                             }
+                          }else{
+                            setTransferConfirm(!transferConfirm);
+                            show('密码不正确')
                           }
                         }}
                       />

@@ -49,7 +49,7 @@ function HomeScreen() {
         item1={item}
         style1={styles.itemStyle}
         // navigate: async () => await navigate('WebHtmlScreen', { title: '测试', uri: html })
-        onPress1={() =>  navigate('WebHtmlScreen', { title: '通知详情', uri: item.content })}
+        onPress1={() =>  navigate('WebHtmlScreen', { title: t("noticedetails"), uri: item.content })}
       >
 
       </Item1>
@@ -64,7 +64,7 @@ function HomeScreen() {
         renderItem={renderItem1}
         keyExtractor={(item) => item.id}
       >
-      </FlatList>:(<View style={styles.nodataContainer}><Image source={require('assets/seach-nodata.png')} /><Text style={styles.nodata}>{t('nodata')}</Text></View>)}
+      </FlatList>:(<View style={styles.nodataContainer}><Image source={require('assets/缺省-无消息.png')} /><Text style={styles.nodata}>{t('nomessage')}</Text></View>)}
     </SafeAreaView>
   );
 }
@@ -165,7 +165,7 @@ function SettingsScreen() {
         renderItem={renderItem2}
         keyExtractor={(item) => item.id}
       >
-      </FlatList>:(<View style={styles.nodataContainer}><Image source={require('assets/seach-nodata.png')} /><Text style={styles.nodata}>{t('nodata')}</Text></View>)}
+      </FlatList>:(<View style={styles.nodataContainer}><Image source={require('assets/缺省-无消息.png')} /><Text style={styles.nodata}>{t('nomessage')}</Text></View>)}
     </SafeAreaView>
   );
 }
