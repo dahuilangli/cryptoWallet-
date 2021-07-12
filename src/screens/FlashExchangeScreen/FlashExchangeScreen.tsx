@@ -212,12 +212,18 @@ function FlashExchangeScreen({ }: Props) {
   }
   return (
     <LinearGradient colors={['#3060C2', '#3B6ED5']} style={styles.container}>
+      <TouchableWithoutFeedback
+                  onPress={Keyboard.dismiss}
+                >
       <View style={styles.main}>
         <View style={styles.header}>
           <Text style={styles.leftBtn}>{t("record")}</Text>
           <Text style={styles.headerTitle}>{t("flash")}</Text>
           <TouchableOpacity onPress={() => navigate('FlashRecordScreen', { equipmentNo: `Morleystone-${thisUser?.coinInfo?.wallet}-${thisUser.address}`})}>
-            <Text style={styles.rightBtn}>{t("record")}</Text>
+            <Image
+                style={styles.image}
+                source={require('assets/icon_flash_record.png')}
+              />
           </TouchableOpacity>
         </View>
 
@@ -254,9 +260,11 @@ function FlashExchangeScreen({ }: Props) {
               }}>
               <Image style={{ width: 40, height: 40 }} source={require('assets/icon_flash_change.png')} />
             </TouchableOpacity>
+            
             <View style={styles.secondView}>
               <View style={styles.centerViewone}>
                 <Text style={styles.centerOut}>{t("transferout")}</Text>
+                
                 <View style={styles.inputView}>
                   <TextInput
                     placeholder={t("numberoftransfers")}
@@ -273,6 +281,7 @@ function FlashExchangeScreen({ }: Props) {
                   >
                   </TextInput>
                 </View>
+               
               </View>
               <View style={styles.centerViewtwo}>
                 <Text style={styles.centerinput}>{t("transferin")}</Text>
@@ -485,6 +494,7 @@ function FlashExchangeScreen({ }: Props) {
 
         </View>
       </View>
+      </TouchableWithoutFeedback>
     </LinearGradient>
   );
 }
@@ -521,12 +531,6 @@ const styles = StyleSheet.create({
   },
   leftBtn: {
     color: 'rgba(0,0,0,0)',
-    fontSize: 14,
-    fontWeight: '500',
-    textAlign: 'center',
-  },
-  rightBtn: {
-    color: '#FFFFFF',
     fontSize: 14,
     fontWeight: '500',
     textAlign: 'center',

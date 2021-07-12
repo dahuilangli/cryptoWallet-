@@ -1,7 +1,7 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { Image, Platform, Text } from 'react-native';
+import { Alert, Image, Platform, Text } from 'react-native';
 import TabNavigator from './TabNavigator';
 import WebScreen from 'screens/WebScreen';
 import WebHtmlScreen from 'screens/WebHtmlScreen';
@@ -78,7 +78,9 @@ export default function MainStackNavigator() {
   const dispatch = useDispatch();
 
   async function addAddressBook(item: AddressBookItem) {
-    await dispatch(walletAction.deleteAddressBookList(item));
+    
+   dispatch(walletAction.deleteAddressBookList(item));
+    goBack()
   }
   return (
     <Navigator
@@ -205,8 +207,19 @@ export default function MainStackNavigator() {
           title: route.params.title,
           headerRight: () => route.params.title === t("editpayee") && <TouchableOpacity
             onPress={() => {
-              addAddressBook(route.params.item)
-              goBack()
+              Alert.alert("提示","确定要删除吗?",[
+                {
+                  text:"yes",
+                  onPress: () => {
+                    addAddressBook(route.params.item);
+                 }
+                },{
+                  text:"no",
+                  
+                }
+              ]);
+              
+              
             }}
           >
             <Text style={{ color: 'white', fontSize: 14, fontWeight: '500' }}>{t("delete")}</Text>

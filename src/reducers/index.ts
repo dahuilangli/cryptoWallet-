@@ -21,7 +21,6 @@ export const rootReducer = combineReducers({
     {
       key: 'data',
       storage: AsyncStorage,
-      blacklist: ['location', 'mapLocation'],
     },
     dataStateReducer,
   ),
@@ -29,7 +28,6 @@ export const rootReducer = combineReducers({
     {
       key: '@wallet',
       storage: AsyncStorage,
-      whitelist: ["tds"],
     },
     walletReducer,
   ),
