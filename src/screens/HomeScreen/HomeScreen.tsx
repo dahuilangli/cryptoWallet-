@@ -33,18 +33,18 @@ interface Props { }
 const modelLeft = [
   {
     title: CHAINS.eth,
-    img: require('assets/coins/img-40-coointype-eth.png'),
-    img_off: require('assets/coins/img-40-coointype-eth-off.png'),
+    img: require('assets/coins/img_coointype_eth.png'),
+    img_off: require('assets/coins/img_coointype_eth_off.png'),
   },
   {
     title: CHAINS.bnb,
-    img: require('assets/coins/img-40-coointype-币安.png'),
-    img_off: require('assets/coins/img-40-coointype-币安-off.png'),
+    img: require('assets/coins/icon_coointype_bian.png'),
+    img_off: require('assets/coins/icon_coointype_bian_off.png'),
   },
   {
     title: CHAINS.ht,
-    img: require('assets/coins/img-40-coointype-pk.png'),
-    img_off: require('assets/coins/img-40-coointype-pk-off.png'),
+    img: require('assets/coins/img_coointype_pk.png'),
+    img_off: require('assets/coins/img_coointype_pk_off.png'),
   },
 ];
 let defatltCoin: Map<string, object> = new Map();
@@ -80,6 +80,8 @@ function HomeScreen({ }: Props) {
   const { t } = useTranslation();
   useEffect(() => {
       getAssetsList()
+      console.log('==============');
+      
   }, [user])
   function switchWallet(item: Account) {
     setSelectAddress(item.address)
@@ -117,13 +119,13 @@ function HomeScreen({ }: Props) {
           <View style={styles.header}>
             <TouchableOpacity onPress={() =>
               setModalVisible(true)}>
-              <Image source={require('assets/icon-24-切换钱包-light.png')} />
+              <Image source={require('assets/icon_change_wallet_light.png')} />
             </TouchableOpacity>
             <Text style={styles.headerTitle}>{t("wallet")}</Text>
             <TouchableOpacity onPress={() => navigate('ScanQRCode', { title: 'HomeScreen', assetsList })}>
               <Image
                 style={styles.image}
-                source={require('assets/icon-24-扫一扫-light.png')}
+                source={require('assets/icon_sacn_light.png')}
               />
             </TouchableOpacity>
           </View>
@@ -131,17 +133,17 @@ function HomeScreen({ }: Props) {
             {user.type === 'ETH' ? (
               <Image
                 style={styles.logo}
-                source={require('assets/coins/img-40-indexcoin-eth.png')}
+                source={require('assets/coins/img_indexcoin_eth.png')}
               />
             ) : user.type === 'BNB' ? (
               <Image
                 style={styles.logo}
-                source={require('assets/coins/img-40-indexcoin-bnb.png')}
+                source={require('assets/coins/img_indexcoin_bnb.png')}
               />
             ) : user.type === 'HT' ? (
               <Image
                 style={styles.logo}
-                source={require('assets/coins/img-40-indexcoin-huobi.png')}
+                source={require('assets/coins/img_indexcoin_huobi.png')}
               />
             ) : undefined}
             <Text style={styles.wallName}>{thisUser?.walletName}</Text>
@@ -152,7 +154,7 @@ function HomeScreen({ }: Props) {
               <TouchableOpacity onPress={() => { hideOrShowMoney() }}>
                 <Image
                   style={styles.eye}
-                  source={require('assets/icon-20-see-off.png')}
+                  source={require('assets/icon_see_off.png')}
                 />
               </TouchableOpacity>
             </View>
@@ -168,7 +170,7 @@ function HomeScreen({ }: Props) {
                 icon={
                   <Image
                     style={styles.eye}
-                    source={require('assets/icon-20-转账-blue.png')}
+                    source={require('assets/icon_transfer_blue.png')}
                   />
                 }
                 buttonStyle={styles.button}
@@ -182,7 +184,7 @@ function HomeScreen({ }: Props) {
                 icon={
                   <Image
                     style={styles.eye}
-                    source={require('assets/icon-20-收款-blue.png')}
+                    source={require('assets/icon_payment_blue.png')}
                   />
                 }
                 linearGradientProps={{
@@ -206,7 +208,7 @@ function HomeScreen({ }: Props) {
             >
               <Image
                 style={styles.assetsHeardImage}
-                source={require('assets/icon-20-添加资产.png')}
+                source={require('assets/icon_addassets.png')}
               />
             </TouchableOpacity>
           </View>
@@ -266,7 +268,7 @@ function HomeScreen({ }: Props) {
               >
                 <Image
                   style={styles.textStyle}
-                  source={require('assets/icon-24-钱包管理.png')}
+                  source={require('assets/icon_wallet_manager.png')}
                 />
               </TouchableOpacity>
               <Text style={styles.headText}>{t("choosewallet")}</Text>
@@ -278,7 +280,7 @@ function HomeScreen({ }: Props) {
               >
                 <Image
                   style={styles.textStyle}
-                  source={require('assets/icon-20-close.png')}
+                  source={require('assets/icon_close.png')}
                 />
               </TouchableOpacity>
             </View>
@@ -325,7 +327,7 @@ function HomeScreen({ }: Props) {
                         {selectAddress === item.address ? (
                           <Image
                             style={styles.itemNameImage}
-                            source={require('assets/icon-16-选中钱包.png')}
+                            source={require('assets/icon_selected_wallet.png')}
                           />
                         ) : undefined}
                       </View>

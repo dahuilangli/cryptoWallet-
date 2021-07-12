@@ -27,7 +27,7 @@ export const rootReducer = combineReducers({
   ),
   walletState: persistReducer(
     {
-      key: '@wallet/',
+      key: '@wallet',
       storage: AsyncStorage,
       whitelist: ["tds"],
     },

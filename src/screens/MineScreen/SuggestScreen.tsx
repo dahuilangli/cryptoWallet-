@@ -35,7 +35,7 @@ function SuggestScreen({ }: Props) {
       address: walletAddressText,
     };
     helper.post('/sys/help', body).then((res: any) => {
-      showWithImage('提交成功', require('assets/icon-20-有误.png'))
+      showWithImage('提交成功', require('assets/icon_correct.png'))
       goBack()
     }).catch(e => {
       throw new Error(e)

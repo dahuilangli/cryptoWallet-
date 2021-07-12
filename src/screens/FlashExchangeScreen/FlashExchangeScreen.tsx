@@ -29,21 +29,21 @@ const list = [
 
   {
     name: 'ETH',
-    avatar_url: require('assets/img-40-coointype-eth.png'),
+    avatar_url: require('assets/img_coointype_eth.png'),
     type: 'privateKey',
   },
   {
     name: 'STO',
-    avatar_url: require('assets/img-40-coointype-sto.png'),
+    avatar_url: require('assets/img_coointype_sto.png'),
     type: 'privateKey',
   }, {
     name: 'BSC',
-    avatar_url: require('assets/img-40-coointype-币安.png'),
+    avatar_url: require('assets/icon_coointype_bian.png'),
     type: 'mnemonic',
   },
   {
     name: 'USDT',
-    avatar_url: require('assets/img-40-coointype-USDT.png'),
+    avatar_url: require('assets/img_coointype_usdt.png'),
     type: 'mnemonic',
   },
 
@@ -53,8 +53,8 @@ const list = [
 interface Props { }
 function FlashExchangeScreen({ }: Props) {
   const { t } = useTranslation();
-  const [outImage, setOutImage] = useState(require('assets/img-40-coointype-eth.png'));
-  const [inPutImage, setInPutImage] = useState(require('assets/img-40-coointype-USDT.png'));
+  const [outImage, setOutImage] = useState(require('assets/img_coointype_eth.png'));
+  const [inPutImage, setInPutImage] = useState(require('assets/img_coointype_usdt.png'));
   const [outName, setOutName] = useState('ETH');
   const [inPutName, setInPutName] = useState('USDT');
   const [modalVisible, setModalVisible] = useState(false);
@@ -113,7 +113,7 @@ function FlashExchangeScreen({ }: Props) {
                 setInPutName(outName);
                 setOutName(inPutName);
               }}>
-              <Image style={{ width: 40, height: 40 }} source={require('assets/icon-40-闪兑切换.png')} />
+              <Image style={{ width: 40, height: 40 }} source={require('assets/icon_flash_change.png')} />
             </TouchableOpacity>
             <View style={styles.secondView}>
               <View style={styles.centerViewone}>
@@ -185,7 +185,7 @@ function FlashExchangeScreen({ }: Props) {
                   >
                     <Image
                       style={styles.textStyle}
-                      source={require('assets/icon-20-close.png')}
+                      source={require('assets/icon_close.png')}
                     />
                   </TouchableOpacity>
                 </View>
@@ -216,11 +216,11 @@ function FlashExchangeScreen({ }: Props) {
                         />
                         <Text style={styles.text}>{item.name}</Text>
                         {!!(currentChange === 1 && item.name === outName) && <Avatar
-                          source={require('assets/icon-20-选中-样式1.png')}
+                          source={require('assets/icon_selected_styleone.png')}
                           containerStyle={styles.selected}
                         />}
                         {!!(currentChange === 2 && item.name === inPutName) && <Avatar
-                          source={require('assets/icon-20-选中-样式1.png')}
+                          source={require('assets/icon_selected_styleone.png')}
                           containerStyle={styles.selected}
                         />}
                       </View>
@@ -265,7 +265,7 @@ function FlashExchangeScreen({ }: Props) {
                       >
                         <Image
                           style={styles.textStyle}
-                          source={require('assets/icon-20-close.png')}
+                          source={require('assets/icon_close.png')}
                         />
                       </TouchableOpacity>
                     </View>
@@ -275,7 +275,7 @@ function FlashExchangeScreen({ }: Props) {
                         <Text style={styles.outName2}>{outName}</Text>
                         <Text style={styles.outNumber2}>-{outNumber}</Text>
                       </View>
-                      <Image style={styles.dianImage} source={require('assets/img-40-coointype-币安.png')} />
+                      <Image style={styles.dianImage} source={require('assets/icon_coointype_bian.png')} />
                       <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                         <Image source={inPutImage} style={styles.outImage2} />
                         <Text style={styles.outName2}>{inPutName}</Text>

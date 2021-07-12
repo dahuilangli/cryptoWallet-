@@ -175,7 +175,7 @@ function TransferScreen(props: Props) {
               </View>
               <Image
                 style={styles.coinGo}
-                source={require('assets/icon-20-arrow-right.png')}
+                source={require('assets/icon_arrow_right.png')}
               />
             </TouchableOpacity>
 
@@ -192,7 +192,7 @@ function TransferScreen(props: Props) {
               }}>
               <Image
                 style={styles.inputRightIcon}
-                source={require('assets/icon-20-地址本.png')}
+                source={require('assets/icon_address_book.png')}
               />
               </TouchableOpacity>
             </View>
@@ -308,7 +308,7 @@ function TransferScreen(props: Props) {
               >
                 <Image
                   style={styles.textStyle}
-                  source={require('assets/icon-20-close.png')}
+                  source={require('assets/icon_close.png')}
                 />
               </TouchableOpacity>
             </View>
@@ -329,7 +329,7 @@ function TransferScreen(props: Props) {
                   {selectCoinIndex === i ? (
                     <Avatar
                       rounded
-                      source={require('assets/icon-20-选中-样式1.png')}
+                      source={require('assets/icon_selected_styleone.png')}
                       containerStyle={styles.avatarSelect}
                     />
                   ) : undefined}
@@ -377,7 +377,7 @@ function TransferScreen(props: Props) {
                   >
                     <Image
                       style={styles.textStyle}
-                      source={require('assets/icon-20-close.png')}
+                      source={require('assets/icon_close.png')}
                     />
                   </TouchableOpacity>
                 </View>
@@ -445,7 +445,7 @@ function TransferScreen(props: Props) {
               >
                 <Image
                   style={styles.textStyle}
-                  source={require('assets/icon-20-close.png')}
+                  source={require('assets/icon_close.png')}
                 />
               </TouchableOpacity>
             </View>
@@ -453,7 +453,7 @@ function TransferScreen(props: Props) {
               <View style={styles.alignItemsCenter}>
                 <Image
                   style={styles.warning}
-                  source={require('assets/safetyWarning.png')}
+                  source={require('assets/safety_warning.png')}
                 />
               </View>
               <Text style={styles.warningTitle}>风险提示</Text>

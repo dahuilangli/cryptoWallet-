@@ -27,12 +27,12 @@ const LoginScreen = ({}: Props) => {
   const list = [
     {
       name: t("mnemonicimport"),
-      avatar_url: require('assets/icon-20-导入-词.png'),
+      avatar_url: require('assets/icon_import_word.png'),
       type: 'mnemonic',
     },
     {
       name: t("privatekeyimport"),
-      avatar_url: require('assets/icon-20-导入-私钥.png'),
+      avatar_url: require('assets/icon_import_privatekey.png'),
       type: 'privateKey',
     },
   ];
@@ -42,7 +42,7 @@ const LoginScreen = ({}: Props) => {
       <StatusBar barStyle="light-content" />
       <SafeAreaView style={styles.flex_1}>
         <View style={styles.logoContainer}>
-          <Image style={styles.logo} resizeMethod="auto" source={require('assets/first-load-logo.png')} />
+          <Image style={styles.logo} resizeMethod="auto" source={require('assets/first_load_logo.png')} />
           <Text style={styles.logoText}>MORLEYSTONE</Text>
         </View>
         <View style={styles.buttonContainer}>
@@ -92,7 +92,7 @@ const LoginScreen = ({}: Props) => {
               >
                 <Image
                   style={styles.textStyle}
-                  source={require('assets/icon-20-close.png')}
+                  source={require('assets/icon_close.png')}
                 />
               </TouchableOpacity>
             </View>

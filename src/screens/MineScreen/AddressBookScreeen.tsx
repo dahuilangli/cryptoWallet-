@@ -71,7 +71,7 @@ function AddressBookScreen(props: Props) {
             keyExtractor={(item) => item.walletaddress}
           >
 
-          </FlatList>) : (<View style={styles.nodataContainer}><Image source={require('assets/缺省-无联系人.png')} /><Text style={styles.nodata}>{t('Nopayee')}</Text></View>)
+          </FlatList>) : (<View style={styles.nodataContainer}><Image source={require('assets/icon_nocontact.png')} /><Text style={styles.nodata}>{t('Nopayee')}</Text></View>)
       }
 
 

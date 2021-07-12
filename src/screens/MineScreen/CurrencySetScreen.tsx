@@ -12,7 +12,7 @@ import i18n from "i18n";
 import walletAction from 'actions/wallet';
 import { useSelector, useDispatch } from 'react-redux';
 import { getCurrency } from 'reducers/dataStateReducer';
-
+import {show} from 'utils'
 
 type SetUpScreenRouteProp = RouteProp<ScreensParamList, 'SetUpScreen'>;
 interface Props {}
@@ -38,13 +38,14 @@ const list2 = [
         if (params) {
             await dispatch(walletAction.setCurrency(params));
             setDefaultCurrency(params)
+            show('切换'+(params === 'USDT' ? 'USDT' : 'CNY')+'成功');
         }
     }
 
     const Item = ({ item, onPress, style }) => (
         <TouchableOpacity onPress={onPress} style={style}>
             <Text style={styles.nameText}>{item.language}</Text>
-            <Image style={styles.imageText} source={defaultCurrency === item.language ? require('assets/icon-20-选择-on.png') : require('assets/icon-20-选择-off.png')}></Image>
+            <Image style={styles.imageText} source={defaultCurrency === item.language ? require('assets/icon_choose_on.png') : require('assets/icon_choose_of.png')}></Image>
         </TouchableOpacity>
     );
     const renderItem = ({item} ) => {

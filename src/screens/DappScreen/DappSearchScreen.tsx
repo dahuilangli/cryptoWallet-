@@ -75,7 +75,7 @@ function SearchScreen({ }: Props) {
           <View style={styles.coinNameContainer}>
             <Image
               style={styles.coinNameIcon}
-              source={require('assets/icon-20-搜索.png')}
+              source={require('assets/icon_search.png')}
             />
             <View style = {styles.coinNameView}>
               <TextInput
@@ -119,7 +119,7 @@ function SearchScreen({ }: Props) {
               </ScrollView>
             </View>
 
-          ) : (<View style={styles.nodataContainer}><Image source={require('assets/seach-nodata.png')} /><Text style={styles.nodata}>{t('nodata')}</Text></View>)}
+          ) : (<View style={styles.nodataContainer}><Image source={require('assets/seach_nodata.png')} /><Text style={styles.nodata}>{t('nodata')}</Text></View>)}
         </SafeAreaView>
       </View>
     </LinearGradient>

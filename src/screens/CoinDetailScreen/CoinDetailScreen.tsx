@@ -160,7 +160,7 @@ function CoinDetailScreen({ route }: Props) {
           >
             <Image
               style={styles.navImage}
-              source={require('assets/img-40-coointype-eth.png')}
+              source={require('assets/img_coointype_eth.png')}
             />
             <View style={styles.navAmount}>
               <Text style={styles.navUSDT}>{assetsList?.balance}</Text>
@@ -181,7 +181,7 @@ function CoinDetailScreen({ route }: Props) {
               <View style={styles.subNav}>
                 <Image
                   style={styles.subNavImage}
-                  source={require('assets/img-40-coointype-eth.png')}
+                  source={require('assets/img_coointype_eth.png')}
                 />
                 <Text style={styles.subNavTitle}>{title}</Text>
                 <View style={styles.subNavAmount}>
@@ -239,7 +239,7 @@ function CoinDetailScreen({ route }: Props) {
                       <Text style={styles.hashText}>HASH: {subSplit(item?.tx_hash, 14, 17)}</Text>
                       <Image
                         style={styles.hashGoImg}
-                        source={require('assets/icon-20-arrow-right.png')}
+                        source={require('assets/icon_arrow_right.png')}
                       />
                     </TouchableOpacity>
                   </View>
@@ -248,7 +248,7 @@ function CoinDetailScreen({ route }: Props) {
               {
                 loading === 'more' ? <ActivityIndicator /> : null
               }
-            </View>:(<View style={styles.nodataContainer}><Image source={require('assets/缺省-无记录.png')} /><Text style={styles.nodata}>{t('norecord')}</Text></View>)
+            </View>:(<View style={styles.nodataContainer}><Image source={require('assets/icon_norecord.png')} /><Text style={styles.nodata}>{t('norecord')}</Text></View>)
             } 
           </View>
         </View>
@@ -259,7 +259,7 @@ function CoinDetailScreen({ route }: Props) {
           icon={
             <Image
               style={styles.buttonIcon}
-              source={require('assets/icon-20-转账-light.png')}
+              source={require('assets/icon_transfer_light.png')}
             />
           }
           buttonStyle={styles.button}
@@ -271,7 +271,7 @@ function CoinDetailScreen({ route }: Props) {
           icon={
             <Image
               style={styles.buttonIcon}
-              source={require('assets/icon-20-收款-light.png')}
+              source={require('assets/icon_payment_light.png')}
             />
           }
           buttonStyle={styles.buttonOne}

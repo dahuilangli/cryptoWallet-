@@ -31,7 +31,7 @@ function AboutUsScreen({ }: Props) {
   const list =[
         {
             "content":"https://www.mystone.io",
-            "icon":require('assets/icon-30-关于我们-官网.png'),
+            "icon":require('assets/icon_aboutus_website.png'),
             "id":2,
             "language":"en",
             "rank":1,
@@ -41,7 +41,7 @@ function AboutUsScreen({ }: Props) {
         },
         {
             "content":"https://twitter.com/MorleystoneLab",
-            "icon":require('assets/icon-30-关于我们-twitter.png'),
+            "icon":require('assets/icon_aboutus_twitter.png'),
             "id":6,
             "language":"en",
             "rank":1,
@@ -51,7 +51,7 @@ function AboutUsScreen({ }: Props) {
         },
         {
             "content":"https://t.me/morleystone_sto",
-            "icon":require('assets/icon-30-关于我们-tel.png'),
+            "icon":require('assets/icon_aboutus_tel.png'),
             "id":4,
             "language":"en",
             "rank":2,
@@ -65,7 +65,7 @@ function AboutUsScreen({ }: Props) {
 
       <SafeAreaView style={styles.container}>
         <View style={styles.headView}>
-          <Image source={require('assets/icon-125-aboutuslogo.png')} style={styles.iconImage} />
+          <Image source={require('assets/icon_aboutus_logo.png')} style={styles.iconImage} />
           <Text style={styles.nameLabel}>{t("projectname")}</Text>
         </View>
         <View style={styles.bottomView}>
@@ -82,7 +82,7 @@ function AboutUsScreen({ }: Props) {
                 <View style={styles.secondView}>
                   <Image
                     style={styles.rightImage}
-                    source={require('assets/icon-20-arrow-right.png')}
+                    source={require('assets/icon_arrow_right.png')}
                   />
                 </View>
               </TouchableOpacity>
