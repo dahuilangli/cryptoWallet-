@@ -124,15 +124,15 @@ function TransferScreen(props: Props) {
         let wallet = thisUser?.coinInfo?.wallet;
         let gas_price = Mul(gasList[gasIndex].gasPrice, Math.pow(10, thisUser?.coinInfo?.gas_decimal)).toString();
         let amount = transferAmount;
+        let amountSign = Mul(amount, assetsList[selectCoinIndex].gas_limit);
         let to = receivingAddress;
         let symbol = assetsList[selectCoinIndex].symbol;
         let gas_limit: any = assetsList[selectCoinIndex].gas_limit;
         helper.get('/wallet/transfer_nonce', { address, wallet }).then((res : any) => {
           let nonce = res.nonce;
-          transaction(thisUser.privateKey, nonce, gas_limit, gas_price, to, amount).then(sign => {
+          transaction(thisUser.privateKey, nonce, gas_limit, gas_price, to, amountSign ).then(sign => {
             console.log(sign);
             console.log('签名');
-            
             let params = {
               "amount": amount,
               "from": address,
@@ -144,8 +144,7 @@ function TransferScreen(props: Props) {
               "wallet": wallet
             }
             show('提交成功')
-            helper.post('/wallet/transfer', params).then((res: any) => {
-            })
+            helper.post('/wallet/transfer', params)
           })
         })
       } else {

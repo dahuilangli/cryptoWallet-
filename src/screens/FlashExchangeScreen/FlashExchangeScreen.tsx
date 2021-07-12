@@ -4,9 +4,7 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import LinearGradient from 'react-native-linear-gradient';
-import axios from 'axios'
 import {
-  SafeAreaView,
   ScrollView,
   StyleSheet,
   View,
@@ -100,7 +98,7 @@ function FlashExchangeScreen({ }: Props) {
   useEffect(() => {
     if (out && assetsList) {
       let b = assetsList?.find(x => x.symbol === out?.symbol);
-      setBalance(b ? b : { balance: '0' })
+      setBalance(b ? b : { balance: '0', symbol: out.symbol })
     }
   }, [out, assetsList]);
 
@@ -111,6 +109,9 @@ function FlashExchangeScreen({ }: Props) {
       "wallet": thisUser?.coinInfo?.wallet
     }
     helper.post('/wallet/assets', params).then((res: any) => {
+      console.log('====================================');
+      console.log(res);
+      console.log('====================================');
       setAssetsList(res)
     })
   }
@@ -143,9 +144,11 @@ function FlashExchangeScreen({ }: Props) {
     setIsSigninInProgress(true);
     if (securityCode === thisUser?.securityCode) {
       try {
+        let sourceType = mobileType.toUpperCase();
+        let equipmentNo = `Morleystone-${thisUser?.coinInfo?.wallet}-${thisUser.address}`;
         const { data }: any = await post('/accountExchange', {
-          equipmentNo: `Morleystone-${thisUser?.coinInfo?.wallet}-${thisUser.address}`,
-          sourceType: mobileType.toUpperCase(),
+          equipmentNo,
+          sourceType,
           depositCoinCode: out?.coin_code,
           receiveCoinCode: inPut?.coin_code,
           receiveCoinAmt: Mul(outNumber, base?.instant_rate),
@@ -169,23 +172,28 @@ function FlashExchangeScreen({ }: Props) {
             let gas_price = Mul(gas.gasPrice, Math.pow(10, thisUser?.coinInfo?.gas_decimal)).toString();
             let gas_limit: any = balance?.gas_limit;
             let amount = accountExchange?.depositCoinAmt;
+            let amountSign = Mul(amount, balance?.gas_limit);
             let to = accountExchange?.platformAddr;
             let symbol = balance?.symbol;
             helper.get('/wallet/transfer_nonce', { address, wallet }).then((res: any) => {
               let nonce = res.nonce;
-              transaction(thisUser.privateKey, nonce, gas_limit, gas_price, to, amount).then(sign => {
-                show('提交成功')
+              transaction(thisUser.privateKey, nonce, gas_limit, gas_price, to, amountSign).then(sign => {
                 let params = {
                   "amount": amount,
+                  "equipment_no": equipmentNo,
                   "from": address,
                   "gas": gas?.balance,
                   "nonce": Number(nonce),
+                  "order_id": accountExchange?.orderId,
                   "signature": sign,
+                  "source_type": sourceType,
                   "symbol": symbol,
                   "to": to,
                   "wallet": wallet
                 }
-                helper.post('/wallet/transfer', params)
+                helper.post('/swft/deposit', params).then((res: any) => {
+                  show('存币成功')
+                })
               })
             })
           })
@@ -208,7 +216,7 @@ function FlashExchangeScreen({ }: Props) {
         <View style={styles.header}>
           <Text style={styles.leftBtn}>{t("record")}</Text>
           <Text style={styles.headerTitle}>{t("flash")}</Text>
-          <TouchableOpacity onPress={() => navigate('FlashRecordScreen')}>
+          <TouchableOpacity onPress={() => navigate('FlashRecordScreen', { equipmentNo: `Morleystone-${thisUser?.coinInfo?.wallet}-${thisUser.address}`})}>
             <Text style={styles.rightBtn}>{t("record")}</Text>
           </TouchableOpacity>
         </View>
@@ -331,7 +339,7 @@ function FlashExchangeScreen({ }: Props) {
                   {coinList.map((item: ResponseItem, i) => (
                     <TouchableOpacity
                       style={styles.list}
-                      key={i}
+                      key={i + item.coin_code}
                       onPress={() => {
                         setModalVisible(!modalVisible);
                         if (currentChange === 1) {

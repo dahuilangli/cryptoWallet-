@@ -188,7 +188,7 @@ export function Sub(arg1: any, arg2: any) {
 }
 
 
-export function transaction(privateKey: string, nonce: any, gasLimit: number, gasPrice: string, to: string, value: string) {
+export function transaction(privateKey: string, nonce: any, gasLimit: number, gasPrice: string, to: any, value: any) {
 
   return new Promise((resolve, reject) => {
     let wallet = new ethers.Wallet(privateKey);
