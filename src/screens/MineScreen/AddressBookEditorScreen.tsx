@@ -62,7 +62,7 @@ function AddressBookEditorScreen(props: Props) {
                         <View style={styles.typeView}>
                             <Image style={styles.typeImage} source={typeLogo}></Image>
                             <Text style={styles.typeName}>{addType}</Text>
-                            <Image style={styles.rightImage} source={require('assets/icon-20-arrow-right.png')}></Image>
+                            <Image style={styles.rightImage} source={require('assets/icon_arrow_right.png')}></Image>
                         </View>
                     </TouchableOpacity>
                     <Text style={styles.typeText}>{t("addressname")}</Text>

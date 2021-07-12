@@ -9,29 +9,34 @@ import logger from 'redux-logger';
 import thunkMiddleware from "redux-thunk";
 import { walletState } from 'reducers/walletStateReducer';
 
+import { Map } from 'immutable';
+import { Account } from 'actions/types';
 
 // const sagaMiddleware = createSagaMiddleware()
 
-const MapTransform = createTransform(
-  (inboundState: walletState, key:any) => {
-    return { ...inboundState, accountList: Array.from(inboundState.accountList) };
-  },
-  (outboundState: any, key) => {
-    return { ...outboundState, accountList: new Map(outboundState.accountList) };
-  },
-  { whitelist: ['walletState'] }
-);
+// const MapTransform = createTransform(
+//   (inboundState, key) => {
+//     console.log(Array.from(inboundState.accountList))
+//     return { ...inboundState, accountList: Array.from(inboundState.accountList) };
+//   },
+//   (outboundState, key) => {
+//     console.log(Map(outboundState.accountList))
+//     console.log(2222222222222222)
+//     return { ...outboundState, accountList: Map(outboundState.accountList) };
+//   },
+//   { whitelist: ['walletState'] }
+// );
 const persistedReducer = persistReducer(
   {
     key: 'root',
     storage: AsyncStorage,
-    transforms: [MapTransform],
+    // transforms: [MapTransform],
   },
   rootReducer,
 );
 
 // export  const ReduxStore = createStore(persistedReducer, composeWithDevTools(applyMiddleware(thunkMiddleware,logger,sagaMiddleware)));
-export  const ReduxStore = createStore(persistedReducer, composeWithDevTools(applyMiddleware(thunkMiddleware,logger)));
+export  const ReduxStore = createStore(persistedReducer, composeWithDevTools(applyMiddleware(thunkMiddleware)));
 
 // sagaMiddleware.run(sagas);
 export const persistor = persistStore(ReduxStore)

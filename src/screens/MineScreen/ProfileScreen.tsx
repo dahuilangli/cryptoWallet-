@@ -61,44 +61,44 @@ function ProfileScreen({ }: Props) {
     top: [
       {
         name: t("Addressbook"),
-        leftIcon: require('assets/icon-24-地址薄.png'),
-        rightIcon: require('assets/icon-20-arrow-right.png'),
+        leftIcon: require('assets/icon_address_book_one.png'),
+        rightIcon: require('assets/icon_arrow_right.png'),
         navigate: () =>
           navigate('AddressBookScreen', { title: '收款人', showMyself: true ,type:'person'}),
       },
       {
         name: t("Message"),
-        leftIcon: require('assets/icon-24-消息通知.png'),
-        rightIcon: require('assets/icon-20-arrow-right.png'),
+        leftIcon: require('assets/icon_message_notice.png'),
+        rightIcon: require('assets/icon_arrow_right.png'),
         navigate: () => navigate('MessageScreen'),
       },
     ],
     content: [
       {
         name: t("Usesettings"),
-        leftIcon: require('assets/icon-24-使用设置.png'),
-        rightIcon: require('assets/icon-20-arrow-right.png'),
+        leftIcon: require('assets/icon_setting_use.png'),
+        rightIcon: require('assets/icon_arrow_right.png'),
         navigate: () => navigate('SetUpScreen')
       }, {
         name: t("HelpFeedback"),
-        leftIcon: require('assets/icon-24-反馈帮助.png'),
-        rightIcon: require('assets/icon-20-arrow-right.png'),
+        leftIcon: require('assets/icon_suggest_help.png'),
+        rightIcon: require('assets/icon_arrow_right.png'),
         navigate: () => navigate('SuggestScreen')
       }, {
         name: t("versionupdate"),
-        leftIcon: require('assets/icon-24-版本更新.png'),
-        rightIcon: require('assets/icon-20-arrow-right.png'),
+        leftIcon: require('assets/icon_version_update.png'),
+        rightIcon: require('assets/icon_arrow_right.png'),
         navigate: () => navigate('UpdateScreen', { item: messagelistData, checkVersion: checkVersion })
 
       }, {
         name: t("UserAgreement"),
-        leftIcon: require('assets/icon-24-协议.png'),
-        rightIcon: require('assets/icon-20-arrow-right.png'),
+        leftIcon: require('assets/icon_agreement.png'),
+        rightIcon: require('assets/icon_arrow_right.png'),
         navigate: async () => await navigate('WebHtmlScreen', { title: t("UserAgreement"), uri: html })
       }, {
         name: t("aboutus"),
-        leftIcon: require('assets/icon-24-关于我们.png'),
-        rightIcon: require('assets/icon-20-arrow-right.png'),
+        leftIcon: require('assets/icon_about_us.png'),
+        rightIcon: require('assets/icon_arrow_right.png'),
         navigate: () => navigate('AboutUsScreen')
       }
     ]
@@ -148,7 +148,7 @@ function ProfileScreen({ }: Props) {
                 </ListItem.Title>
               </ListItem.Content>
               {
-                i === 2 && checkVersion ? <Image style={styles.versionShow} source={require('assets/new-vision.png')}></Image> : <Text></Text>
+                i === 2 && checkVersion ? <Image style={styles.versionShow} source={require('assets/new_vision.png')}></Image> : <Text></Text>
               }
               <Image source={item.rightIcon} style={styles.rightIcon} />
             </ListItem>

@@ -110,7 +110,7 @@ const SelectWalletScreen = (prop: Props) => {
               <Text style={styles.text}>{item?.name_en}</Text>
               <Image
                 style={styles.icon}
-                source={require('assets/icon-20-arrow-right.png')}
+                source={require('assets/icon_arrow_right.png')}
               />
             </View>
           </TouchableOpacity>

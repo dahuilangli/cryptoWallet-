@@ -1,11 +1,15 @@
 
 import { Dimensions } from 'react-native';
 
-// export const HOST = 'http://192.168.2.21:80';
+// export const HOST = 'http://192.168.3.231:80';
 
 export const HOST = 'http://121.43.176.103';
 
+export const SWFTHOST = 'https://swap.swftcoin.com';
+
 export const API_ENDPOINT = `${HOST}/api/service`;
+
+export const API_SWFT = `${SWFTHOST}/api/v2`;
 
 
 export const SCREENHEIGHT = Dimensions.get('window').height

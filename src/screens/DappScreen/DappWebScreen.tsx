@@ -82,11 +82,11 @@ export default function DappWebScreen({ navigation, route }: Props) {
                             >
                                 <Image
                                     style={styles.textStyle}
-                                    source={require('assets/icon-20-close.png')}
+                                    source={require('assets/icon_close.png')}
                                 />
                             </TouchableOpacity>
                         </View>
-                        <Image source={require('assets/风险提示.png')} style={{ width: 120, height: 120 }} />
+                        <Image source={require('assets/risk_warning.png')} style={{ width: 120, height: 120 }} />
                         <Text style={styles.tipTitle}>{route.params.item.content}</Text>
                         <Text numberOfLines={0} style={styles.tipContent}>您在第三方 DAPP 上使用的行为将适用该第三方DAPP的《用户使用协议》和《隐私政策》
                             由mystone.io 直接并单独由你承担责任</Text>

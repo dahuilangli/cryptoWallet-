@@ -10,6 +10,8 @@ import i18n from "i18n";
 import walletAction from 'actions/wallet'
 import * as helper from "apis/helper"
 import DeviceInfo from 'react-native-device-info';
+import checkPushyUpdate from 'helper/checkPushyUpdate';
+import { EOL } from 'os';
 function RootScreen() {
   
   const dispatch = useDispatch();
@@ -24,6 +26,7 @@ function RootScreen() {
     findToken();
     
     SplashScreen.hide();
+    
   }, []);
   function findToken() {
     if (!token) {
@@ -34,12 +37,20 @@ function RootScreen() {
         sys_version: DeviceInfo.getSystemVersion()
       };
       helper.post('/sys/device_authorization', params).then((res: any) => {
+        
         dispatch(walletAction.setToken(res.token))
+        checkPushyUpdate();
       }).catch(e => {
         throw console.error(e);
       })
+    }else{
+      checkPushyUpdate();
     }
+    
   }
+  // React.useEffect(() => {
+    
+  // }, []);
   return (
     <NavigationContainer ref={navigationRef}>
       {walletStatus ? <MainStackNavigator /> : <AuthStackNavigator /> }
