@@ -93,7 +93,7 @@
   "receiveaddress":"Receive Address",
   "Transfercurrency":"Transfer Currency",
   "Balance":"Balance",
-  "Transaction Record":"Transaction Record",
+  "TransactionRecord":"Transaction Record",
   "completed":"Completed",
   "failure":"Failure",
   "processing":"Processing",
@@ -140,5 +140,6 @@
   "Backupprivatekey":"Backup Privatekey",
   "scan":"Scan",
   "nodata": "No results yet",
+  "noRecords": "No records",
   "copySuccess": "Copy successful"
 }

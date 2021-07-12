@@ -94,7 +94,7 @@
   "receiveaddress":"收款地址",
   "Transfercurrency":"转账币种",
   "Balance":"余额",
-  "Transaction Record":"交易记录",
+  "TransactionRecord":"交易记录",
   "completed":"已完成",
   "failure":"失败",
   "processing":"进行中",
@@ -141,5 +141,6 @@
   "Backupprivatekey":"备份私钥",
   "scan":"扫一扫",
   "nodata": "暂无结果",
+  "noRecords": "暂无记录",
   "copySuccess": "复制成功"
 }
