@@ -252,7 +252,7 @@ function FlashExchangeScreen({ }: Props) {
                 setInPut(out);
                 setOut(inPut);
               }}>
-              <Image style={{ width: 40, height: 40 }} source={require('assets/icon-40-闪兑切换.png')} />
+              <Image style={{ width: 40, height: 40 }} source={require('assets/icon_flash_change.png')} />
             </TouchableOpacity>
             <View style={styles.secondView}>
               <View style={styles.centerViewone}>
@@ -331,7 +331,7 @@ function FlashExchangeScreen({ }: Props) {
                   >
                     <Image
                       style={styles.textStyle}
-                      source={require('assets/icon-20-close.png')}
+                      source={require('assets/icon_close.png')}
                     />
                   </TouchableOpacity>
                 </View>
@@ -375,11 +375,11 @@ function FlashExchangeScreen({ }: Props) {
                         />
                         <Text style={styles.text}>{item?.symbol}</Text>
                         {!!(currentChange === 1 && item.symbol === out?.symbol) && <Avatar
-                          source={require('assets/icon-20-选中-样式1.png')}
+                          source={require('assets/icon_selected_styleone.png')}
                           containerStyle={styles.selected}
                         />}
                         {!!(currentChange === 2 && item.symbol === inPut?.symbol) && <Avatar
-                          source={require('assets/icon-20-选中-样式1.png')}
+                          source={require('assets/icon_selected_styleone.png')}
                           containerStyle={styles.selected}
                         />}
                       </View>
@@ -424,7 +424,7 @@ function FlashExchangeScreen({ }: Props) {
                       >
                         <Image
                           style={styles.textStyle}
-                          source={require('assets/icon-20-close.png')}
+                          source={require('assets/icon_close.png')}
                         />
                       </TouchableOpacity>
                     </View>
@@ -434,7 +434,7 @@ function FlashExchangeScreen({ }: Props) {
                         <Text style={styles.outName2}>{out?.symbol}</Text>
                         <Text style={styles.outNumber2}>-{outNumber}</Text>
                       </View>
-                      <Image style={styles.dianImage} source={require('assets/img-40-coointype-币安.png')} />
+                      <Image style={styles.dianImage} source={require('assets/icon_coointype_bian.png')} />
                       <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                         <Image source={{ uri: inPut?.icon }} style={styles.outImage2} />
                         <Text style={styles.outName2}>{inPut?.symbol}</Text>

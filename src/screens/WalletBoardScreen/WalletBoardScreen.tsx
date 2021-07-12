@@ -23,18 +23,18 @@ interface Props { }
 const modelLeft = [
   {
     title: CHAINS.eth,
-    img: require('assets/coins/img-40-coointype-eth.png'),
-    img_off: require('assets/coins/img-40-coointype-eth-off.png'),
+    img: require('assets/coins/img_coointype_eth.png'),
+    img_off: require('assets/coins/img_coointype_eth_off.png'),
   },
   {
     title: CHAINS.bnb,
-    img: require('assets/coins/img-40-coointype-币安.png'),
-    img_off: require('assets/coins/img-40-coointype-币安-off.png'),
+    img: require('assets/coins/icon_coointype_bian.png'),
+    img_off: require('assets/coins/icon_coointype_bian_off.png'),
   },
   {
     title: CHAINS.ht,
-    img: require('assets/coins/img-40-coointype-pk.png'),
-    img_off: require('assets/coins/img-40-coointype-pk-off.png'),
+    img: require('assets/coins/img_coointype_pk.png'),
+    img_off: require('assets/coins/img_coointype_pk_off.png'),
   },
 ];
 
@@ -88,7 +88,7 @@ function WalletBoardScreen({ }: Props) {
 
                   <Image
                     style={styles.itemNameImage}
-                    source={require('assets/icon-20-arrow-right.png')}
+                    source={require('assets/icon_arrow_right.png')}
                   />
                 </View>
                 {/* <View style={styles.itemAmountContainer}>

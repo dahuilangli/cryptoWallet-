@@ -89,7 +89,7 @@ export default function MainStackNavigator() {
         headerBackAllowFontScaling: true,
         headerTitleAlign: "center",
         headerBackImage: () => (
-          <Image source={require('assets/icon-24-返回-light.png')} />
+          <Image source={require('assets/icon_back_light.png')} />
         ),
         headerLeftContainerStyle: { paddingLeft: Platform.OS === 'ios' ? 20 : 10 },
       }}
@@ -193,7 +193,7 @@ export default function MainStackNavigator() {
           headerRight: () => <TouchableOpacity
             onPress={() => navigate('AddressBookEditorScreen', { item: {}, title: t("newpayee") })}
           >
-            <Image source={require('assets/icon-24-添加-light.png')} />
+            <Image source={require('assets/icon_add_light.png')} />
           </TouchableOpacity>,
           headerRightContainerStyle: { marginRight: 20 },
         }}

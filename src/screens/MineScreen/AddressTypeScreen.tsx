@@ -36,7 +36,7 @@ function AddressTypeScreen(props: any) {
     <TouchableOpacity onPress={onPress} style={style}>
         <Image style={styles.typeImage} source={item.avatar_url}></Image>
         <Text style={styles.typeName}>{item.name}</Text>
-        <Image style={styles.rightImage} source={ selectItem === item.name? require('assets/icon-20-选择-on.png'):require('assets/icon-20-选择-off.png')}></Image>
+        <Image style={styles.rightImage} source={ selectItem === item.name? require('assets/icon_choose_on.png'):require('assets/icon_choose_of.png')}></Image>
     </TouchableOpacity>
   );
 

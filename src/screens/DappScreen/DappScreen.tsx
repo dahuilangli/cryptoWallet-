@@ -135,13 +135,13 @@ function DappScreen({ }: Props) {
             navigate('DappSearchScreen');
           }}
         >
-          <Image style={styles.searchImage} source={require('assets/icon-20-搜索.png')} />
+          <Image style={styles.searchImage} source={require('assets/icon_search.png')} />
           <Text style={styles.searchInput}>{t("enterDappURL")}</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.scanImage} onPress={() => {
           navigate('ScanQRCode',{title:'DappScreen',assetsList:[]});
         }}>
-          <Image style={{ width: 20, height: 20 }} source={require('assets/icon-20-扫一扫.png')} />
+          <Image style={{ width: 20, height: 20 }} source={require('assets/icon_scan_wallet.png')} />
         </TouchableOpacity>
       </View>
       <Text style={styles.recentText}>{t("recent")}</Text>
@@ -151,7 +151,7 @@ function DappScreen({ }: Props) {
         keyExtractor={keyExtractor}
         data={dppSearchList}
         renderItem={renderItem}
-      />:(<View style={styles.nodataContainer}><Image source={require('assets/缺省-无记录.png')} /><Text style={styles.nodata}>{t('norecord')}</Text></View>)}
+      />:(<View style={styles.nodataContainer}><Image source={require('assets/icon_norecord.png')} /><Text style={styles.nodata}>{t('norecord')}</Text></View>)}
 
     </View>
   );

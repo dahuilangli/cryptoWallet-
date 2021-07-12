@@ -100,7 +100,7 @@ function WalletDetailScreen(props: Props) {
             <Text style={styles.title}>{wallName}</Text>
             <Image
               style={styles.icon_20}
-              source={require('assets/icon-20-edit.png')}
+              source={require('assets/icon_edit.png')}
             />
           </View>
         </TouchableWithoutFeedback>
@@ -116,7 +116,7 @@ function WalletDetailScreen(props: Props) {
               <Text style={styles.title}>{t("walletaddress")}</Text>
               <Image
                 style={styles.icon_20}
-                source={require('assets/icon-20-copy.png')}
+                source={require('assets/icon_copy.png')}
               />
             </View>
             <Text
@@ -144,7 +144,7 @@ function WalletDetailScreen(props: Props) {
             <Text style={styles.title}>{t("exportmnemonic")}</Text>
             <Image
               style={styles.right}
-              source={require('assets/icon-20-arrow-right.png')}
+              source={require('assets/icon_arrow_right.png')}
             />
           </TouchableOpacity>
           <TouchableOpacity
@@ -158,7 +158,7 @@ function WalletDetailScreen(props: Props) {
             <Text style={styles.title}>{t("exportprivatekey")}</Text>
             <Image
               style={styles.right}
-              source={require('assets/icon-20-arrow-right.png')}
+              source={require('assets/icon_arrow_right.png')}
             />
           </TouchableOpacity>
           <TouchableOpacity
@@ -172,7 +172,7 @@ function WalletDetailScreen(props: Props) {
             <Text style={styles.title}>{t("changePassword")}</Text>
             <Image
               style={styles.right}
-              source={require('assets/icon-20-arrow-right.png')}
+              source={require('assets/icon_arrow_right.png')}
             />
           </TouchableOpacity>
         </View>
@@ -220,7 +220,7 @@ function WalletDetailScreen(props: Props) {
                   >
                     <Image
                       style={styles.textStyle}
-                      source={require('assets/icon-20-close.png')}
+                      source={require('assets/icon_close.png')}
                     />
                   </TouchableOpacity>
                 </View>
@@ -313,7 +313,7 @@ function WalletDetailScreen(props: Props) {
                   >
                     <Image
                       style={styles.textStyle}
-                      source={require('assets/icon-20-close.png')}
+                      source={require('assets/icon_close.png')}
                     />
                   </TouchableOpacity>
                 </View>

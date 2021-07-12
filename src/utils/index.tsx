@@ -23,7 +23,7 @@ export function showWithImage(text: string, imageSource: any)  {
     backgroundColor: '#444444',
     duration: WToast.duration.SHORT, //1.SHORT 2.LONG
     position: WToast.position.CENTER, // 1.TOP 2.CENTER 3.BOTTOM
-    icon: <Image source={require('assets/icon-20-有误.png')} style={{ width: 16, height: 16, resizeMode: 'contain' }} />,
+    icon: <Image source={require('assets/icon_correct.png')} style={{ width: 16, height: 16, resizeMode: 'contain' }} />,
   };
 
   WToast.show(toastOpts);

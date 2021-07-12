@@ -246,7 +246,7 @@ function CoinDetailScreen({ route }: Props) {
                             <Text style={styles.hashText}>HASH: {subSplit(item?.tx_hash, 14, 17)}</Text>
                             <Image
                               style={styles.hashGoImg}
-                              source={require('assets/icon-20-arrow-right.png')}
+                              source={require('assets/icon_arrow_right.png')}
                             />
                           </TouchableOpacity>
                         </View>
@@ -260,7 +260,7 @@ function CoinDetailScreen({ route }: Props) {
                 </View>
               ) : (
                 <View style={{ marginTop: 80, alignItems: 'center', justifyContent: 'center' }}>
-                  <Image style={{ height: 140, width: 240 }} source={require('assets/缺省-无记录.png')}></Image>
+                  <Image style={{ height: 140, width: 240 }} source={require('assets/icon_norecord.png')}></Image>
                   <Text style={styles.notdata}>{t("noRecords")}</Text>
                 </View>
               )}
@@ -274,7 +274,7 @@ function CoinDetailScreen({ route }: Props) {
           icon={
             <Image
               style={styles.buttonIcon}
-              source={require('assets/icon-20-转账-light.png')}
+              source={require('assets/icon_transfer_light.png')}
             />
           }
           buttonStyle={styles.button}
@@ -286,7 +286,7 @@ function CoinDetailScreen({ route }: Props) {
           icon={
             <Image
               style={styles.buttonIcon}
-              source={require('assets/icon-20-收款-light.png')}
+              source={require('assets/icon_payment_light.png')}
             />
           }
           buttonStyle={styles.buttonOne}

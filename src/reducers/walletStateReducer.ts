@@ -1,14 +1,14 @@
 import produce from 'immer';
 import { thisUser,  WalletAction, Account, ReduxState } from 'actions/types';
 import { createSelector } from 'reselect';
-// import { Map } from 'immutable';
+import { Map } from 'immutable';
 
 export interface walletState {
   user: thisUser,
   accountList: Map<string,Array<Account>>
 }
 const initialState: Readonly<walletState> = {
-  accountList : new Map(),
+  accountList : Map({}),
   user: {
     address: '',
     type: ''

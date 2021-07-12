@@ -52,7 +52,7 @@ function SetUpScreen({ }: Props) {
               <View style={{ height: 60.5, flexDirection: 'row', alignItems: 'center', backgroundColor: 'white' }}>
                 <Text style={styles.title}>{item.name}</Text>
                 <Text style={styles.content}>{item.content}</Text>
-                <Image style={styles.right} source={require('assets/icon-20-arrow-right.png')} />
+                <Image style={styles.right} source={require('assets/icon_arrow_right.png')} />
               </View>
               <View style={{ height: 0.5, backgroundColor: '#E9EDF1' }} />
             </TouchableOpacity>

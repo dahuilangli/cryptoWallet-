@@ -28,15 +28,15 @@ const Item = ({ item, style }) => (
     <View style={styles.lineView}></View>
     <View style={styles.outView}>
       <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-        <Image style={styles.outImage} source={require('assets/img-40-coointype-币安.png')} />
+        <Image style={styles.outImage} source={require('assets/icon_coointype_bian.png')} />
         <Text style={styles.outText}>{item?.from_coin_code}</Text>
       </View>
       <Text style={styles.outNumber}>- {item?.from_coin_amt}</Text>
     </View>
-    <Image style={styles.dianImage} source={require('assets/img-40-coointype-币安.png')} />
+    <Image style={styles.dianImage} source={require('assets/icon_coointype_bian.png')} />
     <View style={styles.inView}>
       <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-        <Image style={styles.outImage} source={require('assets/img-40-coointype-币安.png')} />
+        <Image style={styles.outImage} source={require('assets/icon_coointype_bian.png')} />
         <Text style={styles.outText}>{item?.to_coin_code}</Text>
       </View>
       <Text style={styles.inNumber}>+ {item?.to_coin_amt}</Text>
