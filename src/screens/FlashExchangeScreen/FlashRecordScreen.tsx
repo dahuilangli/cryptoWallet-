@@ -73,14 +73,6 @@ function FlashRecordScreen({ route }: Props) {
     }
     isFetching.current = true;
     setLoading(isRefresh ? 'refresh' : 'more');
-    console.log('====================================');
-    console.log({
-      equipment_no: equipmentNo,
-      source_type,
-      page_no: isRefresh ? 1 : tradeList.length > 0 ? Math.ceil(tradeList.length / limit) : limit,
-      page_size: limit
-    });
-    console.log('====================================');
     const data: any = await helper.post('/swft/all_trade', {
       equipment_no: equipmentNo,
       source_type,
