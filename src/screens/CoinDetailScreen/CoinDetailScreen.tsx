@@ -50,6 +50,9 @@ interface TransferListItem {
 
 function CoinDetailScreen({ route }: Props) {
   const { title, assetsList } = route.params;
+  console.log('====================================');
+  console.log(assetsList);
+  console.log('====================================');
   const user = useSelector(getUser);
   const currency = useSelector(getCurrency);
   const [navStatus, setNavStatus] = useState(false);
@@ -80,7 +83,7 @@ function CoinDetailScreen({ route }: Props) {
     const data = await helper.get(
       '/wallet/transfer_record',
       {
-        id: isRefresh ? null : transferlistData[transferlistData.length - 1].id,
+        id: isRefresh ? null : transferlistData[transferlistData.length - 1]?.id,
         address: user?.address,
         symbol: assetsList?.symbol,
         wallet: assetsList?.wallet
