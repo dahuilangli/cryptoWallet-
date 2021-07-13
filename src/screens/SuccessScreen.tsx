@@ -13,7 +13,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import walletAction from 'actions/wallet';
 import { Account } from 'actions/types';
 import { useTranslation } from 'react-i18next';
-import { getAccountList } from 'reducers/walletStateReducer';
+import { getAccountList,getUser} from 'reducers/walletStateReducer';
 import * as helper from 'apis/helper'
 
 // import { setGenericPassword } from 'utils/keyChain';
@@ -47,8 +47,13 @@ const SuccessScreen = ({ route }: Props) => {
   async function storageAccount() {
     try {
       accountInfo.contracts = ['']
-      console.log(walletlist.size);
-      if (walletlist.get("ETH")?.length === 0 && walletlist.get("BSC")?.length === 0 && walletlist.get("HT")?.length === 0) {
+      console.log('1111111122222222');
+      console.log(walletlist.get("ETH"));
+      console.log(walletlist.get("BSC"));
+      console.log(walletlist.get("HECO"));
+      if (walletlist.get("ETH")?.length === 0 && walletlist.get("BSC")?.length === 0 && walletlist.get("HECO")?.length === 0) {
+        console.log('1111111122222222');
+        
         dispatch(walletAction.createUser({ address: accountInfo.address, type: accountInfo.type }));
       }
       dispatch(walletAction.createAccount(accountInfo));

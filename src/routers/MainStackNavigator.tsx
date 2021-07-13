@@ -1,7 +1,7 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { Image, Platform, Text } from 'react-native';
+import { Alert, Image, Platform, Text } from 'react-native';
 import TabNavigator from './TabNavigator';
 import WebScreen from 'screens/WebScreen';
 import WebHtmlScreen from 'screens/WebHtmlScreen';
@@ -51,7 +51,7 @@ export type MainStackParamList = {
   ScanQRCode: { title?: string, assetsList: Array<AssetsList> };
   LanguageSetScreen: undefined;
   CurrencySetScreen: undefined;
-  AddressBookScreen: { title: string; address?:string; setAddress:Function; type?:string};
+  AddressBookScreen: { title: string; address?: string; setAddress: Function; type?: string };
   AddressBookEditorScreen: { title?: string; item: {} };
   AddressTypeScreen: { addType: string; setAddType: Function; typeLogo: string; setTypeLogo: Function };
   FeedListScreen: { title: string; showMyself?: boolean };
@@ -62,7 +62,7 @@ export type MainStackParamList = {
   CoinDetailScreen: { title: string, assetsList: AssetsList };
   WalletBoardScreen: undefined;
   WalletDetailScreen: { addressMessage: any };
-  TransferScreen: { assetsList: Array<AssetsList> ,address?:string};
+  TransferScreen: { assetsList: Array<AssetsList>, address?: string };
   ReceivePaymentScreen: { address: string };
   ExportMnemonicScreen: { mnemonic: string };
   ExportPrivateKeyScreen: { privatekey: string };
@@ -78,7 +78,8 @@ export default function MainStackNavigator() {
   const dispatch = useDispatch();
 
   async function addAddressBook(item: AddressBookItem) {
-    await dispatch(walletAction.deleteAddressBookList(item));
+    dispatch(walletAction.deleteAddressBookList(item));
+    goBack()
   }
   return (
     <Navigator
@@ -205,8 +206,17 @@ export default function MainStackNavigator() {
           title: route.params.title,
           headerRight: () => route.params.title === t("editpayee") && <TouchableOpacity
             onPress={() => {
-              addAddressBook(route.params.item)
-              goBack()
+              Alert.alert("提示", "确定要删除吗?", [
+                {
+                  text: "yes",
+                  onPress: () => {
+                    addAddressBook(route.params.item);
+                  }
+                }, {
+                  text: "no",
+
+                }
+              ]);
             }}
           >
             <Text style={{ color: 'white', fontSize: 14, fontWeight: '500' }}>{t("delete")}</Text>

@@ -44,7 +44,7 @@ function DappScreen({ }: Props) {
   useEffect(() => {
     if (isFocused) {
       getBanner();
-      walletConnect("111")
+      // walletConnect("111")
     }
 
   }, [isFocused]);

@@ -73,7 +73,7 @@ const reducer = (origin = initialState, walletAction: WalletAction) =>{
           state.ethaccountList.find(x => x.address === payload.address)?.contracts.push(payload.tokne)
         }else if(walletAction.payload.type == "BSC"){
           state.bscaccountList.find(x => x.address === payload.address)?.contracts.push(payload.tokne)
-        }else if(walletAction.payload.type == "HT"){
+        }else if(walletAction.payload.type == "HECO"){
           state.htaccountList.find(x => x.address === payload.address)?.contracts.push(payload.tokne)
         }
         return;
@@ -84,7 +84,7 @@ const reducer = (origin = initialState, walletAction: WalletAction) =>{
           WALLETName = state.ethaccountList.find(x => x.address === payload1.address)
         }else if(walletAction.payload.type == "BSC"){
           WALLETName = state.bscaccountList.find(x => x.address === payload1.address)
-        }else if(walletAction.payload.type == "HT"){
+        }else if(walletAction.payload.type == "HECO"){
           WALLETName = state.htaccountList.find(x => x.address === payload1.address)
         }
         var walletnameObject = Object(WALLETName)
@@ -99,7 +99,7 @@ const reducer = (origin = initialState, walletAction: WalletAction) =>{
           WALLETName = state.ethaccountList.find(x => x.address === payload2.address)
         }else if(walletAction.payload.type == "BSC"){
           WALLETName = state.bscaccountList.find(x => x.address === payload2.address)
-        }else if(walletAction.payload.type == "HT"){
+        }else if(walletAction.payload.type == "HECO"){
           WALLETName = state.htaccountList.find(x => x.address === payload2.address)
         }
         var walletnameObject = Object(WALLETName1)

@@ -212,279 +212,284 @@ function FlashExchangeScreen({ }: Props) {
   }
   return (
     <LinearGradient colors={['#3060C2', '#3B6ED5']} style={styles.container}>
-      <View style={styles.main}>
-        <View style={styles.header}>
-          <Text style={styles.leftBtn}>{t("record")}</Text>
-          <Text style={styles.headerTitle}>{t("flash")}</Text>
-          <TouchableOpacity onPress={() => navigate('FlashRecordScreen', { equipmentNo: `Morleystone-${thisUser?.coinInfo?.wallet}-${thisUser.address}`})}>
-            <Text style={styles.rightBtn}>{t("record")}</Text>
-          </TouchableOpacity>
-        </View>
-
-        <View style={styles.backgroundView}>
-          <View style={{ backgroundColor: 'white', height: 360 }}>
-            <View style={styles.firstView}>
-              <TouchableOpacity
-                style={styles.input}
-                onPress={() => {
-                  setModalVisible(true);
-                  setCurrentChange(1);
-                }}
-              >
-                <Image style={styles.inputImage} source={{ uri: out?.icon }} />
-                <Text style={styles.inputText}>{out?.symbol}</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={styles.input}
-                onPress={() => {
-                  setModalVisible(true);
-                  setCurrentChange(2);
-                }}
-              >
-                <Text style={styles.outText}>{inPut?.symbol}</Text>
-                <Image style={styles.outImage} source={{ uri: inPut?.icon }} />
-              </TouchableOpacity>
-            </View>
-            <View style={styles.lineView} />
-            <TouchableOpacity
-              style={styles.exchange}
-              onPress={() => {
-                setInPut(out);
-                setOut(inPut);
-              }}>
-              <Image style={{ width: 40, height: 40 }} source={require('assets/icon_flash_change.png')} />
+      <TouchableWithoutFeedback
+        onPress={Keyboard.dismiss}
+      >
+        <View style={styles.main}>
+          <View style={styles.header}>
+            <Text style={styles.leftBtn}>{t("record")}</Text>
+            <Text style={styles.headerTitle}>{t("flash")}</Text>
+            <TouchableOpacity onPress={() => navigate('FlashRecordScreen', { equipmentNo: `Morleystone-${thisUser?.coinInfo?.wallet}-${thisUser.address}` })}>
+            <Image
+ 	                style={styles.image}
+ 	                source={require('assets/icon_flash_record.png')}
+ 	              />
             </TouchableOpacity>
-            <View style={styles.secondView}>
-              <View style={styles.centerViewone}>
-                <Text style={styles.centerOut}>{t("transferout")}</Text>
-                <View style={styles.inputView}>
-                  <TextInput
-                    placeholder={t("numberoftransfers")}
-                    style={styles.inputNumber}
-                    keyboardType="numeric"
-                    value={outNumber}
-                    onChangeText={(text) => {
-                      setOutNumber(text);
-                      if (text) {
-                        let num = Mul(parseFloat(text), parseFloat(base?.instant_rate));
-                        setInNumber(num.toString())
-                      }
-                    }}
-                  >
-                  </TextInput>
-                </View>
-              </View>
-              <View style={styles.centerViewtwo}>
-                <Text style={styles.centerinput}>{t("transferin")}</Text>
-                <View style={styles.outView}>
-                  <TextInput
-                    placeholder={t("numberreceive")}
-                    style={styles.outNumber}
-                    keyboardType="numeric"
-                    editable={false}
-                    value={inNumber}
-                    onChangeText={setInNumber}
-                  >
-                  </TextInput>
-                </View>
-              </View>
-            </View>
-            <View style={styles.bottomView}>
-              <View style={{ flexDirection: 'row' }}>
-                <Text style={styles.useText}>{t("Available")}</Text>
-                <Text style={styles.useNumber}>
-                  {balance?.balance} {out?.symbol}</Text>
-              </View>
-              <Text style={styles.rateText}>{t("exchangerate")}  1 {out?.symbol} ≈ {base?.instant_rate} {inPut?.symbol}</Text>
-              <Text style={styles.rateText}>{t("handlefee")}  0.03%</Text>
-              <TouchableOpacity style={styles.exchangeBtn} onPress={exchange}>
-                <Text style={styles.changeText}>{t("exchange")}</Text>
-              </TouchableOpacity>
-            </View>
           </View>
 
-          <Modal
-            animationType='fade'
-            transparent={true}
-            visible={modalVisible}
-            onRequestClose={() => {
-              setModalVisible(!modalVisible);
-            }}
-          >
-            <View style={styles.centeredView}>
-              <TouchableWithoutFeedback
-                // style={{ ...styles.outView }}
+          <View style={styles.backgroundView}>
+            <View style={{ backgroundColor: 'white', height: 360 }}>
+              <View style={styles.firstView}>
+                <TouchableOpacity
+                  style={styles.input}
+                  onPress={() => {
+                    setModalVisible(true);
+                    setCurrentChange(1);
+                  }}
+                >
+                  <Image style={styles.inputImage} source={{ uri: out?.icon }} />
+                  <Text style={styles.inputText}>{out?.symbol}</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={styles.input}
+                  onPress={() => {
+                    setModalVisible(true);
+                    setCurrentChange(2);
+                  }}
+                >
+                  <Text style={styles.outText}>{inPut?.symbol}</Text>
+                  <Image style={styles.outImage} source={{ uri: inPut?.icon }} />
+                </TouchableOpacity>
+              </View>
+              <View style={styles.lineView} />
+              <TouchableOpacity
+                style={styles.exchange}
                 onPress={() => {
-                  setModalVisible(!modalVisible);
-                }}
-              >
-                <View style={styles.outContair} />
-              </TouchableWithoutFeedback>
-              <View style={styles.modalView}>
-                <View style={styles.headView}>
-                  <Text style={styles.headText}>{t("importmethod")}</Text>
-                  <TouchableOpacity
-                    style={{ ...styles.openButton }}
-                    onPress={() => {
-                      setModalVisible(!modalVisible);
-                    }}
-                  >
-                    <Image
-                      style={styles.textStyle}
-                      source={require('assets/icon_close.png')}
-                    />
-                  </TouchableOpacity>
-                </View>
-                <ScrollView style={styles.groupView}>
-                  {coinList.map((item: ResponseItem, i) => (
-                    <TouchableOpacity
-                      style={styles.list}
-                      key={i + item.coin_code}
-                      onPress={() => {
-                        setModalVisible(!modalVisible);
-                        if (currentChange === 1) {
-                          if (thisUser?.contracts.indexOf(item?.contact === null ? "" : item?.contact) !== -1) {
-                            if (item?.coin_code !== inPut?.coin_code) {
-                              setOut(item);
-                            } else {
-                              show(`不能进行同一币种兑换`)
-                            }
-                          } else {
-                            show(`当前未添加${item.symbol}资产，请添加后再次进行闪兑操作`)
-                          }
-                        } else {
-                          if (thisUser?.contracts.indexOf(item?.contact === null ? "" : item?.contact) !== -1) {
-                            if (item?.coin_code !== out?.coin_code) {
-                              setInPut(item);
-                            } else {
-                              show(`不能进行同一币种兑换`)
-                            }
-                          } else {
-                            show(`当前未添加${item.symbol}资产，请添加后再次进行闪兑操作`)
-                          }
+                  setInPut(out);
+                  setOut(inPut);
+                }}>
+                <Image style={{ width: 40, height: 40 }} source={require('assets/icon_flash_change.png')} />
+              </TouchableOpacity>
+              <View style={styles.secondView}>
+                <View style={styles.centerViewone}>
+                  <Text style={styles.centerOut}>{t("transferout")}</Text>
+                  <View style={styles.inputView}>
+                    <TextInput
+                      placeholder={t("numberoftransfers")}
+                      style={styles.inputNumber}
+                      keyboardType="numeric"
+                      value={outNumber}
+                      onChangeText={(text) => {
+                        setOutNumber(text);
+                        if (text) {
+                          let num = Mul(parseFloat(text), parseFloat(base?.instant_rate));
+                          setInNumber(num.toString())
                         }
                       }}
                     >
-                      <View style={styles.lineView} />
-                      <View style={styles.listItem}>
-                        <Avatar
-                          rounded
-                          title={item.symbol[0]}
-                          source={{ uri: item?.icon }}
-                          containerStyle={styles.avatar}
-                        />
-                        <Text style={styles.text}>{item?.symbol}</Text>
-                        {!!(currentChange === 1 && item.symbol === out?.symbol) && <Avatar
-                          source={require('assets/icon_selected_styleone.png')}
-                          containerStyle={styles.selected}
-                        />}
-                        {!!(currentChange === 2 && item.symbol === inPut?.symbol) && <Avatar
-                          source={require('assets/icon_selected_styleone.png')}
-                          containerStyle={styles.selected}
-                        />}
-                      </View>
-                    </TouchableOpacity>
-                  ))}
-                  <View style={styles.lineView} />
-                </ScrollView>
+                    </TextInput>
+                  </View>
+                </View>
+                <View style={styles.centerViewtwo}>
+                  <Text style={styles.centerinput}>{t("transferin")}</Text>
+                  <View style={styles.outView}>
+                    <TextInput
+                      placeholder={t("numberreceive")}
+                      style={styles.outNumber}
+                      keyboardType="numeric"
+                      editable={false}
+                      value={inNumber}
+                      onChangeText={setInNumber}
+                    >
+                    </TextInput>
+                  </View>
+                </View>
+              </View>
+              <View style={styles.bottomView}>
+                <View style={{ flexDirection: 'row' }}>
+                  <Text style={styles.useText}>{t("Available")}</Text>
+                  <Text style={styles.useNumber}>
+                    {balance?.balance} {out?.symbol}</Text>
+                </View>
+                <Text style={styles.rateText}>{t("exchangerate")}  1 {out?.symbol} ≈ {base?.instant_rate} {inPut?.symbol}</Text>
+                <Text style={styles.rateText}>{t("handlefee")}  0.03%</Text>
+                <TouchableOpacity style={styles.exchangeBtn} onPress={exchange}>
+                  <Text style={styles.changeText}>{t("exchange")}</Text>
+                </TouchableOpacity>
               </View>
             </View>
-          </Modal>
 
-          <Modal
-            animationType='fade'
-            transparent={true}
-            visible={modalVisible1}
-            onRequestClose={() => {
-              setModalVisible1(!modalVisible1);
-            }}
-          >
-            <View style={styles.centeredView}>
-              <TouchableWithoutFeedback
-                onPress={() => {
-                  setModalVisible1(!modalVisible1);
-                }}
-              >
-                <View style={styles.outContair} />
-              </TouchableWithoutFeedback>
-              <KeyboardAvoidingView
-                behavior={Platform.OS == "ios" ? "position" : "height"}
-              >
+            <Modal
+              animationType='fade'
+              transparent={true}
+              visible={modalVisible}
+              onRequestClose={() => {
+                setModalVisible(!modalVisible);
+              }}
+            >
+              <View style={styles.centeredView}>
                 <TouchableWithoutFeedback
-                  onPress={Keyboard.dismiss}
+                  // style={{ ...styles.outView }}
+                  onPress={() => {
+                    setModalVisible(!modalVisible);
+                  }}
                 >
-                  <View style={styles.modalView2}>
-                    <View style={styles.headView}>
-                      <Text style={styles.headText}>{t("confirmflash")}</Text>
+                  <View style={styles.outContair} />
+                </TouchableWithoutFeedback>
+                <View style={styles.modalView}>
+                  <View style={styles.headView}>
+                    <Text style={styles.headText}>{t("importmethod")}</Text>
+                    <TouchableOpacity
+                      style={{ ...styles.openButton }}
+                      onPress={() => {
+                        setModalVisible(!modalVisible);
+                      }}
+                    >
+                      <Image
+                        style={styles.textStyle}
+                        source={require('assets/icon_close.png')}
+                      />
+                    </TouchableOpacity>
+                  </View>
+                  <ScrollView style={styles.groupView}>
+                    {coinList.map((item: ResponseItem, i) => (
                       <TouchableOpacity
-                        style={{ ...styles.openButton }}
+                        style={styles.list}
+                        key={i + item.coin_code}
                         onPress={() => {
-                          setModalVisible1(!modalVisible1);
+                          setModalVisible(!modalVisible);
+                          if (currentChange === 1) {
+                            if (thisUser?.contracts.indexOf(item?.contact === null ? "" : item?.contact) !== -1) {
+                              if (item?.coin_code !== inPut?.coin_code) {
+                                setOut(item);
+                              } else {
+                                show(`不能进行同一币种兑换`)
+                              }
+                            } else {
+                              show(`当前未添加${item.symbol}资产，请添加后再次进行闪兑操作`)
+                            }
+                          } else {
+                            if (thisUser?.contracts.indexOf(item?.contact === null ? "" : item?.contact) !== -1) {
+                              if (item?.coin_code !== out?.coin_code) {
+                                setInPut(item);
+                              } else {
+                                show(`不能进行同一币种兑换`)
+                              }
+                            } else {
+                              show(`当前未添加${item.symbol}资产，请添加后再次进行闪兑操作`)
+                            }
+                          }
                         }}
                       >
-                        <Image
-                          style={styles.textStyle}
-                          source={require('assets/icon_close.png')}
-                        />
+                        <View style={styles.lineView} />
+                        <View style={styles.listItem}>
+                          <Avatar
+                            rounded
+                            title={item.symbol[0]}
+                            source={{ uri: item?.icon }}
+                            containerStyle={styles.avatar}
+                          />
+                          <Text style={styles.text}>{item?.symbol}</Text>
+                          {!!(currentChange === 1 && item.symbol === out?.symbol) && <Avatar
+                            source={require('assets/icon_selected_styleone.png')}
+                            containerStyle={styles.selected}
+                          />}
+                          {!!(currentChange === 2 && item.symbol === inPut?.symbol) && <Avatar
+                            source={require('assets/icon_selected_styleone.png')}
+                            containerStyle={styles.selected}
+                          />}
+                        </View>
                       </TouchableOpacity>
-                    </View>
-                    <View style={styles.centerView1}>
-                      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                        <Image source={{ uri: out?.icon }} style={styles.outImage2} />
-                        <Text style={styles.outName2}>{out?.symbol}</Text>
-                        <Text style={styles.outNumber2}>-{outNumber}</Text>
+                    ))}
+                    <View style={styles.lineView} />
+                  </ScrollView>
+                </View>
+              </View>
+            </Modal>
+
+            <Modal
+              animationType='fade'
+              transparent={true}
+              visible={modalVisible1}
+              onRequestClose={() => {
+                setModalVisible1(!modalVisible1);
+              }}
+            >
+              <View style={styles.centeredView}>
+                <TouchableWithoutFeedback
+                  onPress={() => {
+                    setModalVisible1(!modalVisible1);
+                  }}
+                >
+                  <View style={styles.outContair} />
+                </TouchableWithoutFeedback>
+                <KeyboardAvoidingView
+                  behavior={Platform.OS == "ios" ? "position" : "height"}
+                >
+                  <TouchableWithoutFeedback
+                    onPress={Keyboard.dismiss}
+                  >
+                    <View style={styles.modalView2}>
+                      <View style={styles.headView}>
+                        <Text style={styles.headText}>{t("confirmflash")}</Text>
+                        <TouchableOpacity
+                          style={{ ...styles.openButton }}
+                          onPress={() => {
+                            setModalVisible1(!modalVisible1);
+                          }}
+                        >
+                          <Image
+                            style={styles.textStyle}
+                            source={require('assets/icon_close.png')}
+                          />
+                        </TouchableOpacity>
                       </View>
-                      <Image style={styles.dianImage} source={require('assets/icon_coointype_bian.png')} />
-                      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                        <Image source={{ uri: inPut?.icon }} style={styles.outImage2} />
-                        <Text style={styles.outName2}>{inPut?.symbol}</Text>
-                        <Text style={styles.inNumber2}>+{inNumber}</Text>
+                      <View style={styles.centerView1}>
+                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                          <Image source={{ uri: out?.icon }} style={styles.outImage2} />
+                          <Text style={styles.outName2}>{out?.symbol}</Text>
+                          <Text style={styles.outNumber2}>-{outNumber}</Text>
+                        </View>
+                        <Image style={styles.dianImage} source={require('assets/icon_coointype_bian.png')} />
+                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                          <Image source={{ uri: inPut?.icon }} style={styles.outImage2} />
+                          <Text style={styles.outName2}>{inPut?.symbol}</Text>
+                          <Text style={styles.inNumber2}>+{inNumber}</Text>
+                        </View>
                       </View>
-                    </View>
-                    <View style={styles.lineView1}></View>
-                    <View style={styles.centerView1}>
-                      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                        <Text style={styles.poundage}>{t("handlefee")}</Text>
-                        <Text style={styles.des}> {Mul(outNumber ? outNumber : 0, 0.0003)} {out?.symbol}</Text>
+                      <View style={styles.lineView1}></View>
+                      <View style={styles.centerView1}>
+                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                          <Text style={styles.poundage}>{t("handlefee")}</Text>
+                          <Text style={styles.des}> {Mul(outNumber ? outNumber : 0, 0.0003)} {out?.symbol}</Text>
+                        </View>
+                        <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 20 }}>
+                          <Text style={styles.poundage}>{t("exchangerate")}</Text>
+                          <Text style={styles.des}> 1 {out?.symbol} ≈ {base?.instant_rate} {inPut?.symbol}</Text>
+                        </View>
                       </View>
-                      <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 20 }}>
-                        <Text style={styles.poundage}>{t("exchangerate")}</Text>
-                        <Text style={styles.des}> 1 {out?.symbol} ≈ {base?.instant_rate} {inPut?.symbol}</Text>
+                      <View style={styles.lineView1}></View>
+                      <View style={styles.passView}>
+                        <TextInput
+                          placeholder={t("entersecurepassword")}
+                          style={styles.passwordNumber}
+                          value={securityCode}
+                          onChangeText={setSecurityCode}
+                          secureTextEntry
+                        >
+                        </TextInput>
                       </View>
-                    </View>
-                    <View style={styles.lineView1}></View>
-                    <View style={styles.passView}>
-                      <TextInput
-                        placeholder={t("entersecurepassword")}
-                        style={styles.passwordNumber}
-                        value={securityCode}
-                        onChangeText={setSecurityCode}
-                        secureTextEntry
-                      >
-                      </TextInput>
-                    </View>
-                    <View style={styles.bottomView1}>
-                      <Button
-                        buttonStyle={styles.sureBtn}
-                        title={t("confirmredemption")}
-                        disabled={isSigninInProgress}
-                        onPress={exchangeSub}
-                      />
-                      {/* <TouchableOpacity style={styles.sureBtn} onPress={() => {
+                      <View style={styles.bottomView1}>
+                        <Button
+                          buttonStyle={styles.sureBtn}
+                          title={t("confirmredemption")}
+                          disabled={isSigninInProgress}
+                          onPress={exchangeSub}
+                        />
+                        {/* <TouchableOpacity style={styles.sureBtn} onPress={() => {
                         setModalVisible1(true);
                       }}>
                         <Text style={styles.changeText}>{t("confirmredemption")}</Text>
                       </TouchableOpacity> */}
+                      </View>
                     </View>
-                  </View>
-                </TouchableWithoutFeedback>
-              </KeyboardAvoidingView>
-            </View>
-          </Modal>
-
-
+                  </TouchableWithoutFeedback>
+                </KeyboardAvoidingView>
+              </View>
+            </Modal>
+          </View>
         </View>
-      </View>
+      </TouchableWithoutFeedback>
     </LinearGradient>
   );
 }
