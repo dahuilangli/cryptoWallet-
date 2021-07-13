@@ -48,19 +48,7 @@ const modelLeft = [
     img_off: require('assets/coins/img_coointype_pk_off.png'),
   },
 ];
-let defatltCoin: Map<string, object> = new Map();
-defatltCoin.set('ETH', {
-  name: 'USDT',
-  contractAddress: '0xdac17f958d2ee523a2206206994597c13d831ec7'
-})
-defatltCoin.set('BNB', {
-  name: 'BUSD',
-  contractAddress: '0xe9e7cea3dedca5984780bafc599bd69add087d56'
-})
-defatltCoin.set('HT', {
-  name: 'HUSD',
-  contractAddress: '0x0298c2b32eae4da002a15f36fdf7615bea3da047'
-})
+
 function HomeScreen({ }: Props) {
   const dispatch = useDispatch()
   const walletlist = useSelector(getAccountList);
@@ -76,10 +64,7 @@ function HomeScreen({ }: Props) {
   const [refreshing, setRefreshing] = useState(false)
   const { t } = useTranslation();
 
-  const onRefresh = React.useCallback(() => {
-    setRefreshing(true);
-    getAssetsList()
-  }, []);
+
   useEffect(() => {
     getAssetsList()
   }, [user, walletlist])
@@ -89,14 +74,12 @@ function HomeScreen({ }: Props) {
     setModalVisible(!modalVisible);
   }
   function getAssetsList() {
+    setRefreshing(true);
     let params = {
       "address": thisUser?.address,
       "contracts": thisUser?.contracts,
       "wallet": thisUser?.coinInfo?.wallet
     }
-    console.log('====================================');
-    console.log(params);
-    console.log('====================================');
     helper.post('/wallet/assets', params).then((res: any) => {
       setAssetsList(res)
       let a = 0;
@@ -221,7 +204,7 @@ function HomeScreen({ }: Props) {
             refreshControl={
               <RefreshControl
                 refreshing={refreshing}
-                onRefresh={onRefresh}
+                onRefresh={getAssetsList}
                 colors={['red','green','blue']}
                 title={t("loading")}
               />

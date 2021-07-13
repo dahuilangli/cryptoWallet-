@@ -130,7 +130,11 @@ function TransferScreen(props: Props) {
           let gas_limit: any = assetsList[selectCoinIndex].gas_limit;
           helper.get('/wallet/transfer_nonce', { address, wallet }).then((res: any) => {
             let nonce = res.nonce;
-            if (user?.type === assetsList[selectCoinIndex]?.symbol) {
+            console.log('====================================');
+            console.log(thisUser?.coinInfo?.token);
+            console.log(assetsList[selectCoinIndex]?.symbol)
+            console.log('====================================');
+            if (thisUser?.coinInfo?.token === assetsList[selectCoinIndex]?.symbol) {
               transaction(thisUser.privateKey, nonce, gas_limit, gas_price, to, amount).then(sign => {
                 console.log(sign);
                 console.log('签名');

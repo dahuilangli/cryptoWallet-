@@ -47,14 +47,11 @@ const ImportPrivateKeyScreen = (props: Props) => {
             <Button
               buttonStyle={styles.nextButton}
               onPress={() => {
+                console.log('==========导入私钥============');
                 try {
                   importByprivateKey(
                     privateKey.replace(/(^\s*)|(\s*$)/g, ''),
                   );
-                  console.log('111111111111111');
-
-                  console.log(coinInfo);
-
                   navigate('SetWalletNameScreen', {
                     type,
                     loginType: 'privateKey',

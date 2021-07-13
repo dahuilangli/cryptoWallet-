@@ -39,7 +39,7 @@ export function genWallet() {
 }
 export function importByMnemonic(mnemonic: string) {
   if (!ethers.utils.isValidMnemonic(mnemonic)) {
-    return <Account>{}
+    throw "助记词错误"
   }
   let wallet = ethers.Wallet.fromMnemonic(mnemonic);
   let account = {
@@ -58,7 +58,6 @@ export function importByprivateKey(privateKey: any) {
   let account = {
     privateKey: privateKey,
     address: wallet.address,
-    mnemonic: ethers.utils.entropyToMnemonic(privateKey),
   };
   
   return account;

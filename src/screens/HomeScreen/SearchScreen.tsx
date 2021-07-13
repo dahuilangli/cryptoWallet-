@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   ScrollView,
@@ -9,6 +9,9 @@ import {
   Platform,
   Image,
   TextInput,
+  FlatList,
+  RefreshControl,
+  ActivityIndicator,
 } from 'react-native';
 import { Avatar } from 'react-native-elements';
 import { goBack } from 'components/navigationService';
@@ -20,6 +23,7 @@ import walletAction from 'actions/wallet';
 import { getAccountList } from 'reducers/walletStateReducer';
 import { Alert } from 'react-native';
 import { show } from 'utils';
+import { useIsFocused } from '@react-navigation/native';
 interface Props {
   route: {
     params: {
@@ -38,7 +42,10 @@ interface responseItem {
   "info": string,
   "name": string
 }
-function getIndex(arr: string[] | Array<string>, key: string){
+
+let limit = 1;
+
+function getIndex(arr: string[] | Array<string>, key: string) {
   return arr.indexOf(key) != -1 ? arr.indexOf(key) : 10000;
 }
 
@@ -49,26 +56,69 @@ function SearchScreen({ route }: Props) {
   const thisUser = walletlist.get(user.type)?.find(x => x.address === user.address)
   const { t } = useTranslation();
   const [coinName, setCoinName] = useState('');
-  const [coinList, setCoinList] = useState({ title: '', data: [] })
-  const [defaultCoinList, setdefaultCoinList] = useState({ title: t("Myassets"), data: assetsList })
-  
-  async function seachName(name: string) {
-    if (name) {
-      name = name.trim()
-      await helper.get('/wallet/coin', { keyword: name, wallet: thisUser?.coinInfo?.wallet }).then((res:any)=>{
-        if (res.length > 0) {
-          let sortArr1: string[] = thisUser?.contracts;
-          setCoinList({ title: '搜索结果', data: res.sort(function (a: responseItem, b: responseItem) {
-            if (getIndex(sortArr1, a.token) == getIndex(res, b.token)) {
-              return 0
-            } else {
-              return getIndex(sortArr1, a.token) > getIndex(sortArr1, b.token) ? 1 : -1
-            }
-          })})
-        }
-      })
+  const [coinList, setCoinList] = useState([])
+  const [defaultCoinList, setdefaultCoinList] = useState(assetsList)
+
+  const [loading, setLoading] = useState<'refresh' | 'more' | null>(null);
+  const isEndReached = React.useRef(false);
+  const isFetching = React.useRef(false);
+  const isFocused = useIsFocused();
+  // useEffect(() => {
+  //   if (coinList) {
+  //     let sortArr1: string[] = thisUser?.contracts;
+  //     setCoinList(coinList.sort(function (a: responseItem, b: responseItem) {
+  //       if (getIndex(sortArr1, a.token) == getIndex(coinList, b.token)) {
+  //         return 0
+  //       } else {
+  //         return getIndex(sortArr1, a.token) > getIndex(sortArr1, b.token) ? 1 : -1
+  //       }
+  //     }))
+  //   }
+  // }, [coinList])
+  useEffect(() => {
+    if (isFocused) {
+      seachName(true);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isFocused]);
+
+  async function seachName(isRefresh?: boolean) {
+    let name = coinName;
+    name = name.trim()
+
+    if (!name) {
+      return;
+    }
+    if (isFetching.current) {
+      return;
+    }
+    if (!isRefresh && isEndReached.current) {
+      return;
+    }
+    isFetching.current = true;
+    setLoading(isRefresh ? 'refresh' : 'more');
+
+    const data: any = await helper.get('/wallet/coin', {
+      keyword: name,
+      wallet: thisUser?.coinInfo?.wallet,
+      pageNo: isRefresh ? 1 : limit
+    })
+    setLoading(null);
+    if (data.length > 0) {
+      if (isRefresh) {
+        setCoinList(data)
+      } else {
+        setCoinList(coinList.concat(data));
+      }
       
     }
+    if (data.length < 30) {
+      isEndReached.current = true;
+    } else {
+      limit++;
+      isEndReached.current = false;
+    }
+    isFetching.current = false;
   }
 
   const addCoin = async (token: string) => {
@@ -79,7 +129,38 @@ function SearchScreen({ route }: Props) {
     }
   }
 
+  const Item = ({ item }) => {
+    return (
+      <TouchableOpacity style={styles.assetsList}>
+        <View style={styles.assetsListItem}>
+          <Avatar
+            rounded
+            title={item?.symbol[0]}
+            source={{ uri: item?.icon }}
+            containerStyle={styles.itemAvatar}
+          />
+          <View style={styles.itemDesc}>
+            <Text style={styles.descTitle}>{item?.symbol}</Text>
+          </View>
+          {thisUser?.contracts?.indexOf(item.token) !== -1 ? (
+            <Image
+              source={require('assets/icon_assets_added.png')}
+            />
+          ) : (
+            <TouchableOpacity onPress={() => addCoin(item.token)}>
+              <Image
+                source={require('assets/icon_addassets.png')}
+              />
+            </TouchableOpacity>
+          )}
+        </View>
+      </TouchableOpacity>
+    );
+  }
 
+  const renderItem = ({ item }) => (
+    <Item item={item} />
+  );
   return (
     <LinearGradient colors={['#3060C2', '#3B6ED5']} style={styles.container}>
       <View style={styles.main}>
@@ -89,61 +170,57 @@ function SearchScreen({ route }: Props) {
               style={styles.coinNameIcon}
               source={require('assets/icon_search.png')}
             />
-            <View style = {styles.coinNameView}>
-            <TextInput
-              placeholder={t("EnterTokenorcontractaddress")}
-              value={coinName}
-              style={styles.coinNameText}
-              onChangeText={setCoinName}
-              onSubmitEditing={() => seachName(coinName)}
-            />
+            <View style={styles.coinNameView}>
+              <TextInput
+                placeholder={t("EnterTokenorcontractaddress")}
+                value={coinName}
+                style={styles.coinNameText}
+                onChangeText={setCoinName}
+                onSubmitEditing={() => {
+                  limit = 1;
+                  seachName(true)
+                }}
+              />
             </View>
           </View>
           <TouchableOpacity onPress={goBack} style={styles.goBlack}>
             <Text style={styles.goBlackText}>{t("cancel")}</Text>
           </TouchableOpacity>
         </View>
-        {coinList?.data?.length > 0 ? (
+        {coinList?.length > 0 ? (
           <View style={styles.assetsContainer}>
             <View style={styles.assetsHeard}>
-              <Text style={styles.assetsHeardTitle}>{coinList?.title}</Text>
+              <Text style={styles.assetsHeardTitle}>{t("searchresult")}</Text>
             </View>
-            <ScrollView>
-              {coinList?.data.map((item: responseItem, i) => (
-                <TouchableOpacity style={styles.assetsList} key={i}>
-                  <View style={styles.assetsListItem}>
-                    <Avatar
-                      rounded
-                      title={item?.symbol[0]}
-                      source={{ uri: item?.icon }}
-                      containerStyle={styles.itemAvatar}
-                    />
-                    <View style={styles.itemDesc}>
-                      <Text style={styles.descTitle}>{item?.symbol}</Text>
-                    </View>
-                    {thisUser?.contracts?.indexOf(item.token) !== -1 ? (
-                      <Image
-                        source={require('assets/icon_assets_added.png')}
-                      />
-                    ) : (
-                      <TouchableOpacity onPress={() => addCoin(item.token)}>
-                        <Image
-                          source={require('assets/icon_addassets.png')}
-                        />
-                      </TouchableOpacity>
-                    )}
-                  </View>
-                </TouchableOpacity>
-              ))}
-            </ScrollView>
+            <FlatList
+              style={{ margin: 0, padding: 0 }}
+              data={coinList}
+              renderItem={renderItem}
+              keyExtractor={(item, i) => item?.token + i}
+              initialNumToRender={10}
+              refreshControl={
+                <RefreshControl
+                  title={t("loading")}
+                  colors={['red', 'green', 'blue']}
+                  refreshing={loading === 'refresh'}
+                  onRefresh={() => seachName(true)}
+                />
+              }
+              onEndReachedThreshold={0.1}
+              onEndReached={() => seachName()}
+              ListFooterComponent={() =>
+                loading === 'more' ? <ActivityIndicator /> : null
+              }
+              ListFooterComponentStyle={{ height: 20 }}
+            />
           </View>
         ) : (
           <View style={styles.assetsContainer}>
             <View style={styles.assetsHeard}>
-              <Text style={styles.assetsHeardTitle}>{defaultCoinList.title}</Text>
+              <Text style={styles.assetsHeardTitle}>{t("Myassets")}</Text>
             </View>
             <ScrollView>
-              {defaultCoinList.data.map((item, i) => (
+              {defaultCoinList.map((item, i) => (
                 <TouchableOpacity style={styles.assetsList} key={i}>
                   <View style={styles.assetsListItem}>
                     <Avatar
@@ -196,9 +273,9 @@ const styles = StyleSheet.create({
     height: 20,
     marginHorizontal: 5,
   },
-  coinNameView:{
+  coinNameView: {
     height: 34,
-    marginRight:5,
+    marginRight: 5,
   },
   coinNameText: {
     flex: 1,

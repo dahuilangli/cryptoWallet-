@@ -71,7 +71,6 @@ const ImportMnemonicScreen = (props: Props) => {
                 multiline
                 numberOfLines={4}
                 enablesReturnKeyAutomatically
-                returnKeyType="join"
                 onChangeText={(text: string) => setMnemonic(text)}
                 autoComplete={false}
                 value={mnemonic}

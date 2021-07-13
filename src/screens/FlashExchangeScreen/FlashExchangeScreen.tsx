@@ -17,7 +17,8 @@ import {
   KeyboardAvoidingView,
   Platform,
   TextInput,
-  Alert
+  Alert,
+  ActivityIndicator
 } from 'react-native';
 import { SCREENHEIGHT, SCREENWIDTH } from "config/constants";
 import { navigate } from 'components/navigationService';
@@ -174,7 +175,7 @@ function FlashExchangeScreen({ }: Props) {
             let symbol = balance?.symbol;
             helper.get('/wallet/transfer_nonce', { address, wallet }).then((res: any) => {
               let nonce = res.nonce;
-              if (user?.type === out?.symbol) {
+              if (thisUser?.coinInfo?.token === out?.symbol) {
                 transaction(thisUser.privateKey, nonce, gas_limit, gas_price, to, amount).then(sign => {
                   console.log('============签名成功=============');
                   console.log(sign);
@@ -329,7 +330,8 @@ function FlashExchangeScreen({ }: Props) {
                 <View style={{ flexDirection: 'row' }}>
                   <Text style={styles.useText}>{t("Available")}</Text>
                   <Text style={styles.useNumber}>
-                    {balance?.balance} {out?.symbol}</Text>
+                    {balance?.balance} {out?.symbol}
+                  </Text>
                 </View>
                 <Text style={styles.rateText}>{t("exchangerate")}  1 {out?.symbol} ≈ {base?.instant_rate} {inPut?.symbol}</Text>
                 <Text style={styles.rateText}>{t("handlefee")}  0.03%</Text>
