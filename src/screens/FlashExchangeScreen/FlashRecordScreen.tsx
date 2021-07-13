@@ -128,29 +128,33 @@ function FlashRecordScreen({ route }: Props) {
 
   return (
     <SafeAreaView style={styles.container}>
-      {tradeList.length>0 ?<FlatList
-        data={tradeList}
-        style={styles.item}
-        renderItem={renderItem}
-        keyExtractor={(item, index) => item?.order_id + index}
-        refreshControl={
-          <RefreshControl
-            title={t("loading")}
-            colors={['red', 'green', 'blue']}
-            refreshing={loading === 'refresh'}
-            onRefresh={() => getFlashRedemptionList(true)}
-          />
-        }
-        onEndReachedThreshold={0.1}
-        onEndReached={() => getFlashRedemptionList()}
-        ListFooterComponent={() =>
-          loading === 'more' ? <ActivityIndicator /> : null
-        }
-      >
-
-      </FlatList>:(<View style={styles.nodataContainer}><Image source={require('assets/icon_norecord.png')} /><Text style={styles.nodata}>{t('noRecords')}</Text></View>)
-
-    }
+      {tradeList.length > 0 ? (
+        <FlatList
+          data={tradeList}
+          style={styles.item}
+          renderItem={renderItem}
+          keyExtractor={(item, index) => item?.order_id + index}
+          refreshControl={
+            <RefreshControl
+              title={t("loading")}
+              colors={['red', 'green', 'blue']}
+              refreshing={loading === 'refresh'}
+              onRefresh={() => getFlashRedemptionList(true)}
+            />
+          }
+          onEndReachedThreshold={0.1}
+          onEndReached={() => getFlashRedemptionList()}
+          ListFooterComponent={() =>
+            loading === 'more' ? <ActivityIndicator /> : null
+          }
+        />
+      )
+        : (
+          <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+            <Image style={{ height: 140, width: 240 }} source={require('assets/icon_norecord.png')}></Image>
+            <Text style={styles.notdata}>{t("noRecords")}</Text>
+          </View>
+        )}
 
     </SafeAreaView>
   );
@@ -229,17 +233,11 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: '400',
   },
-  nodataContainer: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingBottom: 150,
-  },
-  nodata: {
+  notdata: {
     fontSize: 16,
-    color: '#9CA4B3',
+    color: '#CCCFD9',
     fontWeight: '500',
-  }
+  },
 });
 
 export default FlashRecordScreen;

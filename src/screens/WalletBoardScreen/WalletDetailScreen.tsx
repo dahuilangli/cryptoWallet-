@@ -211,8 +211,6 @@ function WalletDetailScreen(props: Props) {
                     style={{ ...styles.openButton }}
                     onPress={() => {
                       setTransferConfirm(!transferConfirm);
-                      console.log('111111111111r');
-
                     }}
                   >
                     <Image
@@ -249,7 +247,8 @@ function WalletDetailScreen(props: Props) {
                                 navigate('EditPwdScreen',{address:addressMessage.address,type:addressMessage.type,pwds:pwds,setPwds});
                                 break;
                               case 'deleteWallet':
-                                Alert.alert('shanchu');
+                                dispatch(walletAction.deleteAccount({address: addressMessage.address, type: addressMessage.type}))
+                                navigate('HomeScreen')
                                 break;
                               default:
                                 break;

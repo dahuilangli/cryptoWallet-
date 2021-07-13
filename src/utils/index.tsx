@@ -3,7 +3,6 @@ import Clipboard from "@react-native-clipboard/clipboard";
 import { Image } from "react-native";
 import { WToast } from "react-native-smart-tip";
 import { ethers } from 'ethers';
-import QRCode from 'qrcode-generator';
 
 export function show(text: string, duration = WToast.duration.SHORT) {
   const toastOpts = {
@@ -17,7 +16,7 @@ export function show(text: string, duration = WToast.duration.SHORT) {
   WToast.show(toastOpts);
 };
 
-export function showWithImage(text: string, imageSource: any)  {  
+export function showWithImage(text: string, imageSource: any) {
   const toastOpts = {
     data: text,
     textColor: '#ffffff',
@@ -30,7 +29,8 @@ export function showWithImage(text: string, imageSource: any)  {
   WToast.show(toastOpts);
 };
 
-export function subSplit(text: string|undefined, start: number, end: number) {
+
+export function subSplit(text: string | undefined, start: number, end: number) {
   if (text && text !== " ") {
     return text.substr(0, start) + '...' + text.substr(text.length - end, text.length);
   }
@@ -41,22 +41,22 @@ export function checkEmail(emailText: string) {
   var emailPattern = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/;
   if (emailPattern.test(emailText) == false) {
     return false
-  }else{
+  } else {
     return true
   }
 }
 
 export function formatDate(timestamp: any) {
   var date = new Date(timestamp);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
-            var Y = date.getFullYear() + '-';
-            var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
-            var D = (date.getDate() < 10 ? '0'+date.getDate() : date.getDate()) + ' ';
-            var h = (date.getHours() < 10 ? '0'+date.getHours() : date.getHours()) + ':';
-            var m = (date.getMinutes() < 10 ? '0'+date.getMinutes() : date.getMinutes()) + ':';
-            var s = (date.getSeconds() < 10 ? '0'+date.getSeconds() : date.getSeconds());
+  var Y = date.getFullYear() + '-';
+  var M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
+  var D = (date.getDate() < 10 ? '0' + date.getDate() : date.getDate()) + ' ';
+  var h = (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ':';
+  var m = (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()) + ':';
+  var s = (date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds());
 
-            let strDate = Y+M+D+h+m+s;
-            return strDate;
+  let strDate = Y+M+D+h+m+s;
+  return strDate;
 
 }
 //替换字符串‘*’

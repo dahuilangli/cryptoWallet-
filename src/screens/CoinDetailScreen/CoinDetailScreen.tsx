@@ -50,9 +50,6 @@ interface TransferListItem {
 
 function CoinDetailScreen({ route }: Props) {
   const { title, assetsList } = route.params;
-  console.log('====================================');
-  console.log(assetsList);
-  console.log('====================================');
   const user = useSelector(getUser);
   const currency = useSelector(getCurrency);
   const [navStatus, setNavStatus] = useState(false);
@@ -65,6 +62,7 @@ function CoinDetailScreen({ route }: Props) {
   const isEndReached = React.useRef(false);
   const isFetching = React.useRef(false);
   const isFocused = useIsFocused();
+  
   useEffect(() => {
     if (isFocused) {
       getTransferRecordList(true);
@@ -80,11 +78,12 @@ function CoinDetailScreen({ route }: Props) {
 
     isFetching.current = true;
     setLoading(isRefresh ? 'refresh' : 'more');
-    const data = await helper.get(
+    const data: any = await helper.get(
       '/wallet/transfer_record',
       {
         id: isRefresh ? null : transferlistData[transferlistData.length - 1]?.id,
         address: user?.address,
+        contract: assetsList?.token,
         symbol: assetsList?.symbol,
         wallet: assetsList?.wallet
       }
@@ -92,17 +91,13 @@ function CoinDetailScreen({ route }: Props) {
     setLoading(null);
     if (data) {
       if (isRefresh) {
-        console.log('=========下拉刷新===========');
         setTransferListData(data);
       } else {
-        console.log('=========上拉加载===========');
         setTransferListData(transferlistData.concat(data));
       }
       if (data.length === 0) {
-        console.log('=========不能再上拉加载了===========');
         isEndReached.current = true;
       } else {
-        console.log('=========可以进行上拉加载===========');
         isEndReached.current = false;
       }
     }
@@ -209,7 +204,7 @@ function CoinDetailScreen({ route }: Props) {
                       <View style={styles.list} key={i}>
                         <View style={styles.listItem}>
                           <View style={styles.listNav}>
-                            <Text style={styles.listNavTitle}>{item?.from === user?.address ? t("transferout") : t("transferin")}</Text>
+                            <Text style={styles.listNavTitle}>{item?.from.toLocaleLowerCase() === user?.address.toLocaleLowerCase() ? t("transferout") : t("transferin")}</Text>
                             <View style={item?.state > 0 ? styles.listNavStatus_1 : item?.state < 0 ? styles.listNavStatus_def : styles.listNavStatus_0}>
                               <Text style={styles.statusText}>
                                 {item?.state > 0

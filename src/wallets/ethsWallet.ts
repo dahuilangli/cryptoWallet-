@@ -39,7 +39,7 @@ export function genWallet() {
 }
 export function importByMnemonic(mnemonic: string) {
   if (!ethers.utils.isValidMnemonic(mnemonic)) {
-    return <Account>{}
+    throw "助记词错误"
   }
   let wallet = ethers.Wallet.fromMnemonic(mnemonic);
   let account = {
@@ -226,9 +226,11 @@ export function transaction(privateKey: string, nonce: any, gasLimit: number, ga
         gasPrice: ethers.BigNumber.from(gasPrice),
         to: contract,
         value: 0,
-        data:"0xa9059cbb"+ethers.utils.hexValue(value)?.replace("0x","")?.padStart(64,"0")+to?.replace("0x","")?.padStart(64,"0")
+        data: "0xa9059cbb"+to?.replace("0x","")?.padStart(64,"0")+ethers.utils.hexValue(value)?.replace("0x","")?.padStart(64,"0")
       };
-      
+      console.log('====================================');
+      console.log(transaction);
+      console.log('====================================');
       wallet.signTransaction(transaction).then(signedTransaction => {
         resolve(signedTransaction)
       

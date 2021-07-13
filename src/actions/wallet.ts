@@ -14,6 +14,7 @@ const Wallet = createActions({
   setToken: StringAction,
   createUser: createAction<thisUser>(),
   createAccount: createAction<Account>(),
+  deleteAccount: createAction<{address: string, type: string}>(),
   setDappSearchList: createAction<DappRecentItem>(),
   setAddressBookList: createAction<AddressBookItem>(),
   deleteAddressBookList: createAction<AddressBookItem>(),

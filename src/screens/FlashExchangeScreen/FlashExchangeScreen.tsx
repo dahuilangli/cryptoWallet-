@@ -17,7 +17,8 @@ import {
   KeyboardAvoidingView,
   Platform,
   TextInput,
-  Alert
+  Alert,
+  ActivityIndicator
 } from 'react-native';
 import { SCREENHEIGHT, SCREENWIDTH } from "config/constants";
 import { navigate } from 'components/navigationService';
@@ -26,9 +27,9 @@ import * as helper from 'apis/helper'
 import { post } from 'apis/request'
 import { useDispatch, useSelector } from 'react-redux';
 import { getAccountList, getUser } from 'reducers/walletStateReducer';
-import { show } from 'utils';
+import { show, showTop } from 'utils';
 import { AssetsList } from 'actions/types';
-import { Div, Mul, transaction } from 'wallets/ethsWallet';
+import { contractTrans, Div, Mul, transaction } from 'wallets/ethsWallet';
 import { mobileType } from 'apis/common';
 
 
@@ -109,9 +110,6 @@ function FlashExchangeScreen({ }: Props) {
       "wallet": thisUser?.coinInfo?.wallet
     }
     helper.post('/wallet/assets', params).then((res: any) => {
-      console.log('====================================');
-      console.log(res);
-      console.log('====================================');
       setAssetsList(res)
     })
   }
@@ -141,8 +139,8 @@ function FlashExchangeScreen({ }: Props) {
   }
   let accountExchange: any;
   async function exchangeSub() {
-    setIsSigninInProgress(true);
     if (securityCode === thisUser?.securityCode) {
+      setIsSigninInProgress(true);
       try {
         let sourceType = mobileType.toUpperCase();
         let equipmentNo = `Morleystone-${thisUser?.coinInfo?.wallet}-${thisUser.address}`;
@@ -172,39 +170,73 @@ function FlashExchangeScreen({ }: Props) {
             let gas_price = Mul(gas.gasPrice, Math.pow(10, thisUser?.coinInfo?.gas_decimal)).toString();
             let gas_limit: any = balance?.gas_limit;
             let amount = accountExchange?.depositCoinAmt;
-            let amountSign = Mul(amount, balance?.gas_limit);
+            // let amountSign = Mul(amount, balance?.gas_limit);
             let to = accountExchange?.platformAddr;
             let symbol = balance?.symbol;
             helper.get('/wallet/transfer_nonce', { address, wallet }).then((res: any) => {
               let nonce = res.nonce;
-              transaction(thisUser.privateKey, nonce, gas_limit, gas_price, to, amountSign).then(sign => {
-                let params = {
-                  "amount": amount,
-                  "equipment_no": equipmentNo,
-                  "from": address,
-                  "gas": gas?.balance,
-                  "nonce": Number(nonce),
-                  "order_id": accountExchange?.orderId,
-                  "signature": sign,
-                  "source_type": sourceType,
-                  "symbol": symbol,
-                  "to": to,
-                  "wallet": wallet
-                }
-                helper.post('/swft/deposit', params).then((res: any) => {
-                  show(t("Storedsuccessfully"))
+              if (thisUser?.coinInfo?.token === out?.symbol) {
+                transaction(thisUser.privateKey, nonce, gas_limit, gas_price, to, amount).then(sign => {
+                  console.log('============签名成功=============');
+                  console.log(sign);
+                  console.log('====================================');
+                  let params = {
+                    "amount": amount,
+                    "equipment_no": equipmentNo,
+                    "from": address,
+                    "gas": gas?.balance,
+                    "nonce": Number(nonce),
+                    "order_id": accountExchange?.orderId,
+                    "signature": sign,
+                    "source_type": sourceType,
+                    "symbol": symbol,
+                    "to": to,
+                    "wallet": wallet
+                  }
+                  console.log('=========存币请求================');
+                  console.log(params);
+                  console.log('====================================');
+                  helper.post('/swft/deposit', params).then((res: any) => {
+                    show(t("Storedsuccessfully"))
+                  })
                 })
-              })
+              } else {
+                let value: bigint = BigInt(Mul(amount, Math.pow(10, Number(out?.coin_decimal))));
+                let contract = out?.contact;
+                contractTrans(thisUser.privateKey, nonce, gas_limit, gas_price, contract, to, value).then(sign => {
+                  let params = {
+                    "amount": amount,
+                    "equipment_no": equipmentNo,
+                    "from": address,
+                    "gas": gas?.balance,
+                    "nonce": Number(nonce),
+                    "order_id": accountExchange?.orderId,
+                    "signature": sign,
+                    contract,
+                    "source_type": sourceType,
+                    "symbol": symbol,
+                    "to": to,
+                    "wallet": wallet
+                  }
+                  helper.post('/swft/deposit', params).then((res: any) => {
+                    show('存币成功')
+                  })
+                })
+              }
             })
           })
         } else {
           Alert.alert('创建订单后失败，请检查网络和输入后重试');
         }
+      } catch (error) {
+        console.log('====================================');
+        console.log(error);
+        console.log('====================================');
       } finally {
         setIsSigninInProgress(false);
         setModalVisible1(false)
         setSecurityCode('')
-      }
+      } 
     } else {
       show(t("Pleaseentercorrectsecuritypassword"))
       setSecurityCode('')
@@ -299,7 +331,8 @@ function FlashExchangeScreen({ }: Props) {
                 <View style={{ flexDirection: 'row' }}>
                   <Text style={styles.useText}>{t("Available")}</Text>
                   <Text style={styles.useNumber}>
-                    {balance?.balance} {out?.symbol}</Text>
+                    {balance?.balance} {out?.symbol}
+                  </Text>
                 </View>
                 <Text style={styles.rateText}>{t("exchangerate")}  1 {out?.symbol} ≈ {base?.instant_rate} {inPut?.symbol}</Text>
                 <Text style={styles.rateText}>{t("handlefee")}  0.03%</Text>

@@ -42,6 +42,9 @@ const SetWalletPwdScreen = (props: Props) => {
         break;
     }
   }
+  console.log('====================================');
+  console.log(account);
+  console.log('====================================');
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.main}>

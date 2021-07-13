@@ -24,15 +24,16 @@ import { getAccountList, getUser } from 'reducers/walletStateReducer';
 import { getCurrency, getShowRisk } from 'reducers/dataStateReducer';
 import * as helper from 'apis/helper'
 import { AssetsList } from 'actions/types';
-import { Mul, Div, Add, Sub, transaction } from 'wallets/ethsWallet'
+import { Mul, Div, Add, Sub, transaction, contractTrans } from 'wallets/ethsWallet'
 import { show } from 'utils';
 
 import { navigate } from 'components/navigationService';
+import { ethers } from 'ethers';
 interface Props {
   route: {
     params: {
       assetsList: Array<AssetsList>,
-      address?:string,
+      address?: string,
     }
   }
 }
@@ -62,25 +63,23 @@ function TransferScreen(props: Props) {
   
   const { t } = useTranslation();
   useEffect(() => {
-    getAssetsList(selectCoinIndex);
+    getAssetsList();
     getGas();
   }, []);
   async function getCoinItem(index: number) {
     setSelectCoinIndex(index);
-    getAssetsList(selectCoinIndex)
     setTimeout(() => {
       setModalVisible(!modalVisible);
     }, 150);
   }
   // 刷新币种信息缓存
-  async function getAssetsList(coinIndex: number) {
+  async function getAssetsList() {
     let params = {
       "address": user?.address,
-      "contracts": [thisUser?.contracts[coinIndex]],
+      "contracts": thisUser?.contracts,
       "wallet": thisUser?.coinInfo?.wallet
     }
     helper.post('/wallet/assets', params).then((res: any) => {
-      assetsList[coinIndex] = res[0]
       setAssetsList(assetsList)
     })
   }
@@ -123,34 +122,65 @@ function TransferScreen(props: Props) {
   // 校验安全密码
   async function verifySecurityPwd(arg0: boolean) {
     if (arg0) {
-      if (securityCode === thisUser?.securityCode) {
-        let address = user?.address;
-        let wallet = thisUser?.coinInfo?.wallet;
-        let gas_price = Mul(gasList[gasIndex].gasPrice, Math.pow(10, thisUser?.coinInfo?.gas_decimal)).toString();
-        let amount = transferAmount;
-        let amountSign = Mul(amount, assetsList[selectCoinIndex].gas_limit);
-        let to = receivingAddress;
-        let symbol = assetsList[selectCoinIndex].symbol;
-        let gas_limit: any = assetsList[selectCoinIndex].gas_limit;
-        helper.get('/wallet/transfer_nonce', { address, wallet }).then((res : any) => {
-          let nonce = res.nonce;
-          transaction(thisUser.privateKey, nonce, gas_limit, gas_price, to, amountSign ).then(sign => {
-            console.log(sign);
-            console.log('签名');
-            let params = {
-              "amount": amount,
-              "from": address,
-              "gas": gasList[gasIndex].balance,
-              "nonce": Number(nonce),
-              "signature": sign,
-              "symbol": symbol,
-              "to": to,
-              "wallet": wallet
+      if (gasList[gasIndex]?.balance <= assetsList[selectCoinIndex]?.balance) {
+        if (securityCode === thisUser?.securityCode) {
+          let address = user?.address;
+          let wallet = thisUser?.coinInfo?.wallet;
+          let gas_price = Mul(gasList[gasIndex].gasPrice, Math.pow(10, thisUser?.coinInfo?.gas_decimal)).toString();
+          let amount = transferAmount;
+          // let amountSign = Mul(amount, assetsList[selectCoinIndex].gas_limit);
+          let to = receivingAddress;
+          let symbol = assetsList[selectCoinIndex].symbol;
+          let gas_limit: any = assetsList[selectCoinIndex].gas_limit;
+          helper.get('/wallet/transfer_nonce', { address, wallet }).then((res: any) => {
+            let nonce = res.nonce;
+            console.log('====================================');
+            console.log(thisUser?.coinInfo?.token);
+            console.log(assetsList[selectCoinIndex]?.symbol)
+            console.log('====================================');
+            if (thisUser?.coinInfo?.token === assetsList[selectCoinIndex]?.symbol) {
+              transaction(thisUser.privateKey, nonce, gas_limit, gas_price, to, amount).then(sign => {
+                console.log(sign);
+                console.log('签名');
+                let params = {
+                  "amount": amount,
+                  "from": address,
+                  "gas": gasList[gasIndex].balance,
+                  "nonce": Number(nonce),
+                  "signature": sign,
+                  "symbol": symbol,
+                  "to": to,
+                  "wallet": wallet
+                }
+                show('提交成功')
+                helper.post('/wallet/transfer', params)
+              })
+            } else {
+              let value: bigint = BigInt(Mul(amount, Math.pow(10, Number(assetsList[selectCoinIndex]?.decimals))));
+              let contract = assetsList[selectCoinIndex]?.token;
+              contractTrans(thisUser.privateKey, nonce, gas_limit, gas_price, contract, to, value).then(sign => {
+                console.log(sign);
+                console.log('签名');
+                let params = {
+                  "amount": amount,
+                  "from": address,
+                  "gas": gasList[gasIndex].balance,
+                  "nonce": Number(nonce),
+                  "signature": sign,
+                  "symbol": symbol,
+                  contract,
+                  "to": to,
+                  "wallet": wallet
+                }
+                show('提交成功')
+                helper.post('/wallet/transfer', params)
+              })
             }
-            show('提交成功')
-            helper.post('/wallet/transfer', params)
+            
           })
-        })
+        } else {
+          show('请输入正确的安全密码')
+        }
       } else {
         show(t("Pleaseentercorrectsecuritypassword"))
       }
@@ -159,8 +189,7 @@ function TransferScreen(props: Props) {
     setTransferConfirm(!transferConfirm)
   }
 
-
-  let verification = receivingAddress && receivingAddress.startsWith('0x') && transferAmount && gasIndex!== -1;
+  let verification = receivingAddress && receivingAddress.startsWith('0x') && transferAmount && gasIndex !== -1;
   return (
     <SafeAreaView style={styles.container}>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -195,13 +224,13 @@ function TransferScreen(props: Props) {
                 value={receivingAddress}
                 onChangeText={setReceivingAddress}
               />
-              <TouchableOpacity onPress = {()=>{
-                navigate('AddressBookScreen', { title: '收款人', type:'tansfer',setAddress:setReceivingAddress})
+              <TouchableOpacity onPress={() => {
+                navigate('AddressBookScreen', { title: '收款人', type: 'tansfer', setAddress: setReceivingAddress })
               }}>
-              <Image
-                style={styles.inputRightIcon}
-                source={require('assets/icon_address_book.png')}
-              />
+                <Image
+                  style={styles.inputRightIcon}
+                  source={require('assets/icon_address_book.png')}
+                />
               </TouchableOpacity>
             </View>
 
@@ -625,7 +654,7 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 8,
     width: SCREENWIDTH,
     maxHeight: SCREENHEIGHT / 2,
-    minHeight: SCREENHEIGHT/ 3,
+    minHeight: SCREENHEIGHT / 3,
   },
   headView: {
     flexDirection: 'row',
