@@ -47,6 +47,7 @@ export function importByMnemonic(mnemonic: string) {
     address: wallet.address,
     mnemonic: mnemonic,
   };
+  
   return account;
 
 }
@@ -57,7 +58,9 @@ export function importByprivateKey(privateKey: any) {
   let account = {
     privateKey: privateKey,
     address: wallet.address,
+    mnemonic: ethers.utils.entropyToMnemonic(privateKey),
   };
+  
   return account;
 
 }
@@ -214,3 +217,25 @@ export function transaction(privateKey: string, nonce: any, gasLimit: number, ga
     })
   })
 }
+  export function contractTrans(privateKey: string, nonce: any, gasLimit: number, gasPrice: string, contract: any,to:any, value: any){
+    return new Promise((resolve, reject) => {
+      let wallet = new ethers.Wallet(privateKey);
+      let transaction = {
+        nonce: ethers.BigNumber.from(nonce),
+        gasLimit: gasLimit,
+        gasPrice: ethers.BigNumber.from(gasPrice),
+        to: contract,
+        value: 0,
+        data:"0xa9059cbb"+ethers.utils.hexValue(value)?.replace("0x","")?.padStart(64,"0")+to?.replace("0x","")?.padStart(64,"0")
+      };
+      
+      wallet.signTransaction(transaction).then(signedTransaction => {
+        resolve(signedTransaction)
+      
+      }).catch(e => {
+        reject(e)
+      })
+    
+  })
+}
+
