@@ -78,7 +78,8 @@ export default function MainStackNavigator() {
   const dispatch = useDispatch();
 
   async function addAddressBook(item: AddressBookItem) {
-    dispatch(walletAction.deleteAddressBookList(item));
+    
+   dispatch(walletAction.deleteAddressBookList(item));
     goBack()
   }
   return (
@@ -206,17 +207,19 @@ export default function MainStackNavigator() {
           title: route.params.title,
           headerRight: () => route.params.title === t("editpayee") && <TouchableOpacity
             onPress={() => {
-              Alert.alert("提示", "确定要删除吗?", [
+              Alert.alert("提示","确定要删除吗?",[
                 {
-                  text: "yes",
+                  text:"yes",
                   onPress: () => {
                     addAddressBook(route.params.item);
-                  }
-                }, {
-                  text: "no",
-
+                 }
+                },{
+                  text:"no",
+                  
                 }
               ]);
+              
+              
             }}
           >
             <Text style={{ color: 'white', fontSize: 14, fontWeight: '500' }}>{t("delete")}</Text>

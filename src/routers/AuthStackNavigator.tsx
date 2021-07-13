@@ -29,7 +29,7 @@ export type AuthStackParamList = {
   ImportMnemonicScreen: { type: string; loginType: string, coinInfo: object };
 
 
-  ScanQRCode: { title?: string, assetsList: Array<AssetsList> };
+  ScanQRCode: { title?: string, assetsList?: Array<AssetsList> };
 };
 
 const { Navigator, Screen } = createStackNavigator<AuthStackParamList>();
@@ -90,12 +90,12 @@ export default function AuthStackNavigator() {
         component={ImportPrivateKeyScreen}
         options={{
           title: t("privatekeyimport"),
-          headerRight: () => (
-            <TouchableOpacity onPress={() => navigate('ScanQRCode')}>
-              <Image source={require('assets/icon_sacn_light.png')} />
-            </TouchableOpacity>
-          ),
-          headerRightContainerStyle: { marginEnd: 20 },
+          // headerRight: () => (
+          //   <TouchableOpacity onPress={() => navigate('ScanQRCode')}>
+          //     <Image source={require('assets/icon_sacn_light.png')} />
+          //   </TouchableOpacity>
+          // ),
+          // headerRightContainerStyle: { marginEnd: 20 },
         }}
       />
       <Screen
