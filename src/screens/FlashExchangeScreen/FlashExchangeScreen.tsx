@@ -28,7 +28,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getAccountList, getUser } from 'reducers/walletStateReducer';
 import { show, showTop } from 'utils';
 import { AssetsList } from 'actions/types';
-import { Div, Mul, transaction } from 'wallets/ethsWallet';
+import { contractTrans, Div, Mul, transaction } from 'wallets/ethsWallet';
 import { mobileType } from 'apis/common';
 
 
@@ -126,16 +126,15 @@ function FlashExchangeScreen({ }: Props) {
   }
 
   function exchange() {
-    // if (outNumber <= balance?.balance) {
-    //   if (outNumber >= base?.deposit_min && outNumber <= base?.deposit_max) {
-    //     setModalVisible1(true)
-    //   } else {
-    //     show('转出数量必须大于小于最小最大金额')
-    //   }
-    // } else {
-    //   show('余额不足，请确认账户是否余额充足')
-    // }
-    showTop()
+    if (outNumber <= balance?.balance) {
+      if (outNumber >= base?.deposit_min && outNumber <= base?.deposit_max) {
+        setModalVisible1(true)
+      } else {
+        show('转出数量必须大于小于最小最大金额')
+      }
+    } else {
+      show('余额不足，请确认账户是否余额充足')
+    }
   }
   let accountExchange: any;
   async function exchangeSub() {
@@ -175,34 +174,54 @@ function FlashExchangeScreen({ }: Props) {
             let symbol = balance?.symbol;
             helper.get('/wallet/transfer_nonce', { address, wallet }).then((res: any) => {
               let nonce = res.nonce;
-              transaction(thisUser.privateKey, nonce, gas_limit, gas_price, to, amount).then(sign => {
-                console.log('============签名成功=============');
-                console.log(sign);
-                console.log('====================================');
-                let params = {
-                  "amount": amount,
-                  "equipment_no": equipmentNo,
-                  "from": address,
-                  "gas": gas?.balance,
-                  "nonce": Number(nonce),
-                  "order_id": accountExchange?.orderId,
-                  "signature": sign,
-                  "source_type": sourceType,
-                  "symbol": symbol,
-                  "to": to,
-                  "wallet": wallet
-                }
-                console.log('=========存币请求================');
-                console.log(params);
-                console.log('====================================');
-                helper.post('/swft/deposit', params).then((res: any) => {
-                  show('存币成功')
-                }).catch(e => {
-                  console.log('=========存币失败=========');
-                  console.log(e);
+              if (user?.type === out?.symbol) {
+                transaction(thisUser.privateKey, nonce, gas_limit, gas_price, to, amount).then(sign => {
+                  console.log('============签名成功=============');
+                  console.log(sign);
                   console.log('====================================');
+                  let params = {
+                    "amount": amount,
+                    "equipment_no": equipmentNo,
+                    "from": address,
+                    "gas": gas?.balance,
+                    "nonce": Number(nonce),
+                    "order_id": accountExchange?.orderId,
+                    "signature": sign,
+                    "source_type": sourceType,
+                    "symbol": symbol,
+                    "to": to,
+                    "wallet": wallet
+                  }
+                  console.log('=========存币请求================');
+                  console.log(params);
+                  console.log('====================================');
+                  helper.post('/swft/deposit', params).then((res: any) => {
+                    show('存币成功')
+                  })
                 })
-              })
+              } else {
+                let value: bigint = BigInt(Mul(amount, Math.pow(10, Number(out?.coin_decimal))));
+                let contract = out?.contact;
+                contractTrans(thisUser.privateKey, nonce, gas_limit, gas_price, contract, to, value).then(sign => {
+                  let params = {
+                    "amount": amount,
+                    "equipment_no": equipmentNo,
+                    "from": address,
+                    "gas": gas?.balance,
+                    "nonce": Number(nonce),
+                    "order_id": accountExchange?.orderId,
+                    "signature": sign,
+                    contract,
+                    "source_type": sourceType,
+                    "symbol": symbol,
+                    "to": to,
+                    "wallet": wallet
+                  }
+                  helper.post('/swft/deposit', params).then((res: any) => {
+                    show('存币成功')
+                  })
+                })
+              }
             })
           })
         } else {
@@ -218,7 +237,7 @@ function FlashExchangeScreen({ }: Props) {
         setSecurityCode('')
       } 
     } else {
-      showTop()
+      Alert.alert('请输入正确的安全密码');
     }
   }
   return (

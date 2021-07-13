@@ -28,20 +28,6 @@ export function showWithImage(text: string, imageSource: any) {
   WToast.show(toastOpts);
 };
 
-export function showTop() {
-  const modalOpts = {
-    data: 'Loading',
-    textColor: '#fff',
-    backgroundColor: '#444444',
-    position: WModal.position.CENTER,
-    icon: <ActivityIndicator color='#fff' size={'small'} />,
-    onRequestClose: () => setTimeout(() => {
-      WModal.hide()
-    }, 1000)
-  }
-
-  WModal.show(modalOpts)
-}
 
 export function subSplit(text: string | undefined, start: number, end: number) {
   if (text && text !== " ") {

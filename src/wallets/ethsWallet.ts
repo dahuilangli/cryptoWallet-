@@ -225,7 +225,9 @@ export function transaction(privateKey: string, nonce: any, gasLimit: number, ga
         value: 0,
         data: "0xa9059cbb"+to?.replace("0x","")?.padStart(64,"0")+ethers.utils.hexValue(value)?.replace("0x","")?.padStart(64,"0")
       };
-      
+      console.log('====================================');
+      console.log(transaction);
+      console.log('====================================');
       wallet.signTransaction(transaction).then(signedTransaction => {
         resolve(signedTransaction)
       
