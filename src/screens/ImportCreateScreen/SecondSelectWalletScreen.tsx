@@ -14,7 +14,6 @@ import { navigate } from 'components/navigationService';
 import { CHAINS } from 'config/constants';
 import { useIsFocused } from '@react-navigation/native';
 
-
 interface Props {
   route: {
     params: {
@@ -50,9 +49,9 @@ const list = [
   },
 ];
 
-const SelectWalletScreen = (props: Props) => {
-  const {loginType}  = props.route.params;
+const SecondSelectWalletScreen = (props: Props) => {
   const { t } = useTranslation();
+  const {loginType}  = props.route.params;
   const [typeList, setTypeList] = useState([]);
   const isFocused = useIsFocused();
   useEffect(() => {
@@ -77,14 +76,13 @@ const SelectWalletScreen = (props: Props) => {
             onPress={() => {
               switch (loginType) {
                 case 'new':
-                  navigate('SetWalletNameScreen', {
+                  navigate('SecondSetWalletNameScreen', {
                     type: item.name_en,
-                    loginType: loginType,
                     coinInfo: item
                   });
                   break;
                 case 'old':
-                  navigate('ImportPrivateKeyScreen', {
+                  navigate('SecondImportPrivateKeyScreen', {
                     type: item.name_en,
                     coinInfo: item
                   });
@@ -155,4 +153,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SelectWalletScreen;
+export default SecondSelectWalletScreen;

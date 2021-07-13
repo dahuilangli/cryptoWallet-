@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, Text, SafeAreaView, FlatList, TouchableOpacity, Image, Alert } from 'react-native';
+import { StyleSheet, View, Text, SafeAreaView, FlatList, TouchableOpacity, Image, Alert, RefreshControl, ActivityIndicator } from 'react-native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { navigate } from 'components/navigationService';
 import { ScreensParamList, Feed } from 'actions/types';
@@ -7,33 +7,32 @@ import { SCREENWIDTH } from 'config/constants';
 import { RouteProp, useRoute, useIsFocused } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
-import { formatDate ,subSplit} from 'utils'
+import { formatDate, subSplit } from 'utils'
 import * as helper from 'apis/helper'
 import { getAccountList } from 'reducers/walletStateReducer';
-import { add } from 'react-native-reanimated';
-
+import { CHAINS } from 'config/constants';
 type MessageScreenRouteProp = RouteProp<ScreensParamList, 'MessageScreen'>;
 interface Props { }
 
 function HomeScreen() {
-  const {t} = useTranslation();
+  const { t } = useTranslation();
   const [messagelistData, setMessageListData] = useState([]);
-  const isFocused = useIsFocused();  useEffect(() => {
+  const isFocused = useIsFocused(); useEffect(() => {
     if (isFocused) {
       getMessage();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFocused]);
   function getMessage() {
-    helper.get('/sys/notice/list', {}).then((res:any) =>{
+    helper.get('/sys/notice/list', {}).then((res: any) => {
       setMessageListData(res)
     })
-    
+
   }
 
-  
-  const Item1 = ({ item1, onPress1, style1 }) => (
-    <TouchableOpacity onPress={onPress1} style={[styles.background, style1]}>
+
+  const Item1 = ({ item1, onPress1}) => (
+    <TouchableOpacity onPress={onPress1} style={item1 === messagelistData[0]? {...styles.itemStyle,marginTop:15}:{...styles.itemStyle}}>
       <View style={styles.headView}>
         <Text style={styles.titleStyle}>{item1.type}</Text>
         <Text style={styles.timeStyle}>{formatDate(item1.rtime)}</Text>
@@ -47,9 +46,7 @@ function HomeScreen() {
     return (
       <Item1
         item1={item}
-        style1={styles.itemStyle}
-        // navigate: async () => await navigate('WebHtmlScreen', { title: '测试', uri: html })
-        onPress1={() => item.content?navigate('WebHtmlScreen', { title: t("noticedetails"), uri: item.content }):Alert.alert('content数据为空')}
+        onPress1={() =>  navigate('WebHtmlScreen', { title: t("noticedetails"), uri: item.content })}
       >
 
       </Item1>
@@ -58,41 +55,38 @@ function HomeScreen() {
 
   return (
     <SafeAreaView style={styles.container}>
-      {messagelistData.length>0 ?<FlatList
+      {messagelistData.length > 0 ? <FlatList
         data={messagelistData}
         style={styles.background}
         renderItem={renderItem1}
         keyExtractor={(item) => item.id}
       >
-      </FlatList>:(<View style={styles.nodataContainer}><Image source={require('assets/icon_nomessage.png')} /><Text style={styles.nodata}>{t('nomessage')}</Text></View>)}
+      </FlatList> : (<View style={styles.nodataContainer}><Image source={require('assets/icon_nomessage.png')} /><Text style={styles.nodata}>{t('nomessage')}</Text></View>)}
     </SafeAreaView>
   );
 }
 
 function SettingsScreen() {
-  const {t} = useTranslation();
+  const { t } = useTranslation();
   const walletlist = useSelector(getAccountList);
-  const [addressList, setAddressList] = useState([String]);
+  var addressListData: (string | undefined)[] = [];
   // console.log(walletlist);
-  
-  let arr = ["HECO","BSC","ETH"]
-  walletlist.toArray
-  // for (let index = 0; index < arr.length; index++) {
-  //   const element = arr[index];
-  //   walletlist.get(element)?.find(x => {
-  //     const addStr = x.address
-  //     addressList.push(x.address)
-  //   })
-  // }  
-  // console.log(addressList);
-  
-  // walletlist.get('ETH')
+
+  walletlist.map((item, i) => {
+    if (item.length > 0) {
+      item.map((object, j) => {   
+        if (addressListData.indexOf(object.address) === -1) {
+          addressListData.unshift(object.address)
+        }
+      })
+    }
+  })
   
   const [transferlistData, setTransferListData] = useState([]);
   const [loading, setLoading] = useState<'refresh' | 'more' | null>(null);
   const isEndReached = React.useRef(false);
   const isFetching = React.useRef(false);
-  const isFocused = useIsFocused();  useEffect(() => {
+  const isFocused = useIsFocused(); useEffect(() => {
     if (isFocused) {
       getTransferRecordList(true);
     }
@@ -107,36 +101,52 @@ function SettingsScreen() {
     }
     isFetching.current = true;
     setLoading(isRefresh ? 'refresh' : 'more');
-    helper.post('/wallet/transfer_record', 
-    {
-      address_list:['0xf3e0c6F599a33E8cD5b273A377e925EBD327b13A'],
-      id: isRefresh ? null : transferlistData[transferlistData.length - 1].id,
-    }).then((res:any)=>{
-      setTransferListData(res)
-    })
-   
+    const data: any = await helper.post('/wallet/transfer_record',
+      {
+        address_list: addressListData,
+        id: isRefresh ? null : transferlistData[transferlistData.length - 1].id,
+      })
+    setLoading(null);
+    if (data) {
+      if (isRefresh) {
+        // console.log('=========下拉刷新===========');
+        setTransferListData(data);
+      } else {
+        // console.log('=========上拉加载===========');
+        setTransferListData(transferlistData.concat(data));
+      }
+      if (data.length === 0) {
+        // console.log('=========不能再上拉加载了===========');
+        isEndReached.current = true;
+      } else {
+        // console.log('=========可以进行上拉加载===========');
+        isEndReached.current = false;
+      }
+    }
+    isFetching.current = false;
+    // if(data.)
   }
-  const Item2 = ({ item2,  style2 }) => (
-    <View  style={[styles.background, style2]}>
-      <View style = {styles.headView}>
-        <Text style={styles.titleStyle}>{item2.form === item2.to ?'转入通知' :'转出通知'}</Text>
+  const Item2 = ({ item2, style2 }) => (
+    <View style={item2 === transferlistData[0] ?{...styles.itemStyle1 ,marginTop:15}:{...styles.itemStyle1}}>
+      <View style={styles.headView}>
+        <Text style={styles.titleStyle}>{item2.form === item2.to ? '转入通知' : '转出通知'}</Text>
         <Text style={styles.timeStyle}>{item2.ctime}</Text>
       </View>
-      <View style = {styles.centerView}>
+      <View style={styles.centerView}>
         <Text style={styles.desStyle1}>{item2.wallet}</Text>
         <Text style={{
           fontSize: 18,
           fontWeight: '400',
-          color: (item2.form === item2.to)?'#3DDD94':'#DD3D50',
-        }}>{(item2.form === item2.to) ? '+ ' :'- ' }{item2.amount} {item2.symbol} </Text>
+          color: (item2.form === item2.to) ? '#3DDD94' : '#DD3D50',
+        }}>{(item2.form === item2.to) ? '+ ' : '- '}{item2.amount} {item2.symbol} </Text>
       </View>
-      <View style = {styles.lineView}></View>
-      <TouchableOpacity style = {styles.centerView} onPress={() =>
-                        navigate('WebScreen', {
-                          title: item2.symbol,
-                          uri: item2?.remarks,
-                        })
-                      }>
+      <View style={styles.lineView}></View>
+      <TouchableOpacity style={styles.centerView} onPress={() =>
+        navigate('WebScreen', {
+          title: item2.symbol,
+          uri: item2?.remarks,
+        })
+      }>
         <Text style={styles.hashStyle1}>HASH:{subSplit(item2?.tx_hash, 14, 17)}</Text>
         <Image
           source={require('assets/icon_arrow_right.png')}
@@ -150,8 +160,6 @@ function SettingsScreen() {
     return (
       <Item2
         item2={item}
-        style2={styles.itemStyle1}
-        // onPress2={() => navigate('AboutUsScreen')}
       >
       </Item2>
     );
@@ -159,13 +167,26 @@ function SettingsScreen() {
 
   return (
     <SafeAreaView style={styles.container}>
-      {transferlistData.length > 0 ?<FlatList
+      {transferlistData.length > 0 ? <FlatList
         data={transferlistData}
         style={styles.background}
         renderItem={renderItem2}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item, index) => item?.id}
+        refreshControl={
+          <RefreshControl
+            title="正在加载中..."
+            colors={['red', 'green', 'blue']}
+            refreshing={loading === 'refresh'}
+            onRefresh={() => getTransferRecordList(true)}
+          />
+        }
+        onEndReachedThreshold={0.1}
+        onEndReached={() => getTransferRecordList()}
+        ListFooterComponent={() =>
+          loading === 'more' ? <ActivityIndicator /> : null
+        }
       >
-      </FlatList>:(<View style={styles.nodataContainer}><Image source={require('assets/icon_nomessage.png')} /><Text style={styles.nodata}>{t('nomessage')}</Text></View>)}
+      </FlatList> : (<View style={styles.nodataContainer}><Image source={require('assets/icon_nomessage.png')} /><Text style={styles.nodata}>{t('nomessage')}</Text></View>)}
     </SafeAreaView>
   );
 }
@@ -207,14 +228,14 @@ const styles = StyleSheet.create({
 
     marginHorizontal: 20,
     backgroundColor: 'white',
-    marginTop: 20,
+    marginBottom: 20,
     borderRadius: 8,
   },
   itemStyle1: {
     height: 130,
     marginHorizontal: 20,
     backgroundColor: 'white',
-    marginTop: 15,
+    marginBottom: 20,
     borderRadius: 8,
   },
   headView: {
@@ -279,13 +300,13 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: '400',
   },
-  rightBtn:{
-    width:8,
-    height:15,
+  rightBtn: {
+    width: 8,
+    height: 15,
   },
-  nodataContainer: { 
-    flex: 1, 
-    alignItems: 'center', 
+  nodataContainer: {
+    flex: 1,
+    alignItems: 'center',
     justifyContent: 'center',
     paddingBottom: 150,
   },

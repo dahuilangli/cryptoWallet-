@@ -19,13 +19,13 @@ import { AssetsList } from 'actions/types';
 export type AuthStackParamList = {
   LoginScreen: undefined;
   SuccessScreen: { title: string | undefined; accountInfo: object };
-  SelectWalletScreen: { loginType?: string };
+  SelectWalletScreen: {loginType: string};
   SetWalletNameScreen: { type: string; loginType?: string; coinInfo: object, desc?: string };
   SetWalletPwdScreen: { loginType?: string, desc?: string, accountInfo: object };
   SafetyTipsScreen: { accountInfo: object };
   BackupMnemonicScreen: { accountInfo: object };
   VerifyMnemonicScreen: { accountInfo: object };
-  ImportPrivateKeyScreen: { type: string; loginType: string, coinInfo: object };
+  ImportPrivateKeyScreen: { type: string; coinInfo: object };
   ImportMnemonicScreen: { type: string; loginType: string, coinInfo: object };
 
 
@@ -89,7 +89,7 @@ export default function AuthStackNavigator() {
         name="ImportPrivateKeyScreen"
         component={ImportPrivateKeyScreen}
         options={{
-          title: t("privatekeyimport"),
+          title: t("import"),
           // headerRight: () => (
           //   <TouchableOpacity onPress={() => navigate('ScanQRCode')}>
           //     <Image source={require('assets/icon_sacn_light.png')} />

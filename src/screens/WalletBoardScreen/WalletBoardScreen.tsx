@@ -56,6 +56,10 @@ function WalletBoardScreen({ }: Props) {
       });
     }
   }
+
+  async function setImportType(type:string) {
+    navigate('SecondSelectWalletScreen',{loginType:type})
+  }
   return (
     <View style={{ flex: 1 }}>
       <View style={styles.container}>
@@ -104,13 +108,13 @@ function WalletBoardScreen({ }: Props) {
         <Button
           buttonStyle={styles.button}
           title={t("Createwallet")}
-          onPress={() => dispatch(walletAction.setWalletStatus(false))}
+          onPress={() => setImportType('new')}
           titleStyle={styles.buttonTitle}
         />
         <Button
           buttonStyle={styles.buttonOne}
           title={t("Importwallet")}
-          onPress={() => dispatch(walletAction.setWalletStatus(false))}
+          onPress={() => setImportType('old')}
           titleStyle={styles.buttonTitle}
         />
       </View>

@@ -36,6 +36,11 @@ const LoginScreen = ({}: Props) => {
       type: 'privateKey',
     },
   ];
+
+  async function addImportType(type:string){
+    navigate('SelectWalletScreen',{loginType:type});
+  }
+
   const [modalVisible, setModalVisible] = useState(false);
   return (
     <LinearGradient colors={['#1D4692', '#263C75']} style={styles.container}>
@@ -49,7 +54,7 @@ const LoginScreen = ({}: Props) => {
           <Button
             buttonStyle={styles.newCreate}
             onPress={() => {
-              navigate('SelectWalletScreen', { loginType: 'new' });
+              addImportType('new')
             }}
             title={t('createnewwallet')}
             titleStyle={styles.newCreateTitle}
@@ -57,7 +62,7 @@ const LoginScreen = ({}: Props) => {
           <Button
             type="outline"
             buttonStyle={styles.already}
-            onPress={() => setModalVisible(true)}
+            onPress={() => addImportType('old')}
             title={t("haveawallet")}
             titleStyle={styles.alreadyTitle}
           />

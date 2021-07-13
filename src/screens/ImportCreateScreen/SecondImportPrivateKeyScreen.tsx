@@ -25,7 +25,7 @@ function UselessTextInput(props: any) {
     />
   );
 }
-const ImportPrivateKeyScreen = (props: Props) => {
+const SecondImportPrivateKeyScreen = (props: Props) => {
   const { t } = useTranslation();
   const { type, coinInfo } = props.route.params;
   const [privateKey, setPrivateKey] = useState('');
@@ -56,7 +56,7 @@ const ImportPrivateKeyScreen = (props: Props) => {
                     importByprivateKey(
                       privateKey.replace(/(^\s*)|(\s*$)/g, ''),
                     );
-                    navigate('SetWalletNameScreen', {
+                    navigate('SecondSetWalletNameScreen', {
                       type,
                       loginType: 'privateKey',
                       desc: privateKey.replace(/(^\s*)|(\s*$)/g, ''),
@@ -74,7 +74,7 @@ const ImportPrivateKeyScreen = (props: Props) => {
                     importByMnemonic(
                       privateKey.replace(/(^\s*)|(\s*$)/g, ''),
                     );
-                    navigate('SetWalletNameScreen', {
+                    navigate('SecondSetWalletNameScreen', {
                       type,
                       loginType: 'mnemonic',
                       desc: privateKey.replace(/(^\s*)|(\s*$)/g, ''),
@@ -150,4 +150,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ImportPrivateKeyScreen;
+export default SecondImportPrivateKeyScreen;

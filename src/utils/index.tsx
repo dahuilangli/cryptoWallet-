@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Clipboard from "@react-native-clipboard/clipboard";
 import { Image } from "react-native";
 import { WToast } from "react-native-smart-tip";
+import { ethers } from 'ethers';
 import QRCode from 'qrcode-generator';
 
 export function show(text: string, duration = WToast.duration.SHORT) {
@@ -55,7 +56,6 @@ export function formatDate(timestamp: any) {
             var s = (date.getSeconds() < 10 ? '0'+date.getSeconds() : date.getSeconds());
 
             let strDate = Y+M+D+h+m+s;
-            console.log(strDate) //2020-05-08 17:44:56　
             return strDate;
 
 }
@@ -93,7 +93,12 @@ export function checkwalletAdress(walletAdress: string) {
 
 //判断钱包私钥 
 export function checkwalletPrivateKey(PrivateKey: string) {
-  var emailPattern = /^(0x)?[0-9a-fA-F]{64}$/;
+  var emailPattern = /^[0-9a-fA-F]{64}$/;
   return emailPattern.test(PrivateKey)
+}
+
+//判断钱包助记词
+export function checkWalletMnemonic(mnemonic:string){
+  return ethers.utils.isValidMnemonic(mnemonic)
 }
 

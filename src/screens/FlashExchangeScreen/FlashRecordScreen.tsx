@@ -96,6 +96,8 @@ function FlashRecordScreen({ route }: Props) {
       page_no: isRefresh ? 1 : tradeList.length > 0 ? Math.ceil(tradeList.length / limit) : limit,
       page_size: limit
     })
+    console.log(data);
+    
     setLoading(null);
     if (data && data.page_content) {
       let currentCount;
@@ -126,7 +128,7 @@ function FlashRecordScreen({ route }: Props) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <FlatList
+      {tradeList.length>0 ?<FlatList
         data={tradeList}
         style={styles.item}
         renderItem={renderItem}
@@ -146,7 +148,9 @@ function FlashRecordScreen({ route }: Props) {
         }
       >
 
-      </FlatList>
+      </FlatList>:(<View style={styles.nodataContainer}><Image source={require('assets/icon_norecord.png')} /><Text style={styles.nodata}>{t('noRecords')}</Text></View>)
+
+    }
 
     </SafeAreaView>
   );
@@ -225,6 +229,17 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: '400',
   },
+  nodataContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingBottom: 150,
+  },
+  nodata: {
+    fontSize: 16,
+    color: '#9CA4B3',
+    fontWeight: '500',
+  }
 });
 
 export default FlashRecordScreen;
