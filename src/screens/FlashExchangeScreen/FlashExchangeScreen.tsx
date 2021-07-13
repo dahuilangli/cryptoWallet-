@@ -213,19 +213,19 @@ function FlashExchangeScreen({ }: Props) {
   return (
     <LinearGradient colors={['#3060C2', '#3B6ED5']} style={styles.container}>
       <TouchableWithoutFeedback
-                  onPress={Keyboard.dismiss}
-                >
-      <View style={styles.main}>
-        <View style={styles.header}>
-          <Text style={styles.leftBtn}>{t("record")}</Text>
-          <Text style={styles.headerTitle}>{t("flash")}</Text>
-          <TouchableOpacity onPress={() => navigate('FlashRecordScreen', { equipmentNo: `Morleystone-${thisUser?.coinInfo?.wallet}-${thisUser.address}`})}>
+        onPress={Keyboard.dismiss}
+      >
+        <View style={styles.main}>
+          <View style={styles.header}>
+            <Text style={styles.leftBtn}>{t("record")}</Text>
+            <Text style={styles.headerTitle}>{t("flash")}</Text>
+            <TouchableOpacity onPress={() => navigate('FlashRecordScreen', { equipmentNo: `Morleystone-${thisUser?.coinInfo?.wallet}-${thisUser.address}` })}>
             <Image
-                style={styles.image}
-                source={require('assets/icon_flash_record.png')}
-              />
-          </TouchableOpacity>
-        </View>
+ 	                style={styles.image}
+ 	                source={require('assets/icon_flash_record.png')}
+ 	              />
+            </TouchableOpacity>
+          </View>
 
           <View style={styles.backgroundView}>
             <View style={{ backgroundColor: 'white', height: 360 }}>
@@ -260,51 +260,39 @@ function FlashExchangeScreen({ }: Props) {
                 }}>
                 <Image style={{ width: 40, height: 40 }} source={require('assets/icon_flash_change.png')} />
               </TouchableOpacity>
-            </View>
-            <View style={styles.lineView} />
-            <TouchableOpacity
-              style={styles.exchange}
-              onPress={() => {
-                setInPut(out);
-                setOut(inPut);
-              }}>
-              <Image style={{ width: 40, height: 40 }} source={require('assets/icon_flash_change.png')} />
-            </TouchableOpacity>
-            
-            <View style={styles.secondView}>
-              <View style={styles.centerViewone}>
-                <Text style={styles.centerOut}>{t("transferout")}</Text>
-                
-                <View style={styles.inputView}>
-                  <TextInput
-                    placeholder={t("numberoftransfers")}
-                    style={styles.inputNumber}
-                    keyboardType="numeric"
-                    value={outNumber}
-                    onChangeText={(text) => {
-                      setOutNumber(text);
-                      if (text) {
-                        let num = Mul(parseFloat(text), parseFloat(base?.instant_rate));
-                        setInNumber(num.toString())
-                      }
-                    }}
-                  >
-                  </TextInput>
+              <View style={styles.secondView}>
+                <View style={styles.centerViewone}>
+                  <Text style={styles.centerOut}>{t("transferout")}</Text>
+                  <View style={styles.inputView}>
+                    <TextInput
+                      placeholder={t("numberoftransfers")}
+                      style={styles.inputNumber}
+                      keyboardType="numeric"
+                      value={outNumber}
+                      onChangeText={(text) => {
+                        setOutNumber(text);
+                        if (text) {
+                          let num = Mul(parseFloat(text), parseFloat(base?.instant_rate));
+                          setInNumber(num.toString())
+                        }
+                      }}
+                    >
+                    </TextInput>
+                  </View>
                 </View>
-               
-              </View>
-              <View style={styles.centerViewtwo}>
-                <Text style={styles.centerinput}>{t("transferin")}</Text>
-                <View style={styles.outView}>
-                  <TextInput
-                    placeholder={t("numberreceive")}
-                    style={styles.outNumber}
-                    keyboardType="numeric"
-                    editable={false}
-                    value={inNumber}
-                    onChangeText={setInNumber}
-                  >
-                  </TextInput>
+                <View style={styles.centerViewtwo}>
+                  <Text style={styles.centerinput}>{t("transferin")}</Text>
+                  <View style={styles.outView}>
+                    <TextInput
+                      placeholder={t("numberreceive")}
+                      style={styles.outNumber}
+                      keyboardType="numeric"
+                      editable={false}
+                      value={inNumber}
+                      onChangeText={setInNumber}
+                    >
+                    </TextInput>
+                  </View>
                 </View>
               </View>
               <View style={styles.bottomView}>
@@ -538,6 +526,12 @@ const styles = StyleSheet.create({
   },
   leftBtn: {
     color: 'rgba(0,0,0,0)',
+    fontSize: 14,
+    fontWeight: '500',
+    textAlign: 'center',
+  },
+  rightBtn: {
+    color: '#FFFFFF',
     fontSize: 14,
     fontWeight: '500',
     textAlign: 'center',
