@@ -47,6 +47,7 @@ export function importByMnemonic(mnemonic: string) {
     address: wallet.address,
     mnemonic: mnemonic,
   };
+  
   return account;
 
 }
@@ -57,7 +58,9 @@ export function importByprivateKey(privateKey: any) {
   let account = {
     privateKey: privateKey,
     address: wallet.address,
+    mnemonic: ethers.utils.entropyToMnemonic(privateKey),
   };
+  
   return account;
 
 }
