@@ -119,7 +119,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
     borderRadius: 8,
     height: 135,
-
   },
   input: {
     marginHorizontal:15,
