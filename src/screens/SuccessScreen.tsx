@@ -15,6 +15,7 @@ import { Account } from 'actions/types';
 import { useTranslation } from 'react-i18next';
 import { getAccountList } from 'reducers/walletStateReducer';
 import * as helper from 'apis/helper'
+import {CHAINS} from "config/constants"
 
 // import { setGenericPassword } from 'utils/keyChain';
 interface Props {
@@ -48,7 +49,7 @@ const SuccessScreen = ({ route }: Props) => {
     try {
       accountInfo.contracts = ['']
       console.log(walletlist.size);
-      if (walletlist.get("ETH")?.length === 0 && walletlist.get("BSC")?.length === 0 && walletlist.get("HT")?.length === 0) {
+      if (walletlist.get(CHAINS.eth)?.length === 0 && walletlist.get(CHAINS.bnb)?.length === 0 && walletlist.get(CHAINS.ht)?.length === 0) {
         dispatch(walletAction.createUser({ address: accountInfo.address, type: accountInfo.type }));
       }
       dispatch(walletAction.createAccount(accountInfo));
