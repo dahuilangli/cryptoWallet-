@@ -74,11 +74,8 @@ function WalletDetailScreen(props: Props) {
     if (screenName) {
       setNavigateName(screenName);
       setPwd('');
-      if (screenName === 'mnemonic') {
-        addressMessage.mnemonic ? setTransferConfirm(!transferConfirm) : Alert.alert('私钥导入创建暂无助记词')
-      } else {
-        setTransferConfirm(!transferConfirm);
-      }
+      setTransferConfirm(!transferConfirm)
+      
     }
     return;
   }
@@ -133,7 +130,7 @@ function WalletDetailScreen(props: Props) {
           </View>
         </TouchableWithoutFeedback>
         <View style={styles.itemContainer}>
-          <TouchableOpacity
+          {addressMessage.mnemonic ? <TouchableOpacity
             onPress={() => goNavigate('mnemonic')}
             style={{
               ...styles.Row,
@@ -146,7 +143,7 @@ function WalletDetailScreen(props: Props) {
               style={styles.right}
               source={require('assets/icon_arrow_right.png')}
             />
-          </TouchableOpacity>
+          </TouchableOpacity> : null}
           <TouchableOpacity
             onPress={() => goNavigate('privateKey')}
             style={{
@@ -205,7 +202,7 @@ function WalletDetailScreen(props: Props) {
           </TouchableWithoutFeedback>
           <KeyboardAvoidingView
             behavior={Platform.OS === 'ios' ? 'position' : 'height'}
-          >
+          > 
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
               <View style={styles.modalView}>
                 <View style={styles.headView}>

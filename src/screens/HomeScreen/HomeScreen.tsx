@@ -85,7 +85,7 @@ function HomeScreen({ }: Props) {
   const { t } = useTranslation();
   useEffect(() => {
     getAssetsList()
-  }, [user])
+  }, [user,currenTUnit])
 
   
   function switchWallet(item: Account) {
@@ -225,7 +225,7 @@ function HomeScreen({ }: Props) {
                 refreshing={refreshing}
                 onRefresh={onRefresh}
                 colors={['red','green','blue']}
-                title="正在加载中..."
+                title={t("loading")}
               />
             }>
             {assetsList.map((item: AssetsList, i) => (

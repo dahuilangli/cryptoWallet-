@@ -86,6 +86,7 @@ function AddressBookEditorScreen(props: Props) {
                         </TextInput>
                     </View>
                     <Text style={styles.typeText}>{t("walletaddress")}</Text>
+                    
                     <View style={styles.addressView}>
                         <TextInput
                             style={styles.addressInput}

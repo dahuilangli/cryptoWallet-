@@ -64,7 +64,7 @@ function ProfileScreen({ }: Props) {
         leftIcon: require('assets/icon_address_book_one.png'),
         rightIcon: require('assets/icon_arrow_right.png'),
         navigate: () =>
-          navigate('AddressBookScreen', { title: '收款人', showMyself: true ,type:'person'}),
+          navigate('AddressBookScreen', { title: '收款人',type:'person'}),
       },
       {
         name: t("Message"),

@@ -106,6 +106,8 @@ function SettingsScreen() {
         address_list: addressListData,
         id: isRefresh ? null : transferlistData[transferlistData.length - 1].id,
       })
+    
+      
     setLoading(null);
     if (data) {
       if (isRefresh) {
@@ -129,7 +131,7 @@ function SettingsScreen() {
   const Item2 = ({ item2, style2 }) => (
     <View style={item2 === transferlistData[0] ?{...styles.itemStyle1 ,marginTop:15}:{...styles.itemStyle1}}>
       <View style={styles.headView}>
-        <Text style={styles.titleStyle}>{item2.form === item2.to ? '转入通知' : '转出通知'}</Text>
+        <Text style={styles.titleStyle}>{addressListData.indexOf(item2.to) === -1 ? t("Transferinnotice") : t("Transferoutnotice")}</Text>
         <Text style={styles.timeStyle}>{item2.ctime}</Text>
       </View>
       <View style={styles.centerView}>
@@ -174,7 +176,7 @@ function SettingsScreen() {
         keyExtractor={(item, index) => item?.id}
         refreshControl={
           <RefreshControl
-            title="正在加载中..."
+            title={t("loading")}
             colors={['red', 'green', 'blue']}
             refreshing={loading === 'refresh'}
             onRefresh={() => getTransferRecordList(true)}

@@ -148,7 +148,7 @@ function CoinDetailScreen({ route }: Props) {
             refreshing={loading === 'refresh'}
             onRefresh={() => getTransferRecordList(true)}
             colors={['red','green','blue']}
-            title="正在加载中..."
+            title={t("loading")}
           >
           </RefreshControl>
         }
@@ -209,7 +209,7 @@ function CoinDetailScreen({ route }: Props) {
                       <View style={styles.list} key={i}>
                         <View style={styles.listItem}>
                           <View style={styles.listNav}>
-                            <Text style={styles.listNavTitle}>{item?.from === user?.address ? '转出' : '转入'}</Text>
+                            <Text style={styles.listNavTitle}>{item?.from === user?.address ? t("transferout") : t("transferin")}</Text>
                             <View style={item?.state > 0 ? styles.listNavStatus_1 : item?.state < 0 ? styles.listNavStatus_def : styles.listNavStatus_0}>
                               <Text style={styles.statusText}>
                                 {item?.state > 0

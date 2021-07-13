@@ -38,7 +38,7 @@ const list2 = [
         if (params) {
             await dispatch(walletAction.setCurrency(params));
             setDefaultCurrency(params)
-            show('切换'+(params === 'USDT' ? 'USDT' : 'CNY')+'成功');
+            show(t("Change")+(params === 'USDT' ? 'USDT' : 'CNY')+t("successful"));
         }
     }
 

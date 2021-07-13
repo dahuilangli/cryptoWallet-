@@ -67,7 +67,7 @@ const OnlySuccessScreen = ({navigation, route }: Props) => {
       }
       await helper.post('/sys/address_report', params)
     } catch (err) {
-      Alert.alert(`${title}失败，请重新选择钱包后重试`);
+      Alert.alert(`${title}`+`${t("FailedPleasereselectyourwalletandtryagain")}`);
     }
   }
   return (

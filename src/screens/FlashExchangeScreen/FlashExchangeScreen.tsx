@@ -133,10 +133,10 @@ function FlashExchangeScreen({ }: Props) {
       if (outNumber >= base?.deposit_min && outNumber <= base?.deposit_max) {
         setModalVisible1(true)
       } else {
-        show('转出数量必须大于小于最小最大金额')
+        show(t("Limitnumberrollsout"))
       }
     } else {
-      show('余额不足，请确认账户是否余额充足')
+      show(t("Insufficientbalance"))
     }
   }
   let accountExchange: any;
@@ -192,7 +192,7 @@ function FlashExchangeScreen({ }: Props) {
                   "wallet": wallet
                 }
                 helper.post('/swft/deposit', params).then((res: any) => {
-                  show('存币成功')
+                  show(t("Storedsuccessfully"))
                 })
               })
             })
@@ -206,7 +206,7 @@ function FlashExchangeScreen({ }: Props) {
         setSecurityCode('')
       }
     } else {
-      show('请输入正确的安全密码')
+      show(t("Pleaseentercorrectsecuritypassword"))
       setSecurityCode('')
     }
   }
@@ -353,20 +353,20 @@ function FlashExchangeScreen({ }: Props) {
                               if (item?.coin_code !== inPut?.coin_code) {
                                 setOut(item);
                               } else {
-                                show(`不能进行同一币种兑换`)
+                                show(t("Noexchangesamecurrency"))
                               }
                             } else {
-                              show(`当前未添加${item.symbol}资产，请添加后再次进行闪兑操作`)
+                              show(`${t("Currentlynoadded")}+${item.symbol}+${t("Assetspleaseaddagain")}`)
                             }
                           } else {
                             if (thisUser?.contracts.indexOf(item?.contact === null ? "" : item?.contact) !== -1) {
                               if (item?.coin_code !== out?.coin_code) {
                                 setInPut(item);
                               } else {
-                                show(`不能进行同一币种兑换`)
+                                show(t("Noexchangesamecurrency"))
                               }
                             } else {
-                              show(`当前未添加${item.symbol}资产，请添加后再次进行闪兑操作`)
+                              show(`${t("Currentlynoadded")}+${item.symbol}+${t("Assetspleaseaddagain")}`)
                             }
                           }
                         }}

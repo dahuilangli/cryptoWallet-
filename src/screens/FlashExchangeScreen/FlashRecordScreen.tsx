@@ -135,7 +135,7 @@ function FlashRecordScreen({ route }: Props) {
         keyExtractor={(item, index) => item?.order_id + index}
         refreshControl={
           <RefreshControl
-            title="正在加载中..."
+            title={t("loading")}
             colors={['red', 'green', 'blue']}
             refreshing={loading === 'refresh'}
             onRefresh={() => getFlashRedemptionList(true)}

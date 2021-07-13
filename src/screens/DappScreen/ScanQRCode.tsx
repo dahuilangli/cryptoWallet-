@@ -11,10 +11,8 @@ import {
     Alert,
 } from 'react-native';
 import { navigate } from 'components/navigationService';
-import { once, title } from 'process';
 import { checkwalletAdress, checkwalletPrivateKey, verifyURL } from 'utils';
-import { stopClock } from 'react-native-reanimated';
-import { stopCoverage } from 'v8';
+import { useTranslation } from 'react-i18next';
 import { walletConnect } from 'helper/connect';
 let camera;
 interface Props {
@@ -27,6 +25,7 @@ interface Props {
 }
 
 const ScanQRCode = (props: Props) => {
+    const { t } = useTranslation();
     const {title} = props.route.params;
     const {assetsList} = props.route.params;
     const moveAnim = useRef(new Animated.Value(-2)).current;
@@ -45,15 +44,15 @@ const ScanQRCode = (props: Props) => {
 
                 {
 
-                    title: '申请摄像头权限',
+                    title: t("Requestcamerapermission"),
 
-                    message: '扫描二维码需要开启相机权限',
+                    message: t("scanQRcodecamerapermissions"),
 
-                    buttonNeutral: '等会再问我',
+                    buttonNeutral: t("wait"),
 
-                    buttonNegative: '不行',
+                    buttonNegative: t("no"),
 
-                    buttonPositive: '好吧',
+                    buttonPositive: t("yes"),
 
                 },
 
@@ -116,9 +115,7 @@ const ScanQRCode = (props: Props) => {
                 navigate('TransferScreen', { address: data ,assetsList});
             } else if (verifyURL(data) && title === 'PrivateKeyScreen') {
                 navigate('WebScreen', { title: 'Dapp', uri: data })
-            } else if (checkwalletPrivateKey(data) && title === 'DappScreen') {
-                Alert.alert('检验私钥');
-            } else {
+            }  else {
                const splitStr = data.split(':')[1];
                console.log(splitStr);
                
@@ -128,7 +125,7 @@ const ScanQRCode = (props: Props) => {
                }else{
                   
               setTimeout(() => {
-                    Alert.alert('地址不合规')
+                    Alert.alert(t("Addressviolation"))
                 }, 1);
                }
                clearTimeout
@@ -172,7 +169,7 @@ const ScanQRCode = (props: Props) => {
 
                 <View style={{ flex: 1, backgroundColor: 'rgba(0, 0, 0, 0.5)', width: 500, alignItems: 'center' }}>
                     <Text style={styles.rectangleText}>{
-                        title === 'HomeScreen'?'将地址二维码放入框内，即可自动扫描':title === 'PrivateKeyScreen'? '将私钥二维码放入框内，即可自动扫描': '将网址二维码放入框内，即可自动扫描'
+                        title === 'HomeScreen'?t("addressScanautomatically"):title === 'PrivateKeyScreen'? t("privatekeyScanautomatically"): t("websiteScanautomatically")
                     }</Text>
                 </View>
             </RNCamera>

@@ -60,7 +60,7 @@ export type MainStackParamList = {
   ScanQRCode: { title?: string, assetsList: Array<AssetsList> };
   LanguageSetScreen: undefined;
   CurrencySetScreen: undefined;
-  AddressBookScreen: { title: string; address?: string; setAddress: Function; type?: string };
+  AddressBookScreen: { title: string; address?: string; setAddress?: Function; type?: string };
   AddressBookEditorScreen: { title?: string; item: {} };
   AddressTypeScreen: { addType: string; setAddType: Function; typeLogo: string; setTypeLogo: Function };
   FeedListScreen: { title: string; showMyself?: boolean };
@@ -224,14 +224,14 @@ export default function MainStackNavigator() {
           title: route.params.title,
           headerRight: () => route.params.title === t("editpayee") && <TouchableOpacity
             onPress={() => {
-              Alert.alert("提示","确定要删除吗?",[
+              Alert.alert(t("tips"),t("youwanttodeleteit"),[
                 {
-                  text:"yes",
+                  text:t("yes"),
                   onPress: () => {
                     addAddressBook(route.params.item);
                  }
                 },{
-                  text:"no",
+                  text:t("no"),
                   
                 }
               ]);

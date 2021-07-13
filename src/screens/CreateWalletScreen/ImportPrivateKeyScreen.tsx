@@ -50,19 +50,22 @@ const ImportPrivateKeyScreen = (props: Props) => {
               buttonStyle={styles.nextButton}
               onPress={() => {
                 if(checkwalletPrivateKey(privateKey)){
-                  console.log('111');
-                  
                   try {
+                    
                     importByprivateKey(
                       privateKey.replace(/(^\s*)|(\s*$)/g, ''),
                     );
+                    console.log(111111);
+
                     navigate('SetWalletNameScreen', {
                       type,
                       loginType: 'privateKey',
                       desc: privateKey.replace(/(^\s*)|(\s*$)/g, ''),
                       coinInfo
                     });
+                    
                   } catch (error) {
+                    // console.log(111111111);
                     WToast.show({
                       data: t("Pleaseentercorrectprivatekey"),
                       duration: WToast.duration.LONG,

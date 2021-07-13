@@ -26,6 +26,7 @@ import * as helper from 'apis/helper'
 import { AssetsList } from 'actions/types';
 import { Mul, Div, Add, Sub, transaction } from 'wallets/ethsWallet'
 import { show } from 'utils';
+
 import { navigate } from 'components/navigationService';
 interface Props {
   route: {
@@ -52,10 +53,13 @@ function TransferScreen(props: Props) {
   const [gasIndex, setGasIndex] = useState(-1);
   const [selectCoinIndex, setSelectCoinIndex] = useState(0);
 
-
   const walletlist = useSelector(getAccountList);
   const user = useSelector(getUser);
+  
+  
   const thisUser = walletlist.get(user.type)?.find(x => x.address === user.address)
+  
+  
   const { t } = useTranslation();
   useEffect(() => {
     getAssetsList(selectCoinIndex);
@@ -148,7 +152,7 @@ function TransferScreen(props: Props) {
           })
         })
       } else {
-        show('请输入正确的安全密码')
+        show(t("Pleaseentercorrectsecuritypassword"))
       }
     }
     setSecurityCode('')
@@ -208,7 +212,9 @@ function TransferScreen(props: Props) {
                 keyboardType="numeric"
                 style={styles.addressInput}
                 value={transferAmount}
-                onChangeText={setTransferAmount}
+                onChangeText={(text)=>{
+                  assetsList[selectCoinIndex]?.balance>text?setTransferAmount(text):show("应小于可用余额")
+                }}
               />
             </View>
 
@@ -407,7 +413,7 @@ function TransferScreen(props: Props) {
                         buttonStyle={styles.cancelButtonStyle}
                         title={t("cancel")}
                         titleStyle={styles.cancelButtonTitle}
-                        onPress={() => verifySecurityPwd(false)}
+                        onPress={() => verifySecurityPwd(true)}
                       />
                     </View>
                   </View>

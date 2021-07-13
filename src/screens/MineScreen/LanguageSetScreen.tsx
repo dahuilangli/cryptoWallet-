@@ -42,7 +42,7 @@ const list1 = [
             await dispatch(walletAction.setLanguage(params));
              setDefaultLanguage(params)
             i18n.changeLanguage(params);
-            show('切换'+(params === 'en' ? 'English' : '中文(简体)')+'成功');
+            show(t("Change")+(params === 'en' ? 'English' : '中文(简体)')+t("successful"));
         }
     }
 

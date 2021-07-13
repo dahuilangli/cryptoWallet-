@@ -58,7 +58,7 @@ export function importByprivateKey(privateKey: any) {
   let account = {
     privateKey: privateKey,
     address: wallet.address,
-    mnemonic: ethers.utils.entropyToMnemonic(privateKey),
+    // mnemonic: ethers.utils.entropyToMnemonic(privateKey),
   };
   
   return account;

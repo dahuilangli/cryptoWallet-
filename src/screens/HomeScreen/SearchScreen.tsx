@@ -53,12 +53,14 @@ function SearchScreen({ route }: Props) {
   const [defaultCoinList, setdefaultCoinList] = useState({ title: t("Myassets"), data: assetsList })
   
   async function seachName(name: string) {
+    console.log(name);
+    
     if (name) {
       name = name.trim()
-      await helper.get('/wallet/coin', { keyword: name, wallet: thisUser?.coinInfo?.wallet }).then((res:any)=>{
+     helper.get('/wallet/coin', { keyword: name, wallet: thisUser?.coinInfo?.wallet }).then((res:any)=>{
         if (res.length > 0) {
           let sortArr1: string[] = thisUser?.contracts;
-          setCoinList({ title: '搜索结果', data: res.sort(function (a: responseItem, b: responseItem) {
+          setCoinList({ title: t("searchresult"), data: res.sort(function (a: responseItem, b: responseItem) {
             if (getIndex(sortArr1, a.token) == getIndex(res, b.token)) {
               return 0
             } else {
@@ -75,7 +77,7 @@ function SearchScreen({ route }: Props) {
     if (thisUser?.contracts?.length <= 200) {
       dispatch(walletAction.setContracts({ address: thisUser?.address, tokne: token, type: thisUser?.type }));
     } else {
-      show('币种数量暂不支持200+')
+      show(t("Thenumberofcurrenciesdoesnotsupport"))
     }
   }
 
