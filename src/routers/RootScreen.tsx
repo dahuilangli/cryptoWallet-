@@ -48,9 +48,7 @@ function RootScreen() {
     }
     
   }
-  // React.useEffect(() => {
-    
-  // }, []);
+ 
   return (
     <NavigationContainer ref={navigationRef}>
       {walletStatus ? <MainStackNavigator /> : <AuthStackNavigator /> }

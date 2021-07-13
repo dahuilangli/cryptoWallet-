@@ -25,7 +25,7 @@ function UselessTextInput(props: any) {
     />
   );
 }
-const ImportPrivateKeyScreen = (props: Props) => {
+const SecondImportPrivateKeyScreen = (props: Props) => {
   const { t } = useTranslation();
   const { type, coinInfo } = props.route.params;
   const [privateKey, setPrivateKey] = useState('');
@@ -49,18 +49,45 @@ const ImportPrivateKeyScreen = (props: Props) => {
             <Button
               buttonStyle={styles.nextButton}
               onPress={() => {
-                console.log('==========导入私钥============');
-                try {
-                  importByprivateKey(
-                    privateKey.replace(/(^\s*)|(\s*$)/g, ''),
-                  );
-                  navigate('SetWalletNameScreen', {
-                    type,
-                    loginType: 'privateKey',
-                    desc: privateKey.replace(/(^\s*)|(\s*$)/g, ''),
-                    coinInfo
-                  });
-                } catch (error) {
+                if(checkwalletPrivateKey(privateKey)){
+                  console.log('111');
+                  
+                  try {
+                    importByprivateKey(
+                      privateKey.replace(/(^\s*)|(\s*$)/g, ''),
+                    );
+                    navigate('SecondSetWalletNameScreen', {
+                      type,
+                      loginType: 'privateKey',
+                      desc: privateKey.replace(/(^\s*)|(\s*$)/g, ''),
+                      coinInfo
+                    });
+                  } catch (error) {
+                    WToast.show({
+                      data: t("Pleaseentercorrectprivatekey"),
+                      duration: WToast.duration.LONG,
+                      position: WToast.position.CENTER,
+                    });
+                  }
+                }else if(checkWalletMnemonic(privateKey)){
+                  try {
+                    importByMnemonic(
+                      privateKey.replace(/(^\s*)|(\s*$)/g, ''),
+                    );
+                    navigate('SecondSetWalletNameScreen', {
+                      type,
+                      loginType: 'mnemonic',
+                      desc: privateKey.replace(/(^\s*)|(\s*$)/g, ''),
+                      coinInfo
+                    });
+                  } catch (error) {
+                    WToast.show({
+                      data: t("Pleaseentercorrectmnemonic"),
+                      duration: WToast.duration.LONG,
+                      position: WToast.position.CENTER,
+                    });
+                  }
+                }else{
                   WToast.show({
                     data: t("Pleaseentercorrectmnemonicorprivatekey"),
                     duration: WToast.duration.LONG,
@@ -123,4 +150,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ImportPrivateKeyScreen;
+export default SecondImportPrivateKeyScreen;

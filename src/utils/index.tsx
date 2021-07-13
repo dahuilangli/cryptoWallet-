@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Clipboard from "@react-native-clipboard/clipboard";
-import { ActivityIndicator, Image } from "react-native";
-import { WToast, WSnackBar, WModal } from "react-native-smart-tip";
+import { Image } from "react-native";
+import { WToast } from "react-native-smart-tip";
+import { ethers } from 'ethers';
 
 export function show(text: string, duration = WToast.duration.SHORT) {
   const toastOpts = {
@@ -54,8 +55,7 @@ export function formatDate(timestamp: any) {
   var m = (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()) + ':';
   var s = (date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds());
 
-  let strDate = Y + M + D + h + m + s;
-  console.log(strDate) //2020-05-08 17:44:56　
+  let strDate = Y+M+D+h+m+s;
   return strDate;
 
 }
@@ -93,7 +93,12 @@ export function checkwalletAdress(walletAdress: string) {
 
 //判断钱包私钥 
 export function checkwalletPrivateKey(PrivateKey: string) {
-  var emailPattern = /^(0x)?[0-9a-fA-F]{64}$/;
+  var emailPattern = /^[0-9a-fA-F]{64}$/;
   return emailPattern.test(PrivateKey)
+}
+
+//判断钱包助记词
+export function checkWalletMnemonic(mnemonic:string){
+  return ethers.utils.isValidMnemonic(mnemonic)
 }
 

@@ -38,7 +38,16 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import walletAction from 'actions/wallet';
 import { AddressBookItem, AssetsList, thisUser } from 'actions/types';
-
+//导入创建钱包
+import SecondSelectWalletScreen from 'screens/ImportCreateScreen/SecondSelectWalletScreen';
+import SecondSetWalletNameScreen from 'screens/ImportCreateScreen/SecondSetWalletNameScreen';
+import SecondSetWalletPwdScreen from 'screens/ImportCreateScreen/SecondSetWalletPwdScreen';
+import SecondSafetyTipsScreen from 'screens/ImportCreateScreen/SecondSafetyTipsScreen';
+import SecondBackupMnemonicScreen from 'screens/ImportCreateScreen/SecondBackupMnemonicScreen';
+import SecondVerifyMnemonicScreen from 'screens/ImportCreateScreen/SecondVerifyMnemonicScreen';
+import SecondImportPrivateKeyScreen from 'screens/ImportCreateScreen/SecondImportPrivateKeyScreen';
+import SecondImportMnemonicScreen from 'screens/ImportCreateScreen/SecondImportMnemonicScreen';
+import OnlySuccessScreen from 'screens/ImportCreateScreen/OnlySuccessScreen';
 export type MainStackParamList = {
   TabNavigator: undefined;
   PostFeedScreen: undefined;
@@ -67,7 +76,15 @@ export type MainStackParamList = {
   ExportMnemonicScreen: { mnemonic: string };
   ExportPrivateKeyScreen: { privatekey: string };
   EditPwdScreen: { address: string, pwds: string, type: string, setPwds: Function };
-
+  OnlySuccessScreen: { title: string | undefined; accountInfo: object };
+  SecondSelectWalletScreen: {loginType: string;};
+  SecondSetWalletNameScreen: { type: string; loginType?: string; coinInfo: object, desc?: string };
+  SecondSetWalletPwdScreen: { loginType?: string, desc?: string, accountInfo: object };
+  SecondSafetyTipsScreen: { accountInfo: object };
+  SecondBackupMnemonicScreen: { accountInfo: object };
+  SecondVerifyMnemonicScreen: { accountInfo: object };
+  SecondImportPrivateKeyScreen: { type: string; coinInfo: object };
+  SecondImportMnemonicScreen: { type: string; loginType: string, coinInfo: object };
   DappWebScreen: { title?: string; uri: string; item: {} }
 };
 
@@ -322,6 +339,60 @@ export default function MainStackNavigator() {
             marginHorizontal: 80,
           },
         })}
+      />
+
+      <Screen
+        name="SecondSelectWalletScreen"
+        component={SecondSelectWalletScreen}
+        options={{ title: t('choosewallet') }}
+      />
+      <Screen
+        name="SecondSetWalletNameScreen"
+        component={SecondSetWalletNameScreen}
+        options={{ title: t("setwalletname") }}
+      />
+      <Screen
+        name="SecondSetWalletPwdScreen"
+        component={SecondSetWalletPwdScreen}
+        options={{ title: t("setsecurepassword") }}
+      />
+      <Screen
+        name="SecondSafetyTipsScreen"
+        component={SecondSafetyTipsScreen}
+        options={{ title: t("Safetytips") }}
+      />
+      <Screen
+        name="SecondBackupMnemonicScreen"
+        component={SecondBackupMnemonicScreen}
+        options={{ title: t("Backupmnemonic") }}
+      />
+      <Screen
+        name="SecondVerifyMnemonicScreen"
+        component={SecondVerifyMnemonicScreen}
+        options={{ title: t("Verificationmnemonic") }}
+      />
+      <Screen
+        name="SecondImportPrivateKeyScreen"
+        component={SecondImportPrivateKeyScreen}
+        options={{
+          title: t("import"),
+          // headerRight: () => (
+          //   <TouchableOpacity onPress={() => navigate('ScanQRCode')}>
+          //     <Image source={require('assets/icon_sacn_light.png')} />
+          //   </TouchableOpacity>
+          // ),
+          // headerRightContainerStyle: { marginEnd: 20 },
+        }}
+      />
+      <Screen
+        name="SecondImportMnemonicScreen"
+        component={SecondImportMnemonicScreen}
+        options={{ title: t("mnemonicimport") }}
+      />
+      <Screen
+        name="OnlySuccessScreen"
+        component={OnlySuccessScreen}
+        options={{ headerShown: false }}
       />
     </Navigator>
   );
