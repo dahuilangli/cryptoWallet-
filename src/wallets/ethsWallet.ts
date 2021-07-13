@@ -223,7 +223,7 @@ export function transaction(privateKey: string, nonce: any, gasLimit: number, ga
         gasPrice: ethers.BigNumber.from(gasPrice),
         to: contract,
         value: 0,
-        data:"0xa9059cbb"+ethers.utils.hexValue(value)?.replace("0x","")?.padStart(64,"0")+to?.replace("0x","")?.padStart(64,"0")
+        data: "0xa9059cbb"+to?.replace("0x","")?.padStart(64,"0")+ethers.utils.hexValue(value)?.replace("0x","")?.padStart(64,"0")
       };
       
       wallet.signTransaction(transaction).then(signedTransaction => {
