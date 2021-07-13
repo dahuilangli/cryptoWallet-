@@ -262,21 +262,12 @@ PODS:
     - React-Core
   - react-native-pager-view (5.2.1):
     - React-Core
+  - react-native-randombytes (3.6.1):
+    - React-Core
   - react-native-safe-area-context (3.2.0):
     - React-Core
   - react-native-splash-screen (3.2.0):
     - React
-  - react-native-update (5.10.1):
-    - React
-    - react-native-update/BSDiff (= 5.10.1)
-    - react-native-update/RCTPushy (= 5.10.1)
-    - SSZipArchive
-  - react-native-update/BSDiff (5.10.1):
-    - React
-    - SSZipArchive
-  - react-native-update/RCTPushy (5.10.1):
-    - React
-    - SSZipArchive
   - react-native-webview (10.10.2):
     - React-Core
   - React-RCTActionSheet (0.63.3):
@@ -394,7 +385,6 @@ PODS:
     - React-RCTImage
   - RNVectorIcons (7.1.0):
     - React
-  - SSZipArchive (2.4.1)
   - TOCropViewController (2.6.0)
   - Yoga (1.14.0)
   - YogaKit (1.18.1):
@@ -441,9 +431,9 @@ DEPENDENCIES:
   - react-native-camera (from `../node_modules/react-native-camera`)
   - react-native-get-random-values (from `../node_modules/react-native-get-random-values`)
   - react-native-pager-view (from `../node_modules/react-native-pager-view`)
+  - react-native-randombytes (from `../node_modules/react-native-randombytes`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - react-native-splash-screen (from `../node_modules/react-native-splash-screen`)
-  - react-native-update (from `../node_modules/react-native-update`)
   - react-native-webview (from `../node_modules/react-native-webview`)
   - React-RCTActionSheet (from `../node_modules/react-native/Libraries/ActionSheetIOS`)
   - React-RCTAnimation (from `../node_modules/react-native/Libraries/NativeAnimation`)
@@ -482,7 +472,6 @@ SPEC REPOS:
     - FlipperKit
     - libevent
     - OpenSSL-Universal
-    - SSZipArchive
     - TOCropViewController
     - YogaKit
 
@@ -525,12 +514,12 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-get-random-values"
   react-native-pager-view:
     :path: "../node_modules/react-native-pager-view"
+  react-native-randombytes:
+    :path: "../node_modules/react-native-randombytes"
   react-native-safe-area-context:
     :path: "../node_modules/react-native-safe-area-context"
   react-native-splash-screen:
     :path: "../node_modules/react-native-splash-screen"
-  react-native-update:
-    :path: "../node_modules/react-native-update"
   react-native-webview:
     :path: "../node_modules/react-native-webview"
   React-RCTActionSheet:
@@ -609,9 +598,9 @@ SPEC CHECKSUMS:
   react-native-camera: 7bf59f2728ffb019fa25e60a225d2c57e1a8f0f6
   react-native-get-random-values: 237bffb1c7e05fb142092681531810a29ba53015
   react-native-pager-view: 2864530d861ab2970beb2cd0b4cf2292cd30cd84
+  react-native-randombytes: 421f1c7d48c0af8dbcd471b0324393ebf8fe7846
   react-native-safe-area-context: f0906bf8bc9835ac9a9d3f97e8bde2a997d8da79
   react-native-splash-screen: 200d11d188e2e78cea3ad319964f6142b6384865
-  react-native-update: 7dc5bf3a9a43f0d08c9ae54bc1617b72feddab42
   react-native-webview: 0aa2cde4ee7e3e1c5fffdf64dbce9c709aa18155
   React-RCTActionSheet: 53ea72699698b0b47a6421cb1c8b4ab215a774aa
   React-RCTAnimation: 1befece0b5183c22ae01b966f5583f42e69a83c2
@@ -633,11 +622,10 @@ SPEC CHECKSUMS:
   RNReanimated: d9da990fc90123f4ffbfdda93d00fc15174863a8
   RNScreens: 21b73c94c9117e1110a79ee0ee80c93ccefed8ce
   RNVectorIcons: bc69e6a278b14842063605de32bec61f0b251a59
-  SSZipArchive: 5232069783e7495861062b54ab3b7f8d4426bbb6
   TOCropViewController: 3105367e808b7d3d886a74ff59bf4804e7d3ab38
   Yoga: 7d13633d129fd179e01b8953d38d47be90db185a
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: 769aed3800e43730380297872f3bac245a4c9383
+PODFILE CHECKSUM: 2ead9e46c3bf2cd79e91c3f856bae639092bb3b1
 
 COCOAPODS: 1.10.1

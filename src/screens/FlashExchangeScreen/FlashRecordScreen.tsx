@@ -2,8 +2,7 @@
  * 闪兑记录
 */
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, Text, SafeAreaView, FlatList, TouchableOpacity, Alert, Image, ActivityIndicator, RefreshControl } from 'react-native';
-import { navigate } from 'components/navigationService';
+import { StyleSheet, View, Text, SafeAreaView, FlatList, TouchableOpacity, Image, ActivityIndicator, RefreshControl } from 'react-native';
 import { ScreensParamList, Feed } from 'actions/types';
 import { RouteProp, useRoute, useIsFocused } from '@react-navigation/native';
 
@@ -22,26 +21,44 @@ interface Props {
 const limit = 10;
 
 const Item = ({ item, style }) => (
-
   <TouchableOpacity style={style}>
-    <Text style={styles.timeText}>{item?.begin_date}</Text>
-    <View style={styles.lineView}></View>
+    <View style={styles.headersTitle}>
+      <Text style={styles.timeText}>{item?.begin_date}</Text>
+      <View style={item?.trade_state === 'timeout' || item?.trade_state === 'wait_refund' || item?.trade_state === 'refund_complete' ?
+        { ...styles.titleStatus, backgroundColor: '#D4D8E1' } :
+        item?.trade_state === 'wait_deposits' || item?.trade_state === 'wait_fee' || item?.trade_state === 'exchange' ?
+          { ...styles.titleStatus, backgroundColor: '#FFC029' } : { ...styles.titleStatus, backgroundColor: '#FFC029' }}>
+        <Text style={styles.statusText}>
+          {(() => {
+            switch (item?.trade_state) {
+              case "wait_deposits" || "wait_fee" || "exchange":
+                return '等待中';
+                break;
+              case "complete":
+                return "完成";
+                break;
+              default:
+                return "失败"
+                break;
+            }
+          }
+          )()}
+        </Text>
+      </View>
+    </View>
     <View style={styles.outView}>
-      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-        <Image style={styles.outImage} source={require('assets/icon_coointype_bian.png')} />
-        <Text style={styles.outText}>{item?.from_coin_code}</Text>
+      <Image style={styles.dianImage} source={require('assets/from_to.png')} />
+      <View style={styles.outViewDesc}>
+        <View style={{ flexDirection: 'row', alignItems: 'flex-start', justifyContent: 'space-between' }}>
+          <Text style={styles.outText}>{item?.from_coin_code}</Text>
+          <Text style={item?.trade_state === 'timeout' || item?.trade_state === 'wait_refund' || item?.trade_state === 'refund_complete' ? { ...styles.outTextNumber, color: '#C4C8D2' } : { ...styles.outTextNumber, color: '#DD3D50' }}>- {item?.from_coin_amt}</Text>
+        </View>
+        <View style={{ flexDirection: 'row', alignItems: 'flex-end', justifyContent: 'space-between' }}>
+          <Text style={styles.outText}>{item?.to_coin_code}</Text>
+          <Text style={item?.trade_state === 'timeout' || item?.trade_state === 'wait_refund' || item?.trade_state === 'refund_complete' ? { ...styles.inTextNumber, color: '#C4C8D2' } : { ...styles.inTextNumber, color: '#3DDD94' }}>+ {item?.to_coin_amt}</Text>
+        </View>
       </View>
-      <Text style={styles.outNumber}>- {item?.from_coin_amt}</Text>
     </View>
-    <Image style={styles.dianImage} source={require('assets/icon_coointype_bian.png')} />
-    <View style={styles.inView}>
-      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-        <Image style={styles.outImage} source={require('assets/icon_coointype_bian.png')} />
-        <Text style={styles.outText}>{item?.to_coin_code}</Text>
-      </View>
-      <Text style={styles.inNumber}>+ {item?.to_coin_amt}</Text>
-    </View>
-
   </TouchableOpacity>
 );
 
@@ -73,14 +90,6 @@ function FlashRecordScreen({ route }: Props) {
     }
     isFetching.current = true;
     setLoading(isRefresh ? 'refresh' : 'more');
-    console.log('====================================');
-    console.log({
-      equipment_no: equipmentNo,
-      source_type,
-      page_no: isRefresh ? 1 : tradeList.length > 0 ? Math.ceil(tradeList.length / limit) : limit,
-      page_size: limit
-    });
-    console.log('====================================');
     const data: any = await helper.post('/swft/all_trade', {
       equipment_no: equipmentNo,
       source_type,
@@ -125,7 +134,7 @@ function FlashRecordScreen({ route }: Props) {
         refreshControl={
           <RefreshControl
             title="正在加载中..."
-            colors={['red','green','blue']}
+            colors={['red', 'green', 'blue']}
             refreshing={loading === 'refresh'}
             onRefresh={() => getFlashRedemptionList(true)}
           />
@@ -152,30 +161,51 @@ const styles = StyleSheet.create({
     backgroundColor: '#F2F5F8',
   },
   marginItem: {
-    marginLeft: 20,
-    marginRight: 20,
+    marginHorizontal: 20,
     marginTop: 15,
     backgroundColor: '#FFFFFF',
     borderRadius: 8,
   },
+  headersTitle: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingHorizontal: 15,
+    borderBottomColor: '#E9EDF1',
+    borderBottomWidth: 0.5,
+  },
   timeText: {
-    marginTop: 10,
-    marginBottom: 9.5,
+    marginVertical: 10,
     fontSize: 12,
     fontWeight: '400',
     color: '#9CA4B3',
-    marginHorizontal: 15,
   },
-  lineView: {
-    height: 0.5,
-    backgroundColor: '#E9EDF1',
-    marginBottom: 14,
+  titleStatus: {
+    borderRadius: 10,
+    marginVertical: 7,
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 48,
+  },
+  statusText: {
+    fontSize: 11,
+    color: '#FFFFFF',
+    fontWeight: '500',
   },
   outView: {
     marginHorizontal: 15,
     flexDirection: 'row',
     alignItems: 'center',
+    marginVertical: 18,
+  },
+  outViewDesc: {
+    flexDirection: 'column',
+    flex: 1,
+    height: 58,
     justifyContent: 'space-between',
+  },
+  dianImage: {
+    width: 15,
+    height: 50,
   },
   outImage: {
     width: 20,
@@ -185,31 +215,16 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '400',
     color: '#616D86',
-    marginLeft: 10,
+    marginLeft: 5,
   },
-  outNumber: {
+  outTextNumber: {
     fontSize: 20,
     fontWeight: '400',
-    color: '#DD3D50'
   },
-  dianImage: {
-    marginLeft: 24.5,
-    marginVertical: 1,
-    width: 1,
-    height: 14,
-  },
-  inView: {
-    marginHorizontal: 15,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    marginBottom: 15,
-  },
-  inNumber: {
+  inTextNumber: {
     fontSize: 20,
     fontWeight: '400',
-    color: '#3DDD94',
-  }
+  },
 });
 
 export default FlashRecordScreen;
