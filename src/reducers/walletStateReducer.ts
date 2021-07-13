@@ -2,6 +2,7 @@ import produce from 'immer';
 import { thisUser,  WalletAction, Account, ReduxState } from 'actions/types';
 import { createSelector } from 'reselect';
 import { Map } from 'immutable';
+import { CHAINS } from 'config/constants';
 
 export interface walletState {
   user: thisUser,
@@ -38,21 +39,21 @@ const reducer = (origin = initialState, walletAction: WalletAction) =>{
     switch (walletAction.type) {
       case 'createAccount':
         try {
-          if(walletAction.payload.type == "ETH"){
+          if(walletAction.payload.type == CHAINS.eth){
             const finded = state.ethaccountList.findIndex((value,index,arr)=>{
               return value.address == walletAction.payload.address
             })
             if(finded == -1 || finded == undefined){
               state.ethaccountList.push(walletAction.payload);
             }
-          }else if(walletAction.payload.type == "BSC"){
+          }else if(walletAction.payload.type == CHAINS.bnb){
             const finded = state.bscaccountList.findIndex((value,index,arr)=>{
             return value.address == walletAction.payload.address
             })
             if(finded == -1 || finded == undefined){
               state.bscaccountList.push(walletAction.payload);
             }
-          }else if(walletAction.payload.type == "HECO"){
+          }else if(walletAction.payload.type == CHAINS.ht){
             const finded = state.htaccountList.findIndex((value,index,arr)=>{
               return value.address == walletAction.payload.address
               })
@@ -69,22 +70,22 @@ const reducer = (origin = initialState, walletAction: WalletAction) =>{
         return;
       case 'setContracts':
         let payload = walletAction.payload;
-        if(walletAction.payload.type == "ETH"){
+        if(walletAction.payload.type == CHAINS.eth){
           state.ethaccountList.find(x => x.address === payload.address)?.contracts.push(payload.tokne)
-        }else if(walletAction.payload.type == "BSC"){
+        }else if(walletAction.payload.type == CHAINS.bnb){
           state.bscaccountList.find(x => x.address === payload.address)?.contracts.push(payload.tokne)
-        }else if(walletAction.payload.type == "HECO"){
+        }else if(walletAction.payload.type == CHAINS.ht){
           state.htaccountList.find(x => x.address === payload.address)?.contracts.push(payload.tokne)
         }
         return;
       case 'setWalletName':
         let payload1 = walletAction.payload;
         let WALLETName: any = [];
-        if(walletAction.payload.type == "ETH"){
+        if(walletAction.payload.type == CHAINS.eth){
           WALLETName = state.ethaccountList.find(x => x.address === payload1.address)
-        }else if(walletAction.payload.type == "BSC"){
+        }else if(walletAction.payload.type == CHAINS.bnb){
           WALLETName = state.bscaccountList.find(x => x.address === payload1.address)
-        }else if(walletAction.payload.type == "HECO"){
+        }else if(walletAction.payload.type == CHAINS.ht){
           WALLETName = state.htaccountList.find(x => x.address === payload1.address)
         }
         var walletnameObject = Object(WALLETName)
@@ -95,11 +96,11 @@ const reducer = (origin = initialState, walletAction: WalletAction) =>{
         console.log(walletAction.payload);
         let payload2 = walletAction.payload;
         let WALLETName1: any = [];
-        if(walletAction.payload.type == "ETH"){
+        if(walletAction.payload.type == CHAINS.eth){
           WALLETName = state.ethaccountList.find(x => x.address === payload2.address)
-        }else if(walletAction.payload.type == "BSC"){
+        }else if(walletAction.payload.type == CHAINS.bnb){
           WALLETName = state.bscaccountList.find(x => x.address === payload2.address)
-        }else if(walletAction.payload.type == "HECO"){
+        }else if(walletAction.payload.type == CHAINS.ht){
           WALLETName = state.htaccountList.find(x => x.address === payload2.address)
         }
         var walletnameObject = Object(WALLETName1)
