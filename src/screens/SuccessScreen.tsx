@@ -13,7 +13,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import walletAction from 'actions/wallet';
 import { Account } from 'actions/types';
 import { useTranslation } from 'react-i18next';
-import { getAccountList } from 'reducers/walletStateReducer';
+import { getAccountList,getUser} from 'reducers/walletStateReducer';
 import * as helper from 'apis/helper'
 import {CHAINS} from "config/constants"
 

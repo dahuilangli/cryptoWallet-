@@ -74,7 +74,11 @@ const reducer = (origin = initialState, walletAction: WalletAction) =>{
           state.ethaccountList.find(x => x.address === payload.address)?.contracts.push(payload.tokne)
         }else if(walletAction.payload.type == CHAINS.bnb){
           state.bscaccountList.find(x => x.address === payload.address)?.contracts.push(payload.tokne)
+<<<<<<< HEAD
         }else if(walletAction.payload.type == CHAINS.ht){
+=======
+        }else if(walletAction.payload.type == "HECO"){
+>>>>>>> 47b67cc22861feac19261daaa0e8550307883835
           state.htaccountList.find(x => x.address === payload.address)?.contracts.push(payload.tokne)
         }
         return;
