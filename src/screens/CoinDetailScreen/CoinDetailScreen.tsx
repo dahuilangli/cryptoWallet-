@@ -85,6 +85,7 @@ function CoinDetailScreen({ route }: Props) {
       {
         id: isRefresh ? null : transferlistData[transferlistData.length - 1]?.id,
         address: user?.address,
+        contract: assetsList?.token,
         symbol: assetsList?.symbol,
         wallet: assetsList?.wallet
       }
@@ -148,7 +149,7 @@ function CoinDetailScreen({ route }: Props) {
             refreshing={loading === 'refresh'}
             onRefresh={() => getTransferRecordList(true)}
             colors={['red','green','blue']}
-            title="正在加载中..."
+            title={t("loading")}
           >
           </RefreshControl>
         }

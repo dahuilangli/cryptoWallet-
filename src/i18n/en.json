@@ -156,5 +156,6 @@
   "newpassword":"New password",
   "newpasswordcannotsameoldpassword":"New password cannot same old password",
   "newpasswordisnotsameconfirmationpassword":"new password is not same confirmation password",
-  "Oldpassworderror":"Old password error"
+  "Oldpassworderror":"Old password error",
+  "loading": "Loading..."
 }

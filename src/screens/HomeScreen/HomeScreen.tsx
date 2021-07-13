@@ -64,10 +64,6 @@ defatltCoin.set('HT', {
 function HomeScreen({ }: Props) {
   const dispatch = useDispatch()
   const walletlist = useSelector(getAccountList);
-  console.log('==================');
-  console.log(walletlist.get("ETH"));
-  
-  
   const user = useSelector(getUser);
   const thisUser = walletlist.get(user.type)?.find(x => x.address === user.address)
   const showMoney = useSelector(getShowMoney);
@@ -78,16 +74,15 @@ function HomeScreen({ }: Props) {
   const [assetsList, setAssetsList] = useState([])
   const [assetsSum, setAssetsSum] = useState('-')
   const [refreshing, setRefreshing] = useState(false)
+  const { t } = useTranslation();
+
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
     getAssetsList()
   }, []);
-  const { t } = useTranslation();
   useEffect(() => {
     getAssetsList()
-  }, [user])
-
-  
+  }, [user, walletlist])
   function switchWallet(item: Account) {
     setSelectAddress(item.address)
     dispatch(walletAction.createUser({ address: item.address, type: item.type }));
@@ -99,6 +94,9 @@ function HomeScreen({ }: Props) {
       "contracts": thisUser?.contracts,
       "wallet": thisUser?.coinInfo?.wallet
     }
+    console.log('====================================');
+    console.log(params);
+    console.log('====================================');
     helper.post('/wallet/assets', params).then((res: any) => {
       setAssetsList(res)
       let a = 0;
@@ -225,7 +223,7 @@ function HomeScreen({ }: Props) {
                 refreshing={refreshing}
                 onRefresh={onRefresh}
                 colors={['red','green','blue']}
-                title="正在加载中..."
+                title={t("loading")}
               />
             }>
             {assetsList.map((item: AssetsList, i) => (

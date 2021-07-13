@@ -31,7 +31,7 @@ interface Props {
   route: {
     params: {
       assetsList: Array<AssetsList>,
-      address?:string,
+      address?: string,
     }
   }
 }
@@ -119,44 +119,47 @@ function TransferScreen(props: Props) {
   // 校验安全密码
   async function verifySecurityPwd(arg0: boolean) {
     if (arg0) {
-      if (securityCode === thisUser?.securityCode) {
-        let address = user?.address;
-        let wallet = thisUser?.coinInfo?.wallet;
-        let gas_price = Mul(gasList[gasIndex].gasPrice, Math.pow(10, thisUser?.coinInfo?.gas_decimal)).toString();
-        let amount = transferAmount;
-        let amountSign = Mul(amount, assetsList[selectCoinIndex].gas_limit);
-        let to = receivingAddress;
-        let symbol = assetsList[selectCoinIndex].symbol;
-        let gas_limit: any = assetsList[selectCoinIndex].gas_limit;
-        helper.get('/wallet/transfer_nonce', { address, wallet }).then((res : any) => {
-          let nonce = res.nonce;
-          transaction(thisUser.privateKey, nonce, gas_limit, gas_price, to, amountSign ).then(sign => {
-            console.log(sign);
-            console.log('签名');
-            let params = {
-              "amount": amount,
-              "from": address,
-              "gas": gasList[gasIndex].balance,
-              "nonce": Number(nonce),
-              "signature": sign,
-              "symbol": symbol,
-              "to": to,
-              "wallet": wallet
-            }
-            show('提交成功')
-            helper.post('/wallet/transfer', params)
+      if (gasList[gasIndex]?.balance <= assetsList[selectCoinIndex]?.balance) {
+        if (securityCode === thisUser?.securityCode) {
+          let address = user?.address;
+          let wallet = thisUser?.coinInfo?.wallet;
+          let gas_price = Mul(gasList[gasIndex].gasPrice, Math.pow(10, thisUser?.coinInfo?.gas_decimal)).toString();
+          let amount = transferAmount;
+          // let amountSign = Mul(amount, assetsList[selectCoinIndex].gas_limit);
+          let to = receivingAddress;
+          let symbol = assetsList[selectCoinIndex].symbol;
+          let gas_limit: any = assetsList[selectCoinIndex].gas_limit;
+          helper.get('/wallet/transfer_nonce', { address, wallet }).then((res: any) => {
+            let nonce = res.nonce;
+            transaction(thisUser.privateKey, nonce, gas_limit, gas_price, to, amount).then(sign => {
+              console.log(sign);
+              console.log('签名');
+              let params = {
+                "amount": amount,
+                "from": address,
+                "gas": gasList[gasIndex].balance,
+                "nonce": Number(nonce),
+                "signature": sign,
+                "symbol": symbol,
+                "to": to,
+                "wallet": wallet
+              }
+              show('提交成功')
+              helper.post('/wallet/transfer', params)
+            })
           })
-        })
+        } else {
+          show('请输入正确的安全密码')
+        }
       } else {
-        show('请输入正确的安全密码')
+        show('gas不足')
       }
     }
     setSecurityCode('')
     setTransferConfirm(!transferConfirm)
   }
 
-
-  let verification = receivingAddress && receivingAddress.startsWith('0x') && transferAmount && gasIndex!== -1;
+  let verification = receivingAddress && receivingAddress.startsWith('0x') && transferAmount && gasIndex !== -1;
   return (
     <SafeAreaView style={styles.container}>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -191,13 +194,13 @@ function TransferScreen(props: Props) {
                 value={receivingAddress}
                 onChangeText={setReceivingAddress}
               />
-              <TouchableOpacity onPress = {()=>{
-                navigate('AddressBookScreen', { title: '收款人', type:'tansfer',setAddress:setReceivingAddress})
+              <TouchableOpacity onPress={() => {
+                navigate('AddressBookScreen', { title: '收款人', type: 'tansfer', setAddress: setReceivingAddress })
               }}>
-              <Image
-                style={styles.inputRightIcon}
-                source={require('assets/icon_address_book.png')}
-              />
+                <Image
+                  style={styles.inputRightIcon}
+                  source={require('assets/icon_address_book.png')}
+                />
               </TouchableOpacity>
             </View>
 
@@ -619,7 +622,7 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 8,
     width: SCREENWIDTH,
     maxHeight: SCREENHEIGHT / 2,
-    minHeight: SCREENHEIGHT/ 3,
+    minHeight: SCREENHEIGHT / 3,
   },
   headView: {
     flexDirection: 'row',

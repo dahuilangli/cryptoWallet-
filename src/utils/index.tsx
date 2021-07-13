@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Clipboard from "@react-native-clipboard/clipboard";
-import { Image } from "react-native";
-import { WToast } from "react-native-smart-tip";
-import QRCode from 'qrcode-generator';
+import { ActivityIndicator, Image } from "react-native";
+import { WToast, WSnackBar, WModal } from "react-native-smart-tip";
 
 export function show(text: string, duration = WToast.duration.SHORT) {
   const toastOpts = {
@@ -16,7 +15,7 @@ export function show(text: string, duration = WToast.duration.SHORT) {
   WToast.show(toastOpts);
 };
 
-export function showWithImage(text: string, imageSource: any)  {  
+export function showWithImage(text: string, imageSource: any) {
   const toastOpts = {
     data: text,
     textColor: '#ffffff',
@@ -29,7 +28,22 @@ export function showWithImage(text: string, imageSource: any)  {
   WToast.show(toastOpts);
 };
 
-export function subSplit(text: string|undefined, start: number, end: number) {
+export function showTop() {
+  const modalOpts = {
+    data: 'Loading',
+    textColor: '#fff',
+    backgroundColor: '#444444',
+    position: WModal.position.CENTER,
+    icon: <ActivityIndicator color='#fff' size={'small'} />,
+    onRequestClose: () => setTimeout(() => {
+      WModal.hide()
+    }, 1000)
+  }
+
+  WModal.show(modalOpts)
+}
+
+export function subSplit(text: string | undefined, start: number, end: number) {
   if (text && text !== " ") {
     return text.substr(0, start) + '...' + text.substr(text.length - end, text.length);
   }
@@ -40,23 +54,23 @@ export function checkEmail(emailText: string) {
   var emailPattern = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/;
   if (emailPattern.test(emailText) == false) {
     return false
-  }else{
+  } else {
     return true
   }
 }
 
 export function formatDate(timestamp: any) {
   var date = new Date(timestamp);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
-            var Y = date.getFullYear() + '-';
-            var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
-            var D = (date.getDate() < 10 ? '0'+date.getDate() : date.getDate()) + ' ';
-            var h = (date.getHours() < 10 ? '0'+date.getHours() : date.getHours()) + ':';
-            var m = (date.getMinutes() < 10 ? '0'+date.getMinutes() : date.getMinutes()) + ':';
-            var s = (date.getSeconds() < 10 ? '0'+date.getSeconds() : date.getSeconds());
+  var Y = date.getFullYear() + '-';
+  var M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
+  var D = (date.getDate() < 10 ? '0' + date.getDate() : date.getDate()) + ' ';
+  var h = (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ':';
+  var m = (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()) + ':';
+  var s = (date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds());
 
-            let strDate = Y+M+D+h+m+s;
-            console.log(strDate) //2020-05-08 17:44:56　
-            return strDate;
+  let strDate = Y + M + D + h + m + s;
+  console.log(strDate) //2020-05-08 17:44:56　
+  return strDate;
 
 }
 //替换字符串‘*’

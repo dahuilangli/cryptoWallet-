@@ -26,7 +26,7 @@ import * as helper from 'apis/helper'
 import { post } from 'apis/request'
 import { useDispatch, useSelector } from 'react-redux';
 import { getAccountList, getUser } from 'reducers/walletStateReducer';
-import { show } from 'utils';
+import { show, showTop } from 'utils';
 import { AssetsList } from 'actions/types';
 import { Div, Mul, transaction } from 'wallets/ethsWallet';
 import { mobileType } from 'apis/common';
@@ -109,9 +109,6 @@ function FlashExchangeScreen({ }: Props) {
       "wallet": thisUser?.coinInfo?.wallet
     }
     helper.post('/wallet/assets', params).then((res: any) => {
-      console.log('====================================');
-      console.log(res);
-      console.log('====================================');
       setAssetsList(res)
     })
   }
@@ -129,20 +126,21 @@ function FlashExchangeScreen({ }: Props) {
   }
 
   function exchange() {
-    if (outNumber <= balance?.balance) {
-      if (outNumber >= base?.deposit_min && outNumber <= base?.deposit_max) {
-        setModalVisible1(true)
-      } else {
-        show('转出数量必须大于小于最小最大金额')
-      }
-    } else {
-      show('余额不足，请确认账户是否余额充足')
-    }
+    // if (outNumber <= balance?.balance) {
+    //   if (outNumber >= base?.deposit_min && outNumber <= base?.deposit_max) {
+    //     setModalVisible1(true)
+    //   } else {
+    //     show('转出数量必须大于小于最小最大金额')
+    //   }
+    // } else {
+    //   show('余额不足，请确认账户是否余额充足')
+    // }
+    showTop()
   }
   let accountExchange: any;
   async function exchangeSub() {
-    setIsSigninInProgress(true);
     if (securityCode === thisUser?.securityCode) {
+      setIsSigninInProgress(true);
       try {
         let sourceType = mobileType.toUpperCase();
         let equipmentNo = `Morleystone-${thisUser?.coinInfo?.wallet}-${thisUser.address}`;
@@ -172,12 +170,15 @@ function FlashExchangeScreen({ }: Props) {
             let gas_price = Mul(gas.gasPrice, Math.pow(10, thisUser?.coinInfo?.gas_decimal)).toString();
             let gas_limit: any = balance?.gas_limit;
             let amount = accountExchange?.depositCoinAmt;
-            let amountSign = Mul(amount, balance?.gas_limit);
+            // let amountSign = Mul(amount, balance?.gas_limit);
             let to = accountExchange?.platformAddr;
             let symbol = balance?.symbol;
             helper.get('/wallet/transfer_nonce', { address, wallet }).then((res: any) => {
               let nonce = res.nonce;
-              transaction(thisUser.privateKey, nonce, gas_limit, gas_price, to, amountSign).then(sign => {
+              transaction(thisUser.privateKey, nonce, gas_limit, gas_price, to, amount).then(sign => {
+                console.log('============签名成功=============');
+                console.log(sign);
+                console.log('====================================');
                 let params = {
                   "amount": amount,
                   "equipment_no": equipmentNo,
@@ -191,8 +192,15 @@ function FlashExchangeScreen({ }: Props) {
                   "to": to,
                   "wallet": wallet
                 }
+                console.log('=========存币请求================');
+                console.log(params);
+                console.log('====================================');
                 helper.post('/swft/deposit', params).then((res: any) => {
                   show('存币成功')
+                }).catch(e => {
+                  console.log('=========存币失败=========');
+                  console.log(e);
+                  console.log('====================================');
                 })
               })
             })
@@ -200,14 +208,17 @@ function FlashExchangeScreen({ }: Props) {
         } else {
           Alert.alert('创建订单后失败，请检查网络和输入后重试');
         }
+      } catch (error) {
+        console.log('====================================');
+        console.log(error);
+        console.log('====================================');
       } finally {
         setIsSigninInProgress(false);
         setModalVisible1(false)
         setSecurityCode('')
-      }
+      } 
     } else {
-      show('请输入正确的安全密码')
-      setSecurityCode('')
+      showTop()
     }
   }
   return (

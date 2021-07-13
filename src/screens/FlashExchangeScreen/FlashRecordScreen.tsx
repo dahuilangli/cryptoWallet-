@@ -126,27 +126,33 @@ function FlashRecordScreen({ route }: Props) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <FlatList
-        data={tradeList}
-        style={styles.item}
-        renderItem={renderItem}
-        keyExtractor={(item, index) => item?.order_id + index}
-        refreshControl={
-          <RefreshControl
-            title="正在加载中..."
-            colors={['red', 'green', 'blue']}
-            refreshing={loading === 'refresh'}
-            onRefresh={() => getFlashRedemptionList(true)}
-          />
-        }
-        onEndReachedThreshold={0.1}
-        onEndReached={() => getFlashRedemptionList()}
-        ListFooterComponent={() =>
-          loading === 'more' ? <ActivityIndicator /> : null
-        }
-      >
-
-      </FlatList>
+      {tradeList.length > 0 ? (
+        <FlatList
+          data={tradeList}
+          style={styles.item}
+          renderItem={renderItem}
+          keyExtractor={(item, index) => item?.order_id + index}
+          refreshControl={
+            <RefreshControl
+              title={t("loading")}
+              colors={['red', 'green', 'blue']}
+              refreshing={loading === 'refresh'}
+              onRefresh={() => getFlashRedemptionList(true)}
+            />
+          }
+          onEndReachedThreshold={0.1}
+          onEndReached={() => getFlashRedemptionList()}
+          ListFooterComponent={() =>
+            loading === 'more' ? <ActivityIndicator /> : null
+          }
+        />
+      )
+        : (
+          <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+            <Image style={{ height: 140, width: 240 }} source={require('assets/icon_norecord.png')}></Image>
+            <Text style={styles.notdata}>{t("noRecords")}</Text>
+          </View>
+        )}
 
     </SafeAreaView>
   );
@@ -224,6 +230,11 @@ const styles = StyleSheet.create({
   inTextNumber: {
     fontSize: 20,
     fontWeight: '400',
+  },
+  notdata: {
+    fontSize: 16,
+    color: '#CCCFD9',
+    fontWeight: '500',
   },
 });
 
