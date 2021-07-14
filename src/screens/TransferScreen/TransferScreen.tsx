@@ -242,8 +242,14 @@ function TransferScreen(props: Props) {
                 keyboardType="numeric"
                 style={styles.addressInput}
                 value={transferAmount}
-                onChangeText={(text)=>{
-                  assetsList[selectCoinIndex]?.balance>text?setTransferAmount(text):show("应小于可用余额")
+                onChangeText={(text: any)=> {
+                  let balance = Number(assetsList[selectCoinIndex]?.balance);
+                  let textVal = Number(text);
+                  if (textVal <= balance) {
+                    setTransferAmount(text)
+                  } else {
+                    show("应小于可用余额")
+                  }
                 }}
               />
             </View>

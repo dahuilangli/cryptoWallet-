@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { Avatar } from 'react-native-elements';
 import {
-  ScrollView,
   SafeAreaView,
   StyleSheet,
   View,
@@ -9,8 +9,10 @@ import {
   Platform,
   Image,
   TextInput,
+  RefreshControl,
+  FlatList,
+  ActivityIndicator,
 } from 'react-native';
-import { Avatar } from 'react-native-elements';
 import { goBack, navigate } from 'components/navigationService';
 import LinearGradient from 'react-native-linear-gradient';
 import { useTranslation } from 'react-i18next';
@@ -19,6 +21,7 @@ import { useDispatch } from 'react-redux';
 import walletAction from 'actions/wallet';
 import { DappRecentItem } from 'actions/types'
 import { parseURL, verifyURL } from 'utils';
+import { useIsFocused } from '@react-navigation/native';
 interface Props { }
 
 function SearchScreen({ }: Props) {
@@ -27,20 +30,49 @@ function SearchScreen({ }: Props) {
   const [dappName, setDappName] = useState('');
   const [seachDataList, setSeachDataList] = useState([]);
 
-  async function seachName(name: string) {
-    if (name) {
-      let params = {
-        keyword: name
-      }
-      helper.get('/dapp/search', params).then((res: any) => {
-        if (res?.data && res?.data.length) {
-          setSeachDataList(res.data)
-        } else {
-          setSeachDataList([])
-        }
-      })
+  const [loading, setLoading] = useState<'refresh' | 'more' | null>(null);
+  const isEndReached = React.useRef(false);
+  const isFetching = React.useRef(false);
+  const isFocused = useIsFocused();
+  
+  useEffect(() => {
+    if (isFocused) {
+      seachName(true);
     }
-    return
+  }, [isFocused]);
+  async function seachName(isRefresh?: boolean) {
+    let name = dappName;
+    name = name.trim()
+    if (!name) {
+      return;
+    }
+    if (isFetching.current) {
+      return;
+    }
+    if (!isRefresh && isEndReached.current) {
+      return;
+    }
+    isFetching.current = true;
+    setLoading(isRefresh ? 'refresh' : 'more');
+    const data: any = await helper.get('/dapp/search', {
+      keyword: name
+    })
+    setLoading(null);
+    if (data.length > 0) {
+      if (isRefresh) {
+        setSeachDataList(data)
+      } else {
+        setSeachDataList(seachDataList.concat(data));
+      }
+      if (data.length < 30) {
+        isEndReached.current = true;
+      } else {
+        isEndReached.current = false;
+      }
+    } else {
+      setSeachDataList([])
+    }
+    isFetching.current = false;
   }
 
   async function goWebView(item: DappRecentItem) {
@@ -65,9 +97,30 @@ function SearchScreen({ }: Props) {
       }
       await goWebView(item)
     } else {
-      await seachName(name)
+      await seachName(true)
     }
   }
+  const Item = ({ item }) => {
+    return (
+      <TouchableOpacity style={styles.assetsList} onPress={() => goWebView(item)}>
+        <View style={styles.assetsListItem}>
+          <Avatar
+            rounded
+            title={item?.name[0]}
+            // source={item?.logo ? { uri: item?.logo} : undefined}
+            containerStyle={styles.itemAvatar}
+          />
+          <View style={styles.itemDesc}>
+            <Text style={styles.descTitle}>{item.name}</Text>
+            <Text style={styles.descInfo}>{item.deep_link}</Text>
+          </View>
+        </View>
+      </TouchableOpacity>
+    )
+  }
+  const renderItem = ({ item }) => (
+    <Item item={item} />
+  );
   return (
     <LinearGradient colors={['#3060C2', '#3B6ED5']} style={styles.container}>
       <View style={styles.main}>
@@ -77,7 +130,7 @@ function SearchScreen({ }: Props) {
               style={styles.coinNameIcon}
               source={require('assets/icon_search.png')}
             />
-            <View style = {styles.coinNameView}>
+            <View style={styles.coinNameView}>
               <TextInput
                 placeholder={t("EnterDappname")}
                 value={dappName}
@@ -99,24 +152,26 @@ function SearchScreen({ }: Props) {
               <View style={styles.assetsHeard}>
                 <Text style={styles.assetsHeardTitle}>{t("searchresult")}</Text>
               </View>
-              <ScrollView>
-                {seachDataList.map((item: DappRecentItem, i) => (
-                  <TouchableOpacity style={styles.assetsList} key={item.name + i} onPress={() => goWebView(item)}>
-                    <View style={styles.assetsListItem}>
-                      <Avatar
-                        rounded
-                        title={item.name[0]}
-                        source={{ uri: item.logo }}
-                        containerStyle={styles.itemAvatar}
-                      />
-                      <View style={styles.itemDesc}>
-                        <Text style={styles.descTitle}>{item.name}</Text>
-                        <Text style={styles.descInfo}>{item.deep_link}</Text>
-                      </View>
-                    </View>
-                  </TouchableOpacity>
-                ))}
-              </ScrollView>
+              <FlatList
+                style={{ margin: 0, padding: 0 }}
+                data={seachDataList}
+                renderItem={renderItem}
+                keyExtractor={(item, i) => item?.deep_link + i}
+                initialNumToRender={10}
+                refreshControl={
+                  <RefreshControl
+                    title={t("loading")}
+                    colors={['red', 'green', 'blue']}
+                    refreshing={loading === 'refresh'}
+                    onRefresh={() => seachName(true)}
+                  />
+                }
+                onEndReachedThreshold={0.1}
+                onEndReached={() => seachName()}
+                ListFooterComponent={() =>
+                  loading === 'more' ? <ActivityIndicator /> : null
+                }
+              />
             </View>
 
           ) : (<View style={styles.nodataContainer}><Image source={require('assets/seach_nodata.png')} /><Text style={styles.nodata}>{t('nodata')}</Text></View>)}
@@ -152,14 +207,14 @@ const styles = StyleSheet.create({
     height: 20,
     marginHorizontal: 5,
   },
-  coinNameView:{
+  coinNameView: {
     height: 34,
-    marginRight:5,
+    marginRight: 5,
   },
   coinNameText: {
-    fontSize:13,
+    fontSize: 13,
     fontWeight: '500',
-    flex:1,
+    flex: 1,
   },
   goBlack: {
     paddingStart: 15,
