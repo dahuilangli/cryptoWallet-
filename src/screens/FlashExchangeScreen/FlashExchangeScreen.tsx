@@ -139,6 +139,8 @@ function FlashExchangeScreen({ }: Props) {
   }
   let accountExchange: any;
   async function exchangeSub() {
+    console.log(balance);
+    
     if (securityCode === thisUser?.securityCode) {
       setIsSigninInProgress(true);
       try {
@@ -164,7 +166,7 @@ function FlashExchangeScreen({ }: Props) {
             let gas = {
               title: '快速',
               gasPrice: res.fastest,
-              balance: Div(Mul(res.fastest, thisUser?.coinInfo.gas_limit), Math.pow(10, Number(thisUser?.coinInfo?.gas_decimal))).toString(),
+              // balance: Div(Mul(res.fastest, assetsList), Math.pow(10, Number(thisUser?.coinInfo?.gas_decimal))).toString(),
               amount: Mul(Div(Mul(res.fastest, thisUser?.coinInfo.gas_limit), Math.pow(10, Number(thisUser?.coinInfo?.gas_decimal))), res.rate_currency).toString(),
             }
             let gas_price = Mul(gas.gasPrice, Math.pow(10, thisUser?.coinInfo?.gas_decimal)).toString();
@@ -289,6 +291,8 @@ function FlashExchangeScreen({ }: Props) {
                 onPress={() => {
                   setInPut(out);
                   setOut(inPut);
+                  setInNumber(outNumber);
+                  setOutNumber(inNumber);
                 }}>
                 <Image style={{ width: 40, height: 40 }} source={require('assets/icon_flash_change.png')} />
               </TouchableOpacity>
