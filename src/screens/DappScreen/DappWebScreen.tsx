@@ -38,24 +38,24 @@ if (headEl && bodyEl) {
 
 export default function DappWebScreen({ navigation, route }: Props) {
     const { t } = useTranslation();
-
-    const screenitem = route.params.item;
-
     const [modalVisible, setModalVisible] = useState(true);
     const [showHtml, setShowHtml] = useState(true)
     const uri = showHtml ? '' : route.params.uri.replace('http:', 'https:');
     return (
-        <WebView
-            stopLoading
-            style={styles.container}
-            source={{ uri }}
-            startInLoadingState={true}
-            injectedJavaScript={scriptToRemoveHeader}
-            onMessage={event => {
-                navigation.setParams({ title: event.nativeEvent.data });
-            }}
-        >
+        <View>
+            <WebView
+                stopLoading
+                style={styles.container}
+                source={{ uri }}
+                startInLoadingState={true}
+                injectedJavaScript={scriptToRemoveHeader}
+                onMessage={event => {
+                    navigation.setParams({ title: event.nativeEvent.data });
+                }}
+            >
 
+
+            </WebView>
             <Modal
                 animationType='fade'
                 transparent={true}
@@ -113,8 +113,7 @@ export default function DappWebScreen({ navigation, route }: Props) {
                     </View>
                 </View>
             </Modal>
-        </WebView>
-
+        </View>
 
     );
 }
