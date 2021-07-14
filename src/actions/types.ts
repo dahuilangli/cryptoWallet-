@@ -60,7 +60,7 @@ export interface AssetsList {
 export interface DappRecentItem {
   category?: string,
   defi?: string,
-  deepLink: string,
+  deepLink: any,
   logo: string,
   name: string,
   protocol?: string,

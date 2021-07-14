@@ -91,7 +91,7 @@ const reducer = (originalState = initialState, walletAction: WalletAction) =>
         let list = state.dappSearchList;
         if (list.length > 0) {
           list.map((x, i) => {
-            if (x.deep_link === payload.deep_link) {
+            if (x.deepLink === payload.deepLink) {
               list.splice(i, 1);
             }
           })

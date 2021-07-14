@@ -104,6 +104,8 @@ function SearchScreen({ }: Props) {
         protocol: '',
         defi: ''
       }
+      console.log(item);
+      
       await goWebView(item)
     } else {
       await seachName(true)
