@@ -135,7 +135,7 @@ function SettingsScreen() {
         <Text style={styles.timeStyle}>{item2.ctime}</Text>
       </View>
       <View style={styles.centerView}>
-        <Text style={styles.desStyle1}>{item2.wallet}</Text>
+        <Text style={styles.desStyle1}>{item2?.symbol}</Text>
         <Text style={{
           fontSize: 18,
           fontWeight: '400',

@@ -1,9 +1,9 @@
 
 import { Dimensions } from 'react-native';
 
-export const HOST = 'http://192.168.2.21:80';
+// export const HOST = 'http://192.168.2.21:80';
 
-// export const HOST = 'http://121.43.176.103';
+export const HOST = 'http://121.43.176.103';
 
 export const SWFTHOST = 'https://swap.swftcoin.com';
 

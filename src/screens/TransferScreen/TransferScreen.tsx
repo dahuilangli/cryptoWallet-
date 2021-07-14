@@ -89,24 +89,25 @@ function TransferScreen(props: Props) {
       "wallet": thisUser?.coinInfo?.wallet
     }
     helper.get('/wallet/gas', params).then((res: any) => {
+      
       let gas: Array<{ gasPrice: string; title: string; balance: string; amount: string }> = []
       gas[0] = {
         title: '快速',
         gasPrice: res.fastest,
-        balance: Div(Mul(res.fastest, thisUser?.coinInfo.gas_limit), Math.pow(10, Number(thisUser?.coinInfo?.gas_decimal))).toString(),
-        amount: Mul(Div(Mul(res.fastest, thisUser?.coinInfo.gas_limit), Math.pow(10, Number(thisUser?.coinInfo?.gas_decimal))), res.rate_currency).toString(),
+        balance: Div(Mul(res.fastest, assetsList[selectCoinIndex]?.gas_limit), Math.pow(10, Number(thisUser?.coinInfo?.gas_decimal))).toString(),
+        amount: Mul(Div(Mul(res.fastest, assetsList[selectCoinIndex]?.gas_limit), Math.pow(10, Number(thisUser?.coinInfo?.gas_decimal))), res.rate_currency).toString(),
       };
       gas[1] = {
         title: '平均',
         gasPrice: res.average,
-        balance: Div(Mul(res.average, thisUser?.coinInfo.gas_limit), Math.pow(10, Number(thisUser?.coinInfo?.gas_decimal))).toString(),
-        amount: Mul(Div(Mul(res.average, thisUser?.coinInfo.gas_limit), Math.pow(10, Number(thisUser?.coinInfo?.gas_decimal))), res.rate_currency).toString(),
+        balance: Div(Mul(res.average, assetsList[selectCoinIndex]?.gas_limit), Math.pow(10, Number(thisUser?.coinInfo?.gas_decimal))).toString(),
+        amount: Mul(Div(Mul(res.average, assetsList[selectCoinIndex]?.gas_limit), Math.pow(10, Number(thisUser?.coinInfo?.gas_decimal))), res.rate_currency).toString(),
       };
       gas[2] = {
         title: '最慢',
         gasPrice: res.slow,
-        balance: Div(Mul(res.slow, thisUser?.coinInfo.gas_limit), Math.pow(10, Number(thisUser?.coinInfo?.gas_decimal))).toString(),
-        amount: Mul(Div(Mul(res.slow, thisUser?.coinInfo.gas_limit), Math.pow(10, Number(thisUser?.coinInfo?.gas_decimal))), res.rate_currency).toString(),
+        balance: Div(Mul(res.slow, assetsList[selectCoinIndex]?.gas_limit), Math.pow(10, Number(thisUser?.coinInfo?.gas_decimal))).toString(),
+        amount: Mul(Div(Mul(res.slow, assetsList[selectCoinIndex]?.gas_limit), Math.pow(10, Number(thisUser?.coinInfo?.gas_decimal))), res.rate_currency).toString(),
       };
       setGasList(gas)
     })

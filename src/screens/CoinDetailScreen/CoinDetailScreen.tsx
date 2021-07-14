@@ -229,14 +229,13 @@ function CoinDetailScreen({ route }: Props) {
                           <View style={styles.listNavDesc}>
                             <Text style={styles.descText}>{t("transactiontime")}: {item?.ctime}</Text>
                             <Text style={styles.descText}>
-                              {t("handlefee")}: {item?.gas} {user.type}
+                              {t("handlefee")}: {item?.gas} {assetsList?.symbol}
                             </Text>
                           </View>
                           <TouchableOpacity
                             style={styles.listNavHash}
                             onPress={() =>
                               navigate('WebScreen', {
-                                title: 'Ethereum',
                                 uri: item?.remarks,
                               })
                             }
