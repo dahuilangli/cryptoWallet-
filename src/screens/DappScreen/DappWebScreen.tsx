@@ -52,7 +52,6 @@ export default function DappWebScreen({ navigation, route }: Props) {
             injectedJavaScript={scriptToRemoveHeader}
             onMessage={event => {
                 navigation.setParams({ title: event.nativeEvent.data });
-                // console.warn(event.nativeEvent.data);
             }}
         >
             
