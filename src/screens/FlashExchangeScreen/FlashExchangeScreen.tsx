@@ -81,8 +81,6 @@ function FlashExchangeScreen({ }: Props) {
   useEffect(() => {
     getSwftCoinList();
     getAssetsList();
-    setOutNumber('');
-    setInNumber('');
   }, [user]);
 
   useEffect(() => {
@@ -127,7 +125,7 @@ function FlashExchangeScreen({ }: Props) {
   }
 
   function exchange() {
-    if (outNumber <= balance?.balance) {
+    if (Number(outNumber) <= Number(balance?.balance)) {
       if (outNumber >= base?.deposit_min && outNumber <= base?.deposit_max) {
         setModalVisible1(true)
       } else {
@@ -139,14 +137,14 @@ function FlashExchangeScreen({ }: Props) {
   }
   let accountExchange: any;
   async function exchangeSub() {
-    console.log(balance);
-    
     if (securityCode === thisUser?.securityCode) {
       setIsSigninInProgress(true);
+      setModalVisible1(false)
+      setSecurityCode('')
       try {
         let sourceType = mobileType.toUpperCase();
         let equipmentNo = `Morleystone-${thisUser?.coinInfo?.wallet}-${thisUser.address}`;
-        const { data }: any = await post('/accountExchange', {
+        const data: any = await post('/accountExchange', {
           equipmentNo,
           sourceType,
           depositCoinCode: out?.coin_code,
@@ -157,7 +155,7 @@ function FlashExchangeScreen({ }: Props) {
           refundAddr: thisUser.address,
           sourceFlag: 'MorleyStone'
         })
-        accountExchange = data;
+        accountExchange = data.data;
         if (accountExchange) {
           let address = user?.address;
           let wallet = thisUser?.coinInfo?.wallet;
@@ -166,7 +164,7 @@ function FlashExchangeScreen({ }: Props) {
             let gas = {
               title: '快速',
               gasPrice: res.fastest,
-              // balance: Div(Mul(res.fastest, assetsList), Math.pow(10, Number(thisUser?.coinInfo?.gas_decimal))).toString(),
+              balance: Div(Mul(res.fastest, balance?.gas_limit), Math.pow(10, Number(thisUser?.coinInfo?.gas_decimal))).toString(),
               amount: Mul(Div(Mul(res.fastest, thisUser?.coinInfo.gas_limit), Math.pow(10, Number(thisUser?.coinInfo?.gas_decimal))), res.rate_currency).toString(),
             }
             let gas_price = Mul(gas.gasPrice, Math.pow(10, thisUser?.coinInfo?.gas_decimal)).toString();
@@ -195,11 +193,9 @@ function FlashExchangeScreen({ }: Props) {
                     "to": to,
                     "wallet": wallet
                   }
-                  console.log('=========存币请求================');
-                  console.log(params);
-                  console.log('====================================');
                   helper.post('/swft/deposit', params).then((res: any) => {
-                    show(t("Storedsuccessfully"))
+                    show(t("Storedsuccessfully"));
+                    getAssetsList();
                   })
                 })
               } else {
@@ -221,22 +217,25 @@ function FlashExchangeScreen({ }: Props) {
                     "wallet": wallet
                   }
                   helper.post('/swft/deposit', params).then((res: any) => {
-                    show('存币成功')
+                    show(t("Storedsuccessfully"));
+                    getAssetsList();
                   })
                 })
               }
             })
           })
         } else {
-          Alert.alert('创建订单后失败，请检查网络和输入后重试');
+          throw data.resMsg;
         }
       } catch (error) {
         console.log('====================================');
         console.log(error);
         console.log('====================================');
+        Alert.alert(error)
       } finally {
         setIsSigninInProgress(false);
-        setModalVisible1(false)
+        setOutNumber('');
+        setInNumber('');
         setSecurityCode('')
       } 
     } else {
@@ -308,7 +307,7 @@ function FlashExchangeScreen({ }: Props) {
                       onChangeText={(text) => {
                         setOutNumber(text);
                         if (text) {
-                          let num = Mul(parseFloat(text), parseFloat(base?.instant_rate));
+                          let num = Mul(parseFloat(text), parseFloat(base?.instant_rate)).toFixed(8);
                           setInNumber(num.toString())
                         }
                       }}
@@ -338,7 +337,7 @@ function FlashExchangeScreen({ }: Props) {
                     {balance?.balance} {out?.symbol}
                   </Text>
                 </View>
-                <Text style={styles.rateText}>{t("exchangerate")}  1 {out?.symbol} ≈ {base?.instant_rate} {inPut?.symbol}</Text>
+                <Text style={styles.rateText}>{t("exchangerate")}  1 {out?.symbol} ≈ {Number(base?.instant_rate).toFixed(8)} {inPut?.symbol}</Text>
                 <Text style={styles.rateText}>{t("handlefee")}  0.03%</Text>
                 <TouchableOpacity style={styles.exchangeBtn} onPress={exchange}>
                   <Text style={styles.changeText}>{t("exchange")}</Text>
@@ -492,7 +491,7 @@ function FlashExchangeScreen({ }: Props) {
                         </View>
                         <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 20 }}>
                           <Text style={styles.poundage}>{t("exchangerate")}</Text>
-                          <Text style={styles.des}> 1 {out?.symbol} ≈ {base?.instant_rate} {inPut?.symbol}</Text>
+                          <Text style={styles.des}> 1 {out?.symbol} ≈ {Number(base?.instant_rate).toFixed(8)} {inPut?.symbol}</Text>
                         </View>
                       </View>
                       <View style={styles.lineView1}></View>
@@ -510,7 +509,7 @@ function FlashExchangeScreen({ }: Props) {
                         <Button
                           buttonStyle={styles.sureBtn}
                           title={t("confirmredemption")}
-                          disabled={isSigninInProgress}
+                          disabled={isSigninInProgress || !securityCode}
                           onPress={exchangeSub}
                         />
                         {/* <TouchableOpacity style={styles.sureBtn} onPress={() => {

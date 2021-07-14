@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, View, Text, TextInput, SafeAreaView } from 'react-native';
+import { StyleSheet, View, Text, TextInput, SafeAreaView, Alert } from 'react-native';
 
 import { Button } from 'react-native-elements';
 import { navigate } from 'components/navigationService';
@@ -10,6 +10,8 @@ import {
   importByprivateKey,
   importByMnemonic,
 } from 'wallets/ethsWallet';
+import { useIsFocused } from '@react-navigation/native';
+
 interface Props {
   route: {
     params: {
@@ -25,23 +27,24 @@ const SecondSetWalletPwdScreen = (props: Props) => {
   const [pwd, setPwd] = useState('');
   const [account, setAccount] = useState({});
   const [repwd, setRepwd] = useState('');
+  const isFocused = useIsFocused();
   const { t } = useTranslation();
+
   useEffect(() => {
-    createAccount()
-  }, []);
-  async function createAccount() {
-    switch (loginType) {
-      case 'mnemonic':
-        await setAccount(importByMnemonic(desc));
-        break;
-      case 'privateKey':
-        await setAccount(importByprivateKey(desc));
-        break;
-      default:
-        await setAccount(genWallet());
-        break;
+    if (isFocused) {
+      switch (loginType) {
+        case 'mnemonic':
+          setAccount(importByMnemonic(desc));
+          break;
+        case 'privateKey':
+          setAccount(importByprivateKey(desc));
+          break;
+        default:
+          setAccount(genWallet());
+          break;
+      }
     }
-  }
+  }, [isFocused])
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.main}>
@@ -73,8 +76,6 @@ const SecondSetWalletPwdScreen = (props: Props) => {
                   title: t("Importsuccessful"),
                   accountInfo: { ...account, ...accountInfo, securityCode: repwd },
                 });
-                console.log({ ...account, ...accountInfo, securityCode: repwd });
-                
               } else {
                 navigate('SecondSafetyTipsScreen', {
                   accountInfo: { ...account, ...accountInfo, securityCode: repwd },

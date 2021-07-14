@@ -96,8 +96,6 @@ function FlashRecordScreen({ route }: Props) {
       page_no: isRefresh ? 1 : tradeList.length > 0 ? Math.ceil(tradeList.length / limit) : limit,
       page_size: limit
     })
-    console.log(data);
-    
     setLoading(null);
     if (data && data.page_content) {
       let currentCount;
