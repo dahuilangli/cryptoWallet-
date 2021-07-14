@@ -37,15 +37,16 @@ if (headEl && bodyEl) {
 `;
 
 export default function DappWebScreen({ navigation, route }: Props) {
-    const {t} = useTranslation();
-    
+    const { t } = useTranslation();
+
     const screenitem = route.params.item;
+
     const [modalVisible, setModalVisible] = useState(true);
-    const [showHtml,setShowHtml] = useState(true)
-    const uri =showHtml ? '': route.params.uri.replace('http:', 'https:');
+    const [showHtml, setShowHtml] = useState(true)
+    const uri = showHtml ? '' : route.params.uri.replace('http:', 'https:');
     return (
         <WebView
-        stopLoading
+            stopLoading
             style={styles.container}
             source={{ uri }}
             startInLoadingState={true}
@@ -55,7 +56,7 @@ export default function DappWebScreen({ navigation, route }: Props) {
                 // console.warn(event.nativeEvent.data);
             }}
         >
-            
+
             <Modal
                 animationType='fade'
                 transparent={true}
@@ -98,7 +99,7 @@ export default function DappWebScreen({ navigation, route }: Props) {
                                     navigate('DappScreen');
                                 }}
                             >
-                                <Text style = {styles.tipText}>{t("noremindagain")}</Text>
+                                <Text style={styles.tipText}>{t("noremindagain")}</Text>
                             </TouchableOpacity>
                             <TouchableOpacity
                                 style={{ ...styles.tipBtn1 }}
@@ -107,7 +108,7 @@ export default function DappWebScreen({ navigation, route }: Props) {
                                     setShowHtml(!showHtml);
                                 }}
                             >
-                                <Text style = {styles.knowText}>{t("Iknow")}</Text>
+                                <Text style={styles.knowText}>{t("Iknow")}</Text>
                             </TouchableOpacity>
                         </View>
                     </View>
@@ -161,7 +162,7 @@ const styles = StyleSheet.create({
     },
     textStyle: {
         width: 20,
-        height: 20,        
+        height: 20,
     },
     openButton: {
         marginTop: 20,

@@ -50,10 +50,6 @@ function DappScreen({ }: Props) {
   }, [isFocused]);
   function getBanner() {
     helper.get('/dapp/banner', {}).then((res:any)=>{
-      console.log('===============');
-      
-      console.log(res);
-      
       setBannerListData(res)
     })
     
@@ -62,7 +58,7 @@ function DappScreen({ }: Props) {
     await dispatch(walletAction.setDappSearchList(item));
     navigate('DappWebScreen', {
       title: item.name,
-      uri: item.deep_link,
+      uri: item.deepLink,
       item
     })
   }
