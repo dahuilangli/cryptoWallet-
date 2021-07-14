@@ -85,9 +85,10 @@ function SearchScreen({ }: Props) {
   async function goWebView(item: DappRecentItem) {
     if (item)
     await dispatch(walletAction.setDappSearchList(item));
+    
     navigate('DappWebScreen', {
-      title: item.name,
-      uri: item.deepLink,
+      title: item?.name,
+      uri: item?.deepLink,
       item: item
     })
   }
