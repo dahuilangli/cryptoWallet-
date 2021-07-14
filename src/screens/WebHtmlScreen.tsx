@@ -45,6 +45,7 @@ export default function WebHtmlScreen({ navigation, route }: Props) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    fontSize:15,
     justifyContent: 'center',
     alignItems: 'center',
   },

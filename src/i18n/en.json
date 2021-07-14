@@ -147,6 +147,8 @@
   "scan":"Scan",
   "nodata": "No results yet",
   "noRecords": "No records",
+  "nowallet":"No Wallet",
+
   "copySuccess": "Copy successful",
   "ScanQRcodereceivepayment":"Scan QRcode receive payment",
   "copyAddress":"Copy Address",

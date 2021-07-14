@@ -58,6 +58,7 @@ function WalletBoardScreen({ }: Props) {
   }
 
   async function setImportType(type:string) {
+    dispatch(walletAction.setImportType(type))
     navigate('SecondSelectWalletScreen',{loginType:type})
   }
   return (
@@ -79,7 +80,8 @@ function WalletBoardScreen({ }: Props) {
         </View>
         <View style={styles.submenu}>
           <Text style={styles.submenuHeader}>{modelLeft[selectItem]?.title}</Text>
-          <ScrollView scrollIndicatorInsets={{ right: -6 }}>
+
+          {walletlist.get(modelLeft[selectItem].title).length>0?<ScrollView scrollIndicatorInsets={{ right: -6 }}>
             {walletlist.get(modelLeft[selectItem].title)?.map((item, index) => (
               <TouchableOpacity
                 style={styles.submenuItem}
@@ -101,7 +103,10 @@ function WalletBoardScreen({ }: Props) {
                 </View> */}
               </TouchableOpacity>
             ))}
-          </ScrollView>
+          </ScrollView>:<View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+            <Image style={{ height: 140, width: 240 }} source={require('assets/icon_nowallet.png')}></Image>
+            <Text style={styles.notdata}>{t("nowallet")}</Text>
+          </View>}
         </View>
       </View>
       <View style={styles.buttonContainer}>
@@ -220,6 +225,11 @@ const styles = StyleSheet.create({
   buttonTitle: {
     fontSize: 15,
     color: '#FFFFFF',
+    fontWeight: '500',
+  },
+  notdata: {
+    fontSize: 16,
+    color: '#CCCFD9',
     fontWeight: '500',
   },
 });

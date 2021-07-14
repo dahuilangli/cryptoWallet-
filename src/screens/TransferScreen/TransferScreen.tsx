@@ -56,11 +56,11 @@ function TransferScreen(props: Props) {
 
   const walletlist = useSelector(getAccountList);
   const user = useSelector(getUser);
-  
-  
+
+
   const thisUser = walletlist.get(user.type)?.find(x => x.address === user.address)
-  
-  
+
+
   const { t } = useTranslation();
   useEffect(() => {
     getAssetsList();
@@ -89,7 +89,7 @@ function TransferScreen(props: Props) {
       "wallet": thisUser?.coinInfo?.wallet
     }
     helper.get('/wallet/gas', params).then((res: any) => {
-      
+
       let gas: Array<{ gasPrice: string; title: string; balance: string; amount: string }> = []
       gas[0] = {
         title: '快速',
@@ -177,7 +177,7 @@ function TransferScreen(props: Props) {
                 helper.post('/wallet/transfer', params)
               })
             }
-            
+
           })
         } else {
           show('请输入正确的安全密码')
@@ -193,137 +193,140 @@ function TransferScreen(props: Props) {
   let verification = receivingAddress && receivingAddress.startsWith('0x') && transferAmount && gasIndex !== -1;
   return (
     <SafeAreaView style={styles.container}>
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <View style={styles.main}>
-          <View style={styles.bodyContainer}>
-            <Text style={styles.coinType}>{t("Transfercurrency")}</Text>
-            <TouchableOpacity
-              style={styles.selectCoin}
-              onPress={() => setModalVisible(!modalVisible)}
-            >
-              <Avatar
-                rounded
-                title={assetsList[selectCoinIndex]?.symbol[0]}
-                containerStyle={styles.coinLogo}
-                source={{ uri: assetsList[selectCoinIndex]?.icon }}
-              />
-              <View style={styles.coinNameList}>
-                <Text style={styles.coinName}>{assetsList[selectCoinIndex]?.symbol}</Text>
-                <Text style={styles.coinNameInfo}>{t("Balance")}: {assetsList[selectCoinIndex]?.balance} {assetsList[selectCoinIndex]?.symbol}</Text>
-              </View>
-              <Image
-                style={styles.coinGo}
-                source={require('assets/icon_arrow_right.png')}
-              />
-            </TouchableOpacity>
-
-            <Text style={styles.coinTypeS}>{t("receiveaddress")}</Text>
-            <View style={styles.inputContainer}>
-              <TextInput
-                placeholder={t("enterWalAdd")}
-                style={styles.addressInput}
-                value={receivingAddress}
-                onChangeText={setReceivingAddress}
-              />
-              <TouchableOpacity onPress={() => {
-                navigate('AddressBookScreen', { title: '收款人', type: 'tansfer', setAddress: setReceivingAddress })
-              }}>
+     
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <View style={styles.main}>
+            <View style={styles.bodyContainer}>
+              <Text style={styles.coinType}>{t("Transfercurrency")}</Text>
+              <TouchableOpacity
+                style={styles.selectCoin}
+                onPress={() => setModalVisible(!modalVisible)}
+              >
+                <Avatar
+                  rounded
+                  title={assetsList[selectCoinIndex]?.symbol[0]}
+                  containerStyle={styles.coinLogo}
+                  source={{ uri: assetsList[selectCoinIndex]?.icon }}
+                />
+                <View style={styles.coinNameList}>
+                  <Text style={styles.coinName}>{assetsList[selectCoinIndex]?.symbol}</Text>
+                  <Text style={styles.coinNameInfo}>{t("Balance")}: {assetsList[selectCoinIndex]?.balance} {assetsList[selectCoinIndex]?.symbol}</Text>
+                </View>
                 <Image
-                  style={styles.inputRightIcon}
-                  source={require('assets/icon_address_book.png')}
+                  style={styles.coinGo}
+                  source={require('assets/icon_arrow_right.png')}
                 />
               </TouchableOpacity>
-            </View>
 
-            <Text style={styles.coinTypeS}>{t("transferamount")}</Text>
-            <View style={styles.inputContainer}>
-              <TextInput
-                placeholder={t("entertransferamount")}
-                keyboardType="numeric"
-                style={styles.addressInput}
-                value={transferAmount}
-                onChangeText={(text: any)=> {
-                  let balance = Number(assetsList[selectCoinIndex]?.balance);
-                  let textVal = Number(text);
-                  if (textVal <= balance) {
-                    setTransferAmount(text)
-                  } else {
-                    show("应小于可用余额")
-                  }
-                }}
+              <Text style={styles.coinTypeS}>{t("receiveaddress")}</Text>
+              <View style={styles.inputContainer}>
+                <TextInput
+                  placeholder={t("enterWalAdd")}
+                  style={styles.addressInput}
+                  value={receivingAddress}
+                  onChangeText={setReceivingAddress}
+                />
+                <TouchableOpacity onPress={() => {
+                  navigate('AddressBookScreen', { title: '收款人', type: 'tansfer', setAddress: setReceivingAddress })
+                }}>
+                  <Image
+                    style={styles.inputRightIcon}
+                    source={require('assets/icon_address_book.png')}
+                  />
+                </TouchableOpacity>
+              </View>
+
+              <Text style={styles.coinTypeS}>{t("transferamount")}</Text>
+              <View style={styles.inputContainer}>
+                <TextInput
+                  placeholder={t("entertransferamount")}
+                  keyboardType="numeric"
+                  style={styles.addressInput}
+                  value={transferAmount}
+                  onChangeText={(text: any) => {
+                    let balance = Number(assetsList[selectCoinIndex]?.balance);
+                    let textVal = Number(text);
+                    if (textVal <= balance) {
+                      setTransferAmount(text)
+                    } else {
+                      show("应小于可用余额")
+                    }
+                  }}
+                />
+              </View>
+
+              <Text style={styles.coinTypeS}>{t("Minerfee")}</Text>
+
+              <View style={styles.gasContainer}>
+                {gasList.map((item, index) => (
+                  <TouchableOpacity
+                    key={item.title}
+                    style={
+                      gasIndex === index
+                        ? // eslint-disable-next-line react-native/no-inline-styles
+                        {
+                          ...styles.gasItem,
+                          borderColor: '#3D73DD',
+                          borderWidth: 0.5,
+                        }
+                        : styles.gasItem
+                    }
+                    onPress={() => setGasIndex(index)}
+                  >
+                    <Text
+                      style={
+                        gasIndex === index
+                          ? // eslint-disable-next-line react-native/no-inline-styles
+                          { ...styles.gasItemTitle, color: '#3D73DD' }
+                          : styles.gasItemTitle
+                      }
+                    >
+                      {item?.title}
+                    </Text>
+                    <Text
+                      style={
+                        gasIndex === index
+                          ? // eslint-disable-next-line react-native/no-inline-styles
+                          {
+                            ...styles.gasItemSum,
+                            color: '#3D73DD',
+                            opacity: 0.5,
+                          }
+                          : styles.gasItemSum
+                      }
+                    >
+                      {item?.balance} {thisUser?.coinInfo?.token}
+                    </Text>
+                    <Text
+                      style={
+                        gasIndex === index
+                          ? // eslint-disable-next-line react-native/no-inline-styles
+                          {
+                            ...styles.gasItemSums,
+                            color: '#3D73DD',
+                            opacity: 0.5,
+                          }
+                          : styles.gasItemSums
+                      }
+                    >
+                      ≈ {currenTUnit === 'USDT' ? '$' : '￥'} {item?.amount}
+                    </Text>
+                  </TouchableOpacity>
+                ))}
+              </View>
+
+            </View>
+            <View style={styles.buttonContainer}>
+              <Button
+                buttonStyle={styles.buttonStyle}
+                title={t("sure")}
+                disabled={!verification}
+                titleStyle={styles.buttonTitle}
+                onPress={() => showRisk ? setRiskWarning(true) : setTransferConfirm(!transferConfirm)}
               />
             </View>
-
-            <Text style={styles.coinTypeS}>{t("Minerfee")}</Text>
-            <View style={styles.gasContainer}>
-              {gasList.map((item, index) => (
-                <TouchableOpacity
-                  key={item.title}
-                  style={
-                    gasIndex === index
-                      ? // eslint-disable-next-line react-native/no-inline-styles
-                      {
-                        ...styles.gasItem,
-                        borderColor: '#3D73DD',
-                        borderWidth: 0.5,
-                      }
-                      : styles.gasItem
-                  }
-                  onPress={() => setGasIndex(index)}
-                >
-                  <Text
-                    style={
-                      gasIndex === index
-                        ? // eslint-disable-next-line react-native/no-inline-styles
-                        { ...styles.gasItemTitle, color: '#3D73DD' }
-                        : styles.gasItemTitle
-                    }
-                  >
-                    {item?.title}
-                  </Text>
-                  <Text
-                    style={
-                      gasIndex === index
-                        ? // eslint-disable-next-line react-native/no-inline-styles
-                        {
-                          ...styles.gasItemSum,
-                          color: '#3D73DD',
-                          opacity: 0.5,
-                        }
-                        : styles.gasItemSum
-                    }
-                  >
-                    {item?.balance} {thisUser?.coinInfo?.token}
-                  </Text>
-                  <Text
-                    style={
-                      gasIndex === index
-                        ? // eslint-disable-next-line react-native/no-inline-styles
-                        {
-                          ...styles.gasItemSums,
-                          color: '#3D73DD',
-                          opacity: 0.5,
-                        }
-                        : styles.gasItemSums
-                    }
-                  >
-                    ≈ {currenTUnit === 'USDT' ? '$' : '￥'} {item?.amount}
-                  </Text>
-                </TouchableOpacity>
-              ))}
-            </View>
           </View>
-          <View style={styles.buttonContainer}>
-            <Button
-              buttonStyle={styles.buttonStyle}
-              title={t("sure")}
-              disabled={!verification}
-              titleStyle={styles.buttonTitle}
-              onPress={() => showRisk ? setRiskWarning(true) : setTransferConfirm(!transferConfirm)}
-            />
-          </View>
-        </View>
-      </TouchableWithoutFeedback>
+        </TouchableWithoutFeedback>
       {/* 选择币种Model */}
       <Modal
         animationType="fade"
@@ -449,7 +452,7 @@ function TransferScreen(props: Props) {
                         buttonStyle={styles.cancelButtonStyle}
                         title={t("cancel")}
                         titleStyle={styles.cancelButtonTitle}
-                        onPress={() => verifySecurityPwd(true)}
+                        onPress={() => setTransferConfirm(!transferConfirm)}
                       />
                     </View>
                   </View>

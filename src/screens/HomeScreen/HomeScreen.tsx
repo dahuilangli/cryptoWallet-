@@ -67,7 +67,7 @@ function HomeScreen({ }: Props) {
 
   useEffect(() => {
     getAssetsList()
-  }, [user, walletlist])
+  }, [user, walletlist,currenTUnit])
   function switchWallet(item: Account) {
     setSelectAddress(item.address)
     dispatch(walletAction.createUser({ address: item.address, type: item.type }));
@@ -142,7 +142,7 @@ function HomeScreen({ }: Props) {
               <TouchableOpacity onPress={() => { hideOrShowMoney() }}>
                 <Image
                   style={styles.eye}
-                  source={require('assets/icon_see_off.png')}
+                  source={showMoney ?  require('assets/icon_see_on.png') : require('assets/icon_see_off.png')}
                 />
               </TouchableOpacity>
             </View>
@@ -299,7 +299,7 @@ function HomeScreen({ }: Props) {
                 <Text style={styles.submenuHeader}>
                   {modelLeft[selectItem].title}
                 </Text>
-                <ScrollView>
+                {walletlist.get(modelLeft[selectItem].title).length>0?<ScrollView>
                   {walletlist.get(modelLeft[selectItem].title)?.map((item, index) => (
                     <TouchableOpacity
                       style={
@@ -358,7 +358,10 @@ function HomeScreen({ }: Props) {
                       </View> */}
                     </TouchableOpacity>
                   ))}
-                </ScrollView>
+                </ScrollView>:<View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+            <Image style={{ height: 140, width: 240 }} source={require('assets/icon_nowallet.png')}></Image>
+            <Text style={styles.notdata}>{t("nowallet")}</Text>
+          </View>}
               </View>
             </View>
           </View>
@@ -658,6 +661,11 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: '400',
     color: '#FFFFFF',
+  },
+  notdata: {
+    fontSize: 16,
+    color: '#CCCFD9',
+    fontWeight: '500',
   },
 });
 export default HomeScreen;

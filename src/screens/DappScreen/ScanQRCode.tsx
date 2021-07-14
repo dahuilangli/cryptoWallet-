@@ -35,9 +35,7 @@ const ScanQRCode = (props: Props) => {
     }, []);
     //请求权限的方法
     const requestCameraPermission = async () => {
-
         try {
-
             const granted = await PermissionsAndroid.request(
 
                 PermissionsAndroid.PERMISSIONS.CAMERA,
@@ -109,8 +107,10 @@ const ScanQRCode = (props: Props) => {
     };
     const onBarCodeRead = (result) => {
         try {
+            
+            
             const { data } = result; //只要拿到data就可以了
-            walletConnect(data)
+            // walletConnect(data)            
             if (checkwalletAdress(data) && title === 'HomeScreen') {
                 navigate('TransferScreen', { address: data ,assetsList});
             } else if (verifyURL(data) && title === 'PrivateKeyScreen') {

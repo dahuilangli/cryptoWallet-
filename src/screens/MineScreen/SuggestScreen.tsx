@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, Text, SafeAreaView, TouchableWithoutFeedback, Keyboard, TextInput } from 'react-native';
+import { KeyboardAvoidingView, Platform, StyleSheet, View, Text, SafeAreaView, TouchableWithoutFeedback, Keyboard, TextInput } from 'react-native';
 import { goBack, navigate } from 'components/navigationService';
 import { ScreensParamList, Feed } from 'actions/types';
 import { RouteProp, useRoute, useIsFocused } from '@react-navigation/native';
@@ -7,7 +7,7 @@ import { Button } from 'react-native-elements'
 import * as helper from 'apis/helper'
 import { useTranslation } from 'react-i18next';
 import { show } from 'utils';
-import { checkEmail ,checkwalletAdress} from 'utils'
+import { checkEmail, checkwalletAdress } from 'utils'
 import { Image } from 'react-native-elements/dist/image/Image';
 type SuggestScreenRouteProp = RouteProp<ScreensParamList, 'SuggestScreen'>;
 interface Props { }
@@ -20,15 +20,15 @@ function SuggestScreen({ }: Props) {
 
 
   async function postSuggest() {
-    if(!checkEmail(emailText)){
+    if (!checkEmail(emailText)) {
       show('请输入正确的邮箱')
       return
     }
-    if(!checkwalletAdress(walletAddressText)){
+    if (!checkwalletAdress(walletAddressText)) {
       show('请输入正确的钱包地址')
       return
     }
-    
+
     const body = {
       email: emailText,
       content: detailsText,
@@ -44,44 +44,54 @@ function SuggestScreen({ }: Props) {
 
   return (
     <SafeAreaView style={styles.container}>
+
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <View style = {styles.mainView}>
-        <Text style={styles.email}>{t("yourmailbox")}</Text>
-        <View style={styles.whiteView}>
-          <TextInput
-            style={styles.input}
-            placeholder={t("enteremailaddress")}
-            onChangeText={setEmailText}
+        <View style={styles.mainView}>
+          <KeyboardAvoidingView
+            behavior={Platform.OS == "ios" ? "position" : "height"}
           >
+            <View>
+              <Text style={styles.email}>{t("yourmailbox")}</Text>
+              <View style={styles.whiteView}>
+                <TextInput
+                  style={styles.input}
+                  placeholder={t("enteremailaddress")}
+                  onChangeText={setEmailText}
+                >
+                </TextInput>
+              </View>
+              <Text style={styles.email}>{t("yourwalletaddress")}</Text>
+              <View style={styles.whiteView}>
+                <TextInput style={styles.input} placeholder={t("enterWalAdd")} onChangeText={setWalletAddressText}>
 
-          </TextInput>
-        </View>
-        <Text style={styles.email}>{t("yourwalletaddress")}</Text>
-        <View style={styles.whiteView}>
-          <TextInput style={styles.input} placeholder={t("enterWalAdd")} onChangeText={setWalletAddressText}>
+                </TextInput>
+              </View>
+              <Text style={styles.email}>{t("problemDescription")}</Text>
 
-          </TextInput>
-        </View>
-        <Text style={styles.email}>{t("problemDescription")}</Text>
-        <View style={styles.questView}>
-          <TextInput style={{...styles.input,textAlignVertical: "top"}} placeholder={t("enterproblemDescription")} multiline onChangeText={setDetailsText}>
+              <View style={styles.questView}>
 
-          </TextInput>
-        </View>
-        <View style={styles.main}>
-          <Button
-            title={t("submit")}
-            titleStyle={styles.Tlabel}
-            buttonStyle={styles.Tbutton}
-            onPress={() =>
-              postSuggest()
-            }
-            disabled={walletAddressText && emailText && detailsText ? false : true}
-          />
-        </View>
+                <TextInput style={{ ...styles.input, textAlignVertical: "top" }} placeholder={t("enterproblemDescription")} multiline onChangeText={setDetailsText}>
 
-      </View>
+                </TextInput>
+
+              </View>
+            </View>
+          </KeyboardAvoidingView>
+          <View style={styles.main}>
+
+            <Button
+              title={t("submit")}
+              titleStyle={styles.Tlabel}
+              buttonStyle={styles.Tbutton}
+              onPress={() =>
+                postSuggest()
+              }
+              disabled={walletAddressText && emailText && detailsText ? false : true}
+            />
+          </View>
+        </View>
       </TouchableWithoutFeedback>
+
     </SafeAreaView>
   );
 }
@@ -90,9 +100,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#F2F5F8',
-    justifyContent: 'flex-end',
   },
-  mainView:{
+  mainView: {
     flex: 1,
     justifyContent: 'flex-end',
   },
@@ -120,8 +129,8 @@ const styles = StyleSheet.create({
     height: 135,
   },
   input: {
-    marginHorizontal:15,
-    flex:1
+    marginHorizontal: 15,
+    flex: 1
   },
   main: {
     flex: 1,

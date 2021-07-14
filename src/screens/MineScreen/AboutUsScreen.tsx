@@ -10,9 +10,9 @@ import {
 } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { navigate } from 'components/navigationService';
+import * as helper from 'apis/helper'
 import { ScreensParamList } from 'actions/types';
-import { RouteProp, } from '@react-navigation/native';
-
+import { RouteProp, useRoute, useIsFocused } from '@react-navigation/native';
 type AboutUsScreenRouteProp = RouteProp<ScreensParamList, 'AboutUsScreen'>;
 interface Props { }
 interface response {
@@ -28,38 +28,20 @@ interface response {
 
 function AboutUsScreen({ }: Props) {
   const { t } = useTranslation();
-  const list =[
-        {
-            "content":"https://www.mystone.io",
-            "icon":require('assets/icon_aboutus_website.png'),
-            "id":2,
-            "language":"en",
-            "rank":1,
-            "state":1,
-            "title":t("officialwebsite"),
-            "type":1
-        },
-        {
-            "content":"https://twitter.com/MorleystoneLab",
-            "icon":require('assets/icon_aboutus_twitter.png'),
-            "id":6,
-            "language":"en",
-            "rank":1,
-            "state":1,
-            "title":t("twitter"),
-            "type":1
-        },
-        {
-            "content":"https://t.me/morleystone_sto",
-            "icon":require('assets/icon_aboutus_tel.png'),
-            "id":4,
-            "language":"en",
-            "rank":2,
-            "state":1,
-            "title":t("TelegramGroup"),
-            "type":1
-        }
-    ]
+  
+  const [aboutDataList ,setAboutDataList] = useState([]);
+  const isFocused = useIsFocused(); 
+  useEffect(() => {
+    if (isFocused) {
+      getAboutUsList();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isFocused]);
+  async function getAboutUsList() {
+    await helper.get('/sys/about', {}).then((res:any)=>{
+      setAboutDataList(res)
+    })
+  }
   return (
     <View style={styles.backView}>
 
@@ -70,7 +52,7 @@ function AboutUsScreen({ }: Props) {
         </View>
         <View style={styles.bottomView}>
           {
-            list.map((item: response, i) => (
+            aboutDataList.map((item: response, i) => (
               <TouchableOpacity key={item.id} style={styles.itemStyle} onPress={() => navigate('WebScreen', { title: item.title, uri: item.content })}>
                 <View style={styles.firstView}>
                   <Image

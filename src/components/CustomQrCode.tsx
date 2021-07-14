@@ -14,7 +14,7 @@ export default ({ text, styl }: Props) => {
     qr.addData(text);
     qr.make();
     setBase64Img(qr.createDataURL(10, 0));
-  }, [text]);
+  }, []);
   return base64Img ? (
     <Image source={{ uri: base64Img }} style={styl} resizeMode="contain" />
   ) : null;

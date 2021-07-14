@@ -148,6 +148,7 @@
   "scan":"icon_scan_background",
   "nodata": "暂无结果",
   "noRecords": "暂无记录",
+  "nowallet":"暂无钱包",
   "copySuccess": "复制成功",
   "ScanQRcodereceivepayment":"扫二维码接收付款",
   "copyAddress":"复制地址",
