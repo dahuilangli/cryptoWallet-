@@ -52,7 +52,6 @@ function SuggestScreen({ }: Props) {
             style={styles.input}
             placeholder={t("enteremailaddress")}
             onChangeText={setEmailText}
-            
           >
 
           </TextInput>
@@ -65,7 +64,7 @@ function SuggestScreen({ }: Props) {
         </View>
         <Text style={styles.email}>{t("problemDescription")}</Text>
         <View style={styles.questView}>
-          <TextInput style={styles.input} placeholder={t("enterproblemDescription")} multiline onChangeText={setDetailsText}>
+          <TextInput style={{...styles.input,textAlignVertical: "top"}} placeholder={t("enterproblemDescription")} multiline onChangeText={setDetailsText}>
 
           </TextInput>
         </View>

@@ -93,7 +93,7 @@ export function checkwalletAdress(walletAdress: string) {
 
 //判断钱包私钥 
 export function checkwalletPrivateKey(PrivateKey: string) {
-  var emailPattern = /^[0-9a-fA-F]{64}$/;
+  var emailPattern = /^(0x)?[0-9a-fA-F]{64}$/;
   return emailPattern.test(PrivateKey)
 }
 

@@ -242,7 +242,7 @@ function TransferScreen(props: Props) {
                 style={styles.addressInput}
                 value={transferAmount}
                 onChangeText={(text)=>{
-                  assetsList[selectCoinIndex]?.balance>text?setTransferAmount(text):show("应小于可用余额")
+                  setTransferAmount(text)
                 }}
               />
             </View>

@@ -65,8 +65,8 @@ function WalletDetailScreen(props: Props) {
   const [wallNameModel, setWallNameModel] = useState(false);
   const [navigateName, setNavigateName] = useState('');
   const [exportModel, setExportModel] = useState(false);
-  const changeWalletName = async (walletNameStr: string) => {
-    await dispatch(walletAction.setWalletName({ address: addressMessage.address, walletName: walletNameStr, type: addressMessage.type }));
+  const changeWalletName =  (walletNameStr: string) => {
+     dispatch(walletAction.setWalletName({ address: addressMessage.address, walletName: walletNameStr, type: addressMessage.type }));
   }
 
 
@@ -303,7 +303,7 @@ function WalletDetailScreen(props: Props) {
                   <Text style={styles.headText}>{t("modifywalletname")}</Text>
                   <TouchableOpacity
                     style={{ ...styles.openButton }}
-                    onPress={() => {
+                    onPress={() => {                      
                       setWallNameModel(!wallNameModel);
                     }}
                   >
@@ -346,17 +346,6 @@ function WalletDetailScreen(props: Props) {
             </TouchableWithoutFeedback>
           </KeyboardAvoidingView>
         </View>
-      </Modal>
-      <Modal
-        animationType="fade"
-        transparent={true}
-        hardwareAccelerated={true}
-        visible={wallNameModel}
-        onRequestClose={() => {
-          setExportModel(!exportModel);
-        }}
-      >
-
       </Modal>
     </SafeAreaView>
   );

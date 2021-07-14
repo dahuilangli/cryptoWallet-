@@ -218,11 +218,11 @@ function CoinDetailScreen({ route }: Props) {
                               <Text style={
                                 item?.state < 0 ?
                                   { ...styles.amountText, color: '#D4D8E1' } :
-                                  item?.from === user?.address ?
+                                  item?.from.toLocaleLowerCase() === user?.address.toLocaleLowerCase() ?
                                     { ...styles.amountText, color: '#DD3D50' } :
                                     { ...styles.amountText, color: '#3DDD94' }
                               }>
-                                {item?.from === user?.address ? '-' : '+'}{item?.amount}
+                                {item?.from.toLocaleLowerCase() === user?.address.toLocaleLowerCase() ? '-' : '+'}{item?.amount}
                               </Text>
                             </View>
                           </View>

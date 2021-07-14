@@ -17,17 +17,53 @@ interface Props { }
 function HomeScreen() {
   const { t } = useTranslation();
   const [messagelistData, setMessageListData] = useState([]);
+  const [loading, setLoading] = useState<'refresh' | 'more' | null>(null);
+  const isEndReached = React.useRef(false);
+  const isFetching = React.useRef(false);
   const isFocused = useIsFocused(); useEffect(() => {
     if (isFocused) {
-      getMessage();
+      getMessage(true);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFocused]);
-  function getMessage() {
-    helper.get('/sys/notice/list', {}).then((res: any) => {
-      setMessageListData(res)
+  async function getMessageDetail(id:string) {
+    helper.get('/sys/notice/info', {
+      id: id,
+    }).then((res:any)=>{
+      console.log(res);
+      navigate('WebHtmlScreen', { title: t("noticedetails"), uri: res.content })
     })
-
+  }
+  async  function getMessage(isRefresh?: boolean) {
+    if (isFetching.current) {
+      return;
+    }
+    if (!isRefresh && isEndReached.current) {
+      return;
+    }
+    isFetching.current = true;
+    setLoading(isRefresh ? 'refresh' : 'more');
+    const data: any = await helper.get('/sys/notice/list', {
+      id: isRefresh ? null : messagelistData[messagelistData.length - 1].id,
+    })
+    setLoading(null);
+    if (data) {
+      if (isRefresh) {
+        // console.log('=========下拉刷新===========');
+        setMessageListData(data);
+      } else {
+        // console.log('=========上拉加载===========');
+        setMessageListData(messagelistData.concat(data));
+      }
+      if (data.length === 0) {
+        // console.log('=========不能再上拉加载了===========');
+        isEndReached.current = true;
+      } else {
+        // console.log('=========可以进行上拉加载===========');
+        isEndReached.current = false;
+      }
+    }
+    isFetching.current = false;
   }
 
 
@@ -46,7 +82,11 @@ function HomeScreen() {
     return (
       <Item1
         item1={item}
-        onPress1={() =>  navigate('WebHtmlScreen', { title: t("noticedetails"), uri: item.content })}
+        onPress1={() =>  
+          //请求
+          getMessageDetail(item.id)
+          
+        }
       >
 
       </Item1>
@@ -59,7 +99,21 @@ function HomeScreen() {
         data={messagelistData}
         style={styles.background}
         renderItem={renderItem1}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item, index) => item?.id}
+        refreshControl={
+          <RefreshControl
+            title={t("loading")}
+            colors={['red', 'green', 'blue']}
+            refreshing={loading === 'refresh'}
+            onRefresh={() => getMessage(true)}
+          />
+        }
+        onEndReachedThreshold={0.1}
+        onEndReached={() => getMessage()}
+        ListFooterComponent={() =>
+          loading === 'more' ? <ActivityIndicator /> : null
+        }
+      
       >
       </FlatList> : (<View style={styles.nodataContainer}><Image source={require('assets/icon_nomessage.png')} /><Text style={styles.nodata}>{t('nomessage')}</Text></View>)}
     </SafeAreaView>
@@ -76,11 +130,12 @@ function SettingsScreen() {
     if (item.length > 0) {
       item.map((object, j) => {   
         if (addressListData.indexOf(object.address) === -1) {
-          addressListData.unshift(object.address)
+          addressListData.unshift(object.address?.toLocaleLowerCase())
         }
       })
     }
   })
+  console.log(addressListData);
   
   const [transferlistData, setTransferListData] = useState([]);
   const [loading, setLoading] = useState<'refresh' | 'more' | null>(null);
@@ -107,6 +162,7 @@ function SettingsScreen() {
         id: isRefresh ? null : transferlistData[transferlistData.length - 1].id,
       })
     
+      console.log(data);
       
     setLoading(null);
     if (data) {
@@ -131,16 +187,16 @@ function SettingsScreen() {
   const Item2 = ({ item2, style2 }) => (
     <View style={item2 === transferlistData[0] ?{...styles.itemStyle1 ,marginTop:15}:{...styles.itemStyle1}}>
       <View style={styles.headView}>
-        <Text style={styles.titleStyle}>{addressListData.indexOf(item2.to) === -1 ? t("Transferinnotice") : t("Transferoutnotice")}</Text>
+        <Text style={styles.titleStyle}>{addressListData.indexOf(item2.from?.toLocaleLowerCase()) === -1 ? t("Transferinnotice") : t("Transferoutnotice")}</Text>
         <Text style={styles.timeStyle}>{item2.ctime}</Text>
       </View>
       <View style={styles.centerView}>
-        <Text style={styles.desStyle1}>{item2.wallet}</Text>
+        <Text style={styles.desStyle1}>{item2?.symbol}</Text>
         <Text style={{
           fontSize: 18,
           fontWeight: '400',
-          color: (item2.form === item2.to) ? '#3DDD94' : '#DD3D50',
-        }}>{(item2.form === item2.to) ? '+ ' : '- '}{item2.amount} {item2.symbol} </Text>
+          color: ((addressListData.indexOf(item2?.from?.toLocaleLowerCase()) === -1)) ? '#3DDD94' : '#DD3D50',
+        }}>{(addressListData.indexOf(item2?.from?.toLocaleLowerCase()) === -1) ? '+ ' : '- '}{item2.amount} {item2.symbol} </Text>
       </View>
       <View style={styles.lineView}></View>
       <TouchableOpacity style={styles.centerView} onPress={() =>

@@ -169,6 +169,7 @@ const styles = StyleSheet.create({
     addressInput: {
         marginHorizontal:15,
         height:95,
+        textAlignVertical: "top",
         flex:1,
     },
     Tbutton: {
