@@ -43,7 +43,7 @@ interface responseItem {
   "name": string
 }
 
-let limit = 1;
+let start = 1
 
 function getIndex(arr: string[] | Array<string>, key: string) {
   return arr.indexOf(key) != -1 ? arr.indexOf(key) : 10000;
@@ -97,26 +97,34 @@ function SearchScreen({ route }: Props) {
     }
     isFetching.current = true;
     setLoading(isRefresh ? 'refresh' : 'more');
-
     const data: any = await helper.get('/wallet/coin', {
       keyword: name,
       wallet: thisUser?.coinInfo?.wallet,
-      pageNo: isRefresh ? 1 : limit
+      page_no: isRefresh ? 1 : start+=1,
     })
     setLoading(null);
-    if (data.length > 0) {
+    console.log({
+      keyword: name,
+      wallet: thisUser?.coinInfo?.wallet,
+      page_no: isRefresh ? 1 : start+=1,
+    });
+    if (data && data.data) {
+      let currentCount;
       if (isRefresh) {
-        setCoinList(data)
+        currentCount = data.data.length;
+        start = 1
+        setCoinList(data.data)
       } else {
-        setCoinList(coinList.concat(data));
+        currentCount = data.data.length + coinList.length;
+        setCoinList(coinList.concat(data.data));
       }
-      
-    }
-    if (data.length < 30) {
-      isEndReached.current = true;
+      if (currentCount >= data.pageRecords) {
+        isEndReached.current = true;
+      } else {
+        isEndReached.current = false;
+      }
     } else {
-      limit++;
-      isEndReached.current = false;
+      setCoinList([])
     }
     isFetching.current = false;
   }
@@ -206,7 +214,7 @@ function SearchScreen({ route }: Props) {
                   onRefresh={() => seachName(true)}
                 />
               }
-              onEndReachedThreshold={0.1}
+              onEndReachedThreshold={10}
               onEndReached={() => seachName()}
               ListFooterComponent={() =>
                 loading === 'more' ? <ActivityIndicator /> : null
@@ -279,6 +287,8 @@ const styles = StyleSheet.create({
   },
   coinNameText: {
     flex: 1,
+    height: 34,
+    padding: 0,
   },
   goBlack: {
     paddingStart: 15,

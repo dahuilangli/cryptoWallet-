@@ -107,7 +107,7 @@ function HomeScreen({ }: Props) {
           <View style={styles.header}>
             <TouchableOpacity onPress={() =>
               setModalVisible(true)}>
-              <Image source={require('assets/icon_change_wallet_light.png')} />
+              <Image style={styles.image} source={require('assets/icon_change_wallet_light.png')} />
             </TouchableOpacity>
             <Text style={styles.headerTitle}>{t("wallet")}</Text>
             <TouchableOpacity onPress={() => navigate('ScanQRCode', { title: 'HomeScreen', assetsList })}>
@@ -377,7 +377,7 @@ const styles = StyleSheet.create({
     height: Platform.OS === 'ios' ? 88 : 88, // 处理iOS状态栏
   },
   header: {
-    paddingHorizontal: 20,
+    paddingHorizontal: 10,
     height: 44,
     flexDirection: 'row',
     alignItems: 'center',
@@ -391,6 +391,7 @@ const styles = StyleSheet.create({
   image: {
     width: 24,
     height: 24,
+    marginHorizontal: 10,
   },
   main: {
     flex: 1,

@@ -120,8 +120,6 @@ export function get(url: string, params: object) {
   return new Promise((resolve, reject) => {
     client.get(API_ENDPOINT + url, { params })
       .then(res => {
-        console.log(res);
-        
         resolve(res.data)
       })
       .catch(err => {

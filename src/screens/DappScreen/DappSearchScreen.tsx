@@ -24,6 +24,8 @@ import { parseURL, verifyURL } from 'utils';
 import { useIsFocused } from '@react-navigation/native';
 interface Props { }
 
+let start = 1;
+
 function SearchScreen({ }: Props) {
   const { t } = useTranslation();
   const dispatch = useDispatch();
@@ -55,16 +57,21 @@ function SearchScreen({ }: Props) {
     isFetching.current = true;
     setLoading(isRefresh ? 'refresh' : 'more');
     const data: any = await helper.get('/dapp/search', {
-      keyword: name
+      keyword: name,
+      page_no: isRefresh ? 1 : start+=1,
     })
     setLoading(null);
-    if (data.length > 0) {
+    if (data && data.data) {
+      let currentCount;
       if (isRefresh) {
-        setSeachDataList(data)
+        currentCount = data.data.length;
+        start = 1
+        setSeachDataList(data.data)
       } else {
-        setSeachDataList(seachDataList.concat(data));
+        currentCount = data.data.length + seachDataList.length;
+        setSeachDataList(seachDataList.concat(data.data));
       }
-      if (data.length < 30) {
+      if (currentCount >= data.pageRecords) {
         isEndReached.current = true;
       } else {
         isEndReached.current = false;
@@ -76,10 +83,11 @@ function SearchScreen({ }: Props) {
   }
 
   async function goWebView(item: DappRecentItem) {
+    if (item)
     await dispatch(walletAction.setDappSearchList(item));
     navigate('DappWebScreen', {
       title: item.name,
-      uri: item.deep_link,
+      uri: item.deepLink,
       item: item
     })
   }
@@ -89,7 +97,7 @@ function SearchScreen({ }: Props) {
       let found: any = parseURL(name);
       let item: DappRecentItem = {
         category: found[2],
-        deep_link: name,
+        deepLink: name,
         logo: '',
         name: found[2],
         protocol: '',
@@ -107,12 +115,12 @@ function SearchScreen({ }: Props) {
           <Avatar
             rounded
             title={item?.name[0]}
-            // source={item?.logo ? { uri: item?.logo} : undefined}
+            source={item?.logo ? { uri: item?.logo} : undefined}
             containerStyle={styles.itemAvatar}
           />
           <View style={styles.itemDesc}>
             <Text style={styles.descTitle}>{item.name}</Text>
-            <Text style={styles.descInfo}>{item.deep_link}</Text>
+            <Text style={styles.descInfo}>{item.deepLink}</Text>
           </View>
         </View>
       </TouchableOpacity>
@@ -156,7 +164,7 @@ function SearchScreen({ }: Props) {
                 style={{ margin: 0, padding: 0 }}
                 data={seachDataList}
                 renderItem={renderItem}
-                keyExtractor={(item, i) => item?.deep_link + i}
+                keyExtractor={(item) => item?.id}
                 initialNumToRender={10}
                 refreshControl={
                   <RefreshControl
@@ -215,6 +223,8 @@ const styles = StyleSheet.create({
     fontSize: 13,
     fontWeight: '500',
     flex: 1,
+    height: 34,
+    padding: 0,
   },
   goBlack: {
     paddingStart: 15,

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Clipboard from "@react-native-clipboard/clipboard";
-import { Image } from "react-native";
-import { WToast } from "react-native-smart-tip";
+import { ActivityIndicator, Image } from "react-native";
+import { WToast, WModal } from "react-native-smart-tip";
 import { ethers } from 'ethers';
 
 export function show(text: string, duration = WToast.duration.SHORT) {
@@ -29,6 +29,19 @@ export function showWithImage(text: string, imageSource: any) {
   WToast.show(toastOpts);
 };
 
+export function showLoading(text?: string) {
+  const modalOpts = {
+    data: 'Loading...',
+    textColor: '#fff',
+    backgroundColor: '#444444',
+    position: WToast.position.CENTER, // 1.TOP 2.CENTER 3.BOTTOM
+    icon: <ActivityIndicator color='#fff' size={'large'}/>
+  };
+  WModal.show(modalOpts)
+}
+export function hideLoading() {
+  WModal.hide()
+}
 
 export function subSplit(text: string | undefined, start: number, end: number) {
   if (text && text !== " ") {
