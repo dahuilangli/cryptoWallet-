@@ -638,7 +638,7 @@ const styles = StyleSheet.create({
   centerOut: {
     marginLeft: 20,
     height: 20,
-
+    color:'#616D86',
   },
   inputView: {
     marginLeft: 20,
@@ -660,6 +660,7 @@ const styles = StyleSheet.create({
   centerinput: {
     marginRight: 20,
     height: 20,
+    color:'#616D86',
   },
   outView: {
     marginRight: 20,

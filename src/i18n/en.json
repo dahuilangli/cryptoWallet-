@@ -9,7 +9,7 @@
   "versionupdate":"Version Update",
   "UserAgreement":"User Agreement",
   "aboutus":"About Us",
-  "sure":"Sure",
+  "sure":"Confirm",
   "editpayee":"Edit Payee",
   "addressname":"Address Name",
   "addresstype":"Address Type",
@@ -183,5 +183,7 @@
   "Change":"Change ",
   "successful":" successful",
   "Transferinnotice":"Transfer in notice",
-  "Transferoutnotice":"Transfer out notice"
+  "Transferoutnotice":"Transfer out notice",
+  "Incorrectpassword":"Incorrect password",
+  "loginstatushasexpiredYoucanstayonorreboot":"Login status has expired,You can stay on or reboot"
 }

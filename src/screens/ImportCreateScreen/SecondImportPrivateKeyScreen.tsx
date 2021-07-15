@@ -50,8 +50,6 @@ const SecondImportPrivateKeyScreen = (props: Props) => {
               buttonStyle={styles.nextButton}
               onPress={() => {
                 if(checkwalletPrivateKey(privateKey)){
-                  console.log('111');
-                  
                   try {
                     importByprivateKey(
                       privateKey.replace(/(^\s*)|(\s*$)/g, ''),

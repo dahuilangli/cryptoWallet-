@@ -589,7 +589,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
     borderRadius: 8,
     alignItems: 'center',
-    paddingHorizontal: 10,
+    paddingHorizontal: 15,
     marginTop: 10,
   },
   addressInput: {

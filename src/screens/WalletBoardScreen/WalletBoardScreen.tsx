@@ -58,7 +58,6 @@ function WalletBoardScreen({ }: Props) {
   }
 
   async function setImportType(type:string) {
-    dispatch(walletAction.setImportType(type))
     navigate('SecondSelectWalletScreen',{loginType:type})
   }
   return (

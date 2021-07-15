@@ -1,5 +1,5 @@
 import { RNCamera } from 'react-native-camera';
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
     StyleSheet,
     Animated,
@@ -19,19 +19,21 @@ interface Props {
     route: {
         params: {
             title: string,
-            assetsList: any ,
+            assetsList: any,
         }
     }
 }
 
 const ScanQRCode = (props: Props) => {
     const { t } = useTranslation();
-    const {title} = props.route.params;
-    const {assetsList} = props.route.params;
+    const { title } = props.route.params;
+    const { assetsList } = props.route.params;
+    const [lostFoceson, setLostFoceesOn] = useState(true)
     const moveAnim = useRef(new Animated.Value(-2)).current;
     useEffect(() => {
         requestCameraPermission();
         startAnimation();
+        
     }, []);
     //请求权限的方法
     const requestCameraPermission = async () => {
@@ -107,36 +109,38 @@ const ScanQRCode = (props: Props) => {
     };
     const onBarCodeRead = (result) => {
         try {
-            
-            
             const { data } = result; //只要拿到data就可以了
-            // walletConnect(data)            
-            if (checkwalletAdress(data) && title === 'HomeScreen') {
-                navigate('TransferScreen', { address: data ,assetsList});
-            } else if (verifyURL(data) && title === 'PrivateKeyScreen') {
-                navigate('WebScreen', { title: 'Dapp', uri: data })
-            }  else {
-               const splitStr = data.split(':')[1];
-               console.log(splitStr);
-               
-               
-               if(checkwalletAdress(splitStr) && title === 'HomeScreen'){
-                navigate('TransferScreen', { address: splitStr ,assetsList});
-               }else{
-                  
-              setTimeout(() => {
-                    Alert.alert(t("Addressviolation"))
-                }, 1);
-               }
-               clearTimeout
-
+            if(data){
+                setLostFoceesOn(!lostFoceson);
+                if (checkwalletAdress(data) && title === 'HomeScreen') {
+                    navigate('TransferScreen', { address: data, assetsList });
+                } else if (verifyURL(data) && title === 'DappScreen') {
+                    navigate('DappWebScreen', { uri: data })
+                } else {
+                    const splitStr = data.split(':')[1];
+                    if (checkwalletAdress(splitStr) && title === 'HomeScreen') {
+                        navigate('TransferScreen', { address: splitStr, assetsList });
+                    } else {
+                        Alert.alert(t("Addressviolation"))
+                        Alert.alert('提示', t("Addressviolation"), [
+                            {
+                                text: "sure",
+                                onPress: () => {
+                                    setLostFoceesOn(!lostFoceson);
+                                },
+                            },
+                        ]);
+                        
+                    }
+                }
             }
+
         } catch (error) {
 
         }
 
     };
-   
+
     return (
         <View style={styles.container}>
             <RNCamera
@@ -149,6 +153,7 @@ const ScanQRCode = (props: Props) => {
                 flashMode={RNCamera.Constants.FlashMode.off}/*相机闪光模式*/
                 onBarCodeRead={onBarCodeRead}
                 captureAudio={false}
+                
             >
                 <View style={{
                     width: 500,
@@ -169,13 +174,14 @@ const ScanQRCode = (props: Props) => {
 
                 <View style={{ flex: 1, backgroundColor: 'rgba(0, 0, 0, 0.5)', width: 500, alignItems: 'center' }}>
                     <Text style={styles.rectangleText}>{
-                        title === 'HomeScreen'?t("addressScanautomatically"):title === 'PrivateKeyScreen'? t("privatekeyScanautomatically"): t("websiteScanautomatically")
+                        title === 'HomeScreen' ? t("addressScanautomatically") : title === 'PrivateKeyScreen' ? t("privatekeyScanautomatically") : t("websiteScanautomatically")
                     }</Text>
                 </View>
             </RNCamera>
 
         </View>
     )
+    
 };
 
 

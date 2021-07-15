@@ -38,9 +38,6 @@ if (headEl && bodyEl) {
 
 export default function DappWebScreen({ navigation, route }: Props) {
     const { t } = useTranslation();
-
-    const screenitem = route.params.item;
-
     const [modalVisible, setModalVisible] = useState(true);
     const [showHtml, setShowHtml] = useState(true)
     const uri = showHtml ? '' : route.params.uri.replace('http:', 'https:');
@@ -116,7 +113,6 @@ export default function DappWebScreen({ navigation, route }: Props) {
                 </View>
             </Modal>
         </View>
-
 
     );
 }
