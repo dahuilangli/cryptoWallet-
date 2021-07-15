@@ -180,7 +180,6 @@ function SearchScreen({ route }: Props) {
                 style={styles.coinNameText}
                 onChangeText={setCoinName}
                 onSubmitEditing={() => {
-                  limit = 1;
                   seachName(true)
                 }}
               />
@@ -279,9 +278,9 @@ const styles = StyleSheet.create({
   coinNameView: {
     height: 34,
     marginRight: 5,
+    flex: 1,
   },
   coinNameText: {
-    flex: 1,
     height: 34,
     padding: 0,
   },

@@ -57,7 +57,7 @@ function SearchScreen({ }: Props) {
     }
     isFetching.current = true;
     setLoading(isRefresh ? 'refresh' : 'more');
-    showLoadingModal()
+    // showLoadingModal()
     const data: any = await helper.get('/dapp/search', {
       keyword: name,
       pageNo: isRefresh ? 1 : start+=1,
@@ -83,7 +83,7 @@ function SearchScreen({ }: Props) {
     } else {
       setSeachDataList([])
     }
-    closeLoadingModal()
+    // closeLoadingModal()
     isFetching.current = false;
   }
 
@@ -232,7 +232,6 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     flex: 1,
     height: 34,
-    padding: 0,
   },
   goBlack: {
     paddingStart: 15,
