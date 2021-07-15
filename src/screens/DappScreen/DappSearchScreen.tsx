@@ -22,6 +22,7 @@ import walletAction from 'actions/wallet';
 import { DappRecentItem } from 'actions/types'
 import { parseURL, verifyURL } from 'utils';
 import { useIsFocused } from '@react-navigation/native';
+import { showLoadingModal, closeLoadingModal } from 'components/Dialog'
 interface Props { }
 
 let start = 1;
@@ -56,18 +57,21 @@ function SearchScreen({ }: Props) {
     }
     isFetching.current = true;
     setLoading(isRefresh ? 'refresh' : 'more');
+    showLoadingModal()
     const data: any = await helper.get('/dapp/search', {
       keyword: name,
-      page_no: isRefresh ? 1 : start+=1,
+      pageNo: isRefresh ? 1 : start+=1,
     })
     setLoading(null);
     if (data && data.data) {
       let currentCount;
       if (isRefresh) {
+        console.log('第一次');
         currentCount = data.data.length;
         start = 1
         setSeachDataList(data.data)
       } else {
+        console.log('累加');
         currentCount = data.data.length + seachDataList.length;
         setSeachDataList(seachDataList.concat(data.data));
       }
@@ -79,6 +83,7 @@ function SearchScreen({ }: Props) {
     } else {
       setSeachDataList([])
     }
+    closeLoadingModal()
     isFetching.current = false;
   }
 
@@ -167,7 +172,7 @@ function SearchScreen({ }: Props) {
                 style={{ margin: 0, padding: 0 }}
                 data={seachDataList}
                 renderItem={renderItem}
-                keyExtractor={(item) => item?.id}
+                keyExtractor={(item) => item?.dappLink}
                 initialNumToRender={10}
                 refreshControl={
                   <RefreshControl

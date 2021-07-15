@@ -79,13 +79,17 @@ function FlashExchangeScreen({ }: Props) {
   const [isSigninInProgress, setIsSigninInProgress] = useState(false);
 
   useEffect(() => {
-    getSwftCoinList();
-    getAssetsList();
+    if (user) {
+      getSwftCoinList();
+      getAssetsList();
+    }
   }, [user]);
 
   useEffect(() => {
-    setOut(coinList[0])
-    setInPut(coinList[1])
+    if (coinList) {
+      setOut(coinList[0])
+      setInPut(coinList[1])
+    }
   }, [coinList])
 
   useEffect(() => {

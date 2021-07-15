@@ -100,14 +100,9 @@ function SearchScreen({ route }: Props) {
     const data: any = await helper.get('/wallet/coin', {
       keyword: name,
       wallet: thisUser?.coinInfo?.wallet,
-      page_no: isRefresh ? 1 : start+=1,
+      pageNo: isRefresh ? 1 : start+=1,
     })
     setLoading(null);
-    console.log({
-      keyword: name,
-      wallet: thisUser?.coinInfo?.wallet,
-      page_no: isRefresh ? 1 : start+=1,
-    });
     if (data && data.data) {
       let currentCount;
       if (isRefresh) {
@@ -201,7 +196,7 @@ function SearchScreen({ route }: Props) {
               <Text style={styles.assetsHeardTitle}>{t("searchresult")}</Text>
             </View>
             <FlatList
-              style={{ margin: 0, padding: 0 }}
+              style={{ flex:1, margin: 0, padding: 0 }}
               data={coinList}
               renderItem={renderItem}
               keyExtractor={(item, i) => item?.token + i}

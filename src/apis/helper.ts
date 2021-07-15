@@ -6,7 +6,6 @@ import DeviceInfo from 'react-native-device-info';
 import errorCode from './errorCode.json'
 import { Alert } from "react-native";
 import { DevSettings } from "react-native";
-import { show } from "utils";
 
 axios.defaults.headers['Content-Type'] = 'application/json;charset=utf-8'
 
@@ -54,6 +53,9 @@ client.interceptors.request.use(config => {
     config.params = {};
     config.url = url;
   }
+  console.log('====================================');
+  console.log(config.url);
+  console.log('====================================');
   return config
 }, error => {
   Promise.reject(error.data)
