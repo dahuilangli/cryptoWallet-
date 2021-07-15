@@ -57,7 +57,7 @@ function AboutUsScreen({ }: Props) {
                 <View style={styles.firstView}>
                   <Image
                     style={styles.LeftImage}
-                    source={item.icon}
+                    source={{uri:item.icon}}
                   />
                   <Text style={styles.nameText}>{item.title}</Text>
                 </View >

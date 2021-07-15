@@ -43,7 +43,7 @@ const SetWalletPwdScreen = (props: Props) => {
     }
   }
   console.log('====================================');
-  console.log(account);
+  console.log("11111"+loginType);
   console.log('====================================');
   return (
     <SafeAreaView style={styles.container}>
@@ -71,21 +71,21 @@ const SetWalletPwdScreen = (props: Props) => {
           <Button
             buttonStyle={styles.nextButton}
             onPress={() => {
-              if (loginType) {
+              if (loginType === 'new') {
+                navigate('SafetyTipsScreen', {
+                  accountInfo: { ...account, ...accountInfo, securityCode: repwd },
+                });
+              } else {
                 navigate('SuccessScreen', {
                   title: t("Importsuccessful"),
                   accountInfo: { ...account, ...accountInfo, securityCode: repwd },
                 });
                 console.log({ ...account, ...accountInfo, securityCode: repwd });
-                
-              } else {
-                navigate('SafetyTipsScreen', {
-                  accountInfo: { ...account, ...accountInfo, securityCode: repwd },
-                });
+
               }
             }}
             disabled={!(pwd.length >= 6 && repwd.length >= 6 && repwd === pwd)}
-            title={t("NextStep")}
+            title={t("Importwallet")}
             titleStyle={styles.nextButtonTitle}
           />
         </View>

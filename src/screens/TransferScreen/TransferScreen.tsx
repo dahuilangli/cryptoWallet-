@@ -92,19 +92,19 @@ function TransferScreen(props: Props) {
 
       let gas: Array<{ gasPrice: string; title: string; balance: string; amount: string }> = []
       gas[0] = {
-        title: '快速',
+        title: t("fast"),
         gasPrice: res.fastest,
         balance: Div(Mul(res.fastest, assetsList[selectCoinIndex]?.gas_limit), Math.pow(10, Number(thisUser?.coinInfo?.gas_decimal))).toString(),
         amount: Mul(Div(Mul(res.fastest, assetsList[selectCoinIndex]?.gas_limit), Math.pow(10, Number(thisUser?.coinInfo?.gas_decimal))), res.rate_currency).toString(),
       };
       gas[1] = {
-        title: '平均',
+        title: t("average"),
         gasPrice: res.average,
         balance: Div(Mul(res.average, assetsList[selectCoinIndex]?.gas_limit), Math.pow(10, Number(thisUser?.coinInfo?.gas_decimal))).toString(),
         amount: Mul(Div(Mul(res.average, assetsList[selectCoinIndex]?.gas_limit), Math.pow(10, Number(thisUser?.coinInfo?.gas_decimal))), res.rate_currency).toString(),
       };
       gas[2] = {
-        title: '最慢',
+        title: t("slow"),
         gasPrice: res.slow,
         balance: Div(Mul(res.slow, assetsList[selectCoinIndex]?.gas_limit), Math.pow(10, Number(thisUser?.coinInfo?.gas_decimal))).toString(),
         amount: Mul(Div(Mul(res.slow, assetsList[selectCoinIndex]?.gas_limit), Math.pow(10, Number(thisUser?.coinInfo?.gas_decimal))), res.rate_currency).toString(),
@@ -137,8 +137,7 @@ function TransferScreen(props: Props) {
             let nonce = res.nonce;
             if (thisUser?.coinInfo?.token === assetsList[selectCoinIndex]?.symbol) {
               transaction(thisUser.privateKey, nonce, gas_limit, gas_price, to, amount).then(sign => {
-                console.log(sign);
-                console.log('签名');
+  
                 let params = {
                   "amount": amount,
                   "from": address,
@@ -149,15 +148,14 @@ function TransferScreen(props: Props) {
                   "to": to,
                   "wallet": wallet
                 }
-                show('提交成功')
+                show(t("Submittedsuccessfully"))
                 helper.post('/wallet/transfer', params)
               })
             } else {
               let value: bigint = BigInt(Mul(amount, Math.pow(10, Number(assetsList[selectCoinIndex]?.decimals))));
               let contract = assetsList[selectCoinIndex]?.token;
               contractTrans(thisUser.privateKey, nonce, gas_limit, gas_price, contract, to, value).then(sign => {
-                console.log(sign);
-                console.log('签名');
+
                 let params = {
                   "amount": amount,
                   "from": address,
@@ -169,14 +167,14 @@ function TransferScreen(props: Props) {
                   "to": to,
                   "wallet": wallet
                 }
-                show('提交成功')
+                show(t("Submittedsuccessfully"))
                 helper.post('/wallet/transfer', params)
               })
             }
 
           })
         } else {
-          show('请输入正确的安全密码')
+          show(t("Pleaseentercorrectsecuritypassword"))
         }
       } else {
         show(t("Pleaseentercorrectsecuritypassword"))
@@ -245,7 +243,7 @@ function TransferScreen(props: Props) {
                     if (textVal <= balance) {
                       setTransferAmount(text)
                     } else {
-                      show("应小于可用余额")
+                      show(t("lessthanavailablebalance"))
                     }
                   }}
                 />
@@ -501,24 +499,24 @@ function TransferScreen(props: Props) {
                   source={require('assets/safety_warning.png')}
                 />
               </View>
-              <Text style={styles.warningTitle}>风险提示</Text>
+              <Text style={styles.warningTitle}>{t("Riskwarning")}</Text>
               <View style={styles.warningDesc}>
                 <Text style={styles.descText}>
-                  1. 请务必在转账操作前，仔细核对转账地址信息。
+                  1. {t("checktransferaddress")}
                 </Text>
                 <Text style={{ ...styles.descText, ...styles.paddingTop_30 }}>
                   2.
-                  您的转账行为一旦完成，对应的资产所有权将由变更为目标地址所对应的账户所有人享有。
+                  {t("transfercompletedtargetaddress")}
                 </Text>
                 <Text style={{ ...styles.descText, ...styles.paddingTop_30 }}>
                   3.
-                  确保转账属于自愿行为，并确认不涉及任何传销，非法集资，诈骗等违法情形。谨防上当受骗，避免造成不必要的财产损失。
+                  {t("Ensurethattransfersarevoluntary")}
                 </Text>
               </View>
               <Button
                 type="clear"
                 buttonStyle={styles.warningButtonStyle}
-                title="我知道了"
+                title={t("Iknow")}
                 titleStyle={styles.buttonTitle}
                 onPress={setShowRisk}
               />

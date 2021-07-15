@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View, SafeAreaView, Text } from 'react-native';
-
+import { useTranslation } from 'react-i18next';
 import { Button } from 'react-native-elements';
 import { goBack } from 'components/navigationService';
 interface Props {
@@ -14,12 +14,13 @@ interface Props {
 const ExportMnemonicScreen = (props: Props) => {
   let mnemonic = props.route.params.mnemonic
   const mnemonicList: string[] = mnemonic.split(' ');
+  const { t } = useTranslation();
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.main}>
         <View>
           <Text style={styles.presentText}>
-            请按顺序抄写这些单词，并保存至安全的地方
+            {t("Copywordssavetheminsafeplace")}
           </Text>
           <View style={styles.mnemonicList}>
             {mnemonicList &&
@@ -38,7 +39,7 @@ const ExportMnemonicScreen = (props: Props) => {
         <Button
           buttonStyle={styles.nextButton}
           onPress={goBack}
-          title="已确认备份"
+          title={t("Confirmedbackup")}
           titleStyle={styles.nextButtonTitle}
         />
       </View>

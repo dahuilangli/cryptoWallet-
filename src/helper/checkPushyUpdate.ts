@@ -1,5 +1,4 @@
-import { Platform, Alert, Linking } from 'react-native';
-import { useTranslation } from 'react-i18next';
+import { Platform, Alert, Linking ,Modal ,View} from 'react-native';
 import React, { useState, useEffect } from 'react';
 
 import * as helper from 'apis/helper'
@@ -13,12 +12,10 @@ let buildVersion = DeviceInfo.getBuildNumber();
 export default function checkPushyUpdate() {
   
     helper.get('/sys/version', {}).then((res:any)=>{
-    console.log('===========/sys/version=============');
-    console.log(res);
-    console.log(systemVersion);
       if (res) {
+        console.log(res);        
         if (res.app_ver > systemVersion) {
-          Alert.alert('提示', '您的应用版本已更新,请前往应用商店下载新的版本', [
+          Alert.alert('提示', '您的应用版本已更新,请前往应用商店下载新的版本'+'\n'+res.ucontent.re, [
             {
               text: "sure",
               onPress: () => {
@@ -28,7 +25,7 @@ export default function checkPushyUpdate() {
           ]);
         } else {
           if (res.build_ver > buildVersion) {
-            Alert.alert('提示', '您的应用版本已更新,请前往应用商店下载新的版本', [
+            Alert.alert('提示', '您的应用版本已更新,请前往应用商店下载新的版本'+'\n'+res.ucontent, [
               {
                 text: "sure",
                 onPress: () => {

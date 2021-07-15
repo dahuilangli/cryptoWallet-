@@ -23,19 +23,20 @@ interface Props {
         }
     }
 }
-
-const ScanQRCode = (props: Props) => {
+function ScanQRCode(props: Props) {
     const { t } = useTranslation();
     const { title } = props.route.params;
     const { assetsList } = props.route.params;
     const [lostFoceson, setLostFoceesOn] = useState(true)
     const moveAnim = useRef(new Animated.Value(-2)).current;
+    let timer;
     useEffect(() => {
         requestCameraPermission();
         startAnimation();
-        
+
     }, []);
-    //请求权限的方法
+
+
     const requestCameraPermission = async () => {
         try {
             const granted = await PermissionsAndroid.request(
@@ -110,7 +111,7 @@ const ScanQRCode = (props: Props) => {
     const onBarCodeRead = (result) => {
         try {
             const { data } = result; //只要拿到data就可以了
-            if(data){
+            if (data) {
                 setLostFoceesOn(!lostFoceson);
                 if (checkwalletAdress(data) && title === 'HomeScreen') {
                     navigate('TransferScreen', { address: data, assetsList });
@@ -121,16 +122,16 @@ const ScanQRCode = (props: Props) => {
                     if (checkwalletAdress(splitStr) && title === 'HomeScreen') {
                         navigate('TransferScreen', { address: splitStr, assetsList });
                     } else {
-                        Alert.alert(t("Addressviolation"))
-                        Alert.alert('提示', t("Addressviolation"), [
+
+                        Alert.alert(t("tips"), t("Addressviolation"), [
                             {
                                 text: "sure",
                                 onPress: () => {
-                                    setLostFoceesOn(!lostFoceson);
                                 },
                             },
                         ]);
-                        
+
+
                     }
                 }
             }
@@ -153,7 +154,6 @@ const ScanQRCode = (props: Props) => {
                 flashMode={RNCamera.Constants.FlashMode.off}/*相机闪光模式*/
                 onBarCodeRead={onBarCodeRead}
                 captureAudio={false}
-                
             >
                 <View style={{
                     width: 500,
@@ -181,7 +181,7 @@ const ScanQRCode = (props: Props) => {
 
         </View>
     )
-    
+
 };
 
 

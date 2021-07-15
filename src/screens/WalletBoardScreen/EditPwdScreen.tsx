@@ -66,18 +66,18 @@ const EditPwdScreen = (props: Props) => {
                         onPress={() => {
                             if (pwds === lastPassWord) {
                                 if (firstPassWord === lastPassWord) {
-                                    show('新密码不能和旧密码一样')
+                                    show(t("newpasswordcannotsameoldpassword"))
                                 } else {
                                     if (secondPassWord === firstPassWord ) {
                                         setPwds(firstPassWord);
                                         changePassWord(secondPassWord);
                                         goBack();
                                     } else {
-                                        show('新密码和确认密码不一样')
+                                        show(t("newpasswordisnotsameconfirmationpassword"))
                                     }
                                 }
                             } else {
-                                show('旧密码错误')
+                                show(t("Oldpassworderror"))
                             }
 
                         }}

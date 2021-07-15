@@ -162,7 +162,7 @@ function FlashExchangeScreen({ }: Props) {
           // 获取GasList
           helper.get('/wallet/gas', { wallet }).then((res: any) => {
             let gas = {
-              title: '快速',
+              title: t("fast"),
               gasPrice: res.fastest,
               balance: Div(Mul(res.fastest, balance?.gas_limit), Math.pow(10, Number(thisUser?.coinInfo?.gas_decimal))).toString(),
               amount: Mul(Div(Mul(res.fastest, thisUser?.coinInfo.gas_limit), Math.pow(10, Number(thisUser?.coinInfo?.gas_decimal))), res.rate_currency).toString(),
@@ -309,6 +309,8 @@ function FlashExchangeScreen({ }: Props) {
                         if (text) {
                           let num = Mul(parseFloat(text), parseFloat(base?.instant_rate)).toFixed(8);
                           setInNumber(num.toString())
+                        }else{
+                          setInNumber('')
                         }
                       }}
                     >

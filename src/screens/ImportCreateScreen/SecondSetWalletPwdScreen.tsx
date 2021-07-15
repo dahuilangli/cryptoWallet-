@@ -29,7 +29,9 @@ const SecondSetWalletPwdScreen = (props: Props) => {
   const [repwd, setRepwd] = useState('');
   const isFocused = useIsFocused();
   const { t } = useTranslation();
-
+  console.log('====================================');
+  console.log(loginType);
+  console.log('====================================');
   useEffect(() => {
     if (isFocused) {
       switch (loginType) {
@@ -71,19 +73,21 @@ const SecondSetWalletPwdScreen = (props: Props) => {
           <Button
             buttonStyle={styles.nextButton}
             onPress={() => {
-              if (loginType) {
+              if (loginType === 'new') {
+                navigate('SecondSafetyTipsScreen', {
+                  accountInfo: { ...account, ...accountInfo, securityCode: repwd },
+                });
+              } else {
                 navigate('OnlySuccessScreen', {
                   title: t("Importsuccessful"),
                   accountInfo: { ...account, ...accountInfo, securityCode: repwd },
                 });
-              } else {
-                navigate('SecondSafetyTipsScreen', {
-                  accountInfo: { ...account, ...accountInfo, securityCode: repwd },
-                });
+                console.log({ ...account, ...accountInfo, securityCode: repwd });
+
               }
             }}
             disabled={!(pwd.length >= 6 && repwd.length >= 6 && repwd === pwd)}
-            title={t("NextStep")}
+            title={t("Importwallet")}
             titleStyle={styles.nextButtonTitle}
           />
         </View>

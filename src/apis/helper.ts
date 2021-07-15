@@ -7,7 +7,6 @@ import errorCode from './errorCode.json'
 import { Alert } from "react-native";
 import { DevSettings } from "react-native";
 import { show } from "utils";
-import { useTranslation } from 'react-i18next';
 axios.defaults.headers['Content-Type'] = 'application/json;charset=utf-8'
 const client = axios.create({ //all axios can be used, shown in axios documentation
   baseURL: API_ENDPOINT,
