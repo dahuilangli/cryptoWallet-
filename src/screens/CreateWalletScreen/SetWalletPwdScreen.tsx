@@ -26,6 +26,7 @@ const SetWalletPwdScreen = (props: Props) => {
   const [account, setAccount] = useState({});
   const [repwd, setRepwd] = useState('');
   const { t } = useTranslation();
+  console.log(loginType);
   useEffect(() => {
     createAccount()
   }, []);
@@ -42,9 +43,6 @@ const SetWalletPwdScreen = (props: Props) => {
         break;
     }
   }
-  console.log('====================================');
-  console.log(account);
-  console.log('====================================');
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.main}>
@@ -76,8 +74,6 @@ const SetWalletPwdScreen = (props: Props) => {
                   title: t("Importsuccessful"),
                   accountInfo: { ...account, ...accountInfo, securityCode: repwd },
                 });
-                console.log({ ...account, ...accountInfo, securityCode: repwd });
-                
               } else {
                 navigate('SafetyTipsScreen', {
                   accountInfo: { ...account, ...accountInfo, securityCode: repwd },

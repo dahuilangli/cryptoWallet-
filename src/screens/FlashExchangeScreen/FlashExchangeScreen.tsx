@@ -241,7 +241,7 @@ function FlashExchangeScreen({ }: Props) {
         setOutNumber('');
         setInNumber('');
         setSecurityCode('')
-      } 
+      }
     } else {
       show(t("Pleaseentercorrectsecuritypassword"))
       setSecurityCode('')
@@ -257,10 +257,10 @@ function FlashExchangeScreen({ }: Props) {
             <Text style={styles.leftBtn}>{t("record")}</Text>
             <Text style={styles.headerTitle}>{t("flash")}</Text>
             <TouchableOpacity onPress={() => navigate('FlashRecordScreen', { equipmentNo: `Morleystone-${thisUser?.coinInfo?.wallet}-${thisUser.address}` })}>
-            <Image
- 	                style={styles.image}
- 	                source={require('assets/icon_flash_record.png')}
- 	              />
+              <Image
+                style={styles.image}
+                source={require('assets/icon_flash_record.png')}
+              />
             </TouchableOpacity>
           </View>
 
@@ -313,6 +313,8 @@ function FlashExchangeScreen({ }: Props) {
                         if (text) {
                           let num = Mul(parseFloat(text), parseFloat(base?.instant_rate)).toFixed(8);
                           setInNumber(num.toString())
+                        } else {
+                          setInNumber('')
                         }
                       }}
                     >
