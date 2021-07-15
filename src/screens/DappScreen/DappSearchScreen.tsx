@@ -226,6 +226,7 @@ const styles = StyleSheet.create({
   coinNameView: {
     height: 34,
     marginRight: 5,
+    flex: 1,
   },
   coinNameText: {
     fontSize: 13,
