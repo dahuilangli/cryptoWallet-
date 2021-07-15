@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { SafeAreaView, View, StyleSheet, Text } from 'react-native';
 import CustomQrCode from 'components/CustomQrCode';
 import { Button } from 'react-native-elements';
@@ -12,17 +12,17 @@ interface Props {
   }
 }
 function ReceivePaymentScreen(props: Props) {
-  const { address } = props.route.params;
-
+  const {address} = props.route.params
   const {t} = useTranslation();
   // Other
-  
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.main}>
         <View style={styles.codeContainer}>
-          <CustomQrCode text={address} styl={styles.qrCode} />
+          <View style={styles.qrCode}>
+            <CustomQrCode value={address} size={215} />
+          </View>
           <Text style={styles.codeInfo}>{t("ScanQRcodereceivepayment")}</Text>
         </View>
         <View style={styles.addressContainer}>
@@ -56,8 +56,6 @@ const styles = StyleSheet.create({
   },
   qrCode: {
     marginTop: 50,
-    width: 215,
-    height: 215,
   },
   codeInfo: {
     fontSize: 16,

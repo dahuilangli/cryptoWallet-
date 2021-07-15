@@ -26,6 +26,7 @@ const SetWalletPwdScreen = (props: Props) => {
   const [account, setAccount] = useState({});
   const [repwd, setRepwd] = useState('');
   const { t } = useTranslation();
+  console.log(loginType);
   useEffect(() => {
     createAccount()
   }, []);
@@ -42,9 +43,6 @@ const SetWalletPwdScreen = (props: Props) => {
         break;
     }
   }
-  console.log('====================================');
-  console.log("11111"+loginType);
-  console.log('====================================');
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.main}>

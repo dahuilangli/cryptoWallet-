@@ -71,10 +71,10 @@ function DappScreen({ }: Props) {
       onPress={() => goWebView(item)}
     >
       <View style={styles.itemView}>
-        <Avatar rounded title={item.name[0]} source={{uri: item.logo}} containerStyle={styles.leftIcon} />
+        <Avatar rounded size={40} title={item?.name[0]} source={{uri: item.logo}} containerStyle={styles.leftIcon} />
         <View style={styles.contentView}>
           <Text style={{ height: 20, fontSize: 14, fontWeight: '500', color: '#394867' }}>{item.name}</Text>
-          <Text style={{ height: 20, fontSize: 12, fontWeight: '400', color: '#9CA4B3' }}>{item.deep_link}</Text>
+          <Text style={{ height: 20, fontSize: 12, fontWeight: '400', color: '#9CA4B3' }}>{item.deepLink}</Text>
         </View>
       </View>
       <View style={{ marginHorizontal: 20, height: 0.5, backgroundColor: '#E9EDF1' }} />
@@ -252,8 +252,6 @@ const styles = StyleSheet.create({
   leftIcon: {
     marginLeft: 20,
     marginVertical: 15,
-    width: 40,
-    height: 40,
   },
   contentView: {
     marginLeft: 10,

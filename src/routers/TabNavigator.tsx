@@ -44,7 +44,6 @@ function TabNavigator() {
         activeTintColor:'#3B6ED5',
         inactiveTintColor:'#263C75',
         tabStyle: {
-          height: 50,
           justifyContent: 'center',
           alignItems: 'center',
           paddingVertical: Platform.OS === 'ios' ? 3 : 5,

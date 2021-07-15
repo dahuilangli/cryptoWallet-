@@ -1,21 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { Image } from 'react-native';
-import QRCode from 'qrcode-generator';
+import { AppState, Image } from 'react-native';
+import QRCode from 'react-native-qrcode-svg';
 interface Props {
-  text: string;
-  styl: any;
+  value: string;
+  size: number;
+  logo?: any;
+  logoSize?: number;
 }
-export default ({ text, styl }: Props) => {
-  const [base64Img, setBase64Img] = useState('');
-  useEffect(() => {
-    const typeNumber = 4;
-    const errorCorrectionLevel = 'Q';
-    const qr = QRCode(typeNumber, errorCorrectionLevel);
-    qr.addData(text);
-    qr.make();
-    setBase64Img(qr.createDataURL(10, 0));
-  }, []);
-  return base64Img ? (
-    <Image source={{ uri: base64Img }} style={styl} resizeMode="contain" />
+export default ({ value, size, logo, logoSize }: Props) => {
+  return value ? (
+    <QRCode
+      value={value}
+      size={size}
+      logoBackgroundColor='transparent'
+    />
   ) : null;
 };
