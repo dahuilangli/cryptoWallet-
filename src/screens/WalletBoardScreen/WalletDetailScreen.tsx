@@ -255,7 +255,7 @@ function WalletDetailScreen(props: Props) {
                             }
                           }else{
                             setTransferConfirm(!transferConfirm);
-                            show('密码不正确')
+                            show(t("Incorrectpassword"))
                           }
                         }}
                       />

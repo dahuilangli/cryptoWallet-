@@ -7,9 +7,9 @@ import errorCode from './errorCode.json'
 import { Alert } from "react-native";
 import { DevSettings } from "react-native";
 import { show } from "utils";
-
+import { useTranslation } from 'react-i18next';
 axios.defaults.headers['Content-Type'] = 'application/json;charset=utf-8'
-
+const { t } = useTranslation();
 const client = axios.create({ //all axios can be used, shown in axios documentation
   baseURL: API_ENDPOINT,
   responseType: 'json',
@@ -73,8 +73,8 @@ client.interceptors.response.use(res => {
   const msg = errorCode[code] || res.data.msg || errorCode['default']
   if (code === '401') {
     Alert.alert(
-      '提示',
-      '登录状态已过期，您可以继续留在该页面，或者重新启动',
+      t("tips"),
+      t("loginstatushasexpiredYoucanstayonorreboot"),
       [
         {
           text: '是',
@@ -82,7 +82,7 @@ client.interceptors.response.use(res => {
             try {
               DevSettings.reload()
             } catch (err) {
-              Alert.alert('提示', '重启失败，请手动重启');
+              Alert.alert(t("tips"), '重启失败，请手动重启');
             }
           },
         },

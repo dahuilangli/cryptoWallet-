@@ -183,5 +183,7 @@
   "Change":"切换",
   "successful":"成功",
   "Transferinnotice":"转入通知",
-  "Transferoutnotice":"转出通知"
+  "Transferoutnotice":"转出通知",
+  "Incorrectpassword":"密码不正确",
+  "loginstatushasexpiredYoucanstayonorreboot":"登录状态已过期，您可以继续留在该页面，或者重新启动"
 }

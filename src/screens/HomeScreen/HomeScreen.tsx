@@ -556,13 +556,13 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   openButton: {
-    width: 20,
-    height: 20,
+    width: 24,
+    height: 24,
     marginTop: 20,
   },
   textStyle: {
-    width: 20,
-    height: 20,
+    width: 24,
+    height: 24,
 
   },
   groupView: {
