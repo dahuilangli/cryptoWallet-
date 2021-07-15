@@ -6,7 +6,7 @@ import { goBack } from 'components/navigationService';
 interface Props {
   route: {
     params: {
-      mnemonic:string,
+      mnemonic: string,
     }
   }
 }
@@ -35,12 +35,14 @@ const ExportMnemonicScreen = (props: Props) => {
               ))}
           </View>
         </View>
-        <Button
-          buttonStyle={styles.nextButton}
-          onPress={goBack}
-          title="已确认备份"
-          titleStyle={styles.nextButtonTitle}
-        />
+        <View style={styles.bottonContainer}>
+          <Button
+            buttonStyle={styles.nextButton}
+            onPress={goBack}
+            title="已确认备份"
+            titleStyle={styles.nextButtonTitle}
+          />
+        </View>
       </View>
     </SafeAreaView>
   );
@@ -92,11 +94,14 @@ const styles = StyleSheet.create({
     color: '#3D73DD',
     fontWeight: '500',
   },
+  bottonContainer: {
+    // flex: 1,
+    paddingBottom: 20,
+  },
   nextButton: {
     height: 55,
     borderRadius: 8,
     fontSize: 16,
-    marginTop: 40,
     backgroundColor: '#3B6ED5',
   },
   nextButtonTitle: {

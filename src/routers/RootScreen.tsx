@@ -11,14 +11,12 @@ import walletAction from 'actions/wallet'
 import * as helper from "apis/helper"
 import DeviceInfo from 'react-native-device-info';
 import checkPushyUpdate from 'helper/checkPushyUpdate';
-import { EOL } from 'os';
+
+
 function RootScreen() {
   
   const dispatch = useDispatch();
   const walletStatus = useSelector(getWalletStatus);
-  console.log('====================================');
-  console.log(walletStatus);
-  console.log('====================================');
   const token = useSelector(getToken);
   const CurrentLanguage = useSelector(getLanguage);
   React.useEffect(() => {

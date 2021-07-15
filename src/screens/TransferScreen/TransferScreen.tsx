@@ -28,7 +28,7 @@ import { Mul, Div, Add, Sub, transaction, contractTrans } from 'wallets/ethsWall
 import { show } from 'utils';
 
 import { navigate } from 'components/navigationService';
-import { ethers } from 'ethers';
+
 interface Props {
   route: {
     params: {
@@ -187,6 +187,7 @@ function TransferScreen(props: Props) {
   }
 
   let verification = receivingAddress && receivingAddress.startsWith('0x') && transferAmount && gasIndex !== -1;
+
   return (
     <SafeAreaView style={styles.container}>
      
