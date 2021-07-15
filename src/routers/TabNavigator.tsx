@@ -68,9 +68,9 @@ function TabNavigator() {
       <Screen
         name="DappScreen"
         component={DappScreen}
-        // options={{
-        //   tabBarLabel: 'Dapp',
-        // }}
+        options={{
+          tabBarLabel: 'Dapp',
+        }}
       />
       <Screen
         name="ProfileScreen"
