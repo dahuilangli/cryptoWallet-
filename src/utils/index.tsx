@@ -8,7 +8,7 @@ export function show(text: string, duration = WToast.duration.SHORT) {
   const toastOpts = {
     data: text,
     textColor: '#FFFFFF',
-    backgroundColor: 'rgba(0,0,0,0.55)',
+    backgroundColor: 'rgba(0,0,0,0.6)',
     duration: duration, //1.SHORT 2.LONG
     position: WToast.position.CENTER, // 1.TOP 2.CENTER 3.BOTTOM
     isShowShadow: false
@@ -21,7 +21,7 @@ export function showWithImage(text: string) {
   const toastOpts = {
     data: text,
     textColor: '#FFFFFF',
-    backgroundColor: 'rgba(0,0,0,0.55)',
+    backgroundColor: 'rgba(0,0,0,0.6)',
     duration: WToast.duration.SHORT, //1.SHORT 2.LONG
     position: WToast.position.CENTER, // 1.TOP 2.CENTER 3.BOTTOM
     isShowShadow: false,
