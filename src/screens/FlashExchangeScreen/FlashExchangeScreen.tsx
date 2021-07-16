@@ -491,11 +491,11 @@ function FlashExchangeScreen({ }: Props) {
                       </View>
                       <View style={styles.lineView1}></View>
                       <View style={styles.centerView1}>
-                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                        <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                           <Text style={styles.poundage}>{t("handlefee")}</Text>
                           <Text style={styles.des}> {Mul(outNumber ? outNumber : 0, 0.0003)} {out?.symbol}</Text>
                         </View>
-                        <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 20 }}>
+                        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginTop: 20 }}>
                           <Text style={styles.poundage}>{t("exchangerate")}</Text>
                           <Text style={styles.des}> 1 {out?.symbol} ≈ {Number(base?.instant_rate).toFixed(8)} {inPut?.symbol}</Text>
                         </View>
@@ -839,13 +839,11 @@ const styles = StyleSheet.create({
   },
   poundage: {
     height: 20,
-    width: SCREENWIDTH / 2 - 20,
     color: '#616D86',
     fontSize: 14,
     fontWeight: '500',
   },
   des: {
-    width: SCREENWIDTH / 2 - 20,
     color: '#616D86',
     textAlign: 'right',
     height: 20,
