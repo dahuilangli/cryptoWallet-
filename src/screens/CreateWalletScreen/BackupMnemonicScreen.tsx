@@ -4,6 +4,7 @@ import { StyleSheet, View, SafeAreaView, Text } from 'react-native';
 
 import { Button } from 'react-native-elements';
 import { navigate } from 'components/navigationService';
+import { SCREENWIDTH } from 'config/constants';
 interface Props {
   route: {
     params: {
@@ -78,7 +79,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   listItem: {
-    width: '30.33%',
+    width: (SCREENWIDTH - (40 + 30)) / 3,
     borderRadius: 8,
     backgroundColor: '#FFFFFF',
     margin: 5,

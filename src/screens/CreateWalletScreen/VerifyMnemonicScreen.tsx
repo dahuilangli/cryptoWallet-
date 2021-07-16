@@ -12,6 +12,7 @@ import { navigate } from 'components/navigationService';
 
 // import { post } from 'utils/request';
 import { Account } from 'actions/types';
+import { SCREENWIDTH } from 'config/constants';
 
 interface Props {
   route: {
@@ -149,7 +150,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   newListItem: {
-    width: '30%',
+    width: (SCREENWIDTH - (50 + 20 + 30)) / 3,
     borderRadius: 8,
     margin: 5,
     paddingBottom: 8,
@@ -179,7 +180,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
   },
   listItem: {
-    width: '30%',
+    width: (SCREENWIDTH - (50 + 20 + 30)) / 3,
     borderRadius: 8,
     backgroundColor: '#FFFFFF',
     margin: 5,

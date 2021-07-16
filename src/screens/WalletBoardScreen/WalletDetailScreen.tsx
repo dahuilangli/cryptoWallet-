@@ -23,6 +23,7 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import walletAction from 'actions/wallet';
 import { Account } from 'actions/types';
+import { getUser } from 'reducers/walletStateReducer';
 interface Props {
   route: {
     params: {
@@ -55,6 +56,7 @@ interface Props {
 function WalletDetailScreen(props: Props) {
   const { t } = useTranslation();
 
+  const user = useSelector(getUser);
   const dispatch = useDispatch();
   const { addressMessage } = props.route.params;
   const [pwds ,setPwds] = useState(addressMessage.securityCode);
@@ -64,20 +66,22 @@ function WalletDetailScreen(props: Props) {
   const [transferConfirm, setTransferConfirm] = useState(false);
   const [wallNameModel, setWallNameModel] = useState(false);
   const [navigateName, setNavigateName] = useState('');
-  const [exportModel, setExportModel] = useState(false);
   const changeWalletName =  (walletNameStr: string) => {
      dispatch(walletAction.setWalletName({ address: addressMessage.address, walletName: walletNameStr, type: addressMessage.type }));
   }
 
 
   function goNavigate(screenName: string) {
-    if (screenName) {
-      setNavigateName(screenName);
-      setPwd('');
-      setTransferConfirm(!transferConfirm)
-      
+    if (user.address !== addressMessage.address) {
+      if (screenName) {
+        setNavigateName(screenName);
+        setPwd('');
+        setTransferConfirm(!transferConfirm)
+      }
+      return;
+    } else {
+      show(t("notRemoved"))
     }
-    return;
   }
   return (
     <SafeAreaView style={styles.flex_1}>

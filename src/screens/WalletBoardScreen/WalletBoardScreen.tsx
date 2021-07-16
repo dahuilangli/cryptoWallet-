@@ -11,7 +11,7 @@ import {
   TouchableHighlight,
 } from 'react-native';
 import { SCREENHEIGHT, SCREENWIDTH } from "config/constants"
-import { Button } from 'react-native-elements';
+import { Button, Badge } from 'react-native-elements';
 import { navigate } from 'components/navigationService';
 import { CHAINS } from "config/constants"
 import { useDispatch, useSelector } from 'react-redux';
@@ -42,7 +42,7 @@ function WalletBoardScreen({ }: Props) {
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const walletlist = useSelector(getAccountList);
-  const USer = useSelector(getUser);
+  const user = useSelector(getUser);
 
   let sectionList: any;
   const [selectItem, setSelectItem] = useState(0);
@@ -57,8 +57,8 @@ function WalletBoardScreen({ }: Props) {
     }
   }
 
-  async function setImportType(type:string) {
-    navigate('SecondSelectWalletScreen',{loginType:type})
+  async function setImportType(type: string) {
+    navigate('SecondSelectWalletScreen', { loginType: type })
   }
   return (
     <View style={{ flex: 1 }}>
@@ -80,14 +80,19 @@ function WalletBoardScreen({ }: Props) {
         <View style={styles.submenu}>
           <Text style={styles.submenuHeader}>{modelLeft[selectItem]?.title}</Text>
 
-          {walletlist.get(modelLeft[selectItem].title).length>0?<ScrollView scrollIndicatorInsets={{ right: -6 }}>
+          {walletlist.get(modelLeft[selectItem].title).length > 0 ? <ScrollView>
             {walletlist.get(modelLeft[selectItem].title)?.map((item, index) => (
               <TouchableOpacity
                 style={styles.submenuItem}
                 key={index}
                 onPress={() => navigate('WalletDetailScreen', { addressMessage: item })}
               >
-                <Text style={styles.itemNameText}>{item?.walletName}</Text>
+                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                  <Text style={styles.itemNameText}>{item?.walletName}</Text>
+                  {item?.address === user.address ? (
+                    <Badge badgeStyle={{ marginLeft: 2 }} value={t("current")} textStyle={{fontSize: 12}} />
+                  ) : null}
+                </View>
                 <View style={styles.itemName}>
                   <Text style={styles.itemAddress}>{subSplit(item?.address, 8, 8)}</Text>
 
@@ -102,7 +107,7 @@ function WalletBoardScreen({ }: Props) {
                 </View> */}
               </TouchableOpacity>
             ))}
-          </ScrollView>:<View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+          </ScrollView> : <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
             <Image style={{ height: 140, width: 240 }} source={require('assets/icon_nowallet.png')}></Image>
             <Text style={styles.notdata}>{t("nowallet")}</Text>
           </View>}

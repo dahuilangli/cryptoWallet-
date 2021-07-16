@@ -1,6 +1,6 @@
 import WalletConnect from "@walletconnect/client";
 
-export function walletConnect(uri: string|undefined){
+export function walletConnect(uri: string|undefined,addr: string){
 // Create a connector
 const connector = new WalletConnect({
   uri: uri, // Required 
@@ -11,7 +11,7 @@ connector.on("session_request", (error, payload) => {
   if (error) {
     throw error;
   }
-  connector.approveSession({chainId:payload.params[0].chainId,accounts:['0xE7b1167B82E0271fFED3F7DA549232d832Df33c2']})
+  connector.approveSession({chainId:payload.params[0].chainId,accounts:[addr]})
 });
 
 connector.on("call_request", (error, payload) => {

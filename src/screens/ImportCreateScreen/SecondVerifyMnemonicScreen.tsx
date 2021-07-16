@@ -12,6 +12,7 @@ import { navigate } from 'components/navigationService';
 
 // import { post } from 'utils/request';
 import { Account } from 'actions/types';
+import { SCREENWIDTH } from 'config/constants';
 
 interface Props {
   route: {
@@ -65,7 +66,7 @@ const SecondVerifyMnemonicScreen = (props: Props) => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.main}>
-        <View>
+        <View style={{flex: 1}}>
           <Text style={styles.presentText}>
             {t("mnemonicwordscopied")}
           </Text>
@@ -137,7 +138,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   newMnemonicList: {
-    justifyContent: 'center',
     backgroundColor: '#FFFFFF',
     borderRadius: 10,
     minHeight: 80,
@@ -146,10 +146,9 @@ const styles = StyleSheet.create({
     padding: 10,
     flexDirection: 'row',
     flexWrap: 'wrap',
-    alignItems: 'center',
   },
   newListItem: {
-    width: '30%',
+    width: (SCREENWIDTH - (50 + 20 + 30)) / 3,
     borderRadius: 8,
     margin: 5,
     paddingBottom: 8,
@@ -175,14 +174,14 @@ const styles = StyleSheet.create({
     marginTop: 25,
     flexDirection: 'row',
     flexWrap: 'wrap',
-    alignItems: 'center',
     marginHorizontal: 10,
   },
   listItem: {
-    width: '30%',
+    width: (SCREENWIDTH - (50 + 20 + 30)) / 3,
     borderRadius: 8,
     backgroundColor: '#FFFFFF',
     margin: 5,
+    justifyContent: 'flex-start'
   },
   itemWarp: {
     paddingVertical: 16,
