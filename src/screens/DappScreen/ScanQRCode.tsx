@@ -14,6 +14,8 @@ import { navigate } from 'components/navigationService';
 import { checkwalletAdress, checkwalletPrivateKey, verifyURL } from 'utils';
 import { useTranslation } from 'react-i18next';
 import { walletConnect } from 'helper/connect';
+import { useSelector } from 'react-redux';
+import { getUser } from 'reducers/walletStateReducer';
 let camera;
 interface Props {
     route: {
@@ -28,6 +30,7 @@ const ScanQRCode = (props: Props) => {
     const { t } = useTranslation();
     const { title } = props.route.params;
     const { assetsList } = props.route.params;
+    const user = useSelector(getUser);
     const [lostFoceson, setLostFoceesOn] = useState(true)
     const moveAnim = useRef(new Animated.Value(-2)).current;
     useEffect(() => {
@@ -110,12 +113,16 @@ const ScanQRCode = (props: Props) => {
     const onBarCodeRead = (result) => {
         try {
             const { data } = result; //只要拿到data就可以了
+           console.log(data)
             if(data){
                 setLostFoceesOn(!lostFoceson);
                 if (checkwalletAdress(data) && title === 'HomeScreen') {
                     navigate('TransferScreen', { address: data, assetsList });
                 } else if (verifyURL(data) && title === 'DappScreen') {
                     navigate('DappWebScreen', { uri: data })
+                } else if((/^wc/).test(data)){
+                    walletConnect(data,user.address);
+                    navigate('HomeScreen');
                 } else {
                     const splitStr = data.split(':')[1];
                     if (checkwalletAdress(splitStr) && title === 'HomeScreen') {
