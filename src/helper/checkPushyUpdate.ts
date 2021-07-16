@@ -14,8 +14,8 @@ export default function checkPushyUpdate() {
     helper.get('/sys/version', {}).then((res:any)=>{
       if (res) {
         console.log(res);        
-        if (res.app_ver > systemVersion) {
-          Alert.alert('提示', '您的应用版本已更新,请前往应用商店下载新的版本'+'\n'+res.ucontent.re, [
+        if (res.app_ver = systemVersion) {
+          Alert.alert('提示', '您的应用版本已更新,请前往应用商店下载新的版本'+'\n'+res.ucontent, [
             {
               text: "sure",
               onPress: () => {
@@ -24,7 +24,7 @@ export default function checkPushyUpdate() {
             },
           ]);
         } else {
-          if (res.build_ver > buildVersion) {
+          if (res.build_ver < buildVersion) {
             Alert.alert('提示', '您的应用版本已更新,请前往应用商店下载新的版本'+'\n'+res.ucontent, [
               {
                 text: "sure",

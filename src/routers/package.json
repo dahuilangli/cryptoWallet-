@@ -1,3 +1,6 @@
 {
-  "name": "routers"
+  "name": "routers",
+  "devDependencies": {
+    "@types/react-native-htmlview": "^0.12.3"
+  }
 }

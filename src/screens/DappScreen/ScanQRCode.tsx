@@ -123,13 +123,13 @@ function ScanQRCode(props: Props) {
                         navigate('TransferScreen', { address: splitStr, assetsList });
                     } else {
 
-                        Alert.alert(t("tips"), t("Addressviolation"), [
-                            {
-                                text: "sure",
-                                onPress: () => {
-                                },
-                            },
-                        ]);
+                        // Alert.alert(t("tips"), t("Addressviolation"), [
+                        //     {
+                        //         text: "sure",
+                        //         onPress: () => {
+                        //         },
+                        //     },
+                        // ]);
 
 
                     }

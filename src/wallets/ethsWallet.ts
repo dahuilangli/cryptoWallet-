@@ -1,7 +1,6 @@
 // Import the ethers library
 import { ethers } from 'ethers';
 import { Account } from "actions/types";
-import { useTranslation } from 'react-i18next';
 interface Wallet {
   address: string,
   privateKey: string,
@@ -37,18 +36,18 @@ export function genWallet() {
   return account;
 
 }
-export function importByMnemonic(mnemonic: string) {
-  const { t } = useTranslation();
+export function importByMnemonic(mnemonic: string ,message:string) {
   if (!ethers.utils.isValidMnemonic(mnemonic)) {
-    throw t("mnemonicwordwrong")
+    throw message
   }
   let wallet = ethers.Wallet.fromMnemonic(mnemonic);
+  
   let account = {
     privateKey: wallet.privateKey,
     address: wallet.address,
     mnemonic: mnemonic,
   };
-  
+  console.log("444"+mnemonic);
   return account;
 
 }

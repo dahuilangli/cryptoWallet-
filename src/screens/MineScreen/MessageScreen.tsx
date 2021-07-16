@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { formatDate, subSplit } from 'utils'
 import * as helper from 'apis/helper'
-import { getAccountList } from 'reducers/walletStateReducer';
+import { getUser } from 'reducers/walletStateReducer';
 import { CHAINS } from 'config/constants';
 type MessageScreenRouteProp = RouteProp<ScreensParamList, 'MessageScreen'>;
 interface Props { }
@@ -122,19 +122,9 @@ function HomeScreen() {
 
 function SettingsScreen() {
   const { t } = useTranslation();
-  const walletlist = useSelector(getAccountList);
   var addressListData: (string | undefined)[] = [];
-  // console.log(walletlist);
-
-  walletlist.map((item, i) => {
-    if (item.length > 0) {
-      item.map((object, j) => {   
-        if (addressListData.indexOf(object.address) === -1) {
-          addressListData.unshift(object.address?.toLocaleLowerCase())
-        }
-      })
-    }
-  })
+  const user = useSelector(getUser);
+  addressListData.unshift(user.address?.toLocaleLowerCase())
   console.log(addressListData);
   
   const [transferlistData, setTransferListData] = useState([]);

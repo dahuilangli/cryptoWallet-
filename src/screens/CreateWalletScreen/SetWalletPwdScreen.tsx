@@ -83,7 +83,7 @@ const SetWalletPwdScreen = (props: Props) => {
               }
             }}
             disabled={!(pwd.length >= 6 && repwd.length >= 6 && repwd === pwd)}
-            title={t("Importwallet")}
+            title={loginType === 'new'?t("NextStep"):t("Importwallet")}
             titleStyle={styles.nextButtonTitle}
           />
         </View>

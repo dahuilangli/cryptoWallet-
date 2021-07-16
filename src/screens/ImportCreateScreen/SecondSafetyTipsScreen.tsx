@@ -25,11 +25,9 @@ const SecondSafetyTipsScreen = (props: Props) => {
 
 
   async function storageAccount() {
-    console.log(11111111111);
     
     let account: Account;
     try {
-      console.log(22222222);
       
       account = accountInfo;
       navigate('OnlySuccessScreen', {title: t("Createdsuccessfully"), accountInfo: account });

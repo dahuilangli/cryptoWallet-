@@ -55,7 +55,6 @@ const ImportPrivateKeyScreen = (props: Props) => {
                     importByprivateKey(
                       privateKey.replace(/(^\s*)|(\s*$)/g, ''),
                     );
-                    console.log(111111);
 
                     navigate('SetWalletNameScreen', {
                       type,
@@ -65,7 +64,6 @@ const ImportPrivateKeyScreen = (props: Props) => {
                     });
                     
                   } catch (error) {
-                    // console.log(111111111);
                     WToast.show({
                       data: t("Pleaseentercorrectprivatekey"),
                       duration: WToast.duration.LONG,
@@ -76,6 +74,7 @@ const ImportPrivateKeyScreen = (props: Props) => {
                   try {
                     importByMnemonic(
                       privateKey.replace(/(^\s*)|(\s*$)/g, ''),
+                      t("mnemonicwordwrong"),
                     );
                     navigate('SetWalletNameScreen', {
                       type,

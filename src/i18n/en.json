@@ -35,8 +35,8 @@
   "projectname":"Morley Wallet",
   "currentversion":"Current Version",
   "newversionfound":"New version found",
-  "downloadupdate":"Downoad Update",
-
+  "downloadupdate":"Download Update",
+  "down":"Download",
   "Nopayee":"No payee",
   "nomessage":"No message",
   "norecord":"No records",

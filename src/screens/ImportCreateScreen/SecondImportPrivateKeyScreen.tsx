@@ -69,8 +69,12 @@ const SecondImportPrivateKeyScreen = (props: Props) => {
                   }
                 }else if(checkWalletMnemonic(privateKey)){
                   try {
+                    console.log("111"+privateKey);
+                    
                     importByMnemonic(
+                      
                       privateKey.replace(/(^\s*)|(\s*$)/g, ''),
+                      t("mnemonicwordwrong"),
                     );
                     navigate('SecondSetWalletNameScreen', {
                       type,

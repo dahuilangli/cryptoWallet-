@@ -38,7 +38,6 @@ function AddressBookScreen(props: Props) {
   const dispatch = useDispatch();
   const { type,setAddress } = props.route.params;
   const dppSearchList = useSelector(getAddressBookList)
-  console.log('111111');
 
   console.log(dppSearchList);
   const [selectedId, setSelectedId] = useState(null);

@@ -6,12 +6,15 @@ import {
   Text,
   ActivityIndicator,
   ImageSourcePropType,
+  Linking,
+  Image,
+  TouchableOpacity
 } from 'react-native';
 import { navigate } from 'components/navigationService';
 import { Card, Button } from 'react-native-elements';
 import { WToast } from 'react-native-smart-tip';
+import { useTranslation } from 'react-i18next';
 import GallerySwiper from 'react-native-gallery-swiper';
-import { Image } from 'react-native-elements/dist/image/Image';
 
 interface DialogProps {
   onClose: () => void;
@@ -40,6 +43,58 @@ export function showDialogFactory<P>(
       modal = new RootSiblings(element);
     });
   };
+}
+
+export const showUpdateResultDialog = showDialogFactory<
+  UpdateResultDialogProps
+>(UpdateResultDialog);
+interface UpdateResultDialogProps {
+  name: string;
+  webUri?: string;
+  content: ReactElement;
+  downloadLink: string;
+  icon: any;
+}
+
+function UpdateResultDialog({
+  name,
+  content,
+  onClose,
+  downloadLink,
+  icon,
+}: UpdateResultDialogProps & DialogProps) {
+  const { t } = useTranslation();
+  return (
+    <View style={styles.fullScreenModal}>
+      <View style={{ width: '80%', backgroundColor: '#FFFFFF', borderRadius: 8 }}>
+        <Image style={{ width: '100%', borderRadius: 8 }} source={icon}>
+
+        </Image>
+        {content}
+        <View style={{ marginTop: 20, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around' }}>
+          <TouchableOpacity
+            style={{...styles.button,backgroundColor: '#FFFFFF',borderColor:'#E9EDF1',borderWidth:0.5}}
+            onPress={() => {
+              onClose();
+            }}
+          >
+            <Text style={{...styles.test ,color:'#616D86'}}>{t("cancel")}</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={{...styles.button,backgroundColor: '#3B6ED5'}}
+            onPress={() => {
+              onClose();
+              return Linking.openURL(downloadLink);;
+            }}
+          >
+            <Text style={{...styles.test ,color:'#FFFFFF'}}>{t("down")}</Text>
+          </TouchableOpacity>
+          
+
+        </View>
+      </View>
+    </View>
+  );
 }
 
 export const showImageResultDialog = showDialogFactory<ImageResultDialogProps>(
@@ -130,7 +185,20 @@ const styles = StyleSheet.create({
     ...StyleSheet.absoluteFillObject,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'rgba(200,200,200,.5)',
-    zIndex: 20,
+    backgroundColor: 'rgba(0,0,0,0.5)',
   },
+  button: {
+    borderRadius: 8,
+    height: 50,
+    width: 130,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 25
+  },
+  test: {
+    fontSize: 16,
+    fontWeight: '600',
+    lineHeight: 20
+  }
+
 });
