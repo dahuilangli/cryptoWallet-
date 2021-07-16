@@ -21,11 +21,11 @@ function SuggestScreen({ }: Props) {
 
   async function postSuggest() {
     if (!checkEmail(emailText)) {
-      show('请输入正确的邮箱')
+      show(t("entercorrectemaiil"))
       return
     }
     if (!checkwalletAdress(walletAddressText)) {
-      show('请输入正确的钱包地址')
+      show(t("entercorrectwalletaddress"))
       return
     }
 
@@ -35,7 +35,7 @@ function SuggestScreen({ }: Props) {
       address: walletAddressText,
     };
     helper.post('/sys/help', body).then((res: any) => {
-      show('提交成功')
+      show(t("Submittedsuccessfully"))
       goBack()
     }).catch(e => {
       throw new Error(e)

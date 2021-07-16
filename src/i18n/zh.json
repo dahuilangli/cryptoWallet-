@@ -44,7 +44,7 @@
   "noticedetails":"通知详情",
 
 
-  "enterDappURL":"搜索或输入Dapp网址",
+  "enterDappURL":"搜索名称或输入Dapp网址",
   "recent":"最近",
   "noremindagain":"退出",
   "Iknow":"我知道了",
@@ -98,7 +98,7 @@
   "Transfercurrency":"转账币种",
   "Balance":"余额",
   "TransactionRecord":"交易记录",
-  "completed":"已完成",
+  "completed":"完成",
   "failure":"失败",
   "processing":"进行中",
   "transactiontime":"交易时间",
@@ -183,5 +183,33 @@
   "Transferinnotice":"转入通知",
   "Transferoutnotice":"转出通知",
   "Incorrectpassword":"密码不正确",
-  "loginstatushasexpiredYoucanstayonorreboot":"登录状态已过期，您可以继续留在该页面，或者重新启动"
+  "loginstatushasexpiredYoucanstayonorreboot":"登录状态已过期，您可以继续留在该页面，或者重新启动",
+
+
+  "mnemonicwordwrong":"助记词错误",
+  "Confirmedbackup":"已确认备份",
+  "Copywordssavetheminsafeplace":"请按顺序抄写这些单词，并保存至安全的地方",
+  "Riskwarning":"风险提示",
+  "checktransferaddress":"请务必在转账操作前，仔细核对转账地址信息。",
+  "transfercompletedtargetaddress.":"您的转账行为一旦完成，对应的资产所有权将由变更为目标地址所对应的账户所有人享有。",
+  "Ensurethattransfersarevoluntary":"确保转账属于自愿行为，并确认不涉及任何传销，非法集资，诈骗等违法情形。谨防上当受骗，避免造成不必要的财产损失。",
+  "lessthanavailablebalance":"应小于可用余额",
+  "Submittedsuccessfully":"提交成功",
+  "fast":"快速",
+  "average":"平均",
+  "slow":"最慢",
+  "entercorrectwalletaddress":"请输入正确的钱包地址",
+  "entercorrectemaiil":"请输入正确的邮箱",
+  "waitting":"等待中",
+
+  "DAPPDetailDescripe":"您在第三方 DAPP 上使用的行为将适用该第三方DAPP的《用户使用协议》和《隐私政策》",
+  "mystone":"由mystone.io 直接并单独由你承担",
+  "认证失败，无法访问系统资源":"认证失败，无法访问系统资源",
+  "当前操作没有权限":"当前操作没有权限",
+  "访问资源不存在":"访问资源不存在",
+  "系统未知错误，请反馈给管理员":"系统未知错误，请反馈给管理员",
+  "请求使用您的摄像头以便扫描二维码":"请求使用您的摄像头以便扫描二维码",
+  "请求使用您的相册以便扫描二维码":"请求使用您的相册以便扫描二维码"
+ 
+
 }

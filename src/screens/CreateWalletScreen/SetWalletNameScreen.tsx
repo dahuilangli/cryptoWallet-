@@ -18,7 +18,8 @@ const SetWalletNameScreen = (props: Props) => {
   const { type, loginType, coinInfo, desc } = props.route.params;
   const [walletName, setWalletName] = useState('');
   const { t } = useTranslation();
-
+  console.log(loginType);
+  
 
   return (
     <SafeAreaView style={styles.container}>

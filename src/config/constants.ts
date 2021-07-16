@@ -1,5 +1,6 @@
 
 import { Dimensions } from 'react-native';
+// import { useHeaderHeight } from '@react-navigation/stack';
 
 // export const HOST = 'http://192.168.2.21:80';
 // export const HOST = 'http://192.168.2.57:80';
@@ -12,6 +13,8 @@ export const API_ENDPOINT = `${HOST}/api/service`;
 
 export const API_SWFT = `${SWFTHOST}/api/v2`;
 
+
+// export const hedaerHeight = useHeaderHeight();
 
 export const SCREENHEIGHT = Dimensions.get('window').height
 export const SCREENWIDTH = Dimensions.get('window').width
