@@ -16,7 +16,7 @@ import MessageScreen from 'screens/MineScreen/MessageScreen';
 import AddressBookScreen from 'screens/MineScreen/AddressBookScreeen';
 import AddressBookEditorScreen from 'screens/MineScreen/AddressBookEditorScreen';
 import SetUpScreen from 'screens/MineScreen/SetUpScreen';
-import ScanQRCode from 'screens/DappScreen/ScanQRCode';
+import ScanQRCode from 'components/ScanQRCode';
 import DappWebScreen from 'screens/DappScreen/DappWebScreen';
 import DappSearchScreen from 'screens/DappScreen/DappSearchScreen';
 import SearchScreen from 'screens/HomeScreen/SearchScreen';

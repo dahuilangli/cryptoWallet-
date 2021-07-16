@@ -14,8 +14,8 @@ import { navigate } from 'components/navigationService';
 import { checkwalletAdress, checkwalletPrivateKey, verifyURL } from 'utils';
 import { useTranslation } from 'react-i18next';
 import { walletConnect } from 'helper/connect';
-import { useSelector } from 'react-redux';
-import { getUser } from 'reducers/walletStateReducer';
+// import { useSelector } from 'react-redux';
+// import { getUser } from 'reducers/walletStateReducer';
 let camera;
 interface Props {
     route: {
@@ -29,7 +29,7 @@ function ScanQRCode(props: Props) {
     const { t } = useTranslation();
     const { title } = props.route.params;
     const { assetsList } = props.route.params;
-    const user = useSelector(getUser);
+    // const user = useSelector(getUser);
     const [lostFoceson, setLostFoceesOn] = useState(true)
     const moveAnim = useRef(new Animated.Value(-2)).current;
     let timer;

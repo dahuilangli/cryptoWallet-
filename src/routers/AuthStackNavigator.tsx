@@ -6,7 +6,7 @@ import SetWalletPwdScreen from 'screens/CreateWalletScreen/SetWalletPwdScreen';
 import SafetyTipsScreen from 'screens/CreateWalletScreen/SafetyTipsScreen';
 import BackupMnemonicScreen from 'screens/CreateWalletScreen/BackupMnemonicScreen';
 import VerifyMnemonicScreen from 'screens/CreateWalletScreen/VerifyMnemonicScreen';
-import ScanQRCode from 'screens/DappScreen/ScanQRCode';
+import ScanQRCode from 'components/ScanQRCode';
 import ImportPrivateKeyScreen from 'screens/CreateWalletScreen/ImportPrivateKeyScreen';
 import ImportMnemonicScreen from 'screens/CreateWalletScreen/ImportMnemonicScreen';
 import SuccessScreen from 'screens/SuccessScreen';
