@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Clipboard from "@react-native-clipboard/clipboard";
 import { ActivityIndicator, Image } from "react-native";
 import { WToast, WModal } from "react-native-smart-tip";
@@ -7,23 +7,26 @@ import { ethers } from 'ethers';
 export function show(text: string, duration = WToast.duration.SHORT) {
   const toastOpts = {
     data: text,
-    textColor: '#ffffff',
-    backgroundColor: '#444444',
+    textColor: '#FFFFFF',
+    backgroundColor: 'rgba(0,0,0,0.55)',
     duration: duration, //1.SHORT 2.LONG
     position: WToast.position.CENTER, // 1.TOP 2.CENTER 3.BOTTOM
+    isShowShadow: false
   };
 
   WToast.show(toastOpts);
 };
 
-export function showWithImage(text: string, imageSource: any) {
+export function showWithImage(text: string) {
   const toastOpts = {
     data: text,
-    textColor: '#ffffff',
-    backgroundColor: '#444444',
+    textColor: '#FFFFFF',
+    backgroundColor: 'rgba(0,0,0,0.55)',
     duration: WToast.duration.SHORT, //1.SHORT 2.LONG
     position: WToast.position.CENTER, // 1.TOP 2.CENTER 3.BOTTOM
-    icon: <Image source={require('assets/icon_correct.png')} style={{ width: 16, height: 16, resizeMode: 'contain' }} />,
+    isShowShadow: false,
+    icon: <Image source={require('assets/icon_correct.png')} style={{ width: 20, height: 20, resizeMode: 'contain', marginEnd: 2}} />,
+    display: true
   };
 
   WToast.show(toastOpts);
@@ -84,7 +87,7 @@ export function replaceMoney(moneyString: any) {
 // 复制
 export const copyToClipboard = (content: string, title: string) => {
   Clipboard.setString(content);
-  show(title);
+  showWithImage(title);
 };
 // 验证网址
 export const verifyURL = (text: string) => {

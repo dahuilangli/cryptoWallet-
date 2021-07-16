@@ -1,14 +1,46 @@
+diff --git a/node_modules/react-native-smart-tip/index.d.ts b/node_modules/react-native-smart-tip/index.d.ts
+index 5b01eb7..5a0c10d 100644
+--- a/node_modules/react-native-smart-tip/index.d.ts
++++ b/node_modules/react-native-smart-tip/index.d.ts
+@@ -9,7 +9,8 @@ export interface IToastOpts {
+   textColor?: string;
+   backgroundColor?: string;
+   icon?: ReactNode;
+-  isShowShadow?: boolean
++  isShowShadow?: boolean;
++  displays?: boolean;
+ }
+ 
+ export class WToast {
 diff --git a/node_modules/react-native-smart-tip/toast/ToastView.js b/node_modules/react-native-smart-tip/toast/ToastView.js
-index 348e3a4..b4b72e0 100644
+index 348e3a4..1f7c6e6 100644
 --- a/node_modules/react-native-smart-tip/toast/ToastView.js
 +++ b/node_modules/react-native-smart-tip/toast/ToastView.js
-@@ -158,12 +158,13 @@ const styles = StyleSheet.create({
+@@ -44,15 +44,17 @@ export default class ToastView extends Component{
+ 
+         const containerStyle = {}
+         const contentStyle = {
++            flexDirection: this.props.display ? 'row' : null,
+             backgroundColor: this.props.backgroundColor,
+             opacity: this.state.animatedValue2.interpolate({
+                 inputRange: [0, 1, 2],
+                 outputRange: [0, 1, 0]
+             }),
+-            minWidth: this.props.icon ? this.state.deviceWidth*0.4 : 0,
++            minWidth: this.props.icon ? this.props.icon && this.props.display ? 0 : this.state.deviceWidth * 0.4 : 0,
+             maxWidth: this.state.deviceWidth*MaxWidthRatio,
+         }
+ 
++        console.log(contentStyle);
+         if (this.props.position > 0) {
+             containerStyle.justifyContent = 'flex-start';
+             containerStyle.top = 40
+@@ -158,18 +160,19 @@ const styles = StyleSheet.create({
          alignItems: 'center',
          position: 'absolute',
          left: 0,
 -        right: 0
 +        right: 0,
-+        opacity: .75,
      },
      content: {
          borderRadius: 4,
@@ -17,4 +49,12 @@ index 348e3a4..b4b72e0 100644
 +        alignItems: 'center',
      },
      icon: {
+ 
+     },
+     text: {
+-        fontSize: 16
++        fontSize: 14,
++        fontWeight: '500',
+     }
+ })
  
