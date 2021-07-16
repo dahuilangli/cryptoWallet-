@@ -54,6 +54,7 @@ const SecondSelectWalletScreen = (props: Props) => {
   const {loginType}  = props.route.params;
   const [typeList, setTypeList] = useState([]);
   const isFocused = useIsFocused();
+  
   useEffect(() => {
     if (isFocused) {
       getTypeList();
@@ -78,13 +79,16 @@ const SecondSelectWalletScreen = (props: Props) => {
                 case 'new':
                   navigate('SecondSetWalletNameScreen', {
                     type: item.name_en,
-                    coinInfo: item
+                    coinInfo: item,
+                    loginType:loginType,
+
                   });
                   break;
                 case 'old':
                   navigate('SecondImportPrivateKeyScreen', {
                     type: item.name_en,
-                    coinInfo: item
+                    coinInfo: item,
+                    // loginType:loginType,
                   });
                   break;
                 default:

@@ -20,47 +20,7 @@ interface Props {
 }
 const limit = 10;
 
-const Item = ({ item, style }) => (
-  <TouchableOpacity style={style}>
-    <View style={styles.headersTitle}>
-      <Text style={styles.timeText}>{item?.begin_date}</Text>
-      <View style={item?.trade_state === 'timeout' || item?.trade_state === 'wait_refund' || item?.trade_state === 'refund_complete' ?
-        { ...styles.titleStatus, backgroundColor: '#D4D8E1' } :
-        item?.trade_state === 'wait_deposits' || item?.trade_state === 'wait_fee' || item?.trade_state === 'exchange' ?
-          { ...styles.titleStatus, backgroundColor: '#FFC029' } : { ...styles.titleStatus, backgroundColor: '#FFC029' }}>
-        <Text style={styles.statusText}>
-          {(() => {
-            switch (item?.trade_state) {
-              case "wait_deposits" || "wait_fee" || "exchange":
-                return '等待中';
-                break;
-              case "complete":
-                return "完成";
-                break;
-              default:
-                return "失败"
-                break;
-            }
-          }
-          )()}
-        </Text>
-      </View>
-    </View>
-    <View style={styles.outView}>
-      <Image style={styles.dianImage} source={require('assets/from_to.png')} />
-      <View style={styles.outViewDesc}>
-        <View style={{ flexDirection: 'row', alignItems: 'flex-start', justifyContent: 'space-between' }}>
-          <Text style={styles.outText}>{item?.from_coin_code}</Text>
-          <Text style={item?.trade_state === 'timeout' || item?.trade_state === 'wait_refund' || item?.trade_state === 'refund_complete' ? { ...styles.outTextNumber, color: '#C4C8D2' } : { ...styles.outTextNumber, color: '#DD3D50' }}>- {item?.from_coin_amt}</Text>
-        </View>
-        <View style={{ flexDirection: 'row', alignItems: 'flex-end', justifyContent: 'space-between' }}>
-          <Text style={styles.outText}>{item?.to_coin_code}</Text>
-          <Text style={item?.trade_state === 'timeout' || item?.trade_state === 'wait_refund' || item?.trade_state === 'refund_complete' ? { ...styles.inTextNumber, color: '#C4C8D2' } : { ...styles.inTextNumber, color: '#3DDD94' }}>+ {item?.to_coin_amt}</Text>
-        </View>
-      </View>
-    </View>
-  </TouchableOpacity>
-);
+
 
 
 function FlashRecordScreen({ route }: Props) {
@@ -114,6 +74,49 @@ function FlashRecordScreen({ route }: Props) {
     }
     isFetching.current = false;
   }
+
+  const Item = ({ item, style }) => (
+    <TouchableOpacity style={style}>
+      <View style={styles.headersTitle}>
+        <Text style={styles.timeText}>{item?.begin_date}</Text>
+        <View style={item?.trade_state === 'timeout' || item?.trade_state === 'wait_refund' || item?.trade_state === 'refund_complete' ?
+          { ...styles.titleStatus, backgroundColor: '#D4D8E1' } :
+          item?.trade_state === 'wait_deposits' || item?.trade_state === 'wait_fee' || item?.trade_state === 'exchange' ?
+            { ...styles.titleStatus, backgroundColor: '#FFC029' } : { ...styles.titleStatus, backgroundColor: '#FFC029' }}>
+          <Text style={styles.statusText}>
+            {(() => {
+              switch (item?.trade_state) {
+                case "wait_deposits" || "wait_fee" || "exchange":
+                  return t("waitting");
+                  break;
+                case "complete":
+                  return t("completed");
+                  break;
+                default:
+                  return t("failure")
+                  break;
+              }
+            }
+            )()}
+          </Text>
+        </View>
+      </View>
+      <View style={styles.outView}>
+        <Image style={styles.dianImage} source={require('assets/from_to.png')} />
+        <View style={styles.outViewDesc}>
+          <View style={{ flexDirection: 'row', alignItems: 'flex-start', justifyContent: 'space-between' }}>
+            <Text style={styles.outText}>{item?.from_coin_code}</Text>
+            <Text style={item?.trade_state === 'timeout' || item?.trade_state === 'wait_refund' || item?.trade_state === 'refund_complete' ? { ...styles.outTextNumber, color: '#C4C8D2' } : { ...styles.outTextNumber, color: '#DD3D50' }}>- {item?.from_coin_amt}</Text>
+          </View>
+          <View style={{ flexDirection: 'row', alignItems: 'flex-end', justifyContent: 'space-between' }}>
+            <Text style={styles.outText}>{item?.to_coin_code}</Text>
+            <Text style={item?.trade_state === 'timeout' || item?.trade_state === 'wait_refund' || item?.trade_state === 'refund_complete' ? { ...styles.inTextNumber, color: '#C4C8D2' } : { ...styles.inTextNumber, color: '#3DDD94' }}>+ {item?.to_coin_amt}</Text>
+          </View>
+        </View>
+      </View>
+    </TouchableOpacity>
+  );
+
   const renderItem = ({ item }) => {
     return (
       <Item
