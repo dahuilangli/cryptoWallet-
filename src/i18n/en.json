@@ -80,6 +80,8 @@
   "walletnamedes":"Wallet name is not empty and no more than 20 characters",
   "walletname":"Wallet Name",
   "NextStep":"Next Step",
+  "Verifying":"Verifying...",
+  "Walletgenerating":"Wallet Generating...",
   "mnemonicimportDes":"Enter your 12-digit mnemonic words, separated by spaces",
   "Please fill out":"Please fill out",
   "wallet":"Wallet",

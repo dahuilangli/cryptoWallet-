@@ -15,6 +15,7 @@ interface Props {
       title: string,
       type: string,
       setAddress: Function,
+      biName?: string,
     };
   };
 }
@@ -36,11 +37,15 @@ const Item = ({ item, onPress, style }) => (
 
 function AddressBookScreen(props: Props) {
   const dispatch = useDispatch();
-  const { type,setAddress } = props.route.params;
+  const { type, setAddress, biName } = props.route.params;
   const dppSearchList = useSelector(getAddressBookList)
-
+  var addBookList: (object | undefined)[] = [];
+  dppSearchList.map((bookList, i) => {
+    if (bookList.add_type === biName) {
+      addBookList.unshift(bookList)
+    }
+  })
   console.log(dppSearchList);
-  const [selectedId, setSelectedId] = useState(null);
   const { t } = useTranslation();
 
   const renderItem = ({ item }) => {
@@ -64,7 +69,7 @@ function AddressBookScreen(props: Props) {
       {
         dppSearchList.length > 0 ? (
           <FlatList
-            data={dppSearchList}
+            data={biName?addBookList: dppSearchList}
             style={styles.item}
             renderItem={renderItem}
             keyExtractor={(item) => item.walletaddress}

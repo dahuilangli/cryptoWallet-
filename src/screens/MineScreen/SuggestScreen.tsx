@@ -44,13 +44,12 @@ function SuggestScreen({ }: Props) {
 
   return (
     <SafeAreaView style={styles.container}>
-
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View style={styles.mainView}>
           <KeyboardAvoidingView
-            behavior={Platform.OS == "ios" ? "position" : "height"}
+            behavior={Platform.OS == "ios" ? "position" : "position"}
           >
-            <View>
+            <View style={styles.main}>
               <Text style={styles.email}>{t("yourmailbox")}</Text>
               <View style={styles.whiteView}>
                 <TextInput
@@ -77,18 +76,15 @@ function SuggestScreen({ }: Props) {
               </View>
             </View>
           </KeyboardAvoidingView>
-          <View style={styles.main}>
-
-            <Button
-              title={t("submit")}
-              titleStyle={styles.Tlabel}
-              buttonStyle={styles.Tbutton}
-              onPress={() =>
-                postSuggest()
-              }
-              disabled={walletAddressText && emailText && detailsText ? false : true}
-            />
-          </View>
+          <Button
+            title={t("submit")}
+            titleStyle={styles.Tlabel}
+            buttonStyle={styles.Tbutton}
+            onPress={() =>
+              postSuggest()
+            }
+            disabled={walletAddressText && emailText && detailsText ? false : true}
+          />
         </View>
       </TouchableWithoutFeedback>
 
@@ -99,48 +95,45 @@ function SuggestScreen({ }: Props) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F2F5F8',
+    
   },
   mainView: {
     flex: 1,
-    justifyContent: 'flex-end',
+
+    justifyContent: 'space-between',
+  },
+  main: {
+    paddingHorizontal: 20,
+    flexDirection: 'column',
+    justifyContent: 'space-between',
   },
   email: {
     marginTop: 20,
-    marginLeft: 20,
     fontSize: 13,
     color: '#616D86',
   },
   whiteView: {
-    marginLeft: 20,
     marginTop: 10,
-    marginRight: 20,
     backgroundColor: '#FFFFFF',
     borderRadius: 8,
     height: 55,
 
   },
   questView: {
-    marginLeft: 20,
     marginTop: 10,
-    marginRight: 20,
     backgroundColor: '#FFFFFF',
     borderRadius: 8,
     height: 135,
   },
   input: {
-    marginHorizontal: 15,
-    flex: 1
-  },
-  main: {
     flex: 1,
-    marginHorizontal: 20,
-    justifyContent: 'flex-end',
+    marginHorizontal: 15,
+
   },
   Tbutton: {
     marginLeft: 20,
     marginRight: 20,
-    marginBottom: 54,
+    marginBottom: 20,
     height: 55,
     backgroundColor: '#3B6ED5',
     alignItems: 'center',

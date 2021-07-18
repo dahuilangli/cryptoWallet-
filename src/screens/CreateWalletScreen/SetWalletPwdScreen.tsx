@@ -7,8 +7,6 @@ import { navigate } from 'components/navigationService';
 import { Account } from "actions/types";
 import {
   genWallet,
-  importByprivateKey,
-  importByMnemonic,
 } from 'wallets/ethsWallet';
 interface Props {
   route: {
@@ -16,33 +14,20 @@ interface Props {
       accountInfo: Account;
       loginType: string;
       desc: string;
+      importWord: object;
     };
   };
 }
 
 const SetWalletPwdScreen = (props: Props) => {
-  const { accountInfo, loginType, desc } = props.route.params;
+  const { accountInfo, loginType, desc, importWord } = props.route.params;
   const [pwd, setPwd] = useState('');
-  const [account, setAccount] = useState({});
   const [repwd, setRepwd] = useState('');
   const { t } = useTranslation();
-  console.log(loginType);
-  useEffect(() => {
-    createAccount()
-  }, []);
-  async function createAccount() {
-    switch (loginType) {
-      case 'mnemonic':
-        await setAccount(importByMnemonic(desc));
-        break;
-      case 'privateKey':
-        await setAccount(importByprivateKey(desc));
-        break;
-      default:
-        await setAccount(genWallet());
-        break;
-    }
-  }
+  let nextfooot =  loginType === 'new' ? String(t("NextStep")):String(t("Importwallet"));
+  let Walletgenerating = String(t("Walletgenerating"));
+  const [btnTitle, setBtnTitle] = useState(nextfooot);
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.main}>
@@ -70,20 +55,28 @@ const SetWalletPwdScreen = (props: Props) => {
             buttonStyle={styles.nextButton}
             onPress={() => {
               if (loginType === 'new') {
-                navigate('SafetyTipsScreen', {
-                  accountInfo: { ...account, ...accountInfo, securityCode: repwd },
-                });
+                try {
+                  setBtnTitle(Walletgenerating);
+                  setTimeout(() => {
+                    var importWord1 = genWallet()
+                    setBtnTitle(nextfooot);
+                    navigate('SafetyTipsScreen', {
+                      accountInfo: { ...importWord1, ...accountInfo, securityCode: repwd },
+                    });
+                  }, 10);
+                } catch (error) {
+                  setBtnTitle(nextfooot);
+                }
+
               } else {
                 navigate('SuccessScreen', {
                   title: t("Importsuccessful"),
-                  accountInfo: { ...account, ...accountInfo, securityCode: repwd },
+                  accountInfo: { ...importWord, ...accountInfo, securityCode: repwd },
                 });
-                console.log({ ...account, ...accountInfo, securityCode: repwd });
-
               }
             }}
-            disabled={!(pwd.length >= 6 && repwd.length >= 6 && repwd === pwd)}
-            title={loginType === 'new'?t("NextStep"):t("Importwallet")}
+            disabled={!(pwd.length >= 6 && repwd.length >= 6 && repwd === pwd && btnTitle === nextfooot)}
+            title={btnTitle}
             titleStyle={styles.nextButtonTitle}
           />
         </View>

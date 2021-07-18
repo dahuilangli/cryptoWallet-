@@ -1,11 +1,11 @@
 import { useTranslation } from 'react-i18next';
 import React, { useState } from 'react';
-import { StyleSheet, View, Text, TextInput, SafeAreaView, TouchableWithoutFeedback, Keyboard, } from 'react-native';
+import { StyleSheet, View, Text, TextInput, SafeAreaView, TouchableWithoutFeedback, Keyboard, Alert, } from 'react-native';
 import { Button } from 'react-native-elements';
 import { WToast } from 'react-native-smart-tip';
-import { importByprivateKey ,importByMnemonic} from 'wallets/ethsWallet';
+import { importByprivateKey, importByMnemonic } from 'wallets/ethsWallet';
 import { navigate } from 'components/navigationService';
-import {checkwalletPrivateKey,checkWalletMnemonic} from 'utils'
+import { checkwalletPrivateKey, checkWalletMnemonic, hideLoading } from 'utils'
 import { Value } from 'react-native-reanimated';
 interface Props {
   route: {
@@ -28,6 +28,9 @@ function UselessTextInput(props: any) {
 const SecondImportPrivateKeyScreen = (props: Props) => {
   const { t } = useTranslation();
   const { type, coinInfo } = props.route.params;
+  let nextfooot = String(t("NextStep"));
+  let Verifying = String(t("Verifying"));
+  const [btnTitle, setBtnTitle] = useState(nextfooot);
   const [privateKey, setPrivateKey] = useState('');
   return (
     <SafeAreaView style={styles.container}>
@@ -49,57 +52,65 @@ const SecondImportPrivateKeyScreen = (props: Props) => {
             <Button
               buttonStyle={styles.nextButton}
               onPress={() => {
-                if(checkwalletPrivateKey(privateKey)){
+                setBtnTitle(Verifying)
+                if (checkwalletPrivateKey(privateKey)) {
                   try {
-                    importByprivateKey(
-                      privateKey.replace(/(^\s*)|(\s*$)/g, ''),
-                    );
-                    navigate('SecondSetWalletNameScreen', {
-                      type,
-                      loginType: 'privateKey',
-                      desc: privateKey.replace(/(^\s*)|(\s*$)/g, ''),
-                      coinInfo
-                    });
+                    var importWord:object =importByprivateKey(
+                        privateKey.replace(/(^\s*)|(\s*$)/g, ''),
+                      );
+                      setBtnTitle(nextfooot)
+                      navigate('SecondSetWalletNameScreen', {
+                        type,
+                        loginType: 'privateKey',
+                        desc: privateKey.replace(/(^\s*)|(\s*$)/g, ''),
+                        coinInfo,
+                        importWord
+                      });
                   } catch (error) {
+                    setBtnTitle(nextfooot)
                     WToast.show({
                       data: t("Pleaseentercorrectprivatekey"),
                       duration: WToast.duration.LONG,
                       position: WToast.position.CENTER,
                     });
                   }
-                }else if(checkWalletMnemonic(privateKey)){
+                } else if (checkWalletMnemonic(privateKey)) {
                   try {
-                    console.log("111"+privateKey);
-                    
-                    importByMnemonic(
-                      
-                      privateKey.replace(/(^\s*)|(\s*$)/g, ''),
-                      t("mnemonicwordwrong"),
-                    );
-                    navigate('SecondSetWalletNameScreen', {
-                      type,
-                      loginType: 'mnemonic',
-                      desc: privateKey.replace(/(^\s*)|(\s*$)/g, ''),
-                      coinInfo
-                    });
+                    setTimeout(() => {
+                      var importWord:object = importByMnemonic(
+                        privateKey.replace(/(^\s*)|(\s*$)/g, ''),
+                        t("mnemonicwordwrong"),
+                      );
+                      setBtnTitle(nextfooot)
+                      navigate('SecondSetWalletNameScreen', {
+                        type,
+                        loginType: 'mnemonic',
+                        desc: privateKey.replace(/(^\s*)|(\s*$)/g, ''),
+                        coinInfo,
+                        importWord
+                      });
+                    }, 10);
                   } catch (error) {
+                    setBtnTitle(nextfooot)
                     WToast.show({
                       data: t("Pleaseentercorrectmnemonic"),
                       duration: WToast.duration.LONG,
                       position: WToast.position.CENTER,
                     });
                   }
-                }else{
+                } else {
+                  setBtnTitle(nextfooot)
                   WToast.show({
                     data: t("Pleaseentercorrectmnemonicorprivatekey"),
                     duration: WToast.duration.LONG,
                     position: WToast.position.CENTER,
                   });
+
                 }
-                
+
               }}
-              disabled={!privateKey}
-              title={t("NextStep")}
+              disabled={privateKey && btnTitle === nextfooot ? false : true}
+              title={btnTitle}
               titleStyle={styles.nextButtonTitle}
             />
           </View>

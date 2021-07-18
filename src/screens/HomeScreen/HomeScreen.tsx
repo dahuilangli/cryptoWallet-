@@ -63,6 +63,7 @@ function HomeScreen({ }: Props) {
   const [assetsSum, setAssetsSum] = useState('-')
   const [refreshing, setRefreshing] = useState(false)
   const { t } = useTranslation();
+console.log(user);
 
 
   useEffect(() => {
@@ -123,12 +124,12 @@ function HomeScreen({ }: Props) {
                 style={styles.logo}
                 source={require('assets/coins/img_indexcoin_eth.png')}
               />
-            ) : user.type === 'BNB' ? (
+            ) : user.type === 'BSC' ? (
               <Image
                 style={styles.logo}
                 source={require('assets/coins/img_indexcoin_bnb.png')}
               />
-            ) : user.type === 'HT' ? (
+            ) : user.type === 'HECO' ? (
               <Image
                 style={styles.logo}
                 source={require('assets/coins/img_indexcoin_huobi.png')}

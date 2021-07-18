@@ -80,7 +80,14 @@ function WalletDetailScreen(props: Props) {
       }
       return;
     } else {
-      show(t("notRemoved"))
+      if (screenName !== 'deleteWallet') {
+        setNavigateName(screenName);
+        setPwd('');
+        setTransferConfirm(!transferConfirm)
+      }else{
+        show(t("notRemoved"))
+      }
+      
     }
   }
   return (

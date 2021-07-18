@@ -32,9 +32,9 @@ export function showWithImage(text: string) {
   WToast.show(toastOpts);
 };
 
-export function showLoading(text?: string) {
+export function showLoading(text: string) {
   const modalOpts = {
-    data: 'Loading...',
+    data: text,
     textColor: '#fff',
     backgroundColor: '#444444',
     position: WToast.position.CENTER, // 1.TOP 2.CENTER 3.BOTTOM

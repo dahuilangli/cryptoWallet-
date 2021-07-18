@@ -81,6 +81,8 @@
   "walletnamedes":"钱包名称不能为空,不能大于20个字符",
   "walletname":"钱包名称",
   "NextStep":"下一步",
+  "Verifying":"正在验证中...",
+  "Walletgenerating":"钱包生成中...",
   "mnemonicimportDes":"请按顺序输入您的12位助记词, 用空格区隔",
   "Please fill out":"请填写",
   "wallet":"钱包",

@@ -47,7 +47,6 @@ export function importByMnemonic(mnemonic: string ,message:string) {
     address: wallet.address,
     mnemonic: mnemonic,
   };
-  console.log("444"+mnemonic);
   return account;
 
 }

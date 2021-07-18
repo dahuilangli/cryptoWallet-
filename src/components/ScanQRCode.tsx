@@ -86,11 +86,11 @@ function ScanQRCode(props: Props) {
 
             Animated.timing(moveAnim, {
 
-                toValue: 200,
+                toValue: 199,
 
                 duration: 1500,
 
-                easing: Easing.linear,
+                // easing: Easing.linear,
 
                 useNativeDriver: false,
 
@@ -98,11 +98,11 @@ function ScanQRCode(props: Props) {
 
             Animated.timing(moveAnim, {
 
-                toValue: -1,
+                toValue: 0,
 
                 duration: 1500,
 
-                easing: Easing.linear,
+                // easing: Easing.linear,
 
                 useNativeDriver: false,
 
@@ -129,6 +129,10 @@ function ScanQRCode(props: Props) {
                         navigate('TransferScreen', { address: splitStr, assetsList });
                     } else {
 
+                        setTimeout(() => {
+                            console.log(11111111);
+                            
+                        }, 100);
                         // Alert.alert(t("tips"), t("Addressviolation"), [
                         //     {
                         //         text: "sure",

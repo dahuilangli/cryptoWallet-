@@ -28,6 +28,7 @@ import { Mul, Div, Add, Sub, transaction, contractTrans } from 'wallets/ethsWall
 import { show } from 'utils';
 
 import { navigate } from 'components/navigationService';
+import { start } from 'repl';
 
 interface Props {
   route: {
@@ -45,7 +46,7 @@ function TransferScreen(props: Props) {
   const [modalVisible, setModalVisible] = useState(false);
   const [transferConfirm, setTransferConfirm] = useState(false);
   const [riskWarning, setRiskWarning] = useState(false);
-
+  const [selection, setSelection] = useState({ start: 0, end: 0 });
   const [assetsList, setAssetsList] = useState(props.route.params.assetsList);
   const [receivingAddress, setReceivingAddress] = useState(props.route.params.address);
   const [transferAmount, setTransferAmount] = useState('');
@@ -137,7 +138,7 @@ function TransferScreen(props: Props) {
             let nonce = res.nonce;
             if (thisUser?.coinInfo?.token === assetsList[selectCoinIndex]?.symbol) {
               transaction(thisUser.privateKey, nonce, gas_limit, gas_price, to, amount).then(sign => {
-  
+
                 let params = {
                   "amount": amount,
                   "from": address,
@@ -188,14 +189,16 @@ function TransferScreen(props: Props) {
 
   return (
     <SafeAreaView style={styles.container}>
-     
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-          <View style={styles.main}>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <View style={styles.main}>
+          <KeyboardAvoidingView
+            behavior={Platform.OS == "ios" ? "position" : "height"}
+          >
             <View style={styles.bodyContainer}>
               <Text style={styles.coinType}>{t("Transfercurrency")}</Text>
               <TouchableOpacity
                 style={styles.selectCoin}
-                onPress={() => setModalVisible(!modalVisible)}
+                onPress={() =>  setModalVisible(!modalVisible)}
               >
                 <Avatar
                   rounded
@@ -222,7 +225,7 @@ function TransferScreen(props: Props) {
                   onChangeText={setReceivingAddress}
                 />
                 <TouchableOpacity onPress={() => {
-                  navigate('AddressBookScreen', { title: '收款人', type: 'tansfer', setAddress: setReceivingAddress })
+                  navigate('AddressBookScreen', { title: '收款人', type: 'tansfer', setAddress: setReceivingAddress, biName: assetsList[selectCoinIndex]?.symbol })
                 }}>
                   <Image
                     style={styles.inputRightIcon}
@@ -249,9 +252,7 @@ function TransferScreen(props: Props) {
                   }}
                 />
               </View>
-
               <Text style={styles.coinTypeS}>{t("Minerfee")}</Text>
-
               <View style={styles.gasContainer}>
                 {gasList.map((item, index) => (
                   <TouchableOpacity
@@ -309,19 +310,18 @@ function TransferScreen(props: Props) {
                   </TouchableOpacity>
                 ))}
               </View>
-
             </View>
-            <View style={styles.buttonContainer}>
-              <Button
-                buttonStyle={styles.buttonStyle}
-                title={t("sure")}
-                disabled={!verification}
-                titleStyle={styles.buttonTitle}
-                onPress={() => showRisk ? setRiskWarning(true) : setTransferConfirm(!transferConfirm)}
-              />
-            </View>
-          </View>
-        </TouchableWithoutFeedback>
+          </KeyboardAvoidingView>
+          <Button
+            buttonStyle={styles.buttonStyle}
+            title={t("sure")}
+            disabled={!verification}
+            titleStyle={styles.buttonTitle}
+            onPress={() => showRisk ? setRiskWarning(true) : setTransferConfirm(!transferConfirm)}
+          />
+          {/* </View> */}
+        </View>
+      </TouchableWithoutFeedback>
       {/* 选择币种Model */}
       <Modal
         animationType="fade"
@@ -497,7 +497,7 @@ function TransferScreen(props: Props) {
               <View style={styles.alignItemsCenter}>
                 <Image
                   style={styles.warning}
-                  source={require('assets/safety_warning.png')}
+                  source={require('assets/risk_warning.png')}
                 />
               </View>
               <Text style={styles.warningTitle}>{t("Riskwarning")}</Text>
@@ -536,10 +536,12 @@ const styles = StyleSheet.create({
   },
   main: {
     flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'space-between',
     paddingHorizontal: 20,
   },
   bodyContainer: {
-    flex: 1,
+    width: SCREENWIDTH-40,
     paddingVertical: 20,
   },
   coinType: {
@@ -634,6 +636,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#3B6ED5',
     borderRadius: 8,
     height: 55,
+    marginBottom: 20,
   },
   buttonTitle: {
     fontSize: 16,

@@ -43,7 +43,7 @@ const SecondSafetyTipsScreen = (props: Props) => {
         <View style={styles.presentContainer}>
           <Image
             style={styles.warning}
-            source={require('assets/safety_warning.png')}
+            source={require('assets/risk_warning.png')}
           />
           <Text style={styles.presentTitle}>{t("Safetytips")}</Text>
           <Text style={styles.warningDesc}>

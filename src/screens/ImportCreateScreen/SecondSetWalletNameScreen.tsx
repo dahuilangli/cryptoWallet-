@@ -10,12 +10,13 @@ interface Props {
       type: string;
       loginType: string;
       desc: string;
-      coinInfo: object
+      coinInfo: object;
+      importWord:object;
     };
   };
 }
 const SecondSetWalletNameScreen = (props: Props) => {
-  const { type, loginType, coinInfo, desc } = props.route.params;
+  const { type, loginType, coinInfo, desc ,importWord} = props.route.params;
   const [walletName, setWalletName] = useState('');
   const { t } = useTranslation();
 
@@ -44,6 +45,7 @@ const SecondSetWalletNameScreen = (props: Props) => {
                   accountInfo: { walletName, type, coinInfo },
                   desc,
                   loginType,
+                  importWord,
                 });
               }}
               disabled={!walletName}

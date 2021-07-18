@@ -20,8 +20,8 @@ export type AuthStackParamList = {
   LoginScreen: undefined;
   SuccessScreen: { title: string | undefined; accountInfo: object };
   SelectWalletScreen: {loginType: string};
-  SetWalletNameScreen: { type: string; loginType?: string; coinInfo: object, desc?: string };
-  SetWalletPwdScreen: { loginType?: string, desc?: string, accountInfo: object };
+  SetWalletNameScreen: { type: string; loginType?: string; coinInfo: object, desc?: string ,importWord?:object};
+  SetWalletPwdScreen: { loginType?: string, desc?: string, accountInfo: object ,importWord?:object};
   SafetyTipsScreen: { accountInfo: object };
   BackupMnemonicScreen: { accountInfo: object };
   VerifyMnemonicScreen: { accountInfo: object };

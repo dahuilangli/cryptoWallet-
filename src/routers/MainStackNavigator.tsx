@@ -60,7 +60,7 @@ export type MainStackParamList = {
   ScanQRCode: { title?: string, assetsList: Array<AssetsList> };
   LanguageSetScreen: undefined;
   CurrencySetScreen: undefined;
-  AddressBookScreen: { title: string; address?: string; setAddress?: Function; type?: string };
+  AddressBookScreen: { title: string; address?: string; setAddress?: Function; type?: string ,biName?:string};
   AddressBookEditorScreen: { title?: string; item: {} };
   AddressTypeScreen: { addType: string; setAddType: Function; typeLogo: string; setTypeLogo: Function };
   FeedListScreen: { title: string; showMyself?: boolean };
@@ -78,8 +78,8 @@ export type MainStackParamList = {
   EditPwdScreen: { address: string, pwds: string, type: string, setPwds: Function };
   OnlySuccessScreen: { title: string | undefined; accountInfo: object };
   SecondSelectWalletScreen: {loginType: string;};
-  SecondSetWalletNameScreen: { type: string; loginType?: string; coinInfo: object, desc?: string };
-  SecondSetWalletPwdScreen: { loginType?: string, desc?: string, accountInfo: object };
+  SecondSetWalletNameScreen: { type: string; loginType?: string; coinInfo: object, desc?: string ,importWord?:object};
+  SecondSetWalletPwdScreen: { loginType?: string, desc?: string, accountInfo: object,importWord?:object };
   SecondSafetyTipsScreen: { accountInfo: object };
   SecondBackupMnemonicScreen: { accountInfo: object };
   SecondVerifyMnemonicScreen: { accountInfo: object };

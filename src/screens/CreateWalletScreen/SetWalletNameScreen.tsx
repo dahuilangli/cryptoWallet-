@@ -10,17 +10,15 @@ interface Props {
       type: string;
       loginType: string;
       desc: string;
-      coinInfo: object
+      coinInfo: object;
+      importWord:object;
     };
   };
 }
 const SetWalletNameScreen = (props: Props) => {
-  const { type, loginType, coinInfo, desc } = props.route.params;
+  const { type, loginType, coinInfo, desc,importWord } = props.route.params;
   const [walletName, setWalletName] = useState('');
   const { t } = useTranslation();
-  console.log(loginType);
-  
-
   return (
     <SafeAreaView style={styles.container}>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -45,6 +43,7 @@ const SetWalletNameScreen = (props: Props) => {
                   accountInfo: { walletName, type, coinInfo },
                   desc,
                   loginType,
+                  importWord,
                 });
               }}
               disabled={!walletName}

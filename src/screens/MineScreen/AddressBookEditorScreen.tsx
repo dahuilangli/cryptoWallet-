@@ -47,49 +47,49 @@ function AddressBookEditorScreen(props: Props) {
     return (
         <SafeAreaView style={styles.container}>
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-                <View style = {styles.mainView}>
-                <KeyboardAvoidingView
-                            behavior={Platform.OS == "ios" ? "position" : "position"}
-                        >
-                    <View style={styles.headView}>
-                        <Text style={styles.typeText}>{t("addresstype")}</Text>
-                        <TouchableOpacity
-                            onPress={() =>
-                                navigate('AddressTypeScreen', {
-                                    addType,
-                                    setAddType,
-                                    typeLogo,
-                                    setTypeLogo,
-                                })
-                            }
-                        >
-                            <View style={styles.typeView}>
-                                <Image style={styles.typeImage} source={typeLogo}></Image>
-                                <Text style={styles.typeName}>{addType}</Text>
-                                <Image style={styles.rightImage} source={require('assets/icon_arrow_right.png')}></Image>
-                            </View>
-                        </TouchableOpacity>
-                        <Text style={styles.typeText}>{t("addressname")}</Text>
-                        <View style={styles.nameView}>
-                            <TextInput
-                                placeholder={t("enterAddName")}
-                                style={styles.nameInput}
-                                value={addname}
-                                onChangeText={setAddName}
+                <View style={styles.mainView}>
+                    <KeyboardAvoidingView
+                        behavior={Platform.OS == "ios" ? "position" : "position"}
+                    >
+                        <View style={styles.headView}>
+                            <Text style={styles.typeText}>{t("addresstype")}</Text>
+                            <TouchableOpacity
+                                onPress={() =>
+                                    navigate('AddressTypeScreen', {
+                                        addType,
+                                        setAddType,
+                                        typeLogo,
+                                        setTypeLogo,
+                                    })
+                                }
                             >
-                            </TextInput>
-                        </View>
-                        <Text style={styles.typeText}>{t("marks")}</Text>
-                        <View style={styles.nameView}>
-                            <TextInput
-                                placeholder={t("enterWalMark")}
-                                style={styles.nameInput}
-                                value={remarks}
-                                onChangeText={setRemarks}>
-                            </TextInput>
-                        </View>
-                        <Text style={styles.typeText}>{t("walletaddress")}</Text>
-                        
+                                <View style={styles.typeView}>
+                                    <Image style={styles.typeImage} source={typeLogo}></Image>
+                                    <Text style={styles.typeName}>{addType}</Text>
+                                    <Image style={styles.rightImage} source={require('assets/icon_arrow_right.png')}></Image>
+                                </View>
+                            </TouchableOpacity>
+                            <Text style={styles.typeText}>{t("addressname")}</Text>
+                            <View style={styles.nameView}>
+                                <TextInput
+                                    placeholder={t("enterAddName")}
+                                    style={styles.nameInput}
+                                    value={addname}
+                                    onChangeText={setAddName}
+                                >
+                                </TextInput>
+                            </View>
+                            <Text style={styles.typeText}>{t("marks")}</Text>
+                            <View style={styles.nameView}>
+                                <TextInput
+                                    placeholder={t("enterWalMark")}
+                                    style={styles.nameInput}
+                                    value={remarks}
+                                    onChangeText={setRemarks}>
+                                </TextInput>
+                            </View>
+                            <Text style={styles.typeText}>{t("walletaddress")}</Text>
+
                             <View style={styles.addressView}>
 
                                 <TextInput
@@ -103,8 +103,8 @@ function AddressBookEditorScreen(props: Props) {
                                     onChangeText={(text: string) => (setWalletAdress(text))}>
                                 </TextInput>
                             </View>
-                        
-                    </View>
+
+                        </View>
                     </KeyboardAvoidingView>
                     <Button
                         title={t("sure")}
@@ -122,16 +122,16 @@ function AddressBookEditorScreen(props: Props) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        
+
     },
-    mainView:{
+    mainView: {
         flex: 1,
         flexDirection: 'column',
         justifyContent: 'space-between',
     },
     headView: {
         width: SCREENWIDTH,
-        paddingBottom:20,
+        paddingBottom: 20,
     },
     typeText: {
         marginTop: 20,

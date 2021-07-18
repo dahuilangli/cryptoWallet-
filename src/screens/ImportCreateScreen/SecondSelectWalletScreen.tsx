@@ -81,14 +81,12 @@ const SecondSelectWalletScreen = (props: Props) => {
                     type: item.name_en,
                     coinInfo: item,
                     loginType:loginType,
-
                   });
                   break;
                 case 'old':
                   navigate('SecondImportPrivateKeyScreen', {
                     type: item.name_en,
                     coinInfo: item,
-                    // loginType:loginType,
                   });
                   break;
                 default:
