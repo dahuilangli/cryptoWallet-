@@ -230,7 +230,7 @@ function CoinDetailScreen({ route }: Props) {
                           <View style={styles.listNavDesc}>
                             <Text style={styles.descText}>{t("transactiontime")}: {item?.ctime}</Text>
                             <Text style={styles.descText}>
-                              {t("handlefee")}: {item?.gas} {assetsList?.symbol}
+                              {t("gas")}: {item?.gas} {item?.symbol}
                             </Text>
                           </View>
                           <TouchableOpacity

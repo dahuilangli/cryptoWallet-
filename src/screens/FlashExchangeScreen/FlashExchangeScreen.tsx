@@ -492,7 +492,7 @@ function FlashExchangeScreen({ }: Props) {
                       <View style={styles.lineView1}></View>
                       <View style={styles.centerView1}>
                         <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                          <Text style={styles.poundage}>{t("handlefee")}</Text>
+                          <Text style={styles.poundage}>{t("gas")}</Text>
                           <Text style={styles.des}> {Mul(outNumber ? outNumber : 0, 0.0003)} {out?.symbol}</Text>
                         </View>
                         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginTop: 20 }}>

@@ -35,9 +35,12 @@ function RootScreen() {
   }, []);
   function checkVersion() {
     helper.get('/sys/version', {}).then((res: any) => {
-
+      console.log(res);
+      
       if (res) {
-        if (res.app_ver > systemVersion) {
+        if (Number(res.app_ver) > Number(systemVersion)) {
+          console.log(111111);
+          
           showUpdateResultDialog(
             {
               icon: CurrentLanguage === 'en' ? (require('assets/findNewVersion_En.png')) : (require('assets/findNewVersion_china.png')),
@@ -53,7 +56,9 @@ function RootScreen() {
             }
           )
         } else {
-          if (res.build_ver > buildVersion) {
+          
+          if (Number(res.build_ver)  > Number(buildVersion) ){
+            console.log(222222);
             showUpdateResultDialog(
               {
                 icon: CurrentLanguage === 'en' ? (require('assets/findNewVersion_En.png')) : (require('assets/findNewVersion_china.png')),

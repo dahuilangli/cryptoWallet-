@@ -39,10 +39,10 @@ function ProfileScreen({ }: Props) {
   async function getVersion() {
     await helper.get('/sys/version', {}).then((res:any)=>{
       if (res) {
-        if (res.app_ver > systemVersion) {
+        if (Number(res.app_ver) > Number(systemVersion)) {
           setCheckVersion(true)
         } else {
-          if (res.build_ver > buildVersion) {
+          if (Number(res.build_ver) > Number(buildVersion)) {
             setCheckVersion(true)
           } else {
             setCheckVersion(false)
