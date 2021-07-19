@@ -65,9 +65,6 @@ function HomeScreen({ }: Props) {
   const [assetsSum, setAssetsSum] = useState('-')
   const [refreshing, setRefreshing] = useState(false)
   const { t } = useTranslation();
-console.log(thisUser);
-
-
   useEffect(() => {
     getAssetsList()
   }, [user, walletlist,currenTUnit])

@@ -51,9 +51,6 @@ client.interceptors.request.use(config => {
     config.params = {};
     config.url = url;
   }
-  console.log('====================================');
-  console.log(config.url);
-  console.log('====================================');
   return config
 }, error => {
   Promise.reject(error.data)

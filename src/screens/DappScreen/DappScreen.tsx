@@ -21,7 +21,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import walletAction from 'actions/wallet';
 import * as helper from 'apis/helper'
 import { DappRecentItem } from 'actions/types';
-import {walletConnect} from "helper/connect"
+import { walletConnect } from "helper/connect"
 
 interface Props {
 
@@ -29,14 +29,14 @@ interface Props {
 interface response {
   id: number,
   forward: any,
-  img_pic: string, 
+  img_pic: string,
   release: string
 }
 
 
 
 function DappScreen({ }: Props) {
-  const {t} = useTranslation();
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const dppSearchList = useSelector(getDappSearchList)
   const [bannerlistData, setBannerListData] = useState([]);
@@ -49,10 +49,10 @@ function DappScreen({ }: Props) {
 
   }, [isFocused]);
   function getBanner() {
-    helper.get('/dapp/banner', {}).then((res:any)=>{
+    helper.get('/dapp/banner', {}).then((res: any) => {
       setBannerListData(res)
     })
-    
+
   }
   async function goWebView(item: DappRecentItem) {
     dispatch(walletAction.setDappSearchList(item));
@@ -65,21 +65,28 @@ function DappScreen({ }: Props) {
   const keyExtractor = (item: any, index: { toString: () => any; }) => index.toString()
 
   const renderItem = ({ item }) => {
-    return(
-    <TouchableOpacity
-      style={styles.itemStyle}
-      onPress={() => goWebView(item)}
-    >
-      <View style={styles.itemView}>
-        <Avatar rounded size={40} title={item?.name[0]} source={{uri: item.logo}} containerStyle={styles.leftIcon} />
-        <View style={styles.contentView}>
-          <Text style={{ height: 20, fontSize: 14, fontWeight: '500', color: '#394867' }}>{item.name}</Text>
-          <Text style={{ height: 20, fontSize: 12, fontWeight: '400', color: '#9CA4B3' }}>{item.deepLink}</Text>
+    return (
+      <TouchableOpacity
+        style={styles.itemStyle}
+        onPress={() => goWebView(item)}
+      >
+        <View style={styles.itemView}>
+          {
+            item?.logo ? (
+              <Avatar rounded size={40} title={item?.name[0]} source={{ uri: item.logo }} containerStyle={styles.leftIcon} />
+            ) : (
+              <Avatar rounded size={40} title={item?.name[0]} containerStyle={styles.leftIcon} />
+            )
+          }
+          <View style={styles.contentView}>
+            <Text style={{ height: 20, fontSize: 14, fontWeight: '500', color: '#394867' }}>{item.name}</Text>
+            <Text style={{ height: 20, fontSize: 12, fontWeight: '400', color: '#9CA4B3' }}>{item.deepLink}</Text>
+          </View>
         </View>
-      </View>
-      <View style={{ marginHorizontal: 20, height: 0.5, backgroundColor: '#E9EDF1' }} />
-    </TouchableOpacity>
-  )}
+        <View style={{ marginHorizontal: 20, height: 0.5, backgroundColor: '#E9EDF1' }} />
+      </TouchableOpacity>
+    )
+  }
 
   return (
     <View style={styles.container}>
@@ -87,7 +94,7 @@ function DappScreen({ }: Props) {
 
       <View style={styles.banner} >
         <Swiper
-          key = {bannerlistData.length}
+          key={bannerlistData.length}
           style={styles.wrapper}
           // removeClippedSubviews={true}
           // showsButtons={false}         //显示控制按钮
@@ -122,7 +129,7 @@ function DappScreen({ }: Props) {
 
         >
           {bannerlistData.map((item: response, index) => (
-            <Image key={item.id} source={{ uri: item.img_pic}} style={styles.slide1}/>
+            <Image key={item.id} source={{ uri: item.img_pic }} style={styles.slide1} />
           ))}
         </Swiper>
       </View>
@@ -137,7 +144,7 @@ function DappScreen({ }: Props) {
           <Text style={styles.searchInput}>{t("enterDappURL")}</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.scanImage} onPress={() => {
-          navigate('ScanQRCode',{title:'DappScreen',assetsList:[]});
+          navigate('ScanQRCode', { title: 'DappScreen', assetsList: [] });
         }}>
           <Image style={{ width: 20, height: 20 }} source={require('assets/icon_scan_wallet.png')} />
         </TouchableOpacity>
@@ -145,11 +152,11 @@ function DappScreen({ }: Props) {
       <Text style={styles.recentText}>{t("recent")}</Text>
       <View style={styles.smallLine} />
       <View style={styles.bigLine} />
-      {dppSearchList.length>0 ?<FlatList
+      {dppSearchList.length > 0 ? <FlatList
         keyExtractor={keyExtractor}
         data={dppSearchList}
         renderItem={renderItem}
-      />:(<View style={styles.nodataContainer}><Image source={require('assets/icon_norecord.png')} /><Text style={styles.nodata}>{t('norecord')}</Text></View>)}
+      /> : (<View style={styles.nodataContainer}><Image source={require('assets/icon_norecord.png')} /><Text style={styles.nodata}>{t('norecord')}</Text></View>)}
 
     </View>
   );
@@ -257,7 +264,7 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     height: 40,
   },
-nodataContainer: {
+  nodataContainer: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
