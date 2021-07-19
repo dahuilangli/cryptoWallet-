@@ -234,6 +234,8 @@ function WalletDetailScreen(props: Props) {
                   <View style={styles.codeInputView}>
                     <TextInput
                       style={styles.codeInput}
+                      keyboardType='numeric'
+                      maxLength={12}
                       secureTextEntry
                       placeholder={t("enterpassword")}
                       value={pwd}
@@ -244,6 +246,7 @@ function WalletDetailScreen(props: Props) {
                         buttonStyle={styles.buttonStyle}
                         title={t("sure")}
                         titleStyle={styles.buttonModelTitle}
+                        disabled={!(pwd.length >= 6 && pwd.length <= 12)}
                         onPress={() => {
                           if (pwd === pwds) {
                             setTransferConfirm(!transferConfirm);

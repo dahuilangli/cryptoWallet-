@@ -32,6 +32,8 @@
 
 ```bash
 yarn
+# 运行
+./node_modules/.bin/rn-nodeify --hack --install "crypto,stream"
 # ios模拟器上运行
 yarn ios
 # 安卓设备上运行

@@ -3,6 +3,7 @@ import { StyleSheet, View, SafeAreaView, Text } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Button } from 'react-native-elements';
 import { goBack } from 'components/navigationService';
+import { copyToClipboard } from 'utils';
 interface Props {
   route: {
     params: {
@@ -38,7 +39,10 @@ const ExportMnemonicScreen = (props: Props) => {
         </View>
         <Button
           buttonStyle={styles.nextButton}
-          onPress={goBack}
+          onPress={() => {
+            copyToClipboard(mnemonic, t('copySuccess'));
+            goBack()
+          }}
           title={t("Confirmedbackup")}
           titleStyle={styles.nextButtonTitle}
         />

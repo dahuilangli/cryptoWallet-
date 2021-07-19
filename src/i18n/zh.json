@@ -9,6 +9,7 @@
   "HelpFeedback":"帮助反馈", 
   "versionupdate":"版本更新",
   "UserAgreement":"用户协议",
+  "PrivacyAgreement":"隐私协议",
   "aboutus":"关于我们",
   "sure":"确定",
   "editpayee":"编辑收款人",
@@ -190,7 +191,7 @@
 
 
   "mnemonicwordwrong":"助记词错误",
-  "Confirmedbackup":"已确认备份",
+  "Confirmedbackup":"复制助记词",
   "Copywordssavetheminsafeplace":"请按顺序抄写这些单词，并保存至安全的地方",
   "Riskwarning":"风险提示",
   "checktransferaddress":"请务必在转账操作前，仔细核对转账地址信息。",

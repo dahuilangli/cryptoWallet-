@@ -504,6 +504,8 @@ function FlashExchangeScreen({ }: Props) {
                       <View style={styles.passView}>
                         <TextInput
                           placeholder={t("entersecurepassword")}
+                          keyboardType='numeric'
+                          maxLength={12}
                           style={styles.passwordNumber}
                           value={securityCode}
                           onChangeText={setSecurityCode}
@@ -515,7 +517,7 @@ function FlashExchangeScreen({ }: Props) {
                         <Button
                           buttonStyle={styles.sureBtn}
                           title={t("confirmredemption")}
-                          disabled={isSigninInProgress || !securityCode}
+                          disabled={isSigninInProgress || !(securityCode.length >= 6 && securityCode.length <= 12)}
                           onPress={exchangeSub}
                         />
                         {/* <TouchableOpacity style={styles.sureBtn} onPress={() => {
