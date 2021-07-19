@@ -14,7 +14,7 @@ import {
 import {SCREENHEIGHT,SCREENWIDTH} from "config/constants"
 
 import LinearGradient from 'react-native-linear-gradient';
-import { Avatar, Button } from 'react-native-elements';
+import { Button } from 'react-native-elements';
 import { navigate } from 'components/navigationService';
 import { useTranslation } from 'react-i18next';
 // import Icon from 'react-native-vector-icons/FontAwesome';
@@ -24,26 +24,14 @@ interface Props {}
 
 const LoginScreen = ({}: Props) => {
   const {t} = useTranslation();
-  const list = [
-    {
-      name: t("mnemonicimport"),
-      avatar_url: require('assets/icon_import_word.png'),
-      type: 'mnemonic',
-    },
-    {
-      name: t("privatekeyimport"),
-      avatar_url: require('assets/icon_import_privatekey.png'),
-      type: 'privateKey',
-    },
-  ];
+  
 
   async function addImportType(type:string){
     navigate('SelectWalletScreen',{loginType:type});
   }
 
-  const [modalVisible, setModalVisible] = useState(false);
   return (
-    <LinearGradient colors={['#1D4692', '#263C75']} style={styles.container}>
+    <LinearGradient colors={['#2859BF', '#387AFF']} style={styles.container}>
       <StatusBar barStyle="light-content" />
       <SafeAreaView style={styles.flex_1}>
         <View style={styles.logoContainer}>
@@ -68,65 +56,7 @@ const LoginScreen = ({}: Props) => {
           />
         </View>
       </SafeAreaView>
-      <Modal
-        animationType="fade"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => {
-          Alert.alert('Modal has been closed.');
-          setModalVisible(!modalVisible);
-        }}
-      >
-        <View style={styles.centeredView}>
-          <TouchableWithoutFeedback
-            style={{ ...styles.outView }}
-            onPress={() => {
-              setModalVisible(!modalVisible);
-            }}
-          >
-            <View style={styles.outContair} />
-          </TouchableWithoutFeedback>
-          <View style={styles.modalView}>
-            <View style={styles.headView}>
-              <Text style={styles.headText}>{t("importmethod")}</Text>
-              <TouchableOpacity
-                style={{ ...styles.openButton }}
-                onPress={() => {
-                  setModalVisible(!modalVisible);
-                }}
-              >
-                <Image
-                  style={styles.textStyle}
-                  source={require('assets/icon_close.png')}
-                />
-              </TouchableOpacity>
-            </View>
-            <View style={styles.groupView}>
-              {list.map((item, i) => (
-                <TouchableOpacity
-                  style={styles.list}
-                  key={i}
-                  onPress={() => {
-                    setModalVisible(!modalVisible);
-                    navigate('SelectWalletScreen', { loginType: item.type });
-                  }}
-                >
-                  <View style={styles.lineView} />
-                  <View style={styles.listItem}>
-                    <Avatar
-                      rounded
-                      source={item.avatar_url}
-                      containerStyle={styles.avatar}
-                    />
-                    <Text style={styles.text}>{item.name}</Text>
-                  </View>
-                </TouchableOpacity>
-              ))}
-              <View style={styles.lineView} />
-            </View>
-          </View>
-        </View>
-      </Modal>
+      
     </LinearGradient>
   );
 };
@@ -157,9 +87,10 @@ const styles = StyleSheet.create({
     height: 55,
     borderRadius: 8,
     fontSize: 16,
-    backgroundColor: '#3B6ED5',
+    backgroundColor: '#FFFFFF',
   },
   newCreateTitle: {
+    color: '#3D73DD',
     fontWeight: '600',
   },
   already: {
