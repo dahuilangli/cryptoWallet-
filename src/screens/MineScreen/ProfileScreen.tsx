@@ -1,27 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import {
-  Alert,
   StyleSheet,
   View,
-  SafeAreaView,
-  StatusBar,
   Platform,
   Text,
   Image,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { navigate } from 'components/navigationService';
 import { ListItem } from 'react-native-elements';
 import { SCREENWIDTH } from 'config/constants';
-import ActionSheet from 'react-native-action-sheet';
-import pickImage from 'components/pickImage';
-import { showLoadingModal, closeLoadingModal } from 'components/Dialog';
 import * as helper from 'apis/helper'
-import { User } from 'actions/types';
 import { useTranslation } from 'react-i18next';
 import DeviceInfo from 'react-native-device-info';
-import { RouteProp, useRoute, useIsFocused } from '@react-navigation/native';
+import { useIsFocused } from '@react-navigation/native';
+import { showLoadingModal, closeLoadingModal } from 'components/Dialog'
 
 interface Props { }
 let systemVersion = DeviceInfo.getVersion();
@@ -52,10 +46,6 @@ function ProfileScreen({ }: Props) {
       }
     })
   }
-  let html = ''
-  helper.get('/sys/user/agreement', {}).then((res: any) => {
-    html = res.content
-  })
 
   const list = {
     top: [
@@ -94,7 +84,26 @@ function ProfileScreen({ }: Props) {
         name: t("UserAgreement"),
         leftIcon: require('assets/icon_agreement.png'),
         rightIcon: require('assets/icon_arrow_right.png'),
-        navigate: async () => await navigate('WebHtmlScreen', { title: t("UserAgreement"), uri: html })
+        navigate: async () => {
+          showLoadingModal()
+          await helper.get('/sys/user/agreement', {}).then((res: any) => {
+            navigate('WebHtmlScreen', { title: t("UserAgreement"), uri: res.content })
+          }).finally(function(){
+            closeLoadingModal()
+          });
+        }
+      }, {
+        name: t("PrivacyAgreement"),
+        leftIcon: require('assets/icon_agreement.png'),
+        rightIcon: require('assets/icon_arrow_right.png'),
+        navigate: async () => {
+          showLoadingModal()
+          await helper.get('/sys/privacy/agreement', {}).then((res: any) => {
+            navigate('WebHtmlScreen', { title: t("UserAgreement"), uri: res.content })
+          }).finally(function(){
+            closeLoadingModal()
+          });
+        }
       }, {
         name: t("aboutus"),
         leftIcon: require('assets/icon_about_us.png'),

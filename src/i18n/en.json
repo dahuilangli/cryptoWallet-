@@ -8,6 +8,7 @@
   "HelpFeedback":"Help Feedback",
   "versionupdate":"Version Update",
   "UserAgreement":"User Agreement",
+  "PrivacyAgreement":"Privacy Agreement",
   "aboutus":"About Us",
   "sure":"Confirm",
   "editpayee":"Edit Payee",
@@ -190,7 +191,7 @@
 
 
   "mnemonicwordwrong":"Memonic error",
-  "Confirmedbackup":"Confirmed backup",
+  "Confirmedbackup":"Copy",
   "Copywordssavetheminsafeplace":"Please copy them in order and save them in a safe place",
   "Riskwarning":"Risk warning",
   "checktransferaddress":"Please be sure to carefully check the transfer address information before the transfer operation.",

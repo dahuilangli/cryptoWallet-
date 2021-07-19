@@ -4339,7 +4339,7 @@ event-target-shim@^5.0.0, event-target-shim@^5.0.1:
 
 eventemitter2@^1.0.0:
   version "1.0.5"
-  resolved "https://registry.npm.taobao.org/eventemitter2/download/eventemitter2-1.0.5.tgz?cache=0&sync_timestamp=1614192525412&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Feventemitter2%2Fdownload%2Feventemitter2-1.0.5.tgz#f983610517b1737c0b9dc643beca93893c04df18"
+  resolved "https://registry.npm.taobao.org/eventemitter2/download/eventemitter2-1.0.5.tgz#f983610517b1737c0b9dc643beca93893c04df18"
   integrity sha1-+YNhBRexc3wLncZDvsqTiTwE3xg=
 
 eventemitter3@4.0.4:

@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, Text, SafeAreaView, FlatList, TouchableOpacity, Image, Alert, RefreshControl, ActivityIndicator } from 'react-native';
+import { StyleSheet, View, Text, SafeAreaView, FlatList, TouchableOpacity, Image, RefreshControl, ActivityIndicator } from 'react-native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { navigate } from 'components/navigationService';
-import { ScreensParamList, Feed } from 'actions/types';
+import { ScreensParamList } from 'actions/types';
 import { SCREENWIDTH } from 'config/constants';
-import { RouteProp, useRoute, useIsFocused } from '@react-navigation/native';
+import { RouteProp, useIsFocused } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { formatDate, subSplit } from 'utils'
 import * as helper from 'apis/helper'
 import { getUser } from 'reducers/walletStateReducer';
-import { CHAINS } from 'config/constants';
 type MessageScreenRouteProp = RouteProp<ScreensParamList, 'MessageScreen'>;
 interface Props { }
 
@@ -27,9 +26,7 @@ function HomeScreen() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFocused]);
   async function getMessageDetail(id:string) {
-    helper.get('/sys/notice/info', {
-      id: id,
-    }).then((res:any)=>{
+    await helper.get('/sys/notice/info', {id: id}).then((res:any)=>{
       console.log(res);
       navigate('WebHtmlScreen', { title: t("noticedetails"), uri: res.content })
     })

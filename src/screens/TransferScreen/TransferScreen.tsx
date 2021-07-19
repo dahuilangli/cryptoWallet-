@@ -429,6 +429,7 @@ function TransferScreen(props: Props) {
                   <View style={styles.codeInputView}>
                     <TextInput
                       placeholder={t("enterpassword")}
+                      keyboardType='numeric'
                       maxLength={12}
                       style={styles.codeInput}
                       value={securityCode}
@@ -440,7 +441,7 @@ function TransferScreen(props: Props) {
                         buttonStyle={styles.buttonStyle}
                         title={t("sure")}
                         titleStyle={styles.buttonTitle}
-                        disabled={!(securityCode.length >= 6 && securityCode.length >= 6)}
+                        disabled={!(securityCode.length >= 6 && securityCode.length <= 12)}
                         onPress={() => verifySecurityPwd(true)}
                       />
                       <Button

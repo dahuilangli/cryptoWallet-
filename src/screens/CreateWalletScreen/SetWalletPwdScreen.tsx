@@ -43,6 +43,7 @@ const SetWalletPwdScreen = (props: Props) => {
           />
           <TextInput
             placeholder={t("confirmsecuritypassword")}
+            keyboardType='numeric'
             maxLength={12}
             value={repwd}
             style={styles.inputsecurityCode}
