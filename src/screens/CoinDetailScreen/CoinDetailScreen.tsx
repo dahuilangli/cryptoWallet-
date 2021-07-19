@@ -51,6 +51,8 @@ interface TransferListItem {
 function CoinDetailScreen({ route }: Props) {
   const { title, assetsList } = route.params;
   const user = useSelector(getUser);
+  console.log(assetsList);
+  
   const currency = useSelector(getCurrency);
   const [navStatus, setNavStatus] = useState(false);
   const [scrollY, setScrollY] = useState(new Animated.Value(0));
@@ -230,7 +232,7 @@ function CoinDetailScreen({ route }: Props) {
                           <View style={styles.listNavDesc}>
                             <Text style={styles.descText}>{t("transactiontime")}: {item?.ctime}</Text>
                             <Text style={styles.descText}>
-                              {t("gas")}: {item?.gas} {item?.symbol}
+                              {t("gas")}: {item?.gas} {assetsList?.wallet === 'ERC20' ? 'ETH' :assetsList?.wallet === 'BSC' ? 'BNB' :'HT'}
                             </Text>
                           </View>
                           <TouchableOpacity

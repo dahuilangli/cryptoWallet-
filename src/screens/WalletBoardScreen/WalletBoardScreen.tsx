@@ -43,7 +43,8 @@ function WalletBoardScreen({ }: Props) {
   const { t } = useTranslation();
   const walletlist = useSelector(getAccountList);
   const user = useSelector(getUser);
-
+  
+  
   let sectionList: any;
   const [selectItem, setSelectItem] = useState(0);
   function clickOnItem(index: number) {
@@ -89,7 +90,7 @@ function WalletBoardScreen({ }: Props) {
               >
                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                   <Text style={styles.itemNameText}>{item?.walletName}</Text>
-                  {item?.address === user.address ? (
+                  {item?.address === user.address && item?.type === user.type ? (
                     <Badge badgeStyle={{ marginLeft: 2 }} value={t("current")} textStyle={{fontSize: 12}} />
                   ) : null}
                 </View>

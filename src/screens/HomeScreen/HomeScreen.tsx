@@ -59,11 +59,13 @@ function HomeScreen({ }: Props) {
   const [modalVisible, setModalVisible] = useState(false);
   const [selectItem, setSelectItem] = useState(0);
   const [selectAddress, setSelectAddress] = useState(thisUser?.address);
+
+  const [selectType, setSelectType] = useState(thisUser?.type);
   const [assetsList, setAssetsList] = useState([])
   const [assetsSum, setAssetsSum] = useState('-')
   const [refreshing, setRefreshing] = useState(false)
   const { t } = useTranslation();
-console.log(user);
+console.log(thisUser);
 
 
   useEffect(() => {
@@ -71,6 +73,7 @@ console.log(user);
   }, [user, walletlist,currenTUnit])
   function switchWallet(item: Account) {
     setSelectAddress(item.address)
+    setSelectType(item.type)
     dispatch(walletAction.createUser({ address: item.address, type: item.type }));
     setModalVisible(!modalVisible);
   }
@@ -304,7 +307,7 @@ console.log(user);
                   {walletlist.get(modelLeft[selectItem].title)?.map((item, index) => (
                     <TouchableOpacity
                       style={
-                        selectAddress === item.address
+                        selectAddress === item.address && selectType === item.type
                           ? styles.submenuItemS
                           : styles.submenuItem
                       }
@@ -314,14 +317,14 @@ console.log(user);
                       <View style={styles.itemName}>
                         <Text
                           style={
-                            selectAddress === item.address
+                            selectAddress === item.address && selectType === item.type
                               ? styles.itemNameTextS
                               : styles.itemNameText
                           }
                         >
                           {item?.walletName}
                         </Text>
-                        {selectAddress === item.address ? (
+                        {selectAddress === item.address && selectType === item.type ? (
                           <Image
                             style={styles.itemNameImage}
                             source={require('assets/icon_selected_wallet.png')}
@@ -330,7 +333,7 @@ console.log(user);
                       </View>
                       <Text
                         style={
-                          selectAddress === item.address
+                          selectAddress === item.address && selectType === item.type
                             ? styles.itemAddressS
                             : styles.itemAddress
                         }
