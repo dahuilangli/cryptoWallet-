@@ -94,7 +94,7 @@ function ProfileScreen({ }: Props) {
         }
       }, {
         name: t("PrivacyAgreement"),
-        leftIcon: require('assets/icon_agreement.png'),
+        leftIcon: require('assets/icon_privacy.png'),
         rightIcon: require('assets/icon_arrow_right.png'),
         navigate: async () => {
           showLoadingModal()
