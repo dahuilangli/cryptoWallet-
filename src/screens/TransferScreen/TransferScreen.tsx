@@ -33,6 +33,7 @@ import { start } from 'repl';
 interface Props {
   route: {
     params: {
+      symbol?: string,
       assetsList: Array<AssetsList>,
       address?: string,
     }
@@ -41,12 +42,12 @@ interface Props {
 
 function TransferScreen(props: Props) {
   const dispatch = useDispatch();
+  const { symbol } = props.route.params;
   const currenTUnit = useSelector(getCurrency);
   const showRisk = useSelector(getShowRisk);
   const [modalVisible, setModalVisible] = useState(false);
   const [transferConfirm, setTransferConfirm] = useState(false);
   const [riskWarning, setRiskWarning] = useState(false);
-  const [selection, setSelection] = useState({ start: 0, end: 0 });
   const [assetsList, setAssetsList] = useState(props.route.params.assetsList);
   const [receivingAddress, setReceivingAddress] = useState(props.route.params.address);
   const [transferAmount, setTransferAmount] = useState('');
@@ -63,6 +64,17 @@ function TransferScreen(props: Props) {
 
 
   const { t } = useTranslation();
+  useEffect(() => {
+    if (symbol && assetsList) {
+      let defaultCoin = 0;
+      assetsList.map((x, i) => {
+        if (x.symbol === symbol) {
+          defaultCoin = i
+        }
+      })
+      setSelectCoinIndex(defaultCoin);
+    }
+  }, [symbol, assetsList]);
   useEffect(() => {
     getAssetsList();
     getGas();
@@ -81,7 +93,7 @@ function TransferScreen(props: Props) {
       "wallet": thisUser?.coinInfo?.wallet
     }
     helper.post('/wallet/assets', params).then((res: any) => {
-      setAssetsList(assetsList)
+      setAssetsList(res)
     })
   }
   // 获取GasList
@@ -124,7 +136,9 @@ function TransferScreen(props: Props) {
   // 校验安全密码
   async function verifySecurityPwd(arg0: boolean) {
     if (arg0) {
-      if (gasList[gasIndex]?.balance <= assetsList[selectCoinIndex]?.balance) {
+      let wallerBalance = assetsList.find(x => x.symbol === thisUser?.coinInfo?.token)?.balance;
+
+      if (wallerBalance && Number(gasList[gasIndex]?.balance) <= Number(wallerBalance)) {
         if (securityCode === thisUser?.securityCode) {
           let address = user?.address;
           let wallet = thisUser?.coinInfo?.wallet;
@@ -178,7 +192,7 @@ function TransferScreen(props: Props) {
           show(t("Pleaseentercorrectsecuritypassword"))
         }
       } else {
-        show(t("Pleaseentercorrectsecuritypassword"))
+        show(t("gas")+t("Insufficientbalance"))
       }
     }
     setSecurityCode('')

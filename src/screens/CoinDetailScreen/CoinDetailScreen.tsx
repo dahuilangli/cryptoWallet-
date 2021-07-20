@@ -280,7 +280,7 @@ function CoinDetailScreen({ route }: Props) {
           buttonStyle={styles.button}
           title={t("Transfer")}
           titleStyle={styles.buttonTitle}
-          onPress={() => navigate('TransferScreen', { assetsList: [assetsList] })}
+          onPress={() => navigate('TransferScreen', { symbol: assetsList.symbol, assetsList: [assetsList] })}
         />
         <Button
           icon={
