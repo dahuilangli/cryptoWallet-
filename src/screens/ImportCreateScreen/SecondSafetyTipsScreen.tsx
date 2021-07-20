@@ -107,6 +107,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginTop: 40,
     backgroundColor: '#3B6ED5',
+    marginBottom: 20,
   },
   nextButtonTitle: {
     fontWeight: '600',
@@ -115,7 +116,6 @@ const styles = StyleSheet.create({
     height: 55,
     borderRadius: 8,
     fontSize: 16,
-    marginTop: 20,
     backgroundColor: '#FFFFFF',
   },
   noneButtonTitle: {
