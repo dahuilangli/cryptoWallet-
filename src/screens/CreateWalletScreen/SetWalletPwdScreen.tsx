@@ -35,6 +35,7 @@ const SetWalletPwdScreen = (props: Props) => {
           <Text style={styles.presentText}>{t("securityPassWordDes")}</Text>
           <TextInput
             placeholder={t("setsecurepassword")}
+            keyboardType='numeric'
             maxLength={12}
             value={pwd}
             style={styles.inputPwd}
