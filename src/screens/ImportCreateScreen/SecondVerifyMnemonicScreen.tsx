@@ -10,7 +10,6 @@ import { useTranslation } from 'react-i18next';
 import { Button } from 'react-native-elements';
 import { navigate } from 'components/navigationService';
 
-// import { post } from 'utils/request';
 import { Account } from 'actions/types';
 import { SCREENWIDTH } from 'config/constants';
 
@@ -206,7 +205,6 @@ const styles = StyleSheet.create({
     height: 55,
     borderRadius: 8,
     fontSize: 16,
-    marginTop: 40,
     backgroundColor: '#3B6ED5',
   },
   nextButtonTitle: {

@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, View, Text, TextInput, SafeAreaView, Alert } from 'react-native';
+import { StyleSheet, View, Text, TextInput, SafeAreaView, Alert, TouchableWithoutFeedback, Keyboard } from 'react-native';
 
 import { Button } from 'react-native-elements';
 import { navigate } from 'components/navigationService';
@@ -16,76 +16,77 @@ interface Props {
       accountInfo: Account;
       loginType: string;
       desc: string;
-      importWord:object;
+      importWord: object;
     };
   };
 }
 
 const SecondSetWalletPwdScreen = (props: Props) => {
-  const { accountInfo, loginType, desc ,importWord} = props.route.params;
+  const { accountInfo, loginType, desc, importWord } = props.route.params;
   const [pwd, setPwd] = useState('');
   const [repwd, setRepwd] = useState('');
   const { t } = useTranslation();
-  let nextfooot =  loginType === 'new' ? String(t("NextStep")):String(t("Importwallet"));
+  let nextfooot = loginType === 'new' ? String(t("NextStep")) : String(t("Importwallet"));
   let Walletgenerating = String(t("Walletgenerating"));
   const [btnTitle, setBtnTitle] = useState(nextfooot);
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.main}>
-        <View style={styles.inputContainer}>
-          <Text style={styles.presentText}>{t("securityPassWordDes")}</Text>
-          <TextInput
-            placeholder={t("setsecurepassword")}
-            maxLength={12}
-            value={pwd}
-            style={styles.inputPwd}
-            onChangeText={setPwd}
-            secureTextEntry
-          />
-          <TextInput
-            placeholder={t("confirmsecuritypassword")}
-            maxLength={12}
-            value={repwd}
-            style={styles.inputsecurityCode}
-            onChangeText={setRepwd}
-            secureTextEntry
-          />
-        </View>
-        <View style={styles.bottonContainer}>
-          <Button
-            buttonStyle={styles.nextButton}
-            onPress={() => {
-              if (loginType === 'new') {
-                setBtnTitle(Walletgenerating);
-                try {
-                  setTimeout(() => {
-                    var importWord1 = genWallet()
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <View style={styles.main}>
+          <View style={styles.inputContainer}>
+            <Text style={styles.presentText}>{t("securityPassWordDes")}</Text>
+            <TextInput
+              placeholder={t("setsecurepassword")}
+              keyboardType='numeric'
+              maxLength={12}
+              value={pwd}
+              style={styles.inputPwd}
+              onChangeText={setPwd}
+              secureTextEntry
+            />
+            <TextInput
+              placeholder={t("confirmsecuritypassword")}
+              keyboardType='numeric'
+              maxLength={12}
+              value={repwd}
+              style={styles.inputsecurityCode}
+              onChangeText={setRepwd}
+              secureTextEntry
+            />
+          </View>
+          <View style={styles.bottonContainer}>
+            <Button
+              buttonStyle={styles.nextButton}
+              onPress={() => {
+                if (loginType === 'new') {
+                  setBtnTitle(Walletgenerating);
+                  try {
+                    setTimeout(() => {
+                      var importWord1 = genWallet()
+                      setBtnTitle(nextfooot);
+                      navigate('SecondSafetyTipsScreen', {
+                        accountInfo: { ...importWord1, ...accountInfo, securityCode: repwd },
+                      });
+                    }, 10);
+                  } catch (error) {
                     setBtnTitle(nextfooot);
-                    navigate('SecondSafetyTipsScreen', {
-                      accountInfo: { ...importWord1, ...accountInfo, securityCode: repwd },
-                    });
-                  }, 10);
-                } catch (error) {
-                  setBtnTitle(nextfooot);
+                  }
+                } else {
+                  navigate('OnlySuccessScreen', {
+                    title: t("Importsuccessful"),
+                    accountInfo: { ...importWord, ...accountInfo, securityCode: repwd },
+                  });
+                  console.log({ ...importWord, ...accountInfo, securityCode: repwd });
+
                 }
-                
-                
-              } else {
-                navigate('OnlySuccessScreen', {
-                  title: t("Importsuccessful"),
-                  accountInfo: { ...importWord, ...accountInfo, securityCode: repwd },
-                });
-                console.log({ ...importWord, ...accountInfo, securityCode: repwd });
-
-              }
-            }}
-            disabled={!(pwd.length >= 6 && repwd.length >= 6 && repwd === pwd && btnTitle === nextfooot )}
-            title={btnTitle}
-            titleStyle={styles.nextButtonTitle}
-          />
+              }}
+              disabled={!(pwd.length >= 6 && repwd.length >= 6 && repwd === pwd && btnTitle === nextfooot)}
+              title={btnTitle}
+              titleStyle={styles.nextButtonTitle}
+            />
+          </View>
         </View>
-
-      </View>
+      </TouchableWithoutFeedback>
     </SafeAreaView>
   );
 };

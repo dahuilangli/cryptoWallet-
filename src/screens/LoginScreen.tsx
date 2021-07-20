@@ -17,7 +17,6 @@ import LinearGradient from 'react-native-linear-gradient';
 import { Button } from 'react-native-elements';
 import { navigate } from 'components/navigationService';
 import { useTranslation } from 'react-i18next';
-// import Icon from 'react-native-vector-icons/FontAwesome';
 
 
 interface Props {}
@@ -87,6 +86,7 @@ const styles = StyleSheet.create({
     height: 55,
     borderRadius: 8,
     fontSize: 16,
+    marginBottom: 15,
     backgroundColor: '#FFFFFF',
   },
   newCreateTitle: {
@@ -94,11 +94,11 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
   already: {
-    marginTop: 15,
     height: 55,
     borderRadius: 8,
-    backgroundColor: '#FFFFFF',
     fontSize: 16,
+    marginBottom: 20,
+    backgroundColor: '#FFFFFF',
   },
   alreadyTitle: {
     color: '#3D73DD',

@@ -99,12 +99,13 @@ const styles = StyleSheet.create({
     color: '#9CA4B3',
     textAlign: 'center',
     lineHeight: 18,
+    marginBottom: 40,
   },
   nextButton: {
     height: 55,
     borderRadius: 8,
     fontSize: 16,
-    marginTop: 40,
+    marginBottom: 20,
     backgroundColor: '#3B6ED5',
   },
   nextButtonTitle: {
@@ -114,7 +115,6 @@ const styles = StyleSheet.create({
     height: 55,
     borderRadius: 8,
     fontSize: 16,
-    marginTop: 20,
     backgroundColor: '#FFFFFF',
   },
   noneButtonTitle: {

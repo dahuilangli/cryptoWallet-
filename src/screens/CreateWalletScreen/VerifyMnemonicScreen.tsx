@@ -157,7 +157,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(245, 248, 253, 100)',
   },
   newItemWarp: {
-    paddingVertical: 6,
+    padding: 6,
   },
   newWarpIndex: {
     textAlign: 'justify',
@@ -202,13 +202,12 @@ const styles = StyleSheet.create({
     fontWeight: '500',
   },
   bottonContainer: {
-    paddingBottom: 20,
+    marginBottom: 20,
   },
   nextButton: {
     height: 55,
     borderRadius: 8,
     fontSize: 16,
-    marginTop: 40,
     backgroundColor: '#3B6ED5',
   },
   nextButtonTitle: {
