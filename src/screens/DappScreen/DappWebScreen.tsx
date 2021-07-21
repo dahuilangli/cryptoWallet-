@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+
+import React, { useState, Component } from 'react';
 import {
     StyleSheet, Modal,
     TouchableWithoutFeedback, View, TouchableOpacity
@@ -35,6 +36,93 @@ if (headEl && bodyEl) {
   bodyEl.style.paddingTop = 0;
 }
 `;
+// class DappWebScreen extends React.Component<Iprops, IState> {
+//     constructor(props: Iprops){
+//         super(props);
+//         this.state = {
+//             navigation :props.navigation,
+//             uri: props.route.params.uri.replace('http:', 'https:'),
+//             content: props.route.params.item.content,
+//             showHtml: true,
+//             modalVisible: true,
+//         };
+//     }
+    
+//     render() {
+//         return (
+//             <View style={{ flex: 1 }}>
+//                 <WebView
+//                     style={styles.container}
+//                     source={this.state.showHtml?'':this.state.uri}
+//                     startInLoadingState={true}
+//                     injectedJavaScript={scriptToRemoveHeader}
+//                     onMessage={event => {
+//                         this.state.navigation.setParams({ title: event.nativeEvent.data });
+//                         // console.warn(event.nativeEvent.data);
+//                     }}
+//                 />
+
+//                 <Modal
+//                     animationType='fade'
+//                     transparent={true}
+//                     visible={this.state.modalVisible}
+//                     onRequestClose={() => {
+//                         this.setState({ modalVisible: !this.state.modalVisible });
+//                     }}
+//                 >
+//                     <View style={styles.centeredView}>
+//                         <TouchableWithoutFeedback
+//                             style={{ ...styles.outView }}
+
+//                         >
+//                             <View style={styles.outContair} />
+//                         </TouchableWithoutFeedback>
+//                         <View style={styles.modalView}>
+//                             <View style={styles.headView}>
+//                                 <TouchableOpacity
+//                                     style={{ ...styles.openButton }}
+//                                     onPress={() => {
+//                                         this.setState({ modalVisible: !this.state.modalVisible })
+//                                         navigate('DappScreen');
+//                                     }}
+//                                 >
+//                                     <Image
+//                                         style={styles.textStyle}
+//                                         source={require('assets/icon_close.png')}
+//                                     />
+//                                 </TouchableOpacity>
+//                             </View>
+//                             <Image source={require('assets/risk_warning.png')} style={{ width: 120, height: 120 }} />
+//                             <Text style={styles.tipTitle}>{this.state.content}</Text>
+//                             <Text numberOfLines={0} style={styles.tipContent}>{"DAPPDetailDescripe"}
+//                                 {"mystone"}</Text>
+//                             <View style={styles.bottomView}>
+//                                 <TouchableOpacity
+//                                     style={{ ...styles.tipBtn }}
+//                                     onPress={() => {
+//                                         this.setState({ modalVisible: !this.state.modalVisible });
+//                                         navigate('DappScreen');
+//                                     }}
+//                                 >
+//                                     <Text style={styles.tipText}>{"noremindagain"}</Text>
+//                                 </TouchableOpacity>
+//                                 <TouchableOpacity
+//                                     style={{ ...styles.tipBtn1 }}
+//                                     onPress={() => {
+//                                         this.setState({ modalVisible: !this.state.modalVisible ,showHtml: !this.state.showHtml});
+                                       
+//                                     }}
+//                                 >
+//                                     <Text style={styles.knowText}>{"Iknow"}</Text>
+//                                 </TouchableOpacity>
+//                             </View>
+//                         </View>
+//                     </View>
+//                 </Modal>
+//             </View>
+//         );
+//     }
+// }
 
 export default function DappWebScreen({ navigation, route }: Props) {
     const { t } = useTranslation();
@@ -53,7 +141,7 @@ export default function DappWebScreen({ navigation, route }: Props) {
                     // console.warn(event.nativeEvent.data);
                 }}
             />
-            
+
             <Modal
                 animationType='fade'
                 transparent={true}
@@ -218,3 +306,5 @@ const styles = StyleSheet.create({
         fontWeight: '600',
     },
 });
+
+// export default DappWebScreen

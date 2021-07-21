@@ -229,10 +229,8 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   coinNameText: {
-    fontSize: 13,
-    fontWeight: '500',
-    flex: 1,
     height: 34,
+    padding: 0,
   },
   goBlack: {
     paddingStart: 15,
