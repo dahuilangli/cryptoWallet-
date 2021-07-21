@@ -169,7 +169,7 @@ function TransferScreen(props: Props) {
             } else {
               let value: bigint = BigInt(Mul(amount, Math.pow(10, Number(assetsList[selectCoinIndex]?.decimals))));
               let contract = assetsList[selectCoinIndex]?.token;
-              contractTrans(thisUser.privateKey, nonce, gas_limit, gas_price, contract, to, value).then(sign => {
+              contractTrans(thisUser.privateKey, nonce, gas_limit, gas_price, contract, to, value.valueOf).then(sign => {
 
                 let params = {
                   "amount": amount,
