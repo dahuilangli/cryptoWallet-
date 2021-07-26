@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   SafeAreaView,
@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   Text,
   Image,
+  Platform,
 } from 'react-native';
 import { SCREENHEIGHT, SCREENWIDTH } from "config/constants";
 import { navigate } from 'components/navigationService';
@@ -15,16 +16,19 @@ import Swiper from 'react-native-swiper'
 import { Avatar } from 'react-native-elements';
 import { FlatList, TextInput } from 'react-native-gesture-handler';
 
-import { getDappSearchList } from 'reducers/dataStateReducer';
+import { getChains, getDappSearchList } from 'reducers/dataStateReducer';
 import { useIsFocused } from '@react-navigation/native';
 import { useSelector, useDispatch } from 'react-redux';
 import walletAction from 'actions/wallet';
 import * as helper from 'apis/helper'
 import { DappRecentItem } from 'actions/types';
-import { walletConnect } from "helper/connect"
+import rnScript from 'helper/rn-script';
+
+import RNFS from 'react-native-fs';
+import { getAccountList, getUser } from 'reducers/walletStateReducer';
 
 interface Props {
-
+  jscontent: string
 }
 interface response {
   id: number,
@@ -34,20 +38,51 @@ interface response {
 }
 
 
-
 function DappScreen({ }: Props) {
   const { t } = useTranslation();
   const dispatch = useDispatch();
+  const chains = useSelector(getChains)
+  const user = useSelector(getUser);
+  const walletlist = useSelector(getAccountList);
+  const thisUser = walletlist.get(user.type)?.find(x => x.address === user.address)
   const dppSearchList = useSelector(getDappSearchList)
   const [bannerlistData, setBannerListData] = useState([]);
   const isFocused = useIsFocused();
+  const [jscontent, setJscontent] = useState("")
+ 
   useEffect(() => {
     if (isFocused) {
       getBanner();
-      // walletConnect("111")
     }
 
   }, [isFocused]);
+  useEffect(() => {
+    if(jscontent == ""){
+      let filePath = "";
+      if (Platform.OS === 'ios') {
+        filePath = `${RNFS.MainBundlePath}/web3.min.js`
+      } else {
+        filePath = `web3.min.js`
+      }
+      RNFS.readFile(filePath, 'utf8')
+      .then((content) => {
+          const type: any = thisUser?.type
+          
+          const chainid =  chains[type].chain_id
+          const chain =  chains[type].url
+          
+          // const chainid =  'ox3'
+          // const chain = "https://ropsten.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161"
+
+          const script = rnScript(thisUser?.address,chainid,chain)
+          const jscotent =`
+          ${content}
+          ${script}
+          `;
+          setJscontent(jscotent)
+        })
+    }
+  },[]);
   function getBanner() {
     helper.get('/dapp/banner', {}).then((res: any) => {
       setBannerListData(res)
@@ -59,7 +94,8 @@ function DappScreen({ }: Props) {
     navigate('DappWebScreen', {
       title: item.name,
       uri: item.deepLink,
-      item
+      item,
+      jscontent
     })
   }
   const keyExtractor = (item: any, index: { toString: () => any; }) => index.toString()

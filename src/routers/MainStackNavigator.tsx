@@ -85,7 +85,7 @@ export type MainStackParamList = {
   SecondVerifyMnemonicScreen: { accountInfo: object };
   SecondImportPrivateKeyScreen: { type: string; coinInfo: object };
   SecondImportMnemonicScreen: { type: string; loginType: string, coinInfo: object };
-  DappWebScreen: { title?: string; uri: string; item ?: {} }
+  DappWebScreen: { title?: string; uri: string; item ?: {};jscontent?:string }
 };
 
 const { Navigator, Screen } = createStackNavigator<MainStackParamList>();

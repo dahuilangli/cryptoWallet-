@@ -1,10 +1,9 @@
 
-import React, { useState, Component } from 'react';
+import React, { useState, Component, useRef, MutableRefObject } from 'react';
 import {
     StyleSheet, Modal,
     TouchableWithoutFeedback, View, TouchableOpacity
 } from 'react-native';
-import i18n from "i18n";
 import { SCREENWIDTH } from 'config/constants';
 import { useTranslation } from 'react-i18next';
 import { WebView } from 'react-native-webview';
@@ -12,9 +11,14 @@ import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { DappRecentItem, ScreensParamList } from 'actions/types';
 import { Image } from 'react-native-elements/dist/image/Image';
-import { event } from 'react-native-reanimated';
 import { navigate } from 'components/navigationService';
 import { Text } from 'react-native-elements';
+import { ethers } from 'ethers';
+import { getAccountList, getUser } from 'reducers/walletStateReducer';
+import { useSelector } from 'react-redux';
+import { getChains } from 'reducers/dataStateReducer';
+// import {ethers} from 'ethers';
+
 
 type WebScreenNavigationProp = StackNavigationProp<
     ScreensParamList,
@@ -24,7 +28,9 @@ type DappWebScreenRouteProp = RouteProp<ScreensParamList, 'DappWebScreen'>;
 interface Props {
     navigation: WebScreenNavigationProp;
     route: DappWebScreenRouteProp;
+    jscontent: string;
 }
+
 
 const scriptToRemoveHeader = `
 var headEl = document.querySelector('.rt-head');
@@ -126,19 +132,55 @@ if (headEl && bodyEl) {
 
 export default function DappWebScreen({ navigation, route }: Props) {
     const { t } = useTranslation();
+    const webviewRef: MutableRefObject<any> = useRef(null);
     const [modalVisible, setModalVisible] = useState(true);
     const [showHtml, setShowHtml] = useState(true)
+   
+    const user = useSelector(getUser);
+    const walletlist = useSelector(getAccountList);
+    const thisUser = walletlist.get(user.type)?.find(x => x.address === user.address)
     const uri = showHtml ? '' : route.params.uri.replace('http:', 'https:');
+   
     return (
         <View style={{flex: 1}}>
             <WebView
+                ref={webviewRef}
                 style={styles.container}
                 source={{ uri }}
                 startInLoadingState={true}
-                injectedJavaScript={scriptToRemoveHeader}
+                injectedJavaScript={route.params.jscontent}
                 onMessage={event => {
-                    navigation.setParams({ title: event.nativeEvent.data });
-                    // console.warn(event.nativeEvent.data);
+                    try{
+                        const result = JSON.parse(event.nativeEvent.data)
+                        if(result.method == "personal_sign" || result.method == "eth_sign"){
+                            return;
+                        }
+                        const params = result.data.params[0]
+                        const pky: any =thisUser?.privateKey
+                        console.log("thisUser?.privateKey: "+pky)
+                        let wallet = new ethers.Wallet(pky);
+                        let transaction = {
+                            gasPrice: ethers.BigNumber.from(params.gas),
+                            to: params.to,
+                            nonce: result.nonce,
+                            value: params.value,
+                            data: params.data,
+                            gasLimit: 200000,
+                        };
+                        wallet.signTransaction(transaction).then(signedTransaction => {
+                            webviewRef?.current.injectJavaScript(`window.web3.currentProvider.send.bind(window.web3.currentProvider)({
+                                method: "eth_sendRawTransaction",
+                                params: [ "${signedTransaction}" ],
+                                id: ${result.id},
+                                jsonrpc: "2.0"
+                                }, function(error, result){window.ReactNativeWebView.postMessage(JSON.stringify(result));executeCallback("${result.id}",result.result);})`);
+
+                        })
+                    }catch(err){
+                        console.log(event.nativeEvent.data)
+                        console.log(err)
+                    }
+                   
                 }}
             />
 
