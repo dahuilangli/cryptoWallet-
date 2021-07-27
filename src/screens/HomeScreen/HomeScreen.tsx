@@ -23,7 +23,7 @@ import { CHAINS } from "config/constants"
 import { useSelector, useDispatch } from 'react-redux';
 import walletAction from 'actions/wallet';
 import { getUser, getAccountList } from 'reducers/walletStateReducer';
-import { getShowMoney, getCurrency } from 'reducers/dataStateReducer';
+import { getShowMoney, getCurrency, getChains } from 'reducers/dataStateReducer';
 import { replaceMoney } from 'utils'
 import * as helper from 'apis/helper'
 import { useIsFocused } from '@react-navigation/native';
@@ -53,6 +53,7 @@ function HomeScreen({ }: Props) {
   const dispatch = useDispatch()
   const walletlist = useSelector(getAccountList);
   const user = useSelector(getUser);
+  const chains = useSelector(getChains);
   const thisUser = walletlist.get(user.type)?.find(x => x.address === user.address)
   const showMoney = useSelector(getShowMoney);
   const currenTUnit = useSelector(getCurrency);
@@ -68,12 +69,14 @@ function HomeScreen({ }: Props) {
   useEffect(() => {
     getAssetsList()
   }, [user, walletlist,currenTUnit])
+
   function switchWallet(item: Account) {
     setSelectAddress(item.address)
     setSelectType(item.type)
     dispatch(walletAction.createUser({ address: item.address, type: item.type }));
     setModalVisible(!modalVisible);
   }
+
   function getAssetsList() {
     setRefreshing(true);
     let params = {
@@ -81,6 +84,12 @@ function HomeScreen({ }: Props) {
       "contracts": thisUser?.contracts,
       "wallet": thisUser?.coinInfo?.wallet
     }
+    if(chains == ""){
+      helper.get('/chain_info_list', {}).then((res: any) => {
+        dispatch(walletAction.setChains(res));
+      });
+    }
+   
     helper.post('/wallet/assets', params).then((res: any) => {
       setAssetsList(res)
       let a = 0;

@@ -28,6 +28,7 @@ const Wallet = createActions({
   setContracts: createAction<{address: string | undefined, tokne: string, type: string | ''}>(),
   setWalletName:createAction<{address:string | undefined,walletName:string,type: string | ''}>(),
   setPassWord:createAction<{address:string | undefined,securityCode:string ,type: string | ''}>(),
+  setChains: createAction<any>(),
   getAccountList: NoArgAction,
   getUser: NoArgAction,
   getToken: NoArgAction,

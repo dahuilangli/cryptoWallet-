@@ -11,6 +11,7 @@ export interface DataState {
   currency: string;
   showMoney: boolean;
   showRisk: boolean;
+  Chains:any
 }
 export const initialState: Readonly<DataState> = {
   token: '',
@@ -21,6 +22,7 @@ export const initialState: Readonly<DataState> = {
   currency: 'USDT',
   showMoney: true,
   showRisk: true,
+  Chains:{}
 };
 
 export const selectDataState = (reduxState: ReduxState) => reduxState.dataState;
@@ -29,7 +31,10 @@ export const getToken = createSelector(
   selectDataState,
   (dataState) => dataState.token,
 );
-
+export const getChains = createSelector(
+  selectDataState,
+  (dataState) => dataState.Chains,
+);
 export const getWalletStatus = createSelector(
   selectDataState,
   (dataState) => dataState.walletStatus,
@@ -129,7 +134,13 @@ const reducer = (originalState = initialState, walletAction: WalletAction) =>
       case 'GET_TOKEN_SUCCESS':
         state.token = walletAction.payload;
         return;
+
+      case 'setChains':
+      state.Chains = walletAction.payload;
+      return;
+
       case 'GET_TOKEN_ERROR':
+        
       default:
         return;
     }

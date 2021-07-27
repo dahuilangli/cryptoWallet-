@@ -12,6 +12,7 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		437E2EB0C0D2BE68EE0D72E1 /* libPods-morleywallet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E857814BE6934F4DC1572D53 /* libPods-morleywallet.a */; };
+		96AE5AD426A7F56D00CD6456 /* web3.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 96AE5AD326A7F56C00CD6456 /* web3.min.js */; };
 		F1610B5E2470EA1900079771 /* dummy.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1610B5D2470EA1900079771 /* dummy.swift */; };
 /* End PBXBuildFile section */
 
@@ -29,6 +30,7 @@
 		5D6B605BEB9500DA00E8E133 /* libPods-morleywallet-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-morleywallet-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		86D33225C4A1085BD03F2463 /* Pods-morleywallet-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-morleywallet-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-morleywallet-tvOS/Pods-morleywallet-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
 		90539CA1321720E0DE33DC61 /* Pods-morleywallet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-morleywallet.release.xcconfig"; path = "Target Support Files/Pods-morleywallet/Pods-morleywallet.release.xcconfig"; sourceTree = "<group>"; };
+		96AE5AD326A7F56C00CD6456 /* web3.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = web3.min.js; sourceTree = "<group>"; };
 		A3C418D98210B1B58207066D /* libPods-morleywallet-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-morleywallet-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AAA14AE56051A3AE193ABCF1 /* Pods-morleywallet-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-morleywallet-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-morleywallet-tvOSTests/Pods-morleywallet-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		B86562C734789D0782F7BF19 /* Pods-morleywallet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-morleywallet.debug.xcconfig"; path = "Target Support Files/Pods-morleywallet/Pods-morleywallet.debug.xcconfig"; sourceTree = "<group>"; };
@@ -109,6 +111,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				96AE5AD326A7F56C00CD6456 /* web3.min.js */,
 				13B07FAE1A68108700A75B9A /* morleywallet */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				83CBBA001A601CBA00E9B192 /* Products */,
@@ -192,6 +195,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				96AE5AD426A7F56D00CD6456 /* web3.min.js in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 			);
@@ -389,7 +393,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CURRENT_PROJECT_VERSION = 14;
+				CURRENT_PROJECT_VERSION = 13;
 				DEVELOPMENT_TEAM = Y3DJRPG42K;
 				INFOPLIST_FILE = morleywallet/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
