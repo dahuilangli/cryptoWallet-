@@ -742,6 +742,21 @@
   dependencies:
     "@types/hammerjs" "^2.0.36"
 
+"@ensdomains/address-encoder@^0.2.6":
+  version "0.2.6"
+  resolved "https://registry.npm.taobao.org/@ensdomains/address-encoder/download/@ensdomains/address-encoder-0.2.6.tgz#1ea4aefea8c9617ada0a80519bec00589920ffac"
+  integrity sha1-HqSu/qjJYXraCoBRm+wAWJkg/6w=
+  dependencies:
+    bech32 "^1.1.3"
+    blakejs "^1.1.0"
+    bn.js "^4.11.8"
+    bs58 "^4.0.1"
+    crypto-addr-codec "^0.1.7"
+    js-sha512 "^0.8.0"
+    nano-base32 "^1.0.1"
+    ripemd160 "^2.0.2"
+    sha3 "^2.1.3"
+
 "@ethersproject/abi@5.0.7":
   version "5.0.7"
   resolved "https://registry.nlark.com/@ethersproject/abi/download/@ethersproject/abi-5.0.7.tgz"
@@ -1697,6 +1712,15 @@
   version "1.1.0"
   resolved "https://registry.npm.taobao.org/@redux-saga/types/download/@redux-saga/types-1.1.0.tgz"
   integrity sha1-DoHOVrSIO0sqMAHr4aspi4QjcgQ=
+
+"@rsksmart/rns-resolver.js@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.nlark.com/@rsksmart/rns-resolver.js/download/@rsksmart/rns-resolver.js-1.0.1.tgz#0356b5c910b1f9d0ea9e5432eb3f0608994884ef"
+  integrity sha1-A1a1yRCx+dDqnlQy6z8GCJlIhO8=
+  dependencies:
+    "@ensdomains/address-encoder" "^0.2.6"
+    crypto-addr-codec "^0.1.7"
+    eth-ens-namehash "^2.0.8"
 
 "@sindresorhus/is@^0.14.0":
   version "0.14.0"
@@ -2675,10 +2699,15 @@ bcrypt-pbkdf@^1.0.0:
   dependencies:
     tweetnacl "^0.14.3"
 
-bech32@1.1.4:
+bech32@1.1.4, bech32@^1.1.3:
   version "1.1.4"
   resolved "https://registry.npm.taobao.org/bech32/download/bech32-1.1.4.tgz"
   integrity sha1-44yfN78Xm46xauOncrQMNW1IMuk=
+
+big-integer@1.6.36:
+  version "1.6.36"
+  resolved "https://registry.npm.taobao.org/big-integer/download/big-integer-1.6.36.tgz#78631076265d4ae3555c04f85e7d9d2f3a071a36"
+  integrity sha1-eGMQdiZdSuNVXAT4Xn2dLzoHGjY=
 
 big-integer@^1.6.44:
   version "1.6.48"
@@ -2717,7 +2746,7 @@ bn.js@4.11.8:
   resolved "https://registry.npm.taobao.org/bn.js/download/bn.js-4.11.8.tgz#2cde09eb5ee341f484746bb0309b3253b1b1442f"
   integrity sha1-LN4J617jQfSEdGuwMJsyU7GxRC8=
 
-bn.js@^4.0.0, bn.js@^4.1.0, bn.js@^4.11.0, bn.js@^4.11.1, bn.js@^4.11.6, bn.js@^4.11.9:
+bn.js@^4.0.0, bn.js@^4.1.0, bn.js@^4.11.0, bn.js@^4.11.1, bn.js@^4.11.6, bn.js@^4.11.8, bn.js@^4.11.9:
   version "4.12.0"
   resolved "https://registry.npm.taobao.org/bn.js/download/bn.js-4.12.0.tgz"
   integrity sha1-d1s/J477uXGO7HNh9IP7Nvu/6og=
@@ -2868,7 +2897,7 @@ browserslist@^4.16.6:
     escalade "^3.1.1"
     node-releases "^1.1.71"
 
-bs58@^4.0.0:
+bs58@^4.0.0, bs58@^4.0.1:
   version "4.0.1"
   resolved "https://registry.nlark.com/bs58/download/bs58-4.0.1.tgz"
   integrity sha1-vhYedsNU9veIrkBx9j806MTwpCo=
@@ -2928,6 +2957,14 @@ buffer-xor@^1.0.3:
   version "1.0.3"
   resolved "https://registry.npm.taobao.org/buffer-xor/download/buffer-xor-1.0.3.tgz"
   integrity sha1-JuYe0UIvtw3ULm42cp7VHYVf6Nk=
+
+buffer@6.0.3:
+  version "6.0.3"
+  resolved "https://registry.npm.taobao.org/buffer/download/buffer-6.0.3.tgz#2ace578459cc8fbe2a70aaa8f52ee63b6a74c6c6"
+  integrity sha1-Ks5XhFnMj74qcKqo9S7mO2p0xsY=
+  dependencies:
+    base64-js "^1.3.1"
+    ieee754 "^1.2.1"
 
 buffer@^4.9.1:
   version "4.9.2"
@@ -3510,6 +3547,19 @@ cross-spawn@^7.0.3:
     path-key "^3.1.0"
     shebang-command "^2.0.0"
     which "^2.0.1"
+
+crypto-addr-codec@^0.1.7:
+  version "0.1.7"
+  resolved "https://registry.npm.taobao.org/crypto-addr-codec/download/crypto-addr-codec-0.1.7.tgz#e16cea892730178fe25a38f6d15b680cab3124ae"
+  integrity sha1-4WzqiScwF4/iWjj20VtoDKsxJK4=
+  dependencies:
+    base-x "^3.0.8"
+    big-integer "1.6.36"
+    blakejs "^1.1.0"
+    bs58 "^4.0.1"
+    ripemd160-min "0.0.6"
+    safe-buffer "^5.2.0"
+    sha3 "^2.1.1"
 
 crypto-browserify@3.12.0:
   version "3.12.0"
@@ -4197,7 +4247,7 @@ etag@~1.8.1:
   resolved "https://registry.npm.taobao.org/etag/download/etag-1.8.1.tgz"
   integrity sha1-Qa4u62XvpiJorr/qg6x9eSmbCIc=
 
-eth-ens-namehash@2.0.8:
+eth-ens-namehash@2.0.8, eth-ens-namehash@^2.0.8:
   version "2.0.8"
   resolved "https://registry.nlark.com/eth-ens-namehash/download/eth-ens-namehash-2.0.8.tgz"
   integrity sha1-IprEbsqG1S4MmR58sq74P/D2i88=
@@ -5272,7 +5322,7 @@ idna-uts46-hx@^2.3.1:
   dependencies:
     punycode "2.1.0"
 
-ieee754@^1.1.13, ieee754@^1.1.4:
+ieee754@^1.1.13, ieee754@^1.1.4, ieee754@^1.2.1:
   version "1.2.1"
   resolved "https://registry.nlark.com/ieee754/download/ieee754-1.2.1.tgz"
   integrity sha1-jrehCmP/8l0VpXsAFYbRd9Gw01I=
@@ -6295,6 +6345,11 @@ js-sha3@0.8.0, js-sha3@^0.8.0:
   resolved "https://registry.nlark.com/js-sha3/download/js-sha3-0.8.0.tgz"
   integrity sha1-ubel2nOvrX3t0PjEY5VMveaBiEA=
 
+js-sha512@^0.8.0:
+  version "0.8.0"
+  resolved "https://registry.npm.taobao.org/js-sha512/download/js-sha512-0.8.0.tgz#dd22db8d02756faccf19f218e3ed61ec8249f7d4"
+  integrity sha1-3SLbjQJ1b6zPGfIY4+1h7IJJ99Q=
+
 "js-tokens@^3.0.0 || ^4.0.0", js-tokens@^4.0.0:
   version "4.0.0"
   resolved "https://registry.nlark.com/js-tokens/download/js-tokens-4.0.0.tgz"
@@ -7224,6 +7279,11 @@ nan@^2.12.1:
   version "2.14.2"
   resolved "https://registry.npm.taobao.org/nan/download/nan-2.14.2.tgz"
   integrity sha1-9TdkAGlRaPTMaUrJOT0MlYXu6hk=
+
+nano-base32@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.npm.taobao.org/nano-base32/download/nano-base32-1.0.1.tgz#ba548c879efcfb90da1c4d9e097db4a46c9255ef"
+  integrity sha1-ulSMh578+5DaHE2eCX20pGySVe8=
 
 nano-json-stream-parser@^0.1.2:
   version "0.1.2"
@@ -8739,7 +8799,12 @@ rimraf@~2.2.6:
   resolved "https://registry.nlark.com/rimraf/download/rimraf-2.2.8.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.nlark.com%2Frimraf%2Fdownload%2Frimraf-2.2.8.tgz"
   integrity sha1-5Dm+Kq7jJzIZUnMPmaiSnk/FBYI=
 
-ripemd160@^2.0.0, ripemd160@^2.0.1:
+ripemd160-min@0.0.6:
+  version "0.0.6"
+  resolved "https://registry.npm.taobao.org/ripemd160-min/download/ripemd160-min-0.0.6.tgz#a904b77658114474d02503e819dcc55853b67e62"
+  integrity sha1-qQS3dlgRRHTQJQPoGdzFWFO2fmI=
+
+ripemd160@^2.0.0, ripemd160@^2.0.1, ripemd160@^2.0.2:
   version "2.0.2"
   resolved "https://registry.npm.taobao.org/ripemd160/download/ripemd160-2.0.2.tgz"
   integrity sha1-ocGm9iR1FXe6XQeRTLyShQWFiQw=
@@ -8981,6 +9046,13 @@ sha.js@^2.4.0, sha.js@^2.4.8:
   dependencies:
     inherits "^2.0.1"
     safe-buffer "^5.0.1"
+
+sha3@^2.1.1, sha3@^2.1.3:
+  version "2.1.4"
+  resolved "https://registry.npm.taobao.org/sha3/download/sha3-2.1.4.tgz?cache=0&sync_timestamp=1612151228022&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fsha3%2Fdownload%2Fsha3-2.1.4.tgz#000fac0fe7c2feac1f48a25e7a31b52a6492cc8f"
+  integrity sha1-AA+sD+fC/qwfSKJeejG1KmSSzI8=
+  dependencies:
+    buffer "6.0.3"
 
 shallow-clone@^3.0.0:
   version "3.0.1"
