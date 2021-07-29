@@ -74,8 +74,20 @@ function DappScreen({ }: Props) {
           // const chainid =  'ox3'
           // const chain = "https://ropsten.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161"
 
+
+          const scriptToRemoveHeader = `
+          var headEl = document.querySelector('.rt-head');
+          var bodyEl = document.querySelector('.rt-body');
+          if (headEl && bodyEl) {
+            var title = document.querySelector('.vf-title').textContent;
+            window.ReactNativeWebView.postMessage(title);
+            headEl.remove();
+            bodyEl.style.paddingTop = 0;
+          }
+          `;
           const script = rnScript(thisUser?.address,chainid,chain)
           const jscotent =`
+          ${scriptToRemoveHeader}
           ${content}
           ${script}
           `;

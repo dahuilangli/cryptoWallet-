@@ -31,17 +31,6 @@ interface Props {
     jscontent: string;
 }
 
-
-const scriptToRemoveHeader = `
-var headEl = document.querySelector('.rt-head');
-var bodyEl = document.querySelector('.rt-body');
-if (headEl && bodyEl) {
-  var title = document.querySelector('.vf-title').textContent;
-  window.ReactNativeWebView.postMessage(title);
-  headEl.remove();
-  bodyEl.style.paddingTop = 0;
-}
-`;
 // class DappWebScreen extends React.Component<Iprops, IState> {
 //     constructor(props: Iprops){
 //         super(props);
@@ -140,7 +129,7 @@ export default function DappWebScreen({ navigation, route }: Props) {
     const walletlist = useSelector(getAccountList);
     const thisUser = walletlist.get(user.type)?.find(x => x.address === user.address)
     const uri = showHtml ? '' : route.params.uri.replace('http:', 'https:');
-   
+    
     return (
         <View style={{flex: 1}}>
             <WebView
